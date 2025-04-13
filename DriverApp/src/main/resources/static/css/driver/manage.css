@@ -1,0 +1,28 @@
+.app-content{
+    padding:0;
+}
+.app-content > .content-header{
+    position:relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:10px 20px;
+}
+.app-content > .content-header > .backBtn{
+    position:absolute;
+    left:20px;
+    top:25px;
+    cursor:pointer;
+}
+.app-content > .content-header > .backBtn > img{
+    height:20px;
+}
+.app-content > .content-header > .header-comment-wrap> .header-mainComment{
+    font-size:25px;
+    font-weight:bold;
+    text-align:center;
+}
+.app-content > .content-header > .header-comment-wrap> .header-subComment{
+    font-size:12px;
+    text-align:center;
+}

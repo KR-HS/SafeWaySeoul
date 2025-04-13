@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/include/headerbaseLayout}"/>
+    <title>기사 홈화면</title>
+
+</head>
+<body>
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+
+        <section class="app-content">
+            <div><a href="/manage">관리페이지 임시링크</a></div>
+        </section>
+</th:block>
+</body>
+</html>

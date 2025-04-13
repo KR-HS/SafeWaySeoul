@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="setContent(content)">
+    <section class="app-wrapper">
+        <header class="app-header">
+            <div class="logo"><a href="/home">SWS</a></div> <!--Safe Way Seoul-->
+            <div class="loginInfo">
+                <p th:if="${true}" th:text="${'홍길동'}"></p>
+            </div>
+        </header>
+        <th:block th:replace="${content}">
+        </th:block>
+    </section>
+</th:block>
+</html>

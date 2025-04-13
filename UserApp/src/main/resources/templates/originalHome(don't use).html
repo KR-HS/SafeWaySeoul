@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:replace="~{/include/headerBaseLayout}"/>
+  <title>유저 홈화면</title>
+</head>
+<body>
+  <section class="app-wrapper">
+    <header class="app-header">
+      <div class="logo"><a href="/home">LOGO</a></div>
+      <div class="menu"></div>
+    </header>
+
+    <section class="app-content"> </section>
+
+    <footer class="app-footer">
+      <div class="menu menu1 click">
+        <div class="menuBtn"><img src="/img/home.png" alt=""></div>
+        <p>홈</p>
+      </div>
+      <div class="menu menu2">
+        <div class="menuBtn"><img src="/img/child.png" alt=""></div>
+        <p>자녀관리</p>
+      </div>
+      <div class="menu menu3">
+        <div class="menuBtn"><img src="/img/kinder.png" alt=""></div>
+        <p>개발예정</p>
+      </div>
+    </footer>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/include/headerbaseLayout}"/>
+    <title>승하차관리페이지</title>
+    <link rel="stylesheet" href="/css/driver/manage.css">
+    <script src="/js/driver/manage.js"></script>
+</head>
+<body>
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+
+    <section class="app-content">
+        <div class="content-header">
+            <div class="backBtn"><img src="/img/back.png" alt="뒤로가기"></div>
+            <div class="header-comment-wrap">
+                <p class="header-mainComment">승하차관리</p>
+                <p class="header-subComment">동대문구 1노선</p>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+</body>
+</html>

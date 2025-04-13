@@ -1,0 +1,27 @@
+.logo_wrap{
+    display:flex;
+    overflow:hidden;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    background-color:#FFE694;
+}
+
+.logo{
+    background-color:transparent;
+    position:relative;
+    border:3px solid #FFDB66;
+    overflow:hidden;
+}
+.logo>img{
+    height:300px;
+}
+.logo>p{
+    bottom:10px;
+    left:22.5px;
+    position:absolute;
+    font-size:30px;
+    font-weight:800;
+    text-align:center;
+    color: #ffc300;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="setContent(content)">
+        <section class="app-wrapper">
+            <header class="app-header">
+                <div class="logo"><a href="/home">SWS</a></div>
+                <div class="loginInfo">
+                    <p th:if="${true}" th:text="${'홍길동'}"></p>
+                </div>
+            </header>
+
+            <th:block th:replace="${content}">
+            </th:block>
+
+            <footer class="app-footer">
+                <div class="menu home click">
+                    <div class="menuBtn"><img src="/img/home.png" alt=""></div>
+                    <p>홈</p>
+                </div>
+                <div class="menu child">
+                    <div class="menuBtn"><img src="/img/child.png" alt=""></div>
+                    <p>자녀관리</p>
+                </div>
+                <div class="menu tbd">
+                    <div class="menuBtn"><img src="/img/kinder.png" alt=""></div>
+                    <p>개발예정</p>
+                </div>
+            </footer>
+        </section>
+    </th:block>
+</html>
