@@ -23,8 +23,8 @@ html, body {
 /* 앱 구조 레이아웃 */
 .app-wrapper {
     width:100%;
-    max-width: 375px;
-    margin:0 auto;
+    /*max-width: 375px;*/
+    /*margin:0 auto;*/
     display: flex;
     flex-direction: column;
     height: 100vh; /* 전체 화면 사용 */
@@ -66,13 +66,17 @@ html, body {
     overflow-y: auto;
     padding: 16px;
     background-color:#f7f7f7;
-    height:1500px;
+    height:calc(100vh - 112px)
     /*background-color: #f2f2f7;*/
 
 }
 
 /* 하단 메뉴바 */
 .app-footer {
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
     height: 56px;
     background-color: #fff;
     /*border-top: 1px solid #ccc;*/
