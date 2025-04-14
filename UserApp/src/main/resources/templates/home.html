@@ -4,10 +4,231 @@
   <th:block th:replace="/include/headerBaseLayout"/>
   <title>유저 홈화면</title>
   <!-- 추가 css, js -->
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
   <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-    <section class="app-content"> </section>
+    <section class="app-content">
+      <section class="childList-section">
+          <h3>소중한 내 아이들의 걸음마</h3>
+          <div class="childList">
+            <div class="childInfo-wrap">
+              <div class="childName">
+                <img class="gender man" src="/img/man.png" alt="">
+                <p>하늘이</p>
+              </div>
+
+              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
+              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="commuteType rideOn">승차중</p>
+            </div>
+            <div class="childInfo-wrap">
+              <div class="childName">
+                <img class="gender man" src="/img/man.png" alt="">
+                <p>하늘이</p>
+              </div>
+
+              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
+              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="commuteType rideOn">승차중</p>
+            </div>
+            <div class="childInfo-wrap">
+              <div class="childName">
+                <img class="gender man" src="/img/man.png" alt="">
+                <p>하늘이</p>
+              </div>
+
+              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
+              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="commuteType rideOn">승차중</p>
+            </div>
+            <div class="childInfo-wrap">
+              <div class="childName">
+                <img class="gender man" src="/img/man.png" alt="">
+                <p>하늘이</p>
+              </div>
+
+              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
+              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="commuteType rideOn">승차중</p>
+            </div>
+
+            <div class="childInfo-wrap">
+              <div class="childName">
+                <img class="gender woman" src="/img/woman.png" alt="">
+                <p>사랑이</p>
+              </div>
+
+              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
+              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="commuteType rideOff">하차완료</p>
+            </div>
+
+            <div class="childInfo-wrap addChild">
+              <div class="child-image"><img src="/img/plus.png" alt=""></div>
+              <p class="applyComment">내 아이 등록하기</p>
+            </div>
+          </div>
+      </section>
+
+      <form action="#" method="get">
+        <section class="kinderType-section">
+          <h6> 어린이집 운영형태</h6>
+            <div class="kinderType-wrap">
+              <label for="allKinder" class="label-wrap select">
+                <img src="/img/allKinderType.png" alt="">
+                <p>전체</p>
+              </label>
+              <label for="nightKinder" class="label-wrap">
+                <img src="/img/nightKinderType.png" alt="">
+                <p>야간</p>
+              </label>
+              <label for="weekKinder" class="label-wrap">
+                <img src="/img/weekKinderType.png" alt="">
+                <p>주말</p>
+              </label>
+
+              <input type="radio" name="kinderType" id="allKinder" value="A" hidden>
+              <input type="radio" name="kinderType" id="nightKinder" value="N" hidden>
+              <input type="radio" name="kinderType" id="weekKinder" value="W" hidden>
+            </div>
+
+        </section>
+
+        <section class="kinderSearch-section">
+          <h6>어린이집명 검색</h6>
+          <div class="kinder-loc-wrap">
+            <select name="kinder-loc" class="kinderLoc">
+              <option value="강남구">강남구</option>
+              <option value="강남구">강서구</option>
+              <option value="강남구">강북구</option>
+              <option value="강남구">강동구</option>
+            </select>
+          </div>
+          <div class="kinder-search-wrap">
+              <input type="text" placeholder="어린이집명을 입력하세요">
+              <a href="#">검색</a>
+          </div>
+        </section>
+      </form>
+
+      <section class="map-section">
+        <h6>검색결과</h6>
+        <div class="map">
+
+        </div>
+      </section>
+
+      <section class="kinderResult-wrap">
+        <div class="kinderResult">
+          <input type="checkbox" name="kinder" value="1">
+          <div class="kinderInfo-wrap">
+            <div class="img-wrap">
+               <img src="/img/allKinderType.png" alt="">
+            </div>
+
+            <div class="kinderInfo">
+              <div class="infoUpper">
+                <p class="kinderTitle">햇살유치원</p>
+              </div>
+              <div class="infoUnder">
+                <p class="kinderLoc">서울시 강남구서울시 강남구서울시 강남구</p>
+                <p class="kinderCall">02-1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kinderResult">
+          <input type="checkbox" name="kinder" value="1">
+          <div class="kinderInfo-wrap">
+            <div class="img-wrap">
+              <img src="/img/allKinderType.png" alt="">
+            </div>
+            <div class="kinderInfo">
+              <div class="infoUpper">
+                <p class="kinderTitle">햇살유치원</p>
+              </div>
+              <div class="infoUnder">
+                <p class="kinderLoc">서울시 강남구</p>
+                <p class="kinderCall">02-1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kinderResult">
+          <input type="checkbox" name="kinder" value="1">
+          <div class="kinderInfo-wrap">
+            <div class="img-wrap">
+              <img src="/img/allKinderType.png" alt="">
+            </div>
+            <div class="kinderInfo">
+              <div class="infoUpper">
+                <p class="kinderTitle">햇살유치원</p>
+              </div>
+              <div class="infoUnder">
+                <p class="kinderLoc">서울시 강남구</p>
+                <p class="kinderCall">02-1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kinderResult">
+          <input type="checkbox" name="kinder" value="1">
+          <div class="kinderInfo-wrap">
+            <div class="img-wrap">
+              <img src="/img/allKinderType.png" alt="">
+            </div>
+            <div class="kinderInfo">
+              <div class="infoUpper">
+                <p class="kinderTitle">햇살유치원</p>
+              </div>
+              <div class="infoUnder">
+                <p class="kinderLoc">서울시 강남구</p>
+                <p class="kinderCall">02-1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kinderResult">
+          <input type="checkbox" name="kinder" value="1">
+          <div class="kinderInfo-wrap">
+            <div class="img-wrap">
+              <img src="/img/allKinderType.png" alt="">
+            </div>
+            <div class="kinderInfo">
+              <div class="infoUpper">
+                <p class="kinderTitle">햇살유치원</p>
+              </div>
+              <div class="infoUnder">
+                <p class="kinderLoc">서울시 강남구</p>
+                <p class="kinderCall">02-1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section">
+        <div class="paging-wrap">
+          <ul class="pagination">
+            <li><a href="#" class="select">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">9</a></li>
+            <li><a href="#">10</a></li>
+          </ul>
+        </div>
+      </section>
+    </section>
   </th:block>
 
 
