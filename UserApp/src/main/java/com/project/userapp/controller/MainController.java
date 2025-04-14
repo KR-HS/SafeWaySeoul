@@ -22,4 +22,7 @@ public class MainController {
     public String child(){
         return "/user/mypage";
     }
+
+    @GetMapping("/regchild")
+    public String regChild(){ return "/modal/regChild";}
 }
