@@ -19,9 +19,13 @@ html, body {
 
 /* 앱 구조 레이아웃 */
 .app-wrapper {
+    width:100%;
+    max-width: 375px;
+    margin:0 auto;
     display: flex;
     flex-direction: column;
     height: 100vh; /* 전체 화면 사용 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
 /* 상단 헤더 */

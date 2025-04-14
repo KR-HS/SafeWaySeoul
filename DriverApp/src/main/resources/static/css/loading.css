@@ -14,13 +14,13 @@
     overflow:hidden;
 }
 .logo>img{
-    height:300px;
+    height:200px;
 }
 .logo>p{
     bottom:10px;
-    left:22.5px;
+    left:25px;
     position:absolute;
-    font-size:30px;
+    font-size:18px;
     font-weight:800;
     text-align:center;
     color: #0c356e;

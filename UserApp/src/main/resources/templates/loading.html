@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <th:block th:replace="/include/headerBaseLayout"/>
+
     <title>유저 어플 로딩화면</title>
-    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/loading.css">
-    <script src="/js/jquery-1.12.1.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/loading.js"></script>
-    <title>Title</title>
 </head>
 <body>
-<div class="logo_wrap">
-    <div class="logo">
-        <img src="/img/logo.png" alt="">
-        <p>우리아이 안심서비스</p>
+<section class="app-wrapper">
+    <div class="logo_wrap">
+        <div class="logo">
+            <img src="/img/logo.png" alt="">
+            <p>우리아이 안심서비스</p>
+        </div>
     </div>
-</div>
+</section>
 </body>
 </html>
