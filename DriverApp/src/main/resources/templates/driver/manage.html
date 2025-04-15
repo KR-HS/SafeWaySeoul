@@ -17,8 +17,98 @@
                 <p class="header-subComment">동대문구 1노선</p>
             </div>
         </div>
-    </section>
 
+        <div class="map">        
+            <div class="map-img">
+                <img src="/img/map.png" alt="지도이미지">
+            </div>
+        </div>
+        
+        <div class="children-list">
+            <div class="boarding-status">3명 남음 - 1명 완료</div>
+
+            <div class="list-card">
+                <div class="list-box">
+                    <div class="list-img">
+                        <img src="/img/child.png" alt="아이사진">
+                    </div>
+                    <div class="list-content">
+                        <div>홍길동(5세)</div>
+                        <div>동대문구 답십리 1동</div>
+                        <div>하차 시간 --:-- </div>
+                    </div>
+                    <div class="list-time done">하차 완료</div>
+                </div>
+            </div>
+            <div class="list-card">
+                <div class="list-box">
+                    <div class="list-img">
+                        <img src="/img/child.png" alt="아이사진">
+                    </div>
+                    <div class="list-content">
+                        <div>홍길자(4세)</div>
+                        <div>동대문구 답십리 2동</div>
+                        <div>하차 시간 --:-- </div>
+                    </div>
+                    <div class="list-time">하차</div>
+                </div>
+            </div>
+            <div class="list-card">
+                <div class="list-box">
+                    <div class="list-img">
+                        <img src="/img/child.png" alt="아이사진">
+                    </div>
+                    <div class="list-content">
+                        <div>홍길동(5세)</div>
+                        <div>동대문구 답십리 1동</div>
+                        <div>하차 시간 --:-- </div>
+                    </div>
+                    <div class="list-time done">하차 완료</div>
+                </div>
+            </div>
+            <div class="list-card">
+                <div class="list-box">
+                    <div class="list-img">
+                        <img src="/img/child.png" alt="아이사진">
+                    </div>
+                    <div class="list-content">
+                        <div>홍길자(4세)</div>
+                        <div>동대문구 답십리 2동</div>
+                        <div>하차 시간 --:-- </div>
+                    </div>
+                    <div class="list-time">하차   </div>
+                </div>
+            </div>
+
+            <script>
+
+                var imgs=document.querySelectorAll(".list-img");
+                imgs.forEach(function(a){
+                    a.onclick=function(){
+                        alert('아이상세보기');
+                    }
+                });
+
+                var listTimes = document.querySelectorAll(".list-time");
+                listTimes.forEach(function(item) {
+                    if (!item.classList.contains('done')) {
+                        item.onclick = function() {
+                            alert('하차버튼on');
+                           
+                        }
+                    }
+                });
+            </script>
+
+
+        </div>
+
+
+
+
+
+
+    </section>
 </th:block>
 </body>
 </html>

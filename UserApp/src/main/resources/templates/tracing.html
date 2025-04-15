@@ -16,10 +16,19 @@
             <img src="../static/img/mapsample.png" alt="지도 이미지">
             <div class="myloction">
                 <img src="../static/img/myposition.png" alt="myloction">
-            </div>
-        
-            
+            </div> 
         </div>
+        <script>
+            var backbtn =document.querySelector(".backBtn");
+            backbtn.onclick=function(){
+                alert('뒤로가기버튼작동됨');
+            }
+
+            var myloction =document.querySelector(".myloction");
+            myloction.onclick=function(){
+                alert('현재위치버튼작동됨');
+            }
+        </script>
     
         <!-- 타임라인 -->
         <div class="timeline-section">
@@ -64,8 +73,7 @@
                     <div class="phonecall">
                         <img src="../static/img/phonecall.png" alt="전화">
                     </div>
-                </div>             
-                
+                </div>                   
             </div>
             <div class="message-card">
                 <div class="message-img">
@@ -77,10 +85,18 @@
                     <div class="phonecall">
                         <img src="../static/img/phonecall.png" alt="전화">
                     </div>
-                </div>     
+                </div>    
 
             </div>
         </div>
+
+        <script>
+            var phonecall =document.querySelector(".phonecall");
+            phonecall.onclick=function(){
+                alert('통화하기버튼 작동됨됨');
+            }
+        </script>
+
     </div>
 </body>
 </html>
