@@ -5,7 +5,7 @@ $(document).ready(function(){
         $(".addModal").css("display","block");
     })
     $(".viewInfo").on('click',function(){
-        // window.location.href="/login/login";
+        window.location.href="/tracing";
         $(".infoModal").css("display","block");
     });
     $(".close").on('click',function(){
