@@ -5,14 +5,16 @@
   <title>유저 홈화면</title>
   <!-- 추가 css, js -->
   <link rel="stylesheet" href="/css/home.css">
+  <script src="/js/home.js"></script>
 </head>
 <body>
   <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
     <section class="app-content">
+      <!--   자녀관련부분   -->
       <section class="childList-section">
           <h3>소중한 내 아이들의 걸음마</h3>
           <div class="childList">
-            <div class="childInfo-wrap">
+            <div class="childInfo-wrap viewInfo">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>하늘이</p>
@@ -22,7 +24,7 @@
               <p class="kinderName">ㅇㅇ어린이집</p>
               <p class="commuteType rideOn">승차중</p>
             </div>
-            <div class="childInfo-wrap">
+            <div class="childInfo-wrap viewInfo">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>하늘이</p>
@@ -32,7 +34,7 @@
               <p class="kinderName">ㅇㅇ어린이집</p>
               <p class="commuteType rideOn">승차중</p>
             </div>
-            <div class="childInfo-wrap">
+            <div class="childInfo-wrap viewInfo">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>하늘이</p>
@@ -42,7 +44,7 @@
               <p class="kinderName">ㅇㅇ어린이집</p>
               <p class="commuteType rideOn">승차중</p>
             </div>
-            <div class="childInfo-wrap">
+            <div class="childInfo-wrap viewInfo">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>하늘이</p>
@@ -53,7 +55,7 @@
               <p class="commuteType rideOn">승차중</p>
             </div>
 
-            <div class="childInfo-wrap">
+            <div class="childInfo-wrap viewInfo">
               <div class="childName">
                 <img class="gender woman" src="/img/woman.png" alt="">
                 <p>사랑이</p>
@@ -71,26 +73,26 @@
           </div>
       </section>
 
+      <!--  어린이집 운영형태    -->
       <form action="#" method="get">
         <section class="kinderType-section">
           <h6> 어린이집 운영형태</h6>
             <div class="kinderType-wrap">
               <label for="allKinder" class="label-wrap select">
+                <input type="radio" name="kinderType" id="allKinder" value="A" hidden>
                 <img src="/img/allKinderType.png" alt="">
                 <p>전체</p>
               </label>
               <label for="nightKinder" class="label-wrap">
+                <input type="radio" name="kinderType" id="nightKinder" value="N" hidden>
                 <img src="/img/nightKinderType.png" alt="">
                 <p>야간</p>
               </label>
               <label for="weekKinder" class="label-wrap">
+                <input type="radio" name="kinderType" id="weekKinder" value="W" hidden>
                 <img src="/img/weekKinderType.png" alt="">
                 <p>주말</p>
               </label>
-
-              <input type="radio" name="kinderType" id="allKinder" value="A" hidden>
-              <input type="radio" name="kinderType" id="nightKinder" value="N" hidden>
-              <input type="radio" name="kinderType" id="weekKinder" value="W" hidden>
             </div>
 
         </section>
@@ -100,14 +102,14 @@
           <div class="kinder-loc-wrap">
             <select name="kinder-loc" class="kinderLoc">
               <option value="강남구">강남구</option>
-              <option value="강남구">강서구</option>
-              <option value="강남구">강북구</option>
-              <option value="강남구">강동구</option>
+              <option value="강서구">강서구</option>
+              <option value="강북구">강북구</option>
+              <option value="강동구">강동구</option>
             </select>
           </div>
           <div class="kinder-search-wrap">
-              <input type="text" placeholder="어린이집명을 입력하세요">
-              <a href="#">검색</a>
+              <input type="text" placeholder="어린이집명을 입력하세요" name="kinder-name">
+              <a href="#" class="searchBtn">검색</a>
           </div>
         </section>
       </form>
@@ -140,7 +142,7 @@
         </div>
 
         <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="1">
+          <input type="checkbox" name="kinder" value="2">
           <div class="kinderInfo-wrap">
             <div class="img-wrap">
               <img src="/img/allKinderType.png" alt="">
@@ -158,7 +160,7 @@
         </div>
 
         <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="1">
+          <input type="checkbox" name="kinder" value="3">
           <div class="kinderInfo-wrap">
             <div class="img-wrap">
               <img src="/img/allKinderType.png" alt="">
@@ -176,7 +178,7 @@
         </div>
 
         <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="1">
+          <input type="checkbox" name="kinder" value="4">
           <div class="kinderInfo-wrap">
             <div class="img-wrap">
               <img src="/img/allKinderType.png" alt="">
@@ -194,7 +196,7 @@
         </div>
 
         <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="1">
+          <input type="checkbox" name="kinder" value="5">
           <div class="kinderInfo-wrap">
             <div class="img-wrap">
               <img src="/img/allKinderType.png" alt="">
@@ -215,19 +217,31 @@
       <section class="page-section">
         <div class="paging-wrap">
           <ul class="pagination">
+            <li th:if="true"><a href="#" class="prev-page">&lsaquo;</a></li>
             <li><a href="#" class="select">1</a></li>
             <li><a href="#">2</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
             <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">9</a></li>
-            <li><a href="#">10</a></li>
+            <li th:if="true"><a href="#" class="next-page">&rsaquo;</a></li>
           </ul>
         </div>
       </section>
+
+      <!--  모달창 부분    -->
+      <div class="infoModal modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>이건 정보모달창입니다!</p>
+        </div>
+      </div>
+
+      <div class="addModal modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>이건 추가모달창입니다!</p>
+        </div>
+      </div>
     </section>
   </th:block>
 
