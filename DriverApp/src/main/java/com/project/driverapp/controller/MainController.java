@@ -21,4 +21,6 @@ public class MainController {
     public String manage() {
         return "driver/manage";
     }
+    @GetMapping("/startManage")
+    public String startManage() {return "modal/startManage";}
 }
