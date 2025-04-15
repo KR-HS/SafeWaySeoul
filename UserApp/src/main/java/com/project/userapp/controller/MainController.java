@@ -25,4 +25,9 @@ public class MainController {
 
     @GetMapping("/regchild")
     public String regChild(){ return "/modal/regChild";}
+
+    @GetMapping("/tracing")
+    public String tracing(){
+        return "tracing";
+    }
 }
