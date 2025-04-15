@@ -1,3 +1,10 @@
+html,body{
+    height:100%;
+    min-height:600px;
+}
+.app-wrapper{
+    height: 100vh; /* 전체 화면 사용 */
+}
 .logo_wrap{
     display:flex;
     overflow:hidden;
