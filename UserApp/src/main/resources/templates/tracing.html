@@ -15,12 +15,25 @@
             </div>
             <img src="/img/mapsample.png" alt="지도 이미지">
             <div class="myloction">
+
                 <img src="/img/myposition.png" alt="myloction">
             </div>
 
 
         </div>
 
+        <script>
+            var backbtn =document.querySelector(".backBtn");
+            backbtn.onclick=function(){
+                alert('뒤로가기버튼작동됨');
+            }
+
+            var myloction =document.querySelector(".myloction");
+            myloction.onclick=function(){
+                alert('현재위치버튼작동됨');
+            }
+        </script>
+    
         <!-- 타임라인 -->
         <div class="timeline-section">
             <div class="arrival-time">도착예정시간 17:30</div>
@@ -64,7 +77,9 @@
                     <div class="phonecall">
                         <img src="/img/phonecall.png" alt="전화">
                     </div>
+
                 </div>
+
 
             </div>
             <div class="message-card">
@@ -77,12 +92,20 @@
                     <div class="phonecall">
                         <img src="/img/phonecall.png" alt="전화">
                     </div>
+
                 </div>
 
             </div>
         </div>
     </section>
+          <script>
+            var phonecall =document.querySelector(".phonecall");
+            phonecall.onclick=function(){
+                alert('통화하기버튼 작동됨됨');
+            }
+        </script>
 </th:block>
+
 
 
 
