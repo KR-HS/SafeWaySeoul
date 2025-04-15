@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/tracing.css">
+    <th:block th:replace="/include/headerBaseLayout"/>
+    <title>유저 자녀관리 & 마이페이지</title>
+    <link rel="stylesheet" href="/css/tracing.css">
 </head>
 <body>
-    <div class="container">
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+    <section class="app-content">
         <!-- 지도 영역 -->
         <div class="map-section">
             <div class="backBtn">
-                <img src="../static/img/backBtn.png" alt="backbtn">
+                <img src="/img/backBtn.png" alt="backbtn">
             </div>
-            <img src="../static/img/mapsample.png" alt="지도 이미지">
+            <img src="/img/mapsample.png" alt="지도 이미지">
             <div class="myloction">
-                <img src="../static/img/myposition.png" alt="myloction">
-            </div> 
+
+                <img src="/img/myposition.png" alt="myloction">
+            </div>
+
+
         </div>
+
         <script>
             var backbtn =document.querySelector(".backBtn");
             backbtn.onclick=function(){
@@ -36,67 +40,79 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-img">
-                        <img src="../static/img/school.png" alt="어린이집이미지">    
-                    </div>                                   
+                        <img src="/img/school.png" alt="어린이집이미지">
+                    </div>
                     <p>출발 17:00</p>
                 </div>
                 <div class="arrow">
-                    <img src="../static/img/arrow-removebg-preview.png" alt="화살표">
-                </div> 
+                    <img src="/img/arrow-removebg-preview.png" alt="화살표">
+                </div>
                 <div class="timeline-item">
                     <div class="timeline-img">
-                        <img src="../static/img/bus.png" alt="버스이미지">    
-                    </div>   
+                        <img src="/img/bus.png" alt="버스이미지">
+                    </div>
                     <p>운행중...</p>
                 </div>
                 <div class="arrow">
-                    <img src="../static/img/arrow-removebg-preview.png" alt="화살표">
-                </div> 
+                    <img src="/img/arrow-removebg-preview.png" alt="화살표">
+                </div>
                 <div class="timeline-item">
                     <div class="timeline-img">
-                        <img src="../static/img/home.png" alt="집이미지">    
-                    </div>   
+                        <img src="/img/home.png" alt="집이미지">
+                    </div>
                     <p>도착 17:30</p>
                 </div>
             </div>
         </div>
-    
+
         <!-- 메시지 카드 -->
         <div class="message-section">
             <div class="message-card">
                 <div class="message-img">
-                    <img src="../static/img/driver.png" alt="기사님사진">
+                    <img src="/img/driver.png" alt="기사님사진">
                 </div>
-                <div class="message-content">                    
+                <div class="message-content">
                     <h3>박인욱 기사님</h3>
                     <p>"아이를 태우고 출발해주셔서 감사합니다. 안전하고 편안한 동승이 되도록 늘 신경 쓰겠습니다."</p>
                     <div class="phonecall">
-                        <img src="../static/img/phonecall.png" alt="전화">
+                        <img src="/img/phonecall.png" alt="전화">
                     </div>
-                </div>                   
+
+                </div>
+
+
             </div>
             <div class="message-card">
                 <div class="message-img">
-                    <img src="../static/img/teacher.png" alt="사진">
+                    <img src="/img/teacher.png" alt="사진">
                 </div>
                 <div class="message-content">
                     <h3>손유경 원장님</h3>
                     <p>"오늘은 약간 피곤해 보였지만, 활동 중에는 발랄하게 참여했습니다. 집에서 조금 더 쉬면 될 것 같아요."</p>
                     <div class="phonecall">
-                        <img src="../static/img/phonecall.png" alt="전화">
+                        <img src="/img/phonecall.png" alt="전화">
                     </div>
-                </div>    
+
+                </div>
 
             </div>
         </div>
-
-        <script>
+    </section>
+          <script>
             var phonecall =document.querySelector(".phonecall");
             phonecall.onclick=function(){
                 alert('통화하기버튼 작동됨됨');
             }
         </script>
+</th:block>
 
-    </div>
+
+
+
 </body>
 </html>
+
+
+
+
+
