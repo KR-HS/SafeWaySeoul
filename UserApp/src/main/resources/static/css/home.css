@@ -105,7 +105,8 @@ h6{
 .kinderType-section>.kinderType-wrap{
     display:flex;
     padding:10px 2px;
-    justify-content: space-between;
+    justify-content: center;
+    gap:20px;
 }
 .kinderType-section>.kinderType-wrap>.label-wrap{
     width:100px;

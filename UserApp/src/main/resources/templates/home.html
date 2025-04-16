@@ -6,8 +6,10 @@
   <!-- 추가 css, js -->
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/regChild.css">
   <script src="/js/home.js"></script>
   <script src="/js/modal.js"></script>
+  <script src="/js/regChild.js"></script>
 </head>
 
 <body>
@@ -242,7 +244,7 @@
       <div class="addModal modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <p>이건 추가모달창입니다!</p>
+          <th:block th:replace="~{/modal/regChild}"></th:block>
         </div>
       </div>
     </section>

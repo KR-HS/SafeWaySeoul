@@ -14,19 +14,25 @@ body {
 .modal {
     background-color: white;
     width: 80vh;
+    width: 100%;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
+    position:relative;
 }
 
-h2 {
+.modal h2 {
     margin-bottom: 16px;
     font-size: 20px;
     color: #333;
 }
-
-.input-box {
+.modal .close-btn{
+    position:absolute;
+    right:2px;
+    top:2px;
+}
+.modal .input-box {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
@@ -35,18 +41,18 @@ h2 {
     font-size: 14px;
 }
 
-.input-box:focus {
+.modal .input-box:focus {
     border-color: #4A90E2;
     outline: none;
 }
 
-.gender-select {
+.modal .gender-select {
     display: flex;
     justify-content: space-between;
     margin: 12px 0;
 }
 
-.gender {
+.modal .gender {
     width: 47%;
     padding: 8px;
     border: 2px solid transparent;
@@ -55,29 +61,29 @@ h2 {
     transition: border 0.3s ease;
 }
 
-.girl {
+.modal .girl {
     background-color: #FED8D8;
 }
 
-.boy {
+.modal .boy {
     background-color: #8192FF;
 }
 
-.gender img {
+.modal .gender img {
     width: 100%;
     height: auto;
     border-radius: 12px;
 }
 
-.girl.selected {
+.modal .girl.selected {
     border: 2px solid #ff88bb;
 }
 
-.boy.selected {
+.modal .boy.selected {
     border: 2px solid blue;
 }
 
-.glitch-badge {
+.modal .glitch-badge {
     display: inline-block;
     margin: 12px 0;
     padding: 4px 10px;
@@ -89,17 +95,17 @@ h2 {
     transform: rotate(-3deg);
 }
 
-.upload-section {
+.modal .upload-section {
     margin: 16px 0;
 }
 
-.upload-section p {
+.modal .upload-section p {
     font-size: 14px;
     margin-bottom: 8px;
     color: #666;
 }
 
-.photo-upload {
+.modal .photo-upload {
     width: 100px;
     height: 100px;
     margin: 0 auto;
@@ -113,7 +119,7 @@ h2 {
     cursor: pointer;
 }
 
-.submit-btn {
+.modal .submit-btn {
     margin-top: 20px;
     background-color: #4A90E2;
     color: white;
@@ -125,6 +131,6 @@ h2 {
     cursor: pointer;
 }
 
-.submit-btn:hover {
+.modal .submit-btn:hover {
     background-color: #357ABD;
 }

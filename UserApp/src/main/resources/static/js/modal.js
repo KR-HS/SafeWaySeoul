@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $(".addChild").on('click',function(){
+        // window.location.href="/regChild"
         $(".addModal").css("display","block");
     })
     $(".close").on('click',function(){

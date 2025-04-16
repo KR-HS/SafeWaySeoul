@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>아이의 첫걸음</title>
-    <link rel="stylesheet" href="css/regChild.css" />
-    <script src="/js/jquery-1.12.1.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/regChild.js"></script>
-</head>
-<body>
-<div class="modal">
+
+<div class="modalWrap">
     <h2>아이의 첫걸음</h2>
 
     <form action="regChildSubmit">
@@ -25,17 +14,16 @@
         </div>
     </div>
 
-    <input type="text" placeholder="내 아이와의 처음 만난 일자를 입력해주세요" class="input-box"/>
+    <input type="date" placeholder="내 아이와의 처음 만난 일자를 입력해주세요" class="input-box"/>
 
     <div class="upload-section">
         <p>내 아이 사진 등록하기</p>
-        <div class="photo-upload">
+        <label class="photo-upload" for="child-photo">
             <span>+</span>
-        </div>
+        </label>
+        <input type="file" id="child-photo"hidden>
     </div>
 
     <button class="submit-btn">등록하기</button>
     </form>
 </div>
-</body>
-</html>
