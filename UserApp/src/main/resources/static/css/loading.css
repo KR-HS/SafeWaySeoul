@@ -1,3 +1,10 @@
+html,body{
+    height:100%;
+    min-height:600px;
+}
+.app-wrapper{
+    height: 100vh; /* 전체 화면 사용 */
+}
 .logo_wrap{
     display:flex;
     overflow:hidden;
@@ -12,15 +19,17 @@
     position:relative;
     border:3px solid #FFDB66;
     overflow:hidden;
+    height:200px;
+    padding-top:10px;
 }
 .logo>img{
-    height:200px;
+    width:200px;
 }
 .logo>p{
     bottom:10px;
-    left:30px;
+    left:20px;
     position:absolute;
-    font-size:30px;
+    font-size:35px;
     font-weight:800;
     text-align:center;
     color: #ffc300;

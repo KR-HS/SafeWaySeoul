@@ -20,5 +20,5 @@ public class MainController {
     @GetMapping("/manage")
     public String manage() {
         return "driver/manage";
-    }
+    } 
 }

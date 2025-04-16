@@ -1,0 +1,174 @@
+
+
+/* 컨테이너 */
+.container {
+    /*max-width: 1200px;*/
+    /*margin: auto;*/
+}
+
+/* 지도 섹션 */
+.map-section {
+    border: 1px solid #fff;
+    margin: 20px;
+    background-color: #FFE694;
+    border-radius: 10px;   
+    height: 250px;
+    position: relative;
+    border-radius: 10px;
+}
+.map-section img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.backBtn{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* border: 1px solid #777; */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 1px;
+    background-color: #fff; 
+}
+.backBtn img {
+    width: 100%; /* 부모 컨테이너의 너비에 맞게 조정 */
+    height: 100%; /* 부모 컨테이너의 높이에 맞게 조정 */
+    border-radius: 50%; /* 이미지도 둥글게 */
+}
+
+.myloction {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* border: 1px solid #777; */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 1px;
+    background-color: #fff;
+}
+
+.myloction img {
+    width: 100%; /* 부모 컨테이너의 너비에 맞게 조정 */
+    height: 100%; /* 부모 컨테이너의 높이에 맞게 조정 */
+    border-radius: 50%; /* 이미지도 둥글게 */
+}
+
+
+/* 타임라인 섹션 */
+.timeline-section {
+    text-align: center;
+    padding: 2px;
+    background-color: #FFE694;
+    margin: 10px 20px;
+    border-radius: 10px;   
+    height: 130px;
+}
+
+.arrival-time {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
+}
+
+.timeline {
+    display: flex;
+    justify-content: center;
+    gap: 20px;   
+}
+
+.timeline-item {
+    text-align: center;
+}
+
+.timeline-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;  
+    background-color: #fff;
+}   
+
+.timeline-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.timeline-item p{
+    font-size: 10px;
+}
+
+
+/* 메시지 섹션 */
+.message-section {
+    padding: 10px 20px;
+    
+}
+
+.message-card {
+    background-color: #FFE694;
+    border-radius: 10px;   
+    padding: 20px;
+    margin-bottom: 20px;
+    display: inline-flex;   
+    gap: 20px;
+    align-items:center;   
+    height: 50px;
+    position: relative;
+}
+
+.phonecall{
+    width: 20px;
+    height: 20px;       
+    border-radius: 50%;    
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.phonecall img{
+    width: 100%;
+    height: 100%;
+}
+
+.message-img{
+
+    /* flex-basis: 33.3333%; */
+    width: 60px;    
+    height: 60px;
+    /* border: 1px solid #777; */
+    border-radius: 50%;     
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.message-img img{
+    height: 40px;
+    
+}
+
+.message-content{
+    flex-basis: 66.6666%;
+}
+.message-content h3 {
+    font-size: 12px;
+}
+
+.message-content p {
+    font-size: 9px;
+}
+
+/* 화살표 */
+.arrow {
+    
+    padding-top: 17px;
+    
+}
+.arrow img {
+    width: 20px; /* 원하는 너비 */
+    height: auto; /* 비율 유지 */
+}
