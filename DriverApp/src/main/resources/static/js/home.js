@@ -1,5 +1,5 @@
 $(document).ready(function() {
     $(".card").on("click", function() {
-        window.location.href = "startManage";
+        $(".modal-overlay").css("display", "block");
     })
 });
