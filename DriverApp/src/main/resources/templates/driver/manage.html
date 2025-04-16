@@ -18,12 +18,14 @@
             </div>
         </div>
 
+        <!--지도 부분-->
         <div class="map">        
             <div class="map-img">
                 <img src="/img/map.png" alt="지도이미지">
             </div>
         </div>
-        
+
+        <!--승하차관련-->
         <div class="children-list">
             <div class="boarding-status">3명 남음 - 1명 완료</div>
 
@@ -82,22 +84,25 @@
 
             <script>
 
-                var imgs=document.querySelectorAll(".list-img");
-                imgs.forEach(function(a){
-                    a.onclick=function(){
-                        alert('아이상세보기');
+                $(function() {  /*js의 document.ready 이벤트*/
+                    function updateBoardingStatus() {
+                        var total = $('.list-time').length;
+                        var done = $('.list-time.done').length;
+                        var remain = total - done;
+                        $('.boarding-status').text(remain + "명 남음 - " + done + "명 완료");
                     }
+                    updateBoardingStatus();
+                    $(document).on('click', '.list-time', function() {
+                        if ($(this).hasClass('done')) return;
+                        $(this).text('하차완료').addClass('done');
+                        $(this).closest('.list-box').addClass('done');
+                        updateBoardingStatus();
+                    });
+                    $(document).on('click', '.list-img', function() {
+                        alert('아이상세보기');
+                    });
                 });
 
-                var listTimes = document.querySelectorAll(".list-time");
-                listTimes.forEach(function(item) {
-                    if (!item.classList.contains('done')) {
-                        item.onclick = function() {
-                            alert('하차버튼on');
-                           
-                        }
-                    }
-                });
             </script>
 
 
