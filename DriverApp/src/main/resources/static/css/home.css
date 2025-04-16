@@ -1,0 +1,143 @@
+/* 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Noto Sans KR", sans-serif;
+    background: #f8f8f8;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 16px;
+    flex-direction: column;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.driver-text {
+    font-size: 1em;
+}
+
+h2 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+.dispatch-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px; /* 카드 간 간격 */
+}
+
+.card td {
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 상태별 배경색 */
+.card.completed td {
+    background-color: #D2D2D2;
+}
+
+.card.active td {
+    background-color: #9DCEF4;
+}
+
+.card.scheduled td {
+    background-color: #B3E6FF;
+}
+
+/* 텍스트 스타일 */
+.labels {
+    display: flex;
+    font-size: 0.8em;
+}
+
+.labels>.labels_name {
+    border-radius: 20px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #f8f8f8;
+    margin: 0 5px 0 0;
+}
+
+.labels>.labels_status {
+    border-radius: 20px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #f8f8f8;
+}
+
+/* 상태: 운행종료 (회색) */
+tr.completed .labels span {
+    font-weight: bold;
+    color: #D2D2D2;
+}
+
+/* 상태: 운행중 (파란색) */
+tr.active .labels span {
+    font-weight: bold;
+    color: #9DCEF4;
+}
+
+/* 상태: 운행예정 (하늘색) */
+tr.scheduled .labels span {
+    font-weight: bold;
+    color: #B3E6FF;
+}
+
+
+.title {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.subtitle {
+    font-size: 0.95em;
+}
+
+.time {
+    font-size: 0.85em;
+    color: #666;
+}
