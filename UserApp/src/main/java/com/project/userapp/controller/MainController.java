@@ -23,11 +23,12 @@ public class MainController {
         return "/user/mypage";
     }
 
-    @GetMapping("/regchild")
+    @GetMapping("/regChild")
     public String regChild(){ return "/modal/regChild";}
 
     @GetMapping("/tracing")
     public String tracing(){
         return "tracing";
     }
+
 }

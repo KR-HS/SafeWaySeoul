@@ -1,0 +1,133 @@
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*body {*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    background-color: #f2f2f2;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
+
+.modalWrap{
+    background-color: white;
+    /*width: 80vh;*/
+    width: 100%;
+    /*padding: 20px;*/
+    /*border-radius: 12px;*/
+    /*box-shadow: 0 4px 10px rgba(0,0,0,0.1);*/
+    text-align: center;
+}
+
+.modalWrap h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+}
+
+.modalWrap .input-box {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 10px;
+    background-color:white;
+}
+
+
+.modalWrap .input-box:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+.modalWrap .gender-select {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+.modalWrap .gender {
+    width: 47%;
+    padding: 8px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.modalWrap .girl {
+    background-color: #FED8D8;
+}
+
+.modalWrap .boy {
+    background-color: #8192FF;
+}
+
+.modalWrap .gender img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.modalWrap .girl.selected {
+    border: 2px solid #ff88bb;
+}
+
+.modalWrap .boy.selected {
+    border: 2px solid blue;
+}
+
+.modalWrap .glitch-badge {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 4px 10px;
+    background-color: #00c896;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    transform: rotate(-3deg);
+}
+
+.modalWrap .upload-section {
+    margin: 16px 0;
+}
+
+.modalWrap .upload-section p {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.modalWrap .photo-upload {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+}
+
+.modalWrap .submit-btn {
+    margin-top: 20px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modalWrap .submit-btn:hover {
+    background-color: #357ABD;
+}
