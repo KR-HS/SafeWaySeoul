@@ -36,7 +36,6 @@ body {
 
 .info-row {
     display: flex;
-    justify-content: space-between;
     margin: 6px 0;
 }
 
@@ -48,6 +47,24 @@ body {
 
 .value {
     color: #000;
-    text-align: right;
+    text-align: left;
     word-break: keep-all;
+}
+
+.childDetail-content {
+    padding: 0;
+    background-color: white;
+}
+
+.childDetail-content > .content-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+.childDetail-content > .content-header > .header-comment-wrap > .header-mainComment {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
 }
