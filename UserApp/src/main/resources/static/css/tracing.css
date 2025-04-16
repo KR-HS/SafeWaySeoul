@@ -1,20 +1,25 @@
 
 
 /* 컨테이너 */
-.container {
-    /*max-width: 1200px;*/
-    /*margin: auto;*/
+/*.container {*/
+/*    max-width: 1200px;*/
+/*    margin: auto;*/
+/*}*/
+
+.subTitle{
+    font-size:25px;
+    font-weight:600;
+
 }
 
 /* 지도 섹션 */
 .map-section {
     border: 1px solid #fff;
-    margin: 20px;
+    /*margin: 20px;*/
     background-color: #FFE694;
     border-radius: 10px;   
     height: 250px;
     position: relative;
-    border-radius: 10px;
 }
 .map-section img{
     width: 100%;
@@ -39,7 +44,7 @@
     border-radius: 50%; /* 이미지도 둥글게 */
 }
 
-.myloction {
+.mylocation {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -51,7 +56,7 @@
     background-color: #fff;
 }
 
-.myloction img {
+.mylocation img {
     width: 100%; /* 부모 컨테이너의 너비에 맞게 조정 */
     height: 100%; /* 부모 컨테이너의 높이에 맞게 조정 */
     border-radius: 50%; /* 이미지도 둥글게 */
@@ -63,16 +68,17 @@
     text-align: center;
     padding: 2px;
     background-color: #FFE694;
-    margin: 10px 20px;
-    border-radius: 10px;   
+    /*margin: 10px 20px;*/
+    margin: 10px 0;
+    border-radius: 10px;
     height: 130px;
 }
 
 .arrival-time {
-    font-size: 15px;
+    font-size: 25px;
     font-weight: bold;
     color: black;
-    padding: 10px;
+    padding: 5px 0;
 }
 
 .timeline {
@@ -99,25 +105,25 @@
 }
 
 .timeline-item p{
-    font-size: 10px;
+    font-size: 20px;
 }
 
 
 /* 메시지 섹션 */
 .message-section {
-    padding: 10px 20px;
-    
+    /*padding: 10px 20px;*/
+    padding: 10px 0;
+
 }
 
 .message-card {
     background-color: #FFE694;
     border-radius: 10px;   
-    padding: 20px;
-    margin-bottom: 20px;
+    padding:10px 20px;
+    margin-bottom: 5px;
     display: inline-flex;   
     gap: 20px;
     align-items:center;   
-    height: 50px;
     position: relative;
 }
 
@@ -155,11 +161,14 @@
     flex-basis: 66.6666%;
 }
 .message-content h3 {
-    font-size: 12px;
+    font-size: 20px;
+    line-height:1;
+    margin-bottom:5px;
 }
 
 .message-content p {
-    font-size: 9px;
+    font-size: 15px;
+    line-height:1;
 }
 
 /* 화살표 */

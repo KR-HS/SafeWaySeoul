@@ -4,35 +4,26 @@
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>유저 자녀관리 & 마이페이지</title>
     <link rel="stylesheet" href="/css/tracing.css">
+    <script src="/js/tracing.js"></script>
 </head>
 <body>
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
     <section class="app-content">
         <!-- 지도 영역 -->
+        <p class="subTitle">내 자녀 위치정보</p>
         <div class="map-section">
             <div class="backBtn">
                 <img src="/img/backBtn.png" alt="backbtn">
             </div>
             <img src="/img/mapsample.png" alt="지도 이미지">
-            <div class="myloction">
+            <div class="mylocation">
 
-                <img src="/img/myposition.png" alt="myloction">
+                <img src="/img/myposition.png" alt="mylocation">
             </div>
 
 
         </div>
 
-        <script>
-            var backbtn =document.querySelector(".backBtn");
-            backbtn.onclick=function(){
-                alert('뒤로가기버튼작동됨');
-            }
-
-            var myloction =document.querySelector(".myloction");
-            myloction.onclick=function(){
-                alert('현재위치버튼작동됨');
-            }
-        </script>
     
         <!-- 타임라인 -->
         <div class="timeline-section">
@@ -98,12 +89,6 @@
             </div>
         </div>
     </section>
-          <script>
-            var phonecall =document.querySelector(".phonecall");
-            phonecall.onclick=function(){
-                alert('통화하기버튼 작동됨됨');
-            }
-        </script>
 </th:block>
 
 

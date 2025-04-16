@@ -1,22 +1,11 @@
 $(document).ready(function(){
 
     // 자녀 관련 모달창 기능
-    $(".addChild").on('click',function(){
-        $(".addModal").css("display","block");
-    })
     $(".viewInfo").on('click',function(){
         window.location.href="/tracing";
-        $(".infoModal").css("display","block");
+        // $(".infoModal").css("display","block");
     });
-    $(".close").on('click',function(){
-        $(".modal").css("display","none");
-    })
 
-    $(".modal").on('click',function(){
-        if(event.target.className.includes('modal')){
-            $(this).css("display","none");
-        }
-    })
 
 
     // 어린이집 운영형태 버튼

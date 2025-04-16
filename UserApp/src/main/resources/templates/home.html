@@ -5,7 +5,9 @@
   <title>유저 홈화면</title>
   <!-- 추가 css, js -->
   <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/modal.css">
   <script src="/js/home.js"></script>
+  <script src="/js/modal.js"></script>
 </head>
 <body>
   <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
@@ -229,12 +231,12 @@
       </section>
 
       <!--  모달창 부분    -->
-      <div class="infoModal modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>이건 정보모달창입니다!</p>
-        </div>
-      </div>
+<!--      <div class="infoModal modal">-->
+<!--        <div class="modal-content">-->
+<!--          <span class="close">&times;</span>-->
+<!--          <p>이건 정보모달창입니다!</p>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class="addModal modal">
         <div class="modal-content">

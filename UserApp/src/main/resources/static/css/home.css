@@ -206,7 +206,8 @@ h6{
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo{
     display:flex;
     flex-direction:column;
-    justify-content: space-between;
+    justify-content: center;
+    gap:10px;
 }
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUpper>.kinderTitle{
     font-size:20px;
@@ -214,6 +215,7 @@ h6{
 }
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUnder>p {
     font-size: 15px;
+    line-height:1;
 }
 .page-section>.paging-wrap{
     display:flex;
@@ -243,28 +245,3 @@ h6{
 }
 
 
-.modal {
-    display: none; /* 기본은 안보이게 */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
-}
-
-.close {
-    float: right;
-    font-size: 28px;
-    cursor: pointer;
-}
