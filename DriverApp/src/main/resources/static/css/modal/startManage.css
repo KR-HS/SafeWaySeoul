@@ -7,14 +7,6 @@ body {
     height: 100vh;
 }
 
-.card {
-    background: #e0f3fa;
-    padding: 20px 30px;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
 /* 모달 오버레이 */
 .modal-overlay {
     display: none;
