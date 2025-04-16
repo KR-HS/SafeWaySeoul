@@ -41,10 +41,10 @@
 }
 .boarding-status{
     padding: 10px;
-    font-size: 10px
+    font-size: 15px
 }
 
-
+/*승하차 관련*/
 .list-box {
     display: flex;
     align-items: center;
