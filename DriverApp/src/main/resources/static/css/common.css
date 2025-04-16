@@ -52,10 +52,10 @@ html, body {
 }
 /* 본문 영역 */
 .app-content {
-    flex: 1;
     overflow-y: auto;
     padding: 16px;
     background-color: #f2f2f7;
+    height: calc(100vh - 56px);
 }
 
 /* 하단 탭바 */
