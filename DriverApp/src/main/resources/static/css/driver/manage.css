@@ -30,15 +30,11 @@
 
 /* 지도섹션 */
 
-.map-img{
-    
+#map{
     width: 100%;
     height: 250px;
 }
-.map-img img{
-    width: 100%;
-    height: 100%;
-}
+
 .boarding-status{
     padding: 10px;
     font-size: 15px
@@ -117,14 +113,14 @@
 .modal-content {
     background-color: white;
     margin: 15% auto;
-    padding: 20px;
+    padding: 20px 0;
     border-radius: 5px;
     width: 80%;
 }
 
 .close {
     position: absolute;
-    right: 0;
+    right: 10px;
     font-size: 28px;
     cursor: pointer;
 }
