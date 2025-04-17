@@ -116,13 +116,16 @@
     padding: 20px 0;
     border-radius: 5px;
     width: 80%;
+    position: relative;
 }
 
 .close {
     position: absolute;
-    right: 10px;
+    right: 0;
+    top: 0;
     font-size: 28px;
     cursor: pointer;
+    z-index: 2;
 }
 
 
