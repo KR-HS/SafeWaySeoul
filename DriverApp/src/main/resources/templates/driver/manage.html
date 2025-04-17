@@ -4,6 +4,7 @@
     <th:block th:replace="~{/include/headerbaseLayout}"/>
     <title>승하차관리페이지</title>
     <link rel="stylesheet" href="/css/driver/manage.css">
+    <link rel="stylesheet" href="/css/child/childDetail.css">
     <script src="/js/driver/manage.js"></script>
 </head>
 <body>
@@ -109,6 +110,12 @@
 
         </div>
 
+        <div class="addModal modal">
+            <div class="modal-content">
+
+                <th:block th:replace="~{/child/childDetail}"></th:block>
+            </div>
+        </div>
 
 
     </section>

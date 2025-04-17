@@ -112,7 +112,18 @@ $(document).ready(function(){
         updateBoardingStatus();
     });
     $(document).on('click', '.list-img', function() {
-        alert('아이상세보기');
+        //아이 상세 보기 모달창 띄우기
+        $(".addModal").css("display","block");
+    });
+
+    $(".close").on('click',function(){
+        $(".modal").css("display","none");
+    })
+
+    $(".modal").on('click', function () {
+        if (event.target.className.includes('modal')) {
+            $(this).css("display", "none");
+        }
     });
 });
 

@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <th:block th:replace="~{/include/headerbaseLayout}"/>
-    <title>승하차관리페이지</title>
-    <link rel="stylesheet" href="/css/driver/manage.css">
-    <link rel="stylesheet" href="/css/child/childDetail.css">
-
-</head>
-<body>
-<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-
-    <section class="app-content">
+    <section class="childDetail-content">
         <div class="content-header">
-            <div class="backBtn"><img src="/img/back.png" alt="뒤로가기"></div>
+            <div class="close">&times;</div>
             <div class="header-comment-wrap">
                 <p class="header-mainComment">아이 상세 정보</p>
             </div>
@@ -37,11 +25,4 @@
                 <div class="info-row"><span class="label">유치원</span><span class="value">햇빛유치원</span></div>
             </div>
         </div>
-
-
-
-
     </section>
-</th:block>
-</body>
-</html>
