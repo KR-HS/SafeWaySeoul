@@ -3,85 +3,86 @@
 <head>
   <th:block th:replace="/include/headerBaseLayout"/>
   <title>유저 자녀관리 & 마이페이지</title>
+  <link rel="stylesheet" href="/css/mypage.css">
 </head>
 <body>
-  <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-    
-    
-      <link rel="stylesheet" href="/css/mypage.css">
-    
-  
-    <section class="app-content">
 
-      <!-- 내 정보 -->
-      <div class="user-info-section">
-        <h5 class="section-title">내 정보</h5>
-    
-        <div class="user-card">
-          <div class="user-image">
-            <img src="/img/temp-basic-mypage-male.png" alt="내 프로필 사진">
-          </div>
-          <div class="user-details">
-            <p class="user-name">고길동님</p>
-            <p class="user-phone">010-1234-4567</p>
-            <p class="user-region">거주지: 서울시 강남구</p>
-            <p class="user-address">기본주소: 서울시 강남구 도곡로 123</p>
-            <div class="user-workplace"> <!-- DB에 값 없을 시 display: none -->
-              <p class="workplace-label">근무지</p>
-              <p class="workplace-detail">서울시청 본관 3층</p>
-            </div>
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+
+  <section class="app-content">
+
+    <!-- 내 정보 -->
+    <div class="user-info-section">
+      <h5 class="section-title">내 정보</h5>
+
+      <div class="user-card">
+        <div class="user-image">
+          <img src="/img/temp-basic-mypage-male.png" alt="내 프로필 사진">
+        </div>
+        <div class="user-details">
+          <p class="user-name">고길동님</p>
+          <p class="user-phone">010-1234-4567</p>
+          <p class="user-region">주소</p>
+          <p class="user-address">서울시 강남구 도곡로 123</p>
+          <div class="user-workplace"> <!-- DB에 값 없을 시 display: none -->
+            <p class="workplace-label">근무지</p>
+            <p class="workplace-detail">서울시청 본관 3층</p>
           </div>
         </div>
       </div>
-    
-      <!-- 우리 아이 -->
-      <div class="child-info-section">
-        <h5 class="section-title">우리 아이</h5>
-    
-        <div class="child-list">
-          <!-- 자녀 데이터가 없을 경우 display: none -->
-          <div class="child-card">
-            <div class="child-image">
-              <img src="/img/temp-basic-mypage-female.png" alt="자녀 프로필 사진">
+    </div>
+
+    <!-- 우리 아이 -->
+    <div class="child-info-section">
+      <h5 class="section-title">우리 아이</h5>
+
+      <div class="child-list">
+        <!-- 자녀 데이터가 없을 경우 display: none -->
+        <div class="child-card">
+          <div class="child-image">
+            <img src="/img/temp-basic-mypage-female.png" alt="자녀 프로필 사진">
+          </div>
+          <div class="child-info">
+            <div class="child-name">
+              <img src="/img/woman.png" alt="성별 아이콘">
+              <span>사랑이</span>
             </div>
-            <div class="child-info">
-              <div class="child-name">
-                <img src="/img/femenine.png" alt="성별 아이콘">
-                <span>사랑이</span>
-              </div>
-              <p class="child-age">4세</p>
-            </div>
-            <div class="child-kindergarten-info">
-              <p class="kinder-label">내 아이 유치원</p>
-              <div class="kinder-card">
-                <img class="kinder-thumbnail" src="#" alt="유치원 썸네일">
-                <div class="kinder-details">
-                  <p class="kinder-district">서울시 강남구</p>
-                  <p class="kinder-name">행복유치원</p>
-                  <div class="kinder-meta">
-                    <img src="/img/icon-person.png" alt="사람 아이콘">
-                    <span class="kinder-capacity">정원: 78명</span>
-                    <img src="/img/icon-location.png" alt="위치 아이콘">
-                    <span class="kinder-address">서울 강남구 논현로 123</span>
-                  </div>
+            <p class="child-age">4세</p>
+          </div>
+          <div class="child-kindergarten-info">
+            <p class="kinder-label">내 아이 유치원</p>
+            <div class="kinder-card">
+              <img class="kinder-thumbnail" src="/img/kinder-thumbnail.png" alt="유치원 썸네일">
+              <div class="kinder-details">
+                <p class="kinder-district">서울시 관악구</p>
+                <p class="kinder-name">행복유치원</p>
+                <div class="kinder-meta">
+                  <img src="/img/user.png" alt="사람 아이콘">
+                  <span class="kinder-capacity">정원: 78명</span>
+                  <img src="/img/location.png" alt="위치 아이콘">
+                  <span class="kinder-address">서울 관악구 관악로 1</span>
                 </div>
               </div>
             </div>
           </div>
-    
-          <!-- 자녀 카드 추가 등록 가능 -->
-    
         </div>
-    
-        <!-- 자녀 등록 -->
-        <div class="child-register-box">
-          <img src="/img/plusAddLogo.png" alt="아이 등록 버튼" class="register-icon"><br>
-          <a href="#" class="register-link">내 아이 등록하기</a>
-        </div>
+
+        <!-- 자녀 카드 추가 등록 가능 -->
+
       </div>
-    
-    </section>
-  </th:block>
+
+      <!-- 자녀 등록 -->
+      <div class="child-card child-register-box">
+        <div class="register-icon-circle">
+          <img src="/img/plusAddLogo.png" alt="아이 등록 버튼" class="register-icon">
+        </div>
+        <a href="#" class="register-link">내 아이 등록하기</a>
+      </div>
+
+    </div>
+  </section>
+
+</th:block>
 
 
 
