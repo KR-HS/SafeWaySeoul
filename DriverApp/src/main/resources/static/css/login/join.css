@@ -30,24 +30,24 @@ p {
     margin-top: 100px;
 }
 
-.joinlogo {
+.join .joinlogo {
     position: absolute;
     top: -135px;
-} 
+}
 
-.joinlogo > img {
+.join .joinlogo > img {
     
     height: 200px;
 }
 
-.joinForm {
+.join .joinForm {
     width: 80%;
     background-color: #FDF0DB;
     border-radius: 20px;
     padding: 28px 18px 18px 18px;
 }
 
-input {
+.join input {
     width: 100%;
     padding: 12px;
     height: 40px;
@@ -57,7 +57,7 @@ input {
     box-sizing: border-box;
 }
 
-#id {
+.join #id {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -65,12 +65,12 @@ input {
     margin-bottom: 7px;
 }
 
-#id > input {
+.join #id > input {
     width: 70%;
     font-size: 13px;
 }
 
-.check-btn {
+.join .check-btn {
     width: 28%;
     border: none;
     border-radius: 6px;
@@ -82,31 +82,31 @@ input {
     background-color: #FFE694;
 }
 
-.join-password{
+.join .join-password{
     margin-bottom: 17px;
 }
 
-.pass {
+.join .pass {
     margin-bottom: 7px;
 }
 
-.name, .phone, .birth {
+.join .name,.join .phone,.join .birth {
     margin-bottom: 7px;
     background-color:white;
 }
 
-.address {
+.join .address {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.address > input {
+.join .address > input {
     width: 55%;
     font-size: 13px;
 }
 
-.address > button {
+.join .address > button {
     width: 40%;
     border: none;
     border-radius: 6px;
@@ -118,8 +118,11 @@ input {
     background-color: #FFE694;
     margin-bottom: 7px;
 }
+.join .address-road{
+    margin-bottom:5px
+}
 
-.join-btn {
+.join .join-btn {
     width: 100%;
     padding: 8px;
     background-color: #FFE694;
@@ -132,12 +135,12 @@ input {
     margin-top: 20px;
 }
 
-.join-btn:hover {
+.join .join-btn:hover {
     background-color: #FFE694;
     color: white;
   }
 
-.passMsg {
+.join .passMsg {
     padding-left: 5px;
     font-size: 10px;
 }

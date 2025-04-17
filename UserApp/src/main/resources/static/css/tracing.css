@@ -21,11 +21,17 @@
     height: 250px;
     position: relative;
 }
-.map-section img{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
+/*.map-section map{*/
+
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    border-radius: 10px;*/
+/*}*/
+ #map{
+     width: 100%;
+     height: 100%;
+     border-radius: 10px;
+ }
 
 .backBtn{
     width: 20px;
@@ -36,7 +42,8 @@
     top: 10px;
     left: 10px;
     padding: 1px;
-    background-color: #fff; 
+    background-color: #fff;
+    z-index: 10;
 }
 .backBtn img {
     width: 100%; /* 부모 컨테이너의 너비에 맞게 조정 */
@@ -54,6 +61,7 @@
     right: 10px;
     padding: 1px;
     background-color: #fff;
+    z-index: 10;
 }
 
 .mylocation img {
@@ -87,6 +95,22 @@
     gap: 20px;   
 }
 
+/*버스 애니메이션*/
+@keyframes busLeftToRight {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(80px); }
+}
+
+.timeline-img.bus-animate img {
+    animation: busLeftToRight 1.7s linear infinite;
+    position: absolute; /* 부모 기준으로 움직이게 */
+    left: -40px;  /* 왼쪽에서 출발*/
+    top: 5px;
+    width: 40px;  /* 이미지 크기는 부모보다 살짝 작게 */
+    height: 40px;
+}
+
+
 .timeline-item {
     text-align: center;
 }
@@ -96,6 +120,8 @@
     height: 50px;
     border-radius: 50%;  
     background-color: #fff;
+    position: relative;
+    overflow: hidden
 }   
 
 .timeline-img img{
