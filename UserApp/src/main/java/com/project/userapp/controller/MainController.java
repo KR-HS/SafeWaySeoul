@@ -36,4 +36,15 @@ public class MainController {
         return "/login/IdFind";
     }
 
+    //로그인 성공창
+    @GetMapping("/FindUserId")
+    public String findUserIdPage() {
+        return "FindUserId"; //
+    }
+    //비밀번호 재설정창
+    @GetMapping("/updatePw")
+    public String updatePw() {
+        return "updatePw"; //
+    }
+
 }
