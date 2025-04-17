@@ -63,6 +63,22 @@ $(document).ready(function() {
 
                 // 예: 건물명이 있다면 표시하거나 안내 문구 등 추가 가능
                 // alert("선택된 주소: " + data.roadAddress);
+
+                // 좌표 변환
+                var geocoder = new kakao.maps.services.Geocoder();
+                geocoder.addressSearch(fullAddr, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var lat = result[0].y;
+                        var lng = result[0].x;
+
+                        console.log("위도:", lat);
+                        console.log("경도:", lng);
+
+                        // 예: 좌표를 hidden input에 넣기
+                        // $('.address-lat').val(lat);
+                        // $('.address-lng').val(lng);
+                    }
+                });
             }
         }).open();
     });

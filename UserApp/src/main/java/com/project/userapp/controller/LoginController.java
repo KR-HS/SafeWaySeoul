@@ -21,7 +21,7 @@ public class LoginController {
     public String joinForm() {
         // 회원가입 기능 추가 필요 -----
 
-        return "home";
+        return "redirect:/home";
     }
 
 }
