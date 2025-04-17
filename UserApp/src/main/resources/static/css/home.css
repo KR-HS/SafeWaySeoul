@@ -105,7 +105,8 @@ h6{
 .kinderType-section>.kinderType-wrap{
     display:flex;
     padding:10px 2px;
-    justify-content: space-between;
+    justify-content: center;
+    gap:20px;
 }
 .kinderType-section>.kinderType-wrap>.label-wrap{
     width:100px;
@@ -142,6 +143,7 @@ h6{
     border:1px solid lightgray;
     border-radius:5px;
     padding:3px 6px;
+    background-color:white;
 }
 .kinderSearch-section>.kinder-search-wrap{
     padding:2px 0 10px 0;
@@ -165,7 +167,7 @@ h6{
     padding:10px 2px;
     width:100%;
     height:200px;
-    background-color:blueviolet;
+    /*background-color:blueviolet;*/
 }
 .kinderResult-wrap{
     padding:10px 0;
@@ -206,7 +208,8 @@ h6{
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo{
     display:flex;
     flex-direction:column;
-    justify-content: space-between;
+    justify-content: center;
+    gap:10px;
 }
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUpper>.kinderTitle{
     font-size:20px;
@@ -214,6 +217,7 @@ h6{
 }
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUnder>p {
     font-size: 15px;
+    line-height:1;
 }
 .page-section>.paging-wrap{
     display:flex;
@@ -242,29 +246,35 @@ h6{
     background-color: #FFDB66;
 }
 
-
-.modal {
-    display: none; /* 기본은 안보이게 */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
+/* InfoWindow 스타일 */
+.info-window {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
     border-radius: 5px;
-    width: 300px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 250px;
 }
-
-.close {
-    float: right;
-    font-size: 28px;
-    cursor: pointer;
+.info-window strong {
+    font-size: 20px;
+    color: #555;
+}
+.info-window a {
+    color: #007aff;
+    text-decoration: none;
+    font-size:15px;
+}
+.info-window a:hover {
+    text-decoration: underline;
+}
+.info-window .address {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #666;
+}
+.info-window .phone {
+    font-size: 15px;
+    color: #666;
 }

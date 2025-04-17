@@ -1,0 +1,176 @@
+/* ===== 공통 섹션 설정 ===== */
+.user-info-section,
+.child-info-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+
+/* ===== 내 정보 카드 ===== */
+.user-card {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  background-color: #fbe287;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-image img {
+  width: 214px;
+  height: 214px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  font-size: 16px;
+  color: #333;
+}
+
+.user-workplace {
+  margin-top: 6px;
+  color: #555;
+  font-size: 14px;
+}
+
+
+/* ===== 자녀 리스트 및 카드 ===== */
+.child-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.child-card {
+  background-color: #fbe287;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  
+  padding: 10px;
+}
+
+.child-name {
+    display: flex;
+    align-items: center;       /* 수직 가운데 정렬 */
+    justify-content: center;   /* 전체 가운데 정렬 */
+    gap: 8px;
+    height: 66px;              /* 공통 높이 지정 */
+  }
+  
+  .child-name img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  
+  .child-name span {
+    font-size: 28px;           /* 글자 크기를 이미지 높이에 맞춤 */
+    line-height: 66px;         /* 텍스트도 이미지 높이에 수직 정렬되게 */
+    display: inline-block;
+  }
+  
+
+.child-age {
+  font-size: 15px;
+  color: #666;
+}
+
+
+/* ===== 유치원 정보 카드 ===== */
+.child-kindergarten-info {
+  width: 100%;
+}
+
+.kinder-label {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.kinder-card {
+  display: flex;
+  gap: 12px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.kinder-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.kinder-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.kinder-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.kinder-district,
+.kinder-capacity,
+.kinder-address {
+  font-size: 13px;
+  color: #666;
+}
+
+.kinder-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.kinder-meta img {
+  width: 12px;
+  height: 12px;
+}
+
+
+/* ===== 자녀 등록 버튼 ===== */
+.child-register-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.register-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.register-link {
+  display: block;
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}

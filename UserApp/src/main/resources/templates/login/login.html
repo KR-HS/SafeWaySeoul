@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/login/login.css">
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/login/login.js"></script>
+    <script th:inline="javascript" >
+        var msg = [[${msg}]];
+        if(msg!=null && msg!=''){
+            alert(msg);
+        }
+    </script>
 </head>
 <body>
-    <h3>로그인화면</h3>
-    <a href="/home">메인화면 으로가기(기능구현 필요)</a>
-</body>
+
+    <form id="login" method="post" action="loginOk" name="loginForm" >
+        <img src="/img/login/loginLogo.png" alt="로그인 로고">
+
+            
+              <div class="emailbox">
+                <input type="text" class="email" name="email" placeholder="아이디를 입력해 주세요">
+              </div>
+
+              <div class="passwordbox">
+                <input type="password" class="password" name="password" placeholder="비밀번호를 입력해 주세요">
+              </div>
+
+              <div class="option">
+                    <div class="autoLogin">
+                      <input type="checkbox"> 자동로그인
+                    </div>
+
+                    <div class="find">
+                        <a href="#">아이디</a>
+                        <span>|</span>
+                        <a href="#">비밀번호 찾기</a>
+                    </div>
+              
+                </div>
+             
+              <button type="button" class="login-btn">로그인</button>
+              
+              
+              <p class="joinbox">회원이 아니신가요?&nbsp;&nbsp;<a href="join" class="join">회원가입</a>&nbsp;하기</p>
+
+    </form>
+  </body>
 </html>

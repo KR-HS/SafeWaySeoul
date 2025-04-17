@@ -1,52 +1,55 @@
-* {
-    box-sizing: border-box;
-}
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f2f2f2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+/*body {*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    background-color: #f2f2f2;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
 
-.modal {
+.modalWrap{
     background-color: white;
-    width: 80vh;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    /*width: 80vh;*/
+    width: 100%;
+    /*padding: 20px;*/
+    /*border-radius: 12px;*/
+    /*box-shadow: 0 4px 10px rgba(0,0,0,0.1);*/
     text-align: center;
 }
 
-h2 {
+.modalWrap h2 {
     margin-bottom: 16px;
     font-size: 20px;
     color: #333;
 }
 
-.input-box {
+.modalWrap .input-box {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 10px;
+    background-color:white;
 }
 
-.input-box:focus {
+
+.modalWrap .input-box:focus {
     border-color: #4A90E2;
     outline: none;
 }
 
-.gender-select {
+.modalWrap .gender-select {
     display: flex;
     justify-content: space-between;
     margin: 12px 0;
 }
 
-.gender {
+.modalWrap .gender {
     width: 47%;
     padding: 8px;
     border: 2px solid transparent;
@@ -55,29 +58,29 @@ h2 {
     transition: border 0.3s ease;
 }
 
-.girl {
+.modalWrap .girl {
     background-color: #FED8D8;
 }
 
-.boy {
+.modalWrap .boy {
     background-color: #8192FF;
 }
 
-.gender img {
+.modalWrap .gender img {
     width: 100%;
     height: auto;
     border-radius: 12px;
 }
 
-.girl.selected {
+.modalWrap .girl.selected {
     border: 2px solid #ff88bb;
 }
 
-.boy.selected {
+.modalWrap .boy.selected {
     border: 2px solid blue;
 }
 
-.glitch-badge {
+.modalWrap .glitch-badge {
     display: inline-block;
     margin: 12px 0;
     padding: 4px 10px;
@@ -89,17 +92,17 @@ h2 {
     transform: rotate(-3deg);
 }
 
-.upload-section {
+.modalWrap .upload-section {
     margin: 16px 0;
 }
 
-.upload-section p {
-    font-size: 14px;
+.modalWrap .upload-section p {
+    font-size: 20px;
     margin-bottom: 8px;
     color: #666;
 }
 
-.photo-upload {
+.modalWrap .photo-upload {
     width: 100px;
     height: 100px;
     margin: 0 auto;
@@ -113,7 +116,7 @@ h2 {
     cursor: pointer;
 }
 
-.submit-btn {
+.modalWrap .submit-btn {
     margin-top: 20px;
     background-color: #4A90E2;
     color: white;
@@ -125,6 +128,6 @@ h2 {
     cursor: pointer;
 }
 
-.submit-btn:hover {
+.modalWrap .submit-btn:hover {
     background-color: #357ABD;
 }

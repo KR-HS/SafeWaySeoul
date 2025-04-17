@@ -5,8 +5,14 @@
   <title>유저 홈화면</title>
   <!-- 추가 css, js -->
   <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/regChild.css">
   <script src="/js/home.js"></script>
+  <script src="/js/modal.js"></script>
+  <script src="/js/regChild.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
 </head>
+
 <body>
   <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
     <section class="app-content">
@@ -116,7 +122,7 @@
 
       <section class="map-section">
         <h6>검색결과</h6>
-        <div class="map">
+        <div class="map" id="map">
 
         </div>
       </section>
@@ -229,17 +235,17 @@
       </section>
 
       <!--  모달창 부분    -->
-      <div class="infoModal modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>이건 정보모달창입니다!</p>
-        </div>
-      </div>
+<!--      <div class="infoModal modal">-->
+<!--        <div class="modal-content">-->
+<!--          <span class="close">&times;</span>-->
+<!--          <p>이건 정보모달창입니다!</p>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class="addModal modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <p>이건 추가모달창입니다!</p>
+          <th:block th:replace="~{/modal/regChild}"></th:block>
         </div>
       </div>
     </section>

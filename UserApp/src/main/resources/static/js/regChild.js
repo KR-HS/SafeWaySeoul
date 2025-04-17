@@ -20,6 +20,9 @@ $(document).ready(function() {
             $(this).addClass("selected");
         }
     });
+    $(".close-btn").click(function(){
+        window.history.back();
+    })
 
 });
 

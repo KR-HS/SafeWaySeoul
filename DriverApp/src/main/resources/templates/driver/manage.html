@@ -4,6 +4,7 @@
     <th:block th:replace="~{/include/headerbaseLayout}"/>
     <title>승하차관리페이지</title>
     <link rel="stylesheet" href="/css/driver/manage.css">
+    <link rel="stylesheet" href="/css/child/childDetail.css">
     <script src="/js/driver/manage.js"></script>
 </head>
 <body>
@@ -18,12 +19,15 @@
             </div>
         </div>
 
-        <div class="map">        
-            <div class="map-img">
-                <img src="/img/map.png" alt="지도이미지">
-            </div>
+        <!--지도 부분-->
+        <div id="map">
+
         </div>
-        
+
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
+
+
+        <!--승하차관련-->
         <div class="children-list">
             <div class="boarding-status">3명 남음 - 1명 완료</div>
 
@@ -79,33 +83,14 @@
                     <div class="list-time">하차   </div>
                 </div>
             </div>
-
-            <script>
-
-                var imgs=document.querySelectorAll(".list-img");
-                imgs.forEach(function(a){
-                    a.onclick=function(){
-                        alert('아이상세보기');
-                    }
-                });
-
-                var listTimes = document.querySelectorAll(".list-time");
-                listTimes.forEach(function(item) {
-                    if (!item.classList.contains('done')) {
-                        item.onclick = function() {
-                            alert('하차버튼on');
-                           
-                        }
-                    }
-                });
-            </script>
-
-
         </div>
 
+        <div class="addModal modal">
+            <div class="modal-content">
 
-
-
+                <th:block th:replace="~{/child/childDetail}"></th:block>
+            </div>
+        </div>
 
 
     </section>

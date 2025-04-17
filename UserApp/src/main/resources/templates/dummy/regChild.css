@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.modal {
+    background-color: white;
+    width: 80vh;
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    position:relative;
+}
+
+.modal h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+}
+.modal .close-btn{
+    position:absolute;
+    right:2px;
+    top:2px;
+}
+.modal .input-box {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.modal .input-box:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+.modal .gender-select {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+.modal .gender {
+    width: 47%;
+    padding: 8px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.modal .girl {
+    background-color: #FED8D8;
+}
+
+.modal .boy {
+    background-color: #8192FF;
+}
+
+.modal .gender img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.modal .girl.selected {
+    border: 2px solid #ff88bb;
+}
+
+.modal .boy.selected {
+    border: 2px solid blue;
+}
+
+.modal .glitch-badge {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 4px 10px;
+    background-color: #00c896;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    transform: rotate(-3deg);
+}
+
+.modal .upload-section {
+    margin: 16px 0;
+}
+
+.modal .upload-section p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.modal .photo-upload {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+}
+
+.modal .submit-btn {
+    margin-top: 20px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal .submit-btn:hover {
+    background-color: #357ABD;
+}

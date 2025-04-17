@@ -25,5 +25,8 @@ public class MainController {
     @GetMapping("/startManage")
     public String startManage() {return "modal/startManage";}
 
+    @GetMapping("/childDetail")
+    public String childDetail() {return "child/childDetail";}
+
 }
 
