@@ -38,7 +38,7 @@ $(document).ready(function() {
     })
 
     // 비밀번호 확인
-    $(".pass-check").on("change", function() {
+    $(".pass-check,.pass").on("change", function() {
         var password = $(".pass").val()
         var passCheck = $(".pass-check").val()
         
@@ -52,21 +52,23 @@ $(document).ready(function() {
         }
     })
 
+
     // 우편번호찾기
     $('.address-find-btn, .address-number, .address-road').on('click', function () {
-        new daum.Postcode({
-            oncomplete: function(data) {
+        // Postcode 객체를 외부에서 참조할 수 있도록 변수에 할당
+       new daum.Postcode({
+            oncomplete: function (data) {
                 // 우편번호와 주소 정보를 입력 필드에 자동으로 채워줍니다.
                 $('.address-number').val(data.zonecode); // 5자리 우편번호
                 $('.address-road').val(data.roadAddress); // 도로명 주소
                 // $('#jibunAddress').val(data.jibunAddress); // 지번 주소 (선택적)
 
                 // 예: 건물명이 있다면 표시하거나 안내 문구 등 추가 가능
-                // alert("선택된 주소: " + data.roadAddress);
+                var fullAddr = data.roadAddress;
 
                 // 좌표 변환
                 var geocoder = new kakao.maps.services.Geocoder();
-                geocoder.addressSearch(fullAddr, function(result, status) {
+                geocoder.addressSearch(fullAddr, function (result, status) {
                     if (status === kakao.maps.services.Status.OK) {
                         var lat = result[0].y;
                         var lng = result[0].x;
@@ -79,8 +81,14 @@ $(document).ready(function() {
                         // $('.address-lng').val(lng);
                     }
                 });
+
+                // 우편번호 선택 후 주소 입력이 끝나면 창을 닫기
+                self.close(); // Postcode 창 닫기
             }
-        }).open();
+            // 우편번호 검색 창 열기
+        }).open({autoClose:true});
+
+
     });
     
 
