@@ -19,6 +19,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        // 처음 접속할때 동작하는 인터셉터
         registry.addInterceptor(firstVisitInterceptor)
                 .addPathPatterns("/**"); // 모든 경로에 적용
 

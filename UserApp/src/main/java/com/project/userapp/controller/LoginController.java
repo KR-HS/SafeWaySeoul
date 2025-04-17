@@ -21,10 +21,11 @@ public class LoginController {
     public String login() {
         return "login/login";
     }
+
     @PostMapping("/loginOk")
     public String loginForm(HttpServletRequest request, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
-    // db연결후 id, pw같은지 확인
+        // db연결후 id, pw같은지 확인
         String userId="aaa123";
         String userPw="aaa123";
         // userName은 DB에서 가져오기
