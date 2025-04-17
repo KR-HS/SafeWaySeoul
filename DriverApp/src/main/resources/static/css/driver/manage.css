@@ -99,6 +99,37 @@
 
 }
 
+/* InfoWindow 스타일 */
+.info-window {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 250px;
+}
+.info-window strong {
+    font-size: 16px;
+    color: #555;
+}
+.info-window a {
+    color: #007aff;
+    text-decoration: none;
+}
+.info-window a:hover {
+    text-decoration: underline;
+}
+.info-window .address {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #666;
+}
+.info-window .phone {
+    font-size: 12px;
+    color: #666;
+}
 
 
 
