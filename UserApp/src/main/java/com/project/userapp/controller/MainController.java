@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping("/tracing")
     public String tracing(){
-        return "tracing";
+        return "/user/tracing";
     }
 
 }
