@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/css/driver/manage.css">
     <link rel="stylesheet" href="/css/child/childDetail.css">
     <script src="/js/driver/manage.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
+
 </head>
 <body>
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
@@ -19,12 +21,13 @@
             </div>
         </div>
 
+
+
         <!--지도 부분-->
         <div id="map">
 
         </div>
 
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
 
 
         <!--승하차관련-->
