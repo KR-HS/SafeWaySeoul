@@ -31,4 +31,9 @@ public class MainController {
         return "tracing";
     }
 
+    @GetMapping("/idFind")
+    public String idFind(){
+        return "/login/IdFind";
+    }
+
 }
