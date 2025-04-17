@@ -5,7 +5,7 @@
         <header class="app-header">
             <div class="logo"><a href="/home">SWS</a></div> <!--Safe Way Seoul-->
             <div class="loginInfo">
-                <p th:if="${true}" th:text="${'홍길동'}"></p>
+                <p th:if="${true}" th:text="${session.userMap.id}"></p>
             </div>
         </header>
         <th:block th:replace="${content}">
