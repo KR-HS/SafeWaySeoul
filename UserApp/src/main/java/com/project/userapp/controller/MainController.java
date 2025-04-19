@@ -1,11 +1,21 @@
 package com.project.userapp.controller;
 
+import com.project.userapp.children.service.ChildrenService;
+import com.project.userapp.command.ChildrenVO;
+import com.project.userapp.command.UserVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
 
+    @Autowired
+    private ChildrenService childrenService;
 
 
     @GetMapping("/*")
@@ -14,12 +24,22 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String home(){
+    public String home(Model model, HttpSession session) {
+        UserVO vo = (UserVO) session.getAttribute("userInfo");
+        System.out.println(vo.toString());
+        List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
+
+        model.addAttribute("children",list);
         return "home";
     }
 
     @GetMapping("/child")
-    public String child(){
+    public String child(Model model, HttpSession session) {
+        UserVO vo = (UserVO) session.getAttribute("userInfo");
+        System.out.println(vo.toString());
+        List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
+
+        model.addAttribute("children",list);
         return "/user/mypage";
     }
 

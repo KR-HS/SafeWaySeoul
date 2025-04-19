@@ -5,7 +5,8 @@
             <header class="app-header">
                 <div class="logo"><a href="/home">SWS</a></div>
                 <div class="loginInfo">
-                    <p th:if="${true}" th:text="${session.userMap.name}"></p>
+                    <a href="#" class="logout">로그아웃</a>
+                    <p th:if="${session.userInfo != null}" th:text="${session.userInfo.userName}"></p>
                 </div>
             </header>
 
