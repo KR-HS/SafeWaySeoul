@@ -102,92 +102,19 @@
       </section>
 
       <section class="kinderResult-wrap">
-        <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="1">
-          <div class="kinderInfo-wrap">
-            <div class="img-wrap">
-               <img src="/img/allKinderType.png" alt="">
-            </div>
-
-            <div class="kinderInfo">
-              <div class="infoUpper">
-                <p class="kinderTitle">햇살유치원</p>
-              </div>
-              <div class="infoUnder">
-                <p class="kinderLoc">서울시 강남구서울시 강남구서울시 강남구</p>
-                <p class="kinderCall">02-1234-5678</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="2">
+       <div class="kinderResult" th:each="kinder : ${kinderInfo}"> <!--전체/야간/주말 선택시 각각에 맞는 유치원 나오게 수정해야함-->
+          <input type="checkbox" name="kinder" value="1"> <!--checkBox valuse도 값 바꾸기 수정해야함-->
           <div class="kinderInfo-wrap">
             <div class="img-wrap">
               <img src="/img/allKinderType.png" alt="">
             </div>
             <div class="kinderInfo">
               <div class="infoUpper">
-                <p class="kinderTitle">햇살유치원</p>
+                <p class="kinderTitle">[[${kinder.kinderName}]]</p>
               </div>
               <div class="infoUnder">
-                <p class="kinderLoc">서울시 강남구</p>
-                <p class="kinderCall">02-1234-5678</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="3">
-          <div class="kinderInfo-wrap">
-            <div class="img-wrap">
-              <img src="/img/allKinderType.png" alt="">
-            </div>
-            <div class="kinderInfo">
-              <div class="infoUpper">
-                <p class="kinderTitle">햇살유치원</p>
-              </div>
-              <div class="infoUnder">
-                <p class="kinderLoc">서울시 강남구</p>
-                <p class="kinderCall">02-1234-5678</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="4">
-          <div class="kinderInfo-wrap">
-            <div class="img-wrap">
-              <img src="/img/allKinderType.png" alt="">
-            </div>
-            <div class="kinderInfo">
-              <div class="infoUpper">
-                <p class="kinderTitle">햇살유치원</p>
-              </div>
-              <div class="infoUnder">
-                <p class="kinderLoc">서울시 강남구</p>
-                <p class="kinderCall">02-1234-5678</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="kinderResult">
-          <input type="checkbox" name="kinder" value="5">
-          <div class="kinderInfo-wrap">
-            <div class="img-wrap">
-              <img src="/img/allKinderType.png" alt="">
-            </div>
-            <div class="kinderInfo">
-              <div class="infoUpper">
-                <p class="kinderTitle">햇살유치원</p>
-              </div>
-              <div class="infoUnder">
-                <p class="kinderLoc">서울시 강남구</p>
-                <p class="kinderCall">02-1234-5678</p>
+                <p class="kinderLoc">[[${kinder.kinderAddress}]]</p>
+                <p class="kinderCall">[[${kinder.kinderPhone}]]</p>
               </div>
             </div>
           </div>
