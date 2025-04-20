@@ -5,6 +5,10 @@
 
 <mapper namespace="com.project.userapp.kinder.mapper.KinderMapper">
 
+    <select id="getKinderList" resultType="KinderVO">
+        select *
+        from kinder
+    </select>
 
 
 </mapper>

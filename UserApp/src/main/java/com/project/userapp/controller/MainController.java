@@ -2,7 +2,9 @@ package com.project.userapp.controller;
 
 import com.project.userapp.children.service.ChildrenService;
 import com.project.userapp.command.ChildrenVO;
+import com.project.userapp.command.KinderVO;
 import com.project.userapp.command.UserVO;
+import com.project.userapp.kinder.service.KinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,9 @@ public class MainController {
     @Autowired
     private ChildrenService childrenService;
 
+    @Autowired
+    private KinderService kinderService;
+
 
     @GetMapping("/*")
     public String loading() {
@@ -29,7 +34,11 @@ public class MainController {
         System.out.println(vo.toString());
         List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
 
+        //전체 유치원에 관한 정보 받아오기
+        List<KinderVO> kinderList = kinderService.getKinderList();
+
         model.addAttribute("children",list);
+        model.addAttribute("kinderInfo",kinderList);
         return "home";
     }
 
