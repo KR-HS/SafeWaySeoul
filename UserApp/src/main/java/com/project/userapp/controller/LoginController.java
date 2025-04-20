@@ -1,8 +1,10 @@
 package com.project.userapp.controller;
 
 import com.project.userapp.command.UserVO;
+import com.project.userapp.user.service.UserService;
 import org.apache.coyote.Request;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,6 +19,9 @@ import java.util.Map;
 @RequestMapping("/user")
 public class LoginController {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/login")
     public String login() {
         return "login/login";
@@ -25,25 +30,27 @@ public class LoginController {
     @PostMapping("/loginOk")
     public String loginForm(HttpServletRequest request, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
-        // db연결후 id, pw같은지 확인
-        String userId="aaa123";
-        String userPw="aaa123";
-        // userName은 DB에서 가져오기
-        String userName="aaa123";
-        HttpSession session = request.getSession();
 
-        if(id.equals(userId) && pw.equals(userPw)) {
-            Map<String,String> userMap = new HashMap<String, String>();
-            userMap.put("id", userId);
-            userMap.put("pw", userPw);
-            userMap.put("name",userName);
-            session.setAttribute("userMap",userMap);
+        UserVO vo = UserVO.builder().userId(id).userPw(pw).build();
+        UserVO userVO = userService.findInfo(vo);
 
-            System.out.println("로그인성공!"+session.getAttribute("userMap"));
-            return "redirect:/home";
+        if(userVO==null){
+            ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
+            return "redirect:/user/login";
         }
 
-        ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("userInfo",userVO);
+        System.out.println("로그인성공!"+session.getAttribute("userMap"));
+
+        return "redirect:/home";
+
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("userInfo");
         return "redirect:/user/login";
     }
 
@@ -62,9 +69,18 @@ public class LoginController {
 
         // 제약 조건
         System.out.println(vo.toString());
+        int result = userService.register(vo);
+        System.out.println("등록결과"+result);
         ra.addFlashAttribute("msg","회원으로 등록되셨습니다.");
 
         return "redirect:/user/login";
     }
+
+    @GetMapping("/index")
+    public String html() {
+        return "index";
+    }
+
+
 
 }

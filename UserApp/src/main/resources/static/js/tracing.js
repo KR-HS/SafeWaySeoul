@@ -31,11 +31,11 @@ $(document).ready(function(){
         } else {
             alert('이 브라우저에서는 Geolocation을 지원하지 않습니다.');
         }
-    })
+    }
+    )
 
     $(".phonecall").on('click',function(){
         alert('통화하기버튼 작동됨');
     })
-
 
 })

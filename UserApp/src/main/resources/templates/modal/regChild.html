@@ -2,28 +2,30 @@
 <div class="modalWrap">
     <h2>아이의 첫걸음</h2>
 
-    <form action="regChildSubmit">
-    <input type="text" placeholder="내 아이의 이름을 입력해 주세요." class="input-box"/>
+    <form name="childForm" method="post" action="/child/regist" enctype="multipart/form-data">
+    <input type="text" placeholder="내 아이의 이름을 입력해 주세요." class="input-box" name="childName"/>
 
     <div class="gender-select">
-        <div class="gender girl">
+        <label for="girl" class="gender girl">
             <img src="/img/girl.png" alt="Girl" />
-        </div>
-        <div class="gender boy">
+        </label>
+        <input type="radio" name='childGender' id="girl" value="F" hidden>
+        <label for="boy" class="gender boy" >
             <img src="/img/boy.png" alt="Boy" />
-        </div>
+        </label>
+        <input type="radio" name="childGender" id="boy" value="M" hidden>
     </div>
 
-    <input type="date" placeholder="내 아이와의 처음 만난 일자를 입력해주세요" class="input-box"/>
+    <input type="text" name='childBirth' placeholder="내 아이와의 처음 만난 일자를 입력해주세요" class="input-box birth"/>
 
     <div class="upload-section">
         <p>내 아이 사진 등록하기</p>
         <label class="photo-upload" for="child-photo">
             <span>+</span>
         </label>
-        <input type="file" id="child-photo"hidden>
+        <input type="file" name='file' id="child-photo" required hidden>
     </div>
 
-    <button class="submit-btn">등록하기</button>
+    <button type="submit" class="submit-btn">등록하기</button>
     </form>
 </div>

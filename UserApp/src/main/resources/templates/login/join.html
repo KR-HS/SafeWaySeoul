@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Air Datepicker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <link rel="stylesheet" href="/css/login/join.css">
-    <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/login/join.js"></script>
-
-    <!-- flatpickr -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <!--  flatpickr 한글설정  -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 
     <!--  daum 우편번호 API  -->
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -25,45 +21,44 @@
 </head>
 <body>
 
-    <div class="join">  
+    <div class="join">
         <form class="joinForm" name = "joinForm" method="post" action="joinForm">
-            
+
             <div class="joinlogo">
                 <img src="/img/login/loginLogo.png" alt="">
             </div>
 
             <h3>회원가입</h3>
-            
+
                 <div id="id">
                     <input type="text" class="id" name="userId" placeholder="아이디" required>
                     <button type="button" class="check-btn"> 중복 확인 </button>
                 </div>
-        
+
                 <div class="join-password">
                     <input type="password" class="pass" name="userPw" placeholder="비밀번호" required><br>
                     <input type="password" class="pass-check" name="userPwCheck" placeholder="비밀번호 확인" required>
                     <p class="passMsg"></p>
                 </div>
-                
+
             <div>
                 <input type="text" class="name" name="userName" placeholder="이름" required>
                 <input type="text" class="phone" name="userPhone" placeholder="휴대폰 번호 ( '-' 제외)" maxlength="11" required>
-                <input type="text" class="birth" name="userBirth" placeholder="생년월일 8자리" required>
-
-
-                    <p>주소</p>
+                <input type="text" name="userBirth" class="birth" placeholder="생년월일 8자리" autocomplete="off" required/>
+                     <p>주소</p>
                         <div class="address">
-                            <input type="text" name="userAddressNumber" class="address-number" placeholder="우편번호" readonly required>
+                            <input type="text" name="userPostcode" class="address-number" placeholder="우편번호" readonly required>
                             <button type="button" class="address-find-btn">우편번호 찾기</button>
                         </div>
-                    <input type="text" name="userAddressRoad"  class="address-road" readonly placeholder="도로명 주소 ">
+                    <input type="text" name="userAddress"  class="address-road" readonly placeholder="도로명 주소 ">
                     <input type="text" name="userAddressDetail" class="address-detail" placeholder="상세주소 입력">
                     <input type="text" name="userType" value="U" hidden readonly>
                 <button type="button" class="join-btn">가입 하기</button>
             </div>
-      
+
         </form>
     </div>
-    
+
+
 </body>
 </html>

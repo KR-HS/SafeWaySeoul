@@ -95,6 +95,27 @@ p {
     background-color:white;
 }
 
+.birth-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.placeholder-label {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    color: #999;
+    pointer-events: none;
+    transition: 0.2s ease;
+    font-size:13px;
+}
+
+
+input:valid + .placeholder-label {
+    opacity: 0;
+
+}
+
 .join .address {
     display: flex;
     justify-content: space-between;

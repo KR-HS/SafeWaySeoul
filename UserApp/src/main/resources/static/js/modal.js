@@ -8,7 +8,7 @@ $(document).ready(function(){
     })
 
     $(".modal").on('click',function(){
-        if(event.target.className.includes('modal')){
+        if(event.target.classList.contains('modal')){
             $(this).css("display","none");
         }
     })

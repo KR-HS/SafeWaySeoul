@@ -1,0 +1,101 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: #f5d6a1;
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow: hidden; /* 스크롤 완전 차단 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .icon {
+    width: 64px;
+    height: 64px;
+    background: #2254a4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .icon span {
+    font-size: 32px;
+    color: #fff;
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+    color: #222;
+    letter-spacing: -1px;
+  }
+  .card {
+    background: #f9ecd2;
+    border-radius: 14px;
+    padding: 28px 22px 18px 22px;
+    width: 330px;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .row:last-child {
+    margin-bottom: 0;
+  }
+  .label {
+    font-size: 1rem;
+    color: #555;
+    min-width: 90px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .id {
+    font-weight: bold;
+    color: #222;
+    font-size: 1.05rem;
+  }
+  .input {
+    background: #f5f5e9;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    width: 170px;
+    box-sizing: border-box;
+    outline: none;
+    color: #222;
+    font-weight: 500;
+  }
+  .btn {
+    width: 330px;
+    background: #3b2a13;
+    color: #fff;
+    border: none;
+    border-radius: 22px;
+    font-size: 1.18rem;
+    font-weight: bold;
+    padding: 15px 0;
+    margin-top: 12px;
+    cursor: pointer; 
+    letter-spacing: 1px;
+  }
+  .btn:hover {
+    background: #291c0a;
+  }
+  

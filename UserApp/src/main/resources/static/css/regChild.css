@@ -114,8 +114,16 @@
     font-size: 32px;
     color: #999;
     cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.3s ease;
 }
-
+.modalWrap .photo-upload span{
+    text-shadow: 0 0 4px rgba(0,0,0,0.3);
+    font-size: 60px;
+    color: #ffffffcc;
+}
 .modalWrap .submit-btn {
     margin-top: 20px;
     background-color: #4A90E2;

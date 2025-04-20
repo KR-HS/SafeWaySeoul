@@ -7,70 +7,44 @@
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="/css/modal.css">
   <link rel="stylesheet" href="/css/regChild.css">
-  <script src="/js/home.js"></script>
   <script src="/js/modal.js"></script>
   <script src="/js/regChild.js"></script>
+  <script src="/js/home.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
+
+  <!-- Air Datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!--  flatpickr 한글설정  -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 </head>
 
 <body>
+<script th:inline="javascript" >
+  var msg = [[${msg}]];
+  if(msg!=null && msg!=''){
+    alert(msg);
+  }
+</script>
   <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
     <section class="app-content">
       <!--   자녀관련부분   -->
       <section class="childList-section">
           <h3>소중한 내 아이들의 걸음마</h3>
           <div class="childList">
-            <div class="childInfo-wrap viewInfo">
+            <div th:each="child : ${children}" class="childInfo-wrap viewInfo" th:data-userKey="${child.childKey}">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
-                <p>하늘이</p>
+                <p>[[${child.childName}]]</p>
               </div>
 
               <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">ㅇㅇ어린이집</p>
-              <p class="commuteType rideOn">승차중</p>
-            </div>
-            <div class="childInfo-wrap viewInfo">
-              <div class="childName">
-                <img class="gender man" src="/img/man.png" alt="">
-                <p>하늘이</p>
-              </div>
-
-              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">ㅇㅇ어린이집</p>
-              <p class="commuteType rideOn">승차중</p>
-            </div>
-            <div class="childInfo-wrap viewInfo">
-              <div class="childName">
-                <img class="gender man" src="/img/man.png" alt="">
-                <p>하늘이</p>
-              </div>
-
-              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">ㅇㅇ어린이집</p>
-              <p class="commuteType rideOn">승차중</p>
-            </div>
-            <div class="childInfo-wrap viewInfo">
-              <div class="childName">
-                <img class="gender man" src="/img/man.png" alt="">
-                <p>하늘이</p>
-              </div>
-
-              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">ㅇㅇ어린이집</p>
+              <p class="kinderName">[[${child.kinderVO.kinderName}]]</p>
               <p class="commuteType rideOn">승차중</p>
             </div>
 
-            <div class="childInfo-wrap viewInfo">
-              <div class="childName">
-                <img class="gender woman" src="/img/woman.png" alt="">
-                <p>사랑이</p>
-              </div>
-
-              <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">ㅇㅇ어린이집</p>
-              <p class="commuteType rideOff">하차완료</p>
-            </div>
 
             <div class="childInfo-wrap addChild">
               <div class="child-image"><img src="/img/plus.png" alt=""></div>
@@ -234,13 +208,6 @@
         </div>
       </section>
 
-      <!--  모달창 부분    -->
-<!--      <div class="infoModal modal">-->
-<!--        <div class="modal-content">-->
-<!--          <span class="close">&times;</span>-->
-<!--          <p>이건 정보모달창입니다!</p>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div class="addModal modal">
         <div class="modal-content">

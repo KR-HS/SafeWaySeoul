@@ -47,7 +47,19 @@ html, body {
     font-weight: bold;
     font-size: 40px;
 }
-
+.app-header > .loginInfo{
+    display:flex;
+    gap:10px;
+    align-items: center;
+}
+.app-header > .loginInfo>.logout{
+    padding:2px 10px;
+    background-color:red;
+    border-radius: 15px;
+    color:white;
+    line-height:1;
+    font-size:20px;
+}
 .app-header > .loginInfo>p{
     color:black;
     font-weight:400;

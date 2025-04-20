@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.userapp.user.mapper.UserMapper">
+    <select id='idCheck' resultType="int">
+        select count(*) from USER where user_id=#{userId}
+    </select>
+
+    <insert id="register" parameterType="UserVO">
+        INSERT INTO USER(user_id,user_pw,user_name,
+                         user_birth,user_postcode,user_address,
+                         user_address_detail,user_type,user_phone)
+        VALUES(#{userId},#{userPw}, #{userName},
+               #{userBirth},#{userPostcode},#{userAddress},
+               #{userAddressDetail},#{userType},#{userPhone})
+    </insert>
+
+    <select id="findInfo" resultType="UserVO" parameterType="UserVO">
+        select * from USER
+        where 1=1
+        <if test="userPhone != '' and userPhone != null">
+            and user_phone=#{userPhone}
+        </if>
+        <if test="userName != '' and userName != null">
+            and user_name =#{userName}
+        </if>
+        <if test="userId != '' and userId != null">
+            and user_Id =#{userPw}
+        </if>
+        <if test="userPw != '' and userPw != null">
+            and user_pw =#{userPw}
+        </if>
+
+    </select>
+
+    <update id="modify" parameterType="UserVO">
+        update USER
+        set user_pw=#{userPw}
+        <if test="userBirth != '' and userBirth != null">
+            ,user_birth =#{userBirth}
+        </if>
+        <if test="userPostcode != '' and userPostcode != null">
+            ,user_postcode =#{userPostcode}
+        </if>
+        <if test="userAddress != '' and userAddress != null">
+            ,user_address =#{userAddress}
+        </if>
+        <if test="userAddressDetail != '' and userAddressDetail != null">
+            ,user_address_detail =#{userAddressDetail}
+        </if>
+    </update>
+
+
+</mapper>

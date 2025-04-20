@@ -66,4 +66,14 @@ public class LoginController {
         return "redirect:/user/login";
     }
 
+    //로그인 성공창
+    @GetMapping("/FindUserId")
+    public String findUserIdPage() {
+        return "FindUserId"; // templates/FindUserId.html
+    }
+    //비밀번호 재설정창
+    @GetMapping("/updatePw")
+    public String updatePw() {
+        return "updatePw"; //
+    }
 }
