@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="/css/regChild.css">
   <script src="/js/modal.js"></script>
   <script src="/js/regChild.js"></script>
+  <script src="/js/myPage.js"></script>
 
-  <!-- Air Datepicker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
   <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -32,7 +32,10 @@
           <p>주소</p>
           <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
           <p>근무지</p>
-          <p>선덕고등학교 본관 3층 교무실</p>
+          <p>선덕고등학교 본관 3층 교무실</p> <!-- 근무지 날릴지 말지 물어보기 -->
+          <div class="edit-user-btn">
+            <img src="/img/edit-text.png" alt="내 정보 수정 버튼">
+          </div>
         </div>
       </div>
     </div>
@@ -43,18 +46,43 @@
 
       <!-- 자녀 리스트 -->
       <div class="child-list">
-        <div class="child-card" th:each="child : ${children}">
+        <div class="child-card" th:each="child : ${childrenList}">
           <div class="child-image">
-            <img th:src="@{/img/temp-basic-mypage-__${child.childGender == 'F' ? 'female' : 'male'}__.png}" alt="자녀 프로필 사진">
+            <img th:if="${child.childGender == 'F'}" th:src="@{/img/temp-basic-mypage-female.png}" alt="자녀 사진">
+            <img th:if="${child.childGender != 'F'}" th:src="@{/img/temp-basic-mypage-male.png}" alt="자녀 사진">
           </div>
           <div class="child-info">
             <div class="child-name">
-              <img src="/img/woman.png" alt="성별 아이콘">
+              <img th:if="${child.childGender == 'F'}" th:src="@{/img/woman.png}" alt="성별 아이콘">
+              <img th:if="${child.childGender != 'F'}" th:src="@{/img/man.png}" alt="성별 아이콘">
               <span th:text="${child.childName}"></span>
             </div>
             <p class="child-age" th:text="${child.childBirth}"></p>
           </div>
+
+          <!-- 유치원 정보 -->
+          <div class="child-kindergarten-info" th:if="${child.kinderVO != null}">
+            <p class="kinder-label">내 아이 유치원</p>
+            <div class="kinder-card">
+              <img class="kinder-thumbnail" src="/img/allKinderType.png" alt="유치원 썸네일">
+              <div class="kinder-details">
+                <div>
+                  <p class="kinder-name" th:text="${child.kinderVO.kinderName}"></p>
+                  <p class="kinder-district" th:text="${child.kinderVO.kinderAddress}"></p>
+                </div>
+                <div class="kinder-meta">
+                  <img src="/img/user.png" alt="사람 아이콘">
+                  <span class="kinder-capacity"
+                        th:text="${child.kinderVO.kinderCapacity} != null ? '정원: ' + ${child.kinderVO.kinderCapacity} + '명' : '정원 정보 없음'"></span>
+
+                  <img src="/img/location.png" alt="위치 아이콘">
+                  <span class="kinder-address" th:text="${child.kinderVO.kinderAddress}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
 
       <!-- 자녀 등록 -->
@@ -64,8 +92,8 @@
         </div>
         <a href="#" class="register-link">내 아이 등록하기</a>
       </div>
-
     </div>
+
     <!-- 모달 영역 -->
     <div class="addModal modal">
       <div class="modal-content">
@@ -75,48 +103,6 @@
     </div>
   </section>
 </th:block>
-
-
-
-<!-- 스크립트 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(function () {
-    //자녀 정보가 아예 없는 경우
-    if ($('.child-list .child-card').length === 0) {
-      $('.child-list').hide();
-      $('.child-register-box').show();
-    }
-
-    //성별 아이콘 전환
-    $('.child-card').each(function () {
-      var $card = $(this);
-      var profileSrc = $card.find('.child-image img').attr('src');
-      var isFemale = profileSrc && profileSrc.includes('female');
-
-      if (!isFemale) {
-        $card.find('.child-name img').attr('src', '/img/man.png');
-      }
-    });
-
-    // 3️자녀 등록 모달창
-    $('.register-icon-circle, .register-link').on('click', function(e) {
-      e.preventDefault();
-      $.ajax({
-        url: '/regChild',
-        method: 'GET',
-        success: function(response) {
-          $('#modal-container').html(response)
-                  .removeClass('modal-hidden')
-                  .addClass('modal-visible');
-        },
-        error: function() {
-          alert('시스템 오류입니다. 안종수한테 연락주세요.');
-        }
-      });
-    });
-  });
-</script>
 
 </body>
 </html>
