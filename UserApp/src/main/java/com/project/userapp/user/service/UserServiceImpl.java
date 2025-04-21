@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean idCheck(String userId) {
-        // false면 아이디 중복, true면 아이디 없음(회원가입 가능)
-        return userMapper.idCheck(userId)==0;
+    public int idCheck(String userId) {
+        // false면 아이디 없음, true면 아이디 중복
+        return userMapper.idCheck(userId);
     }
 
     @Override

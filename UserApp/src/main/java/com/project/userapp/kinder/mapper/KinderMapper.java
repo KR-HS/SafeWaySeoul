@@ -10,6 +10,6 @@ import java.util.List;
 public interface KinderMapper {
     List<KinderVO> getKinderList();
 
-    boolean existsByNameAndPhone(@Param("kinderName") String kinderName,@Param("kinderPhone") String kinderPhone);
+    int existsByNameAndPhone(@Param("kinderName") String kinderName,@Param("kinderPhone") String kinderPhone);
     void insertKinder(KinderVO vo);
 }

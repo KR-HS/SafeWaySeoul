@@ -14,9 +14,9 @@ public class DriverServiceImpl implements DriverService {
 
 
     @Override
-    public boolean idCheck(String userId) {
+    public int idCheck(String userId) {
         // false면 아이디 중복, true면 아이디 없음(회원가입 가능)
-        return driverMapper.idCheck(userId)==0;
+        return driverMapper.idCheck(userId);
     }
 
     @Override

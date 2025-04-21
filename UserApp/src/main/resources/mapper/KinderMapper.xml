@@ -22,8 +22,8 @@
                  )
     </insert>
 
-    <select id="existsByNameAndPhone" resultType="boolean">
-        SELECT COUNT(*) > 0
+    <select id="existsByNameAndPhone" resultType="int">
+        SELECT COUNT(*)
         FROM KINDER
         WHERE KINDER_NAME = #{kinderName} AND KINDER_PHONE = #{kinderPhone}
     </select>

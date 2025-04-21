@@ -33,13 +33,12 @@ CREATE TABLE KINDER (
     KINDER_PHONE VARCHAR(100) NOT NULL,
     KINDER_POSTCODE VARCHAR(50) NOT NULL,
 	KINDER_ADDRESS	VARCHAR(500) NOT NULL,
-	KINDER_OPEN_TIME	VARCHAR(20)	NOT NULL,
-	KINDER_CLOSE_TIME	VARCHAR(20)	NOT NULL,
+	KINDER_OPEN_TIME	VARCHAR(20)	,
+	KINDER_CLOSE_TIME	VARCHAR(20)	,
 	KINDER_WEEKEND_OPEN	CHAR DEFAULT 'N' CHECK(KINDER_WEEKEND_OPEN IN('Y','N')),
     KINDER_NIGHT_OPEN CHAR DEFAULT 'N' CHECK(KINDER_NIGHT_OPEN IN ('Y','N')),
     KINDER_CAPACITY INT
 );
-
 
 
 #파일 테이블
@@ -87,8 +86,13 @@ CREATE TABLE LOCATION(
     LATITUDE VARCHAR(200) NOT NULL,
     LONGITUDE VARCHAR(200) NOT NULL,
     LOCATION_REGTIME TIMESTAMP DEFAULT NOW(),
-    RECORD_KEY INT NOT NULL
+    RECORD_KEY INT,
+    USER_KEY INT,
+    KINDER_KEY INT
 );
+select * from kinder;
+
+select * from location;
 
 
 
@@ -115,14 +119,11 @@ DROP TABLE LOCATION;
 
 
 
-#-----------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
 # 데이터삽입
 ## 유저테이블
 INSERT INTO USER(USER_ID,USER_PW,USER_NAME,USER_BIRTH,USER_POSTCODE,USER_ADDRESS,USER_ADDRESS_DETAIL,USER_TYPE,USER_PHONE)
 VALUES('aaa123','aaa123','관리자','1998-10-30','13333','서울시 강남구 강남대로','세부주소임','U','01012345678');
-
-insert into user(user_id,user_pw,user_name,user_birth,user_postcode,user_address,user_address_detail ,user_type,user_phone)
-values('bbb123','bbb123','기사1','1970-01-20','04524','서울 중구 다산로 123','햇살유치원','D','01033334444');
 
 ## 자녀테이블
 insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
@@ -178,3 +179,5 @@ select c.*,k.*
         left join kinder k
         on km.kinder_key=k.kinder_key
         where c.parent_key=1;
+
+select * from kinder;
