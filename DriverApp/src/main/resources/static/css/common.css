@@ -68,6 +68,7 @@ html, body {
     justify-content: space-around;
     align-items: center;
     flex-shrink: 0;
+    z-index:999;
 }
 
 .app-footer button {
