@@ -1,6 +1,5 @@
  package com.project.driverapp.command;
 
- import com.project.userapp.command.KinderVO;
  import lombok.AllArgsConstructor;
  import lombok.Builder;
  import lombok.Data;
