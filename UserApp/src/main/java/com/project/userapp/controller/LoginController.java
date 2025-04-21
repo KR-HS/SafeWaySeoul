@@ -43,7 +43,7 @@ public class LoginController {
         HttpSession session = request.getSession();
 
         session.setAttribute("userInfo",userVO);
-        System.out.println("로그인성공!"+session.getAttribute("userMap"));
+        System.out.println("로그인성공!"+session.getAttribute("userInfo"));
 
         return "redirect:/home";
 
@@ -58,6 +58,7 @@ public class LoginController {
     public String join() {
         return "login/join";
     }
+
     @PostMapping("/joinForm")
     public String joinForm(UserVO vo, RedirectAttributes ra) {
         // 회원가입 기능 추가 필요 -----
@@ -75,11 +76,7 @@ public class LoginController {
 
         return "redirect:/user/login";
     }
-
-    @GetMapping("/index")
-    public String html() {
-        return "index";
-    }
+    
 
 
 

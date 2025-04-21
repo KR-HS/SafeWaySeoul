@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -19,11 +20,11 @@ public class DriverVO {
     private String userPw;
     private String userName;
     private String userBirth;
-    private String userAddressNumber;
-    private String userAddressRoad;
+    private String userPostcode;
+    private String userAddress;
     private String userAddressDetail;
-    @NotNull
     private String userType;
     private String userPhone;
+    private Timestamp userRegdate;
 
 }

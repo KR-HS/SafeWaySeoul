@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
 
         // 세션에 방문 여부가 없다면
-        if (session.getAttribute("userMap") == null) {
+        if (session.getAttribute("driverInfo") == null) {
             // 처음 진입일 경우 특정 페이지로 리다이렉트
             response.sendRedirect("/user/login");
             return false; // 이후 컨트롤러로 안 넘어감
