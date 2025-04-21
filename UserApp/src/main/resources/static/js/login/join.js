@@ -22,14 +22,36 @@ $(document).ready(function () {
     });
 
 
-    // 아이디 중복 체크
-    $(".check-btn").on("click", function () {
-        var email = $(".id").val();
-        if (email === "aaa") {
-            console.log("중복");
-        } else {
-            console.log("사용가능");
+    // 아이디 중복 확인
+    var isIdChecked = false;
+
+
+    $(".check-btn").click(function () {
+        var userId = $("input[name='userId']").val().trim();
+        if (userId === "") {
+            alert("아이디를 입력하세요.");
+            return;
         }
+        $.ajax({
+            url: "checkId",
+            type: "POST",
+            data: JSON.stringify({ userId: userId }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                if (result>0) {
+                    alert("이미 사용 중인 아이디입니다.");
+                    isIdChecked = false;
+                } else {
+                    alert("사용 가능한 아이디입니다.");
+                    isIdChecked = true;
+                }
+            },
+            error: function () {
+                alert("중복확인중 에러가 발생하였습니다.");
+                isIdChecked = false;
+            }
+        });
     });
 
     // 비밀번호 확인
@@ -71,6 +93,10 @@ $(document).ready(function () {
 
     // 회원가입 버튼 클릭
     $(".join-btn").on("click", function () {
+        if (!isIdChecked) {
+            alert("아이디 중복 확인을 해주세요.");
+            return;
+        }
         document.joinForm.submit();
     });
 });
