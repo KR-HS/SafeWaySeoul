@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 @Builder
 public class RecordVO {
     private Integer recordKey;
+    private String recordName;
+    private String recordCarName;
     private Timestamp recordStartTime;
     private Timestamp recordEndTime;
     private String recordState;

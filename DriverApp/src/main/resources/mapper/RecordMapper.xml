@@ -5,7 +5,11 @@
 
 <mapper namespace="com.project.driverapp.record.mapper.RecordMapper">
 
-
+    <select id="getRecordList" resultType="RecordVO">
+        select *
+        from RECORD
+        where DRIVER_KEY = ${driverKey}
+    </select>
 
 
 </mapper>

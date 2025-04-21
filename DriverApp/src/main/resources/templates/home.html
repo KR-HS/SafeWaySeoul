@@ -17,109 +17,30 @@
     <section class="app-content">
     <div class="driver-info">
         <img src="/img/driver_icon.png" alt="기사 아이콘" class="avatar" />
-        <div class="driver-text"><strong>오영택 기사님</strong> 반갑습니다</div>
+        <div class="driver-text"><strong>[[${driverInfo.userName}]] 기사님</strong> 반갑습니다</div>
     </div>
 
     <h2>오늘의 배차</h2>
 
         <table class="dispatch-table">
             <tbody>
-            <tr class="card completed">
+            <tr class="card" th:each="list : ${recordInfo}"
+                th:classappend="${list.recordState == 'E' ? 'completed':''} +
+                                ${list.recordState == 'S' ? 'active':''} +
+                                ${list.recordState == 'P' ? 'scheduled':''}">
                 <td>
                     <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행종료</span>
+                        <span class="labels_name">운행담당자 - [[${driverInfo.userName}]]</span>
+                        <span class="labels_status"
+                              th:text="${list.recordState == 'E' ? '운행종료':''} +
+                                       ${list.recordState == 'S' ? '운행중':''} +
+                                       ${list.recordState == 'P' ? '운행예정':''}"></span>
                     </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
+                    <div class="title" th:text="${list.recordCarName}"></div>
+                    <div class="subtitle" th:text="${list.recordName}"></div>
                     <div class="time">운행 | 09:00 ~ 09:45</div>
                 </td>
             </tr>
-
-            <tr class="card active">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행중</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
-            <tr class="card scheduled">
-                <td>
-                    <div class="labels">
-                        <span class="labels_name">운행담당자 - 오영택</span>
-                        <span class="labels_status">운행예정</span>
-                    </div>
-                    <div class="title">123가 1300 호랑이차량</div>
-                    <div class="subtitle">오전 동대문구 1노선</div>
-                    <div class="time">운행 | 09:00 ~ 09:45</div>
-                </td>
-            </tr>
-
             </tbody>
         </table>
 
