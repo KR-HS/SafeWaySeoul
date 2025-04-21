@@ -8,26 +8,22 @@
 <body>
 
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-
   <section class="app-content">
 
     <!-- 내 정보 -->
     <div class="user-info-section">
       <h5 class="section-title">내 정보</h5>
-
       <div class="user-card">
         <div class="user-image">
           <img src="/img/temp-basic-mypage-male.png" alt="내 프로필 사진">
         </div>
         <div class="user-details">
-          <p class="user-name">고길동님</p>
-          <p class="user-phone">010-1234-4567</p>
-          <p class="user-region">주소</p>
-          <p class="user-address">서울시 강남구 도곡로 123</p>
-          <div class="user-workplace"> <!-- DB에 값 없을 시 display: none -->
-            <p class="workplace-label">근무지</p>
-            <p class="workplace-detail">서울시청 본관 3층</p>
-          </div>
+          <p class="user-name" th:text="${session.userInfo.userName}"></p>
+          <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
+          <p>주소</p>
+          <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
+          <p>근무지</p>
+          <p>선덕고등학교 본관 3층 교무실</p>
         </div>
       </div>
     </div>
@@ -36,41 +32,20 @@
     <div class="child-info-section">
       <h5 class="section-title">우리 아이</h5>
 
+      <!-- 자녀 리스트 -->
       <div class="child-list">
-        <!-- 자녀 데이터가 없을 경우 display: none -->
-        <div class="child-card">
+        <div class="child-card" th:each="child : ${children}">
           <div class="child-image">
-            <img src="/img/temp-basic-mypage-female.png" alt="자녀 프로필 사진">
+            <img th:src="@{/img/temp-basic-mypage-__${child.childGender == 'F' ? 'female' : 'male'}__.png}" alt="자녀 프로필 사진">
           </div>
           <div class="child-info">
             <div class="child-name">
               <img src="/img/woman.png" alt="성별 아이콘">
-              <span>사랑이</span>
+              <span th:text="${child.childName}"></span>
             </div>
-            <p class="child-age">4세</p>
-          </div>
-          <div class="child-kindergarten-info">
-            <p class="kinder-label">내 아이 유치원</p>
-            <div class="kinder-card">
-              <img class="kinder-thumbnail" src="/img/kinder-thumbnail.png" alt="유치원 썸네일">
-              <div class="kinder-details">
-                <div>
-                  <p class="kinder-district">서울시 관악구</p>
-                  <p class="kinder-name">행복유치원</p>
-                </div>
-                <div class="kinder-meta">
-                  <img src="/img/user.png" alt="사람 아이콘">
-                  <span class="kinder-capacity">정원: 78명</span>
-                  <img src="/img/location.png" alt="위치 아이콘">
-                  <span class="kinder-address">서울 관악구 관악로 1</span>
-                </div>
-              </div>
-            </div>
+            <p class="child-age" th:text="${child.childBirth}"></p>
           </div>
         </div>
-
-        <!-- 자녀 카드 추가 등록 가능 -->
-
       </div>
 
       <!-- 자녀 등록 -->
@@ -83,10 +58,50 @@
 
     </div>
   </section>
-
 </th:block>
 
+<!-- 모달 영역 -->
+<div id="modal-container" class="modal-hidden"></div>
 
+<!-- 스크립트 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(function () {
+    //자녀 정보가 아예 없는 경우
+    if ($('.child-list .child-card').length === 0) {
+      $('.child-list').hide();
+      $('.child-register-box').show();
+    }
+
+    //성별 아이콘 전환
+    $('.child-card').each(function () {
+      var $card = $(this);
+      var profileSrc = $card.find('.child-image img').attr('src');
+      var isFemale = profileSrc && profileSrc.includes('female');
+
+      if (!isFemale) {
+        $card.find('.child-name img').attr('src', '/img/man.png');
+      }
+    });
+
+    // 3️자녀 등록 모달창
+    $('.register-icon-circle, .register-link').on('click', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/regChild',
+        method: 'GET',
+        success: function(response) {
+          $('#modal-container').html(response)
+                  .removeClass('modal-hidden')
+                  .addClass('modal-visible');
+        },
+        error: function() {
+          alert('시스템 오류입니다. 안종수한테 연락주세요.');
+        }
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
