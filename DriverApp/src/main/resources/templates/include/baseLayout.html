@@ -5,7 +5,8 @@
         <header class="app-header">
             <div class="logo"><a href="/home">SWS</a></div> <!--Safe Way Seoul-->
             <div class="loginInfo">
-                <p th:if="${true}" th:text="${session.driverInfo.userId}"></p>
+                <a href="#" class="logout">로그아웃</a>
+                <p th:if="${true}" th:text="${session.driverInfo.userName}"></p>
             </div>
         </header>
         <th:block th:replace="${content}">
