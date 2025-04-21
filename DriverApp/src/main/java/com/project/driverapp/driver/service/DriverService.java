@@ -1,7 +1,10 @@
 package com.project.driverapp.driver.service;
 
 
+import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
+
+import java.util.List;
 
 public interface DriverService {
 
@@ -9,4 +12,6 @@ public interface DriverService {
     int register(DriverVO userVO); // 회원가입
     DriverVO findInfo(DriverVO vo);// 회원정보 찾기
     int modify(DriverVO userVO);// 회원정보 변경
+
+    List<ChildrenVO> manageOfChildren(int recordKey);
 }

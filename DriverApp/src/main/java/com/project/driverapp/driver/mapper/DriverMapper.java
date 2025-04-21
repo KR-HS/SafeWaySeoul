@@ -1,7 +1,10 @@
 package com.project.driverapp.driver.mapper;
 
+import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface DriverMapper {
@@ -9,4 +12,8 @@ public interface DriverMapper {
     int register(DriverVO userVO); // 회원가입
     DriverVO findInfo(DriverVO vo);// 회원정보 찾기(아이디찾기, 비밀번호찾기, 로그인)
     int modify(DriverVO userVO);// 회원정보 변경
+
+
+    List<ChildrenVO> manageOfChildren(int recordKey);
+
 }

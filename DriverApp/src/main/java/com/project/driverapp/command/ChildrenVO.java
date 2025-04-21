@@ -17,4 +17,9 @@ public class ChildrenVO {
      private Integer parentKey;
 
      private KinderVO kinderVO;
+     private DriverVO userVO;
+
+     //승하차여부
+     private String dropState;
+
 }
