@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Driver;
@@ -23,6 +24,9 @@ public class MainController {
 
     @Autowired
     private RecordService recordService;
+
+    @Autowired
+    private DriverService driverService;
 
 
     @GetMapping("/*")
@@ -43,9 +47,15 @@ public class MainController {
         return "home";
     }
     @GetMapping("/manage")
-    public String manage() {
+    public String manage(Model model, @RequestParam(required = false) Integer recordKey) {
+
+        // recordKey에 해당하는 아이들 정보 조회
+        List<ChildrenVO> childrenList = driverService.manageOfChildren(recordKey);
+
+        model.addAttribute("childrenList", childrenList);
+
         return "driver/manage";
-    } 
+    }
     
     @GetMapping("/startManage")
     public String startManage() {return "modal/startManage";}

@@ -81,66 +81,20 @@
 
         ///////////////////////////////////////////
         <!--승하차관련-->
-        <div class="children-list">
-            <div class="boarding-status">3명 남음 - 1명 완료</div>
-
-            <div class="list-card">
-                <div class="list-box">
-                    <div class="list-img">
-                        <img src="/img/child.png" alt="아이사진">
-                    </div>
-                    <div class="list-content">
-                        <div>홍길동(5세)</div>
-                        <div>동대문구 답십리 1동</div>
-                        <div>하차 시간 --:-- </div>
-                    </div>
-                    <div class="list-time done">하차 완료</div>
+        <div class="list-card" th:each="child : ${childrenList}">
+            <div class="list-box">
+                <div class="list-img">
+                    <img src="/img/child.png" alt="아이사진">
                 </div>
-            </div>
-            <div class="list-card">
-                <div class="list-box">
-                    <div class="list-img">
-                        <img src="/img/child.png" alt="아이사진">
-                    </div>
-                    <div class="list-content">
-                        <div>홍길자(4세)</div>
-                        <div>동대문구 답십리 2동</div>
-                        <div>하차 시간 --:-- </div>
-                    </div>
-                    <div class="list-time">하차</div>
+                <div class="list-content">
+                    <div th:text="${child.childName}">이름(나이)</div>
+                    <div th:text="${child.kinderVO.kinderAddress}">주소</div>
+<!--                    <div th:text="'하차 시간 ' + (${child.dropoffTime} ?: '')">하차 시간 &#45;&#45;:&#45;&#45; </div>-->
                 </div>
+                <div th:class="'list-time' + (${child.dropState} == '완료' ? ' done' : '')"
+                     th:text="${child.dropState} == '완료' ? '하차 완료' : '하차'">하차</div>
             </div>
-            <div class="list-card">
-                <div class="list-box">
-                    <div class="list-img">
-                        <img src="/img/child.png" alt="아이사진">
-                    </div>
-                    <div class="list-content">
-                        <div>홍길동(5세)</div>
-                        <div>동대문구 답십리 1동</div>
-                        <div>하차 시간 --:-- </div>
-                    </div>
-                    <div class="list-time done">하차 완료</div>
-                </div>
-            </div>
-            <div class="list-card">
-                <div class="list-box">
-                    <div class="list-img">
-                        <img src="/img/child.png" alt="아이사진">
-                    </div>
-                    <div class="list-content">
-                        <div>홍길자(4세)</div>
-                        <div>동대문구 답십리 2동</div>
-                        <div>하차 시간 --:-- </div>
-                    </div>
-                    <div class="list-time">하차   </div>
-                </div>
-            </div>
-
-
-
         </div>
-
         <div class="addModal modal">
             <div class="modal-content">
                 <th:block th:replace="~{/child/childDetail}"></th:block>

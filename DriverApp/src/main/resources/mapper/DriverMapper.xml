@@ -4,6 +4,65 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.driverapp.driver.mapper.DriverMapper">
+
+    <!-- id는 resultMap의 이름, type에는 객체타입 -->
+    <!-- id = 키에 대한 맵핑,  property  = 멤버변수명, column = 실제컬럼명-->
+    <resultMap id="manageOfChildren" type="ChildrenVO">
+        <id property="childKey" column="child_key" />
+        <result property="childName" column="child_name" />
+        <result property="childBirth" column="child_birth" />
+        <result property="childGender" column="child_gender" />
+        <result property="parentKey" column="parent_key"/>
+        <result property="dropState" column="drop_state"/>
+
+        <!-- 연관 유치원 정보 -->
+        <association property="kinderVO" javaType="KinderVO">
+            <id property="kinderKey" column="kinder_key"/>
+            <result property="kinderName" column="kinder_name"/>
+            <result property="kinderPostcode" column="kinder_postcode"/>
+            <result property="kinderAddress" column="kinder_address"/>
+            <result property="kinderOpenTime" column="kinder_open_time"/>
+            <result property="kinderCloseTime" column="kinder_close_time"/>
+            <result property="kinderWeekendOpen" column="kinder_weekend_open"/>
+            <result property="kinderNightOpen" column="kinder_night_open"/>
+        </association>
+
+        <association property="userVO" javaType="DriverVO">
+            <id property="userKey" column="user_key"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPw" column="user_pw"/>
+            <result property="userName" column="user_name"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userPostcode" column="user_postcode"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userAddressDetail" column="user_address_detail"/>
+            <result property="userType" column="user_type"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRegdate" column="user_regdate"/>
+        </association>
+
+    </resultMap>
+
+    <select id="manageOfChildren" resultMap="manageOfChildren" parameterType="int">
+        select c.*, u.*, k.*
+        from children c
+                 left join user u on u.user_key = c.parent_key
+                 left join kindermatch km on c.child_key = km.child_key
+                 left join kinder k on km.kinder_key = k.kinder_key
+        where c.child_key in (
+            select child_key
+            from kindermatch
+            where km_key in (
+                select km_key
+                from recordmatch
+                where record_key = #{recordKey}
+            )
+        )
+    </select>
+
+
+
+
     <select id='idCheck' resultType="int">
         select count(*) from USER where user_id=#{userId}
     </select>

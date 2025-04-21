@@ -1,10 +1,13 @@
 package com.project.driverapp.driver.service;
 
 
+import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DriverServiceImpl implements DriverService {
@@ -33,5 +36,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public int modify(DriverVO driverVO) {
         return driverMapper.modify(driverVO);
+    }
+
+    @Override
+    public List<ChildrenVO> manageOfChildren(int recordKey) {
+        return driverMapper.manageOfChildren(recordKey);
     }
 }

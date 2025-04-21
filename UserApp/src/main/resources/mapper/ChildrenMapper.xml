@@ -24,6 +24,7 @@
             <result property="kinderWeekendOpen" column="kinder_weekend_open"/>
             <result property="kinderNightOpen" column="kinder_night_open"/>
         </association>
+
     </resultMap>
 
 

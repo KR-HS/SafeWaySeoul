@@ -19,5 +19,4 @@ public class KinderVO {
     private String kinderCloseTime;
     private String kinderWeekendOpen;
     private String kinderNightOpen;
-    private Integer kinderCapacity;
 }
