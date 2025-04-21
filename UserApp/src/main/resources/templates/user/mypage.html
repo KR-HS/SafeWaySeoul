@@ -4,6 +4,15 @@
   <th:block th:replace="/include/headerBaseLayout"/>
   <title>유저 자녀관리 & 마이페이지</title>
   <link rel="stylesheet" href="/css/mypage.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/regChild.css">
+  <script src="/js/modal.js"></script>
+  <script src="/js/regChild.js"></script>
+
+  <!-- Air Datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -50,18 +59,24 @@
 
       <!-- 자녀 등록 -->
       <div class="child-card child-register-box">
-        <div class="register-icon-circle">
+        <div class="register-icon-circle addChild">
           <img src="/img/plusAddLogo.png" alt="아이 등록 버튼" class="register-icon">
         </div>
         <a href="#" class="register-link">내 아이 등록하기</a>
       </div>
 
     </div>
+    <!-- 모달 영역 -->
+    <div class="addModal modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <th:block th:replace="~{/modal/regChild}"></th:block>
+      </div>
+    </div>
   </section>
 </th:block>
 
-<!-- 모달 영역 -->
-<div id="modal-container" class="modal-hidden"></div>
+
 
 <!-- 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

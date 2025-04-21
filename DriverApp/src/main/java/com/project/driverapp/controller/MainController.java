@@ -25,11 +25,10 @@ public class MainController {
 
     @GetMapping("/home")
     public String home(Model model, HttpSession session) {
-        DriverVO vo = (DriverVO) session.getAttribute("dirverInfo");
+        DriverVO vo = (DriverVO) session.getAttribute("driverInfo");
         System.out.println(vo.toString());
-        List<ChildrenVO> list = childrenService.findByKinder(vo.getUserPostcode(), vo.getUserAddressDetail());
 
-        model.addAttribute("children",list);
+
         return "home";
     }
     @GetMapping("/manage")

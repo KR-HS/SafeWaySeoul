@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -75,5 +76,50 @@ public class MainController {
     public String updatePw() {
         return "updatePw"; //
     }
+
+
+//    @GetMapping("/mypage")
+//    public String mypage(HttpSession session, Model model) {
+//
+//        // 테스트용 세션
+//        UserVO testUser = (UserVO) session.getAttribute("userInfo");
+//
+//        if (testUser == null) {
+//            testUser = UserVO.builder()
+//                    .userKey(1)
+//                    .userId("testuser01")
+//                    .userName("대종수")
+//                    .userPhone("010-1234-5678")
+//                    .userType("PARENT")
+//                    .userAddress("서울시 도봉구 시루봉로6길")
+//                    .build();
+//            session.setAttribute("userInfo", testUser);
+//        }
+//
+//        // 테스트용 자녀 리스트 생성
+//        List<ChildrenVO> children = new ArrayList<>();
+//
+//        ChildrenVO child1 = ChildrenVO.builder()
+//                .childName("강유진")
+//                .childBirth("2020-06-01")
+//                .childGender("F")
+//                .parentKey(testUser.getUserKey())
+//                .build();
+//
+//        ChildrenVO child2 = ChildrenVO.builder()
+//                .childName("소종수")
+//                .childBirth("2024-12-25")
+//                .childGender("M")
+//                .parentKey(testUser.getUserKey())
+//                .build();
+//
+//        children.add(child1);
+//        children.add(child2);
+//
+//        model.addAttribute("children", children);
+//
+//        return "/user/mypage";
+//    }
+
 
 }
