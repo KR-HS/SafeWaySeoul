@@ -81,8 +81,7 @@ $(document).ready(function () {
                         var lat = result[0].y;
                         var lng = result[0].x;
 
-                        console.log("위도:", lat);
-                        console.log("경도:", lng);
+
                     }
                 });
 
