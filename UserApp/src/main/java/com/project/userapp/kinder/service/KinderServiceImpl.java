@@ -86,8 +86,11 @@ public class KinderServiceImpl implements KinderService {
                         .kinderNightOpen(node.path("CRSPEC").asText().contains("야간") ? "Y" : "N")
                         .build();
 
-                String abolished = node.path("CRABLDT").asText();
-                if (abolished != null && !abolished.trim().isEmpty()) continue;
+                String closed = node.path("CRABLDT").asText();
+                if (closed != null || !closed.trim().isEmpty()
+                        || node.path("ZIPCODE").asText()==null
+                        || node.path("ZIPCODE").asText().trim().isEmpty())
+                    continue;
 
                 if (!(kinderMapper.existsByNameAndPhone(vo.getKinderName(), vo.getKinderPhone())>0)){
                     kinderMapper.insertKinder(vo);
