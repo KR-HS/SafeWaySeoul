@@ -30,7 +30,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**") // 모든 경로에 적용
                 .excludePathPatterns( "/",               // 첫 방문 페이지
                     "/user/*", // 유저로그인관련
-                        //"/mypage",
                     "/css/**", "/js/**", "/img/**", "/favicon.ico"); // 정적 리소스 제외); // 리다이렉트 대상은 제외!
 
     }

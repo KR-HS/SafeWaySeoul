@@ -47,9 +47,13 @@ public class MainController {
     public String child(Model model, HttpSession session) {
         UserVO vo = (UserVO) session.getAttribute("userInfo");
         System.out.println(vo.toString());
+
         List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
 
-        model.addAttribute("children",list);
+        model.addAttribute("childrenList", list); // 자녀 정보도 리스트에 담아 전달
+        model.addAttribute("userInfo", vo);       // 사용자 정보 전달
+
+
         return "/user/mypage";
     }
 
@@ -76,50 +80,6 @@ public class MainController {
     public String updatePw() {
         return "updatePw"; //
     }
-
-
-//    @GetMapping("/mypage")
-//    public String mypage(HttpSession session, Model model) {
-//
-//        // 테스트용 세션
-//        UserVO testUser = (UserVO) session.getAttribute("userInfo");
-//
-//        if (testUser == null) {
-//            testUser = UserVO.builder()
-//                    .userKey(1)
-//                    .userId("testuser01")
-//                    .userName("대종수")
-//                    .userPhone("010-1234-5678")
-//                    .userType("PARENT")
-//                    .userAddress("서울시 도봉구 시루봉로6길")
-//                    .build();
-//            session.setAttribute("userInfo", testUser);
-//        }
-//
-//        // 테스트용 자녀 리스트 생성
-//        List<ChildrenVO> children = new ArrayList<>();
-//
-//        ChildrenVO child1 = ChildrenVO.builder()
-//                .childName("강유진")
-//                .childBirth("2020-06-01")
-//                .childGender("F")
-//                .parentKey(testUser.getUserKey())
-//                .build();
-//
-//        ChildrenVO child2 = ChildrenVO.builder()
-//                .childName("소종수")
-//                .childBirth("2024-12-25")
-//                .childGender("M")
-//                .parentKey(testUser.getUserKey())
-//                .build();
-//
-//        children.add(child1);
-//        children.add(child2);
-//
-//        model.addAttribute("children", children);
-//
-//        return "/user/mypage";
-//    }
 
 
 }
