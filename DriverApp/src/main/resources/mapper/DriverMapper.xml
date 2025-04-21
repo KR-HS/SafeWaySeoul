@@ -27,7 +27,7 @@
             and user_name =#{userName}
         </if>
         <if test="userId != '' and userId != null">
-            and user_Id =#{userPw}
+            and user_Id =#{userId}
         </if>
         <if test="userPw != '' and userPw != null">
             and user_pw =#{userPw}
