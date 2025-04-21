@@ -27,7 +27,7 @@ public class MainController {
     public String home(Model model, HttpSession session) {
         DriverVO vo = (DriverVO) session.getAttribute("dirverInfo");
         System.out.println(vo.toString());
-        List<ChildrenVO> list = childrenService.findByKinder(vo.get);
+        List<ChildrenVO> list = childrenService.findByKinder(vo.getUserPostcode(), vo.getUserAddressDetail());
 
         model.addAttribute("children",list);
         return "home";
