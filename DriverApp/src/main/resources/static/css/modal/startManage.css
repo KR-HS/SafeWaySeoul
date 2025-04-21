@@ -4,7 +4,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 /* 모달 오버레이 */

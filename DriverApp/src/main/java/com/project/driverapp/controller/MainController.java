@@ -3,12 +3,16 @@ package com.project.driverapp.controller;
 import com.project.driverapp.children.service.ChildrenService;
 import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.command.RecordVO;
+import com.project.driverapp.driver.service.DriverService;
+import com.project.driverapp.record.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Driver;
 import java.util.List;
 
 @Controller
@@ -16,6 +20,9 @@ public class MainController {
 
     @Autowired
     ChildrenService childrenService;
+
+    @Autowired
+    private RecordService recordService;
 
 
     @GetMapping("/*")
@@ -28,6 +35,10 @@ public class MainController {
         DriverVO vo = (DriverVO) session.getAttribute("driverInfo");
         System.out.println(vo.toString());
 
+        List<RecordVO> list = recordService.getRecordList(vo.getUserKey());
+        System.out.println(list.toString());
+        model.addAttribute("driverInfo", vo);
+        model.addAttribute("recordInfo", list);
 
         return "home";
     }
