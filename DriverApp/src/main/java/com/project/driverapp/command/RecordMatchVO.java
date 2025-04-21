@@ -5,16 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecordVO {
+public class RecordMatchVO {
+    private Integer rmKey;
+    private Integer kmKey;
     private Integer recordKey;
-    private Timestamp recordStartTime;
-    private Timestamp recordEndTime;
-    private String recordState;
-    private Integer driverKey;
 }

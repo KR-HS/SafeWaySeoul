@@ -1,6 +1,9 @@
 package com.project.driverapp.controller;
 
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.driver.mapper.DriverMapper;
+import com.project.driverapp.driver.service.DriverService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,39 +13,42 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
 public class LoginController {
 
+    @Autowired
+    private DriverService driverService;
+
     @GetMapping("/login")
     public String login() {
         return "login/login";
     }
+
     @PostMapping("/loginOk")
     public String loginForm(HttpServletRequest request, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
-    // db연결후 id, pw같은지 확인
-        String userId="aaa123";
-        String userPw="aaa123";
-        // userName은 DB에서 가져오기
-        String userName="aaa123";
-        HttpSession session = request.getSession();
+        DriverVO vo = DriverVO.builder().userId(id).userPw(pw).build();
+        DriverVO userVO = driverService.findInfo(vo);
 
-        if(id.equals(userId) && pw.equals(userPw)) {
-            Map<String,String> userMap = new HashMap<String, String>();
-            userMap.put("id", userId);
-            userMap.put("pw", userPw);
-            userMap.put("name",userName);
-            session.setAttribute("userMap",userMap);
-
-            System.out.println("로그인성공!"+session.getAttribute("userMap"));
-            return "redirect:/home";
+        if(userVO==null){
+            ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
+            return "redirect:/user/login";
         }
 
-        ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("driverInfo",userVO);
+        System.out.println("로그인성공!"+session.getAttribute("driverInfo"));
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("driverInfo");
         return "redirect:/user/login";
     }
 
@@ -50,6 +56,7 @@ public class LoginController {
     public String join() {
         return "login/join";
     }
+
     @PostMapping("/joinForm")
     public String joinForm(DriverVO vo, RedirectAttributes ra) {
         // 회원가입 기능 추가 필요 -----
@@ -61,6 +68,8 @@ public class LoginController {
 
         // 제약 조건
         System.out.println(vo.toString());
+        int result = driverService.register(vo);
+        System.out.println("등록결과"+result);
         ra.addFlashAttribute("msg","회원으로 등록되셨습니다.");
 
         return "redirect:/user/login";
