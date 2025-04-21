@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.userapp.location.mapper.LocationMapper">
+
+
+    <insert id="registLocation" parameterType="LocationVO">
+        insert into LOCATION(latitude,longitude
+        <if test="recordKey!=null and recordKey!=''">
+            ,record_key
+        </if>
+        <if test="userKey!=null and userKey!=''">
+            ,user_key
+        </if>
+        <if test="kinderKey!=null and kinderKey!=''">
+            ,kinder_key
+        </if>
+        )
+        values(#{latitude},#{longitude}
+        <if test="recordKey!=null and recordKey!=''">
+            ,#{recordKey}
+        </if>
+        <if test="userKey!=null and userKey!=''">
+            ,#{userKey}
+        </if>
+        <if test="kinderKey!=null and kinderKey!=''">
+            ,#{kinderKey}
+        </if>
+        )
+    </insert>
+
+
+</mapper>

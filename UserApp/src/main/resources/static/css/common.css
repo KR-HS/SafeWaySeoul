@@ -98,6 +98,7 @@ html, body {
     padding-bottom:5px;
     align-items: center;
     flex-shrink: 0;
+    z-index:999;
 }
 
 .app-footer> .menu{

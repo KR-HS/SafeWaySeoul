@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface KinderService {
     List<KinderVO> getKinderList();
+    void registKinderAPI();
 }
