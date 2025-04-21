@@ -44,11 +44,12 @@
     </resultMap>
 
     <select id="manageOfChildren" resultMap="manageOfChildren" parameterType="int">
-        select c.*, u.*, k.*
+        select c.*, u.*, k.*,rm.drop_state
         from children c
                  left join user u on u.user_key = c.parent_key
                  left join kindermatch km on c.child_key = km.child_key
                  left join kinder k on km.kinder_key = k.kinder_key
+                 left join recordmatch rm on km.km_key = rm.km_key
         where c.child_key in (
             select child_key
             from kindermatch

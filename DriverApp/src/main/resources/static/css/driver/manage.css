@@ -65,6 +65,7 @@
     height: 32px;
 }
 .list-content {
+    flex:1; /*남은공간 차기하기*/
     border: none;
     font-size: 14px;
     line-height: 1.5;

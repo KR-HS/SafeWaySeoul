@@ -27,7 +27,8 @@
             <tr class="card" th:each="list : ${recordInfo}"
                 th:classappend="${list.recordState == 'E' ? 'completed':''} +
                                 ${list.recordState == 'S' ? 'active':''} +
-                                ${list.recordState == 'P' ? 'scheduled':''}">
+                                ${list.recordState == 'P' ? 'scheduled':''}"
+                th:attr="data-record-key=${list.recordKey}"> <!--recodkey받기위해추가-->
                 <td>
                     <div class="labels">
                         <span class="labels_name">운행담당자 - [[${driverInfo.userName}]]</span>

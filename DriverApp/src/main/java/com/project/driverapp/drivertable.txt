@@ -1,0 +1,290 @@
+# 테이블생성
+## 유저 테이블(기사, 학부모)
+CREATE TABLE USER (
+	USER_KEY	INT	PRIMARY KEY AUTO_INCREMENT,
+	USER_ID	VARCHAR(20)	UNIQUE,
+	USER_PW	VARCHAR(20)	NOT NULL,
+	USER_NAME	VARCHAR(30)	NOT NULL,
+	USER_BIRTH	VARCHAR(30)	NOT NULL,
+	USER_POSTCODE	VARCHAR(100) NOT NULL, # USER_TYPE에 따라 유치원주소, 거주지주소로 쓰임
+	USER_ADDRESS	VARCHAR(1000) NOT NULL,
+	USER_ADDRESS_DETAIL	VARCHAR(1000),
+	USER_TYPE	CHAR NOT NULL CHECK(USER_TYPE IN('U','D')),
+	USER_PHONE	VARCHAR(100),
+    USER_REGDATE TIMESTAMP DEFAULT NOW()
+);
+
+
+## 자녀 테이블
+CREATE TABLE CHILDREN (
+	CHILD_KEY	INT	PRIMARY KEY AUTO_INCREMENT,
+	CHILD_NAME	VARCHAR(30)	NOT NULL,
+	CHILD_BIRTH	VARCHAR(30)	NOT NULL,
+	CHILD_GENDER CHAR NOT NULL CHECK(CHILD_GENDER IN ('M','F')),
+	PARENT_KEY	INT	NOT NULL  # 부모 테이블의 유저키
+);
+
+
+
+#유치원 테이블
+CREATE TABLE KINDER (
+	KINDER_KEY	INT PRIMARY KEY AUTO_INCREMENT,
+	KINDER_NAME	VARCHAR(100) NOT NULL,
+    KINDER_PHONE VARCHAR(100) NOT NULL,
+    KINDER_POSTCODE VARCHAR(50) NOT NULL,
+	KINDER_ADDRESS	VARCHAR(500) NOT NULL,
+	KINDER_OPEN_TIME	VARCHAR(20)	,
+	KINDER_CLOSE_TIME	VARCHAR(20)	,
+	KINDER_WEEKEND_OPEN	CHAR DEFAULT 'N' CHECK(KINDER_WEEKEND_OPEN IN('Y','N')),
+    KINDER_NIGHT_OPEN CHAR DEFAULT 'N' CHECK(KINDER_NIGHT_OPEN IN ('Y','N')),
+    KINDER_CAPACITY INT
+);
+drop table kinder;
+
+#파일 테이블
+CREATE TABLE FILES (
+	FILE_KEY	INT	PRIMARY KEY AUTO_INCREMENT,
+	FILE_NAME	VARCHAR(1000) NOT NULL,
+    FILE_PATH 	VARCHAR(1500) NOT NULL,
+    FILE_UUID	VARCHAR(1500) NOT NULL,
+	FILE_REGDATE	TIMESTAMP	NULL,
+	CHILD_KEY	INT	, # 자녀 아이디
+	KINDER_KEY	INT	, # 어린이집 아이디
+	USER_KEY	INT	# 유저 아이디
+);
+
+# 어린이집, 자녀 매칭 테이블 (어떤 아이가 어떤 유치원에 다니고있는가)
+CREATE TABLE KINDERMATCH(
+	KM_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    KM_PICKUP CHAR default 'Y' CHECK(KM_PICKUP IN ('Y','N')),
+    CHILD_KEY INT NOT NULL,
+    KINDER_KEY INT NOT NULL default 1
+    
+);
+
+
+
+# 운행정보 테이블
+CREATE TABLE RECORD(
+	RECORD_KEY INT PRIMARY KEY AUTO_INCREMENT, #운행정보ID
+    RECORD_START_TIME TIMESTAMP , # 운행시작시간
+    RECORD_END_TIME TIMESTAMP , # 운행종료시간
+    RECORD_STATE CHAR DEFAULT 'P' CHECK(RECORD_STATE IN ('P','S','E')), # P = 예정(PLAN), S = 진행중(START), E = 종료(END)
+    DRIVER_KEY INT NOT NULL
+);
+
+# 운행정보 테이블(찬영)
+CREATE TABLE RECORD(
+   RECORD_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    RECORD_NAME VARCHAR(100),
+    RECORD_CAR_NAME VARCHAR(100),
+    RECORD_START_TIME TIMESTAMP DEFAULT NOW(), # 운행시작시간
+    RECORD_END_TIME TIMESTAMP , # 운행종료시간
+    RECORD_STATE CHAR DEFAULT 'P' CHECK(RECORD_STATE IN ('P','S','E')), # P = 예정(PLAN), S = 진행중(START), E = 종료(END)
+    DRIVER_KEY INT NOT NULL
+);
+## 운행정보
+INSERT INTO RECORD(RECORD_NAME, RECORD_CAR_NAME, RECORD_STATE, DRIVER_KEY)
+VALUES
+('오전 동대문구 1노선', '123가 3000 호랑이차량', 'E', 2),
+('오전 동대문구 2노선', '123가 4000 고양이차량', 'S', 2),
+('오후 동대문구 1노선', '123가 5000 벤츠차량', 'P', 2);
+
+select * from record;
+
+# 운행정보 -  (어린이집, 자녀 매칭 테이블) 매칭 테이블
+CREATE TABLE RECORDMATCH(
+	RM_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    KM_KEY INT NOT NULL,
+    RECORD_KEY INT NOT NULL,
+    DROP_STATE VARCHAR(10)    
+);
+
+
+CREATE TABLE LOCATION(
+	LOCATION_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    LATITUDE VARCHAR(200) NOT NULL,
+    LONGITUDE VARCHAR(200) NOT NULL,
+    LOCATION_REGTIME TIMESTAMP DEFAULT NOW(),
+    RECORD_KEY INT,
+	USER_KEY INT,
+    KINDER_KEY INT
+);
+
+
+
+
+
+#-----------------------------------------------------------------------------------------------------------------
+# 테이블삭제
+## 유저테이블삭제
+DROP TABLE USER;
+## 자녀 테이블삭제
+DROP TABLE CHILDREN;
+## 유치원 테이블 삭제
+DROP TABLE KINDER;
+## 파일 테이블 삭제
+DROP TABLE FILES;
+## 자녀- 유치원 매치 테이블 삭제
+DROP TABLE KINDERMATCH;
+## 운행정보 테이블삭제
+DROP TABLE RECORD;
+## 운행정보 -  (어린이집, 자녀 매칭 테이블) 매칭 테이블 삭제
+DROP TABLE RECORDMATCH;
+## 위치 테이블 삭제
+DROP TABLE LOCATION;
+
+
+
+#-----------------------------------------------------------------------------------------------------------------
+# 데이터삽입
+## 유저테이블
+INSERT INTO USER(USER_ID,USER_PW,USER_NAME,USER_BIRTH,USER_POSTCODE,USER_ADDRESS,USER_ADDRESS_DETAIL,USER_TYPE,USER_PHONE)
+VALUES('aaa123','aaa123','관리자','1998-10-30','13333','서울시 강남구 강남대로','세부주소임','U','01012345678');
+
+insert into user(user_id,user_pw,user_name,user_birth,user_postcode,user_address,user_address_detail ,user_type,user_phone)
+values('bbb123','bbb123','기사1','1970-01-20','04524','서울 중구 다산로 123','햇살유치원','D','01033334444');
+
+## 자녀테이블
+insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
+VALUES('푸름','2008-03-20','F',1);
+insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
+VALUES('하얀','2004-03-20','M',1);
+insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
+VALUES('메롱이','2004-03-20','M',1);
+insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
+VALUES('손유경','2004-03-20','F',2);
+insert into CHILDREN(child_name, child_birth,child_gender,parent_key)
+VALUES('박종범','2004-03-20','M',2);
+
+
+## 유치원 테이블
+INSERT INTO KINDER (
+    KINDER_NAME, KINDER_PHONE,KINDER_POSTCODE, KINDER_ADDRESS,
+    KINDER_OPEN_TIME, KINDER_CLOSE_TIME,
+    KINDER_WEEKEND_OPEN, KINDER_NIGHT_OPEN,KINDER_CAPACITY
+) VALUES
+('햇살유치원','02-1234-5869', '04524', '서울 중구 다산로 123', '08:00', '18:00', 'N', 'N',100),
+
+('무지개유치원','02-1234-4442', '05555', '서울 송파구 올림픽로 321', '07:30', '19:00', 'Y', 'Y',50),
+
+('별빛유치원','02-1234-3928', '06110', '서울 강남구 테헤란로 45', '09:00', '17:30', 'N', 'Y',30),
+
+('하늘유치원','02-1234-1728', '04098', '서울 마포구 월드컵북로 100', '08:30', '18:30', 'Y', 'N',38),
+
+('푸른숲유치원','02-1234-4756', '08826', '서울 관악구 관악로 204', '07:50', '18:10', 'N', 'N',49);
+
+## 유치원- 자녀 매칭테이블
+### 푸름 - 별빛유치원
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('Y',1,3);
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('N',2,4);
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('Y',3,3);
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('Y',4,3);
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('Y',5,5);
+INSERT INTO KINDERMATCH(KM_PICKUP,CHILD_KEY,KINDER_KEY)
+VALUES('Y',6,5);
+
+
+#운행정보 - record
+
+INSERT INTO RECORD (RECORD_START_TIME, RECORD_END_TIME, RECORD_STATE, DRIVER_KEY) VALUES ('2025-04-21 08:00:00', '2025-04-21 10:00:00', 'P', 101);
+INSERT INTO RECORD (RECORD_START_TIME, RECORD_END_TIME, RECORD_STATE, DRIVER_KEY) VALUES ('2025-04-21 09:30:00', '2025-04-21 11:00:00', 'S', 102);
+INSERT INTO RECORD (RECORD_START_TIME, RECORD_END_TIME, RECORD_STATE, DRIVER_KEY) VALUES ('2025-04-21 07:45:00', '2025-04-21 09:15:00', 'E', 103);
+INSERT INTO RECORD (RECORD_START_TIME, RECORD_END_TIME, RECORD_STATE, DRIVER_KEY) VALUES ('2025-04-21 12:00:00', '2025-04-21 14:00:00', 'P', 104);
+
+
+select user_postcode, user_address_detail from user where user_key=2;
+select kinder_key, kinder_name 
+from kinder where kinder_postcode='04524' and kinder_name like '%햇살유치원%';
+
+
+#recordmatch
+
+
+INSERT INTO RECORDMATCH (KM_KEY, RECORD_KEY) VALUES (3, 2);
+INSERT INTO RECORDMATCH (KM_KEY, RECORD_KEY) VALUES (1, 2); -- 푸름 추가
+INSERT INTO RECORDMATCH (KM_KEY, RECORD_KEY) VALUES (4, 2); 
+INSERT INTO RECORDMATCH (KM_KEY, RECORD_KEY) VALUES (5, 3);
+INSERT INTO RECORDMATCH (KM_KEY, RECORD_KEY) VALUES (6, 3);
+
+ 
+drop table recordmatch;
+####
+##내가한거
+
+# 1. 배차키에따른 유치원매칭(유치원-배치)테이블키를 가져오는거(km-key 3,1,4) child-key :  3,1,4
+select * from recordmatch
+where record_key=1;
+
+select * from kindermatch;
+# 2. 유치원 - 자녀 매칭 테이블에서 자녀 key만 가져오는거
+select child_key
+	   from kindermatch 
+			where km_key in (select km_key from recordmatch
+where record_key=1);
+
+#3.
+select * from kinder where kinder_key in(
+select kinder_key from kindermatch where child_key in( select child_key from children where child_key in (1,3,4)));
+
+
+# 4.
+select c.*,u.*,k.*,rm.* from children c 
+left join user u
+on u.user_key=c.parent_key
+left join kindermatch km
+on c.child_key = km.child_key
+left join  kinder k
+on km.kinder_key = k.kinder_key
+left join recordmatch rm on km.km_key = rm.km_key
+where c.child_key in (select child_key
+	   from kindermatch 
+			where km_key in (select km_key from recordmatch
+where record_key=2));
+
+###
+
+
+select * from kinder where KINDER_NAME='빛의자녀어린이집' ;
+select * from RECORDMATCH;
+select * from KINDERMATCH;	
+select * from record;
+#------------------------------------------------------------------------------------------------------
+# 중복체크
+# 유저테이블
+select count(*) from user where user_id='aaa123';
+
+#--------------------------------------------------------------------------------------------------------------
+# 전체조회
+## 유저테이블
+select * from user;
+select * from children;
+select * from files;
+select * from record;
+select * from kinder;
+
+# 부분조회
+## 자녀 조회( 유치원 정보 합쳐서)
+select c.*,k.*
+        from children c
+        left join kindermatch km
+        on c.child_key=km.child_key
+        left join kinder k
+        on km.kinder_key=k.kinder_key
+        where c.parent_key=1;        
+
+
+
+
+
+
+SELECT * FROM RECORDMATCH;
+select * from children;
+select * from kindermatch;
+select * from record;
+
