@@ -10,5 +10,22 @@
         from kinder
     </select>
 
+    <insert id="insertKinder" parameterType="KinderVO" useGeneratedKeys="true" keyProperty="kinderKey">
+        INSERT INTO KINDER (
+            KINDER_NAME, KINDER_PHONE, KINDER_POSTCODE,
+            KINDER_ADDRESS, KINDER_WEEKEND_OPEN,
+            KINDER_NIGHT_OPEN, KINDER_CAPACITY
+        ) VALUES (
+                     #{kinderName}, #{kinderPhone}, #{kinderPostcode},
+                     #{kinderAddress}, #{kinderWeekendOpen},
+                    #{kinderNightOpen}, #{kinderCapacity}
+                 )
+    </insert>
+
+    <select id="existsByNameAndPhone" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM KINDER
+        WHERE KINDER_NAME = #{kinderName} AND KINDER_PHONE = #{kinderPhone}
+    </select>
 
 </mapper>
