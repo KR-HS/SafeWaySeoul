@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    background: #FFFCF1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+h3,p {
+    text-align: center;
+}
+
+h3 {
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+p {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.findBox {
+    display: flex;
+    justify-content: center;
+}
+
+.findForm{
+    width: 80%;
+}
+
+.findImg {
+    display: flex;
+    justify-content: center;
+}
+
+.findImg > img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+
+.find {
+    text-align: center;
+}
+
+.find > input {
+    width: 80%;
+    border-radius: 7px;
+    padding: 10px;
+    margin: 3px;
+    border: 1px solid #ddd;
+}
+
+.find > .id:focus, .phone:focus {
+    border: none;
+    outline: 2px solid #FFDB66;
+}
+
+.find-btn {
+    width: 80%;
+    padding: 8px;
+    background-color: #FFE694;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.find-btn:hover {
+    background-color: #FFE694;
+    color: white;
+  }
+
+
