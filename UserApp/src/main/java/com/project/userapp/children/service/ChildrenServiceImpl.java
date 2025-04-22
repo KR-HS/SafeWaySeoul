@@ -46,26 +46,29 @@ public class ChildrenServiceImpl implements ChildrenService{
         childrenMapper.registKinderRelation(vo.getChildKey());
 
         // 자녀 프로필사진 등록
-        String originName = file.getOriginalFilename();
-        String filename = originName.substring(originName.lastIndexOf("/") + 1);
+        if (!file.isEmpty()) {
+            try {
+                String originName = file.getOriginalFilename();
+                String filename = originName.substring(originName.lastIndexOf("/") + 1);
 
-        UUID uuid = UUID.randomUUID(); // 16진수형태의 랜덤문자열을 반환
-        String filepath = makeFolder();
-        String path = uploadPath + "/" + filepath + "/" + uuid + "_" + filename; // 업로드패스
-        try {
+                UUID uuid = UUID.randomUUID();
+                String filepath = makeFolder();
+                String path = uploadPath + "/" + filepath + "/" + uuid + "_" + filename;
 
-            File saveFile = new File(path);
-            file.transferTo(saveFile); // 파일업로드를 처리
+                File saveFile = new File(path);
+                file.transferTo(saveFile);
+
+                fileMapper.registFile(FileVO.builder()
+                        .fileUuid(uuid.toString())
+                        .filePath(filepath)
+                        .fileName(filename)
+                        .childKey(vo.getChildKey())
+                        .build());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        result = fileMapper.registFile(FileVO.builder().
-                fileUuid(uuid.toString()).
-                filePath(filepath).
-                fileName(filename).
-                childKey(vo.getChildKey()).
-                build());
 
         return result;
     }
@@ -77,6 +80,17 @@ public class ChildrenServiceImpl implements ChildrenService{
 
     @Override
     public List<ChildrenVO> myChildren(Integer parentKey) {
-        return childrenMapper.myChildren(parentKey);
+
+        List<ChildrenVO> list = childrenMapper.myChildren(parentKey);
+
+        for (ChildrenVO vo : list) {
+            FileVO fileVO = fileMapper.selectProfileByChild(vo.getChildKey());
+            if (fileVO != null) {
+                String imageUrl = "/upload/" + fileVO.getFilePath() + "/" + fileVO.getFileUuid() + "_" + fileVO.getFileName();
+                vo.setProfileImageUrl(imageUrl);
+            }
+        }
+
+        return list;
     }
 }

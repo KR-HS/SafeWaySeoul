@@ -41,7 +41,7 @@ public class KinderServiceImpl implements KinderService {
         return kinderMapper.getKinderList();
     }
 
-    // ✅ 서버 실행 직후 1회 실행
+     //✅ 서버 실행 직후 1회 실행
 //    @PostConstruct
 //    public void initOnStartup() {
 //        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
