@@ -21,5 +21,6 @@ public class ChildrenVO {
 
      //승하차여부
      private String dropState;
+     private Integer rmKey;
 
 }

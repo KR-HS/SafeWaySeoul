@@ -1,7 +1,11 @@
 // 전역 변수로 선언하여 모든 함수에서 접근 가능하게 함
 var map;
+var recordKey;
 
 $(document).ready(function(){
+
+    var urlParams = new URLSearchParams(window.location.search);
+    recordKey = urlParams.get('recordKey');
 
     // 지도 초기화 - document.ready 바로 아래에 위치시킴
     var mapContainer = document.getElementById('map');
@@ -24,12 +28,43 @@ $(document).ready(function(){
         $('.boarding-status').text(remain + "명 남음 - " + done + "명 완료");
     }
     updateBoardingStatus();
+
     $(document).on('click', '.list-time', function() {
-        if ($(this).hasClass('done')) return;
-        $(this).text('하차완료').addClass('done');
-        $(this).closest('.list-box').addClass('done');
-        updateBoardingStatus();
+        var $this = $(this);
+        var $card = $this.closest('.list-card');
+        var childKey = $card.data('child-key');
+        var newState = $this.hasClass('done') ? '하차' : '하차완료';
+
+        // 서버에 상태 업데이트 요청
+        $.ajax({
+            url: '/updateDropState',
+            type: 'POST',
+            data: {
+                recordKey: recordKey,
+                childKey: childKey,
+                dropState: newState
+            },
+            success: function(response) {
+                if (response === 'success') {
+                    // UI 업데이트
+                    if (newState === '하차완료') {
+                        $this.addClass('done').text('하차완료');
+                        $this.closest('.list-box').addClass('done');
+                    } else {
+                        $this.removeClass('done').text('하차');
+                        $this.closest('.list-box').removeClass('done');
+                    }
+                    updateBoardingStatus();
+                } else {
+                    alert('상태 업데이트에 실패했습니다.');
+                }
+            },
+            error: function() {
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            }
+        });
     });
+
     $(document).on('click', '.list-img', function() {
         //아이 상세 보기 모달창 띄우기
         let $card = $(this).closest(".list-card");

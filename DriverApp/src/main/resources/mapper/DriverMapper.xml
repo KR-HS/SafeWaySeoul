@@ -61,7 +61,16 @@
         )
     </select>
 
-
+    <update id="updateDropState">
+        UPDATE recordmatch
+        SET drop_state = #{dropState}
+        WHERE record_key = #{recordKey}
+          AND km_key IN (
+            SELECT km_key
+            FROM kindermatch
+            WHERE child_key = #{childKey}
+        )
+    </update>
 
 
     <select id='idCheck' resultType="int">
