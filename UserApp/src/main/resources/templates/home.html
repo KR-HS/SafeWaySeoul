@@ -59,7 +59,7 @@
           <h6> 어린이집 운영형태</h6>
             <div class="kinderType-wrap">
               <label for="allKinder" class="label-wrap select">
-                <input type="radio" name="kinderType" id="allKinder" value="A" hidden>
+                <input type="radio" name="kinderType" id="allKinder" value="A" checked hidden>
                 <img src="/img/allKinderType.png" alt="">
                 <p>전체</p>
               </label>
@@ -81,6 +81,7 @@
           <h6>어린이집명 검색</h6>
           <div class="kinder-loc-wrap">
             <select name="kinder-loc" class="kinderLoc">
+              <option value="전체">전체</option>
               <option value="강남구">강남구</option>
               <option value="강서구">강서구</option>
               <option value="강북구">강북구</option>
@@ -102,35 +103,13 @@
       </section>
 
       <section class="kinderResult-wrap">
-       <div class="kinderResult" th:each="kinder : ${kinderInfo}"> <!--전체/야간/주말 선택시 각각에 맞는 유치원 나오게 수정해야함-->
-          <input type="checkbox" name="kinder" value="1"> <!--checkBox value도 값 바꾸기 수정해야함-->
-          <div class="kinderInfo-wrap">
-            <div class="img-wrap">
-              <img src="/img/allKinderType.png" alt="">
-            </div>
-            <div class="kinderInfo">
-              <div class="infoUpper">
-                <p class="kinderTitle">[[${kinder.kinderName}]]</p>
-              </div>
-              <div class="infoUnder">
-                <p class="kinderLoc">[[${kinder.kinderAddress}]]</p>
-                <p class="kinderCall">[[${kinder.kinderPhone}]]</p>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </section>
 
       <section class="page-section">
         <div class="paging-wrap">
           <ul class="pagination">
-            <li th:if="true"><a href="#" class="prev-page">&lsaquo;</a></li>
-            <li><a href="#" class="select">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li th:if="true"><a href="#" class="next-page">&rsaquo;</a></li>
+
           </ul>
         </div>
       </section>

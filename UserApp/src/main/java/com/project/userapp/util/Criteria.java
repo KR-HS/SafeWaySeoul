@@ -1,9 +1,9 @@
-package com.example.jpa.util;
+package com.project.userapp.util;
 
 import lombok.Data;
 
 @Data //getter, setter, toString
-public class Criteria  { //criteria에서 userVO를 사용하기위해
+public class Criteria  {
 
     private int page; //페이지번호
     private int amount; //데이터 개수

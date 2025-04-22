@@ -1,4 +1,4 @@
-package com.example.jpa.util;
+package com.project.userapp.util;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -34,20 +34,17 @@ public class PageDTO<T> {
 
         //end페이지 계산
         //(int)(현재조회하는 페이지 / 10.0 ) * 10
-        this.end = (int)(Math.ceil( this.page / 10.0 ) ) * 10;
+        this.end = (int)(Math.ceil( this.page / 5.0 ) ) * 5;
 
         //start페이지 계산
         //끝페이지 - 그려질 페이지네이션 + 1
-        this.start = end - 10 + 1;
+        this.start = end - 5 + 1;
 
         //진짜 끝페이지의 계산
-        //404개 게시글-> 41번페이지 도달했을때 end = 50, pageTotal - 41
-        //404개 게시글-> 10번페이지 도달했을때 end = 10, pageTotal - 41
         this.end = end > pageTotal ? pageTotal : end;
 
         //이전버튼 활성화
-        //start값은 1, 11, 21, 31 ......
-        this.prev = start > 1;
+        this.prev = start > 5;
 
         //다음버튼 활성화
         //전체페이지수가 end값보다 큰경우 true

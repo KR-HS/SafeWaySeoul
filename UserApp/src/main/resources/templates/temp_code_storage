@@ -1,0 +1,90 @@
+<home.html>
+- 유치원 리스트
+<!--       <div class="kinderResult" th:each="kinder : ${kinderInfo}"> &lt;!&ndash;전체/야간/주말 선택시 각각에 맞는 유치원 나오게 수정해야함&ndash;&gt;-->
+<!--          <input type="checkbox" name="kinder" value="1"> &lt;!&ndash;checkBox value도 값 바꾸기 수정해야함&ndash;&gt;-->
+<!--          <div class="kinderInfo-wrap">-->
+<!--            <div class="img-wrap">-->
+<!--              <img src="/img/allKinderType.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="kinderInfo">-->
+<!--              <div class="infoUpper">-->
+<!--                <p class="kinderTitle">[[${kinder.kinderName}]]</p>-->
+<!--              </div>-->
+<!--              <div class="infoUnder">-->
+<!--                <p class="kinderLoc">[[${kinder.kinderAddress}]]</p>-->
+<!--                <p class="kinderCall">[[${kinder.kinderPhone}]]</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<li th:if="true"><a href="#" class="prev-page">&lsaquo;</a></li>
+            <li><a href="#" class="select">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li th:if="true"><a href="#" class="next-page">&rsaquo;</a></li>
+
+
+<home.js>
+
+// function loadKinderListByType(kinderType) {
+    //     $(".label-wrap").removeClass('select');
+    //     $(`input[name=kinderType][value=${kinderType}]`).prop('checked', true).closest("label").addClass('select');
+    //
+    //     // 원하는 기능 실행
+    //     if (kinderType === 'A') {
+    //         fetch('/kinder/find?page='+page+'&size='+size, {
+    //             method: 'get'
+    //             // headers: {
+    //             //     'Content-Type': 'application/json'
+    //             // },
+    //             // body: JSON.stringify({
+    //             //     'page':page,
+    //             //     'size':size
+    //             // })  // JSON 형식으로 데이터 보내기
+    //         })
+    //             .then(response => response.json())  // 응답을 JSON으로 처리
+    //             .then(data => {
+    //                 createKinder(data);
+    //                 console.log('Success:', data);  // 서버로부터 받은 응답 출력
+    //             })
+    //             .catch((error) => {
+    //                 console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+    //             });
+    //     } else if (kinderType === 'N') {
+    //         fetch('/kinder/find?night=Y&page='+page+'&size='+size, {
+    //             method: 'get'
+    //         })
+    //             .then(response => response.json())  // 응답을 JSON으로 처리
+    //             .then(data => {
+    //                 createKinder(data);
+    //                 console.log('Success:', data);  // 서버로부터 받은 응답 출력
+    //             })
+    //             .catch((error) => {
+    //                 console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+    //             });
+    //     } else if (kinderType === 'W') {
+    //         fetch('/kinder/find?week=Y&page='+page+'&size='+size, {
+    //             method: 'get'
+    //             // headers: {
+    //             //     'Content-Type': 'application/json'
+    //             // },
+    //             // body: JSON.stringify({
+    //             //     'night':kinderType,
+    //             //     'page':page,
+    //             //     'size':size
+    //             // })  // JSON 형식으로 데이터 보내기
+    //         })
+    //             .then(response => response.json())  // 응답을 JSON으로 처리
+    //             .then(data => {
+    //                 createKinder(data);
+    //                 console.log('Success:', data);  // 서버로부터 받은 응답 출력
+    //             })
+    //             .catch((error) => {
+    //                 console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+    //             });
+    //     }
+    // }

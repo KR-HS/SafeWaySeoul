@@ -80,8 +80,6 @@ $(document).ready(function () {
                     if (status === kakao.maps.services.Status.OK) {
                         var lat = result[0].y;
                         var lng = result[0].x;
-
-
                     }
                 });
 

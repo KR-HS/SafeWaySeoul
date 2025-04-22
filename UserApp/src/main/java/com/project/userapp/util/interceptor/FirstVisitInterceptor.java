@@ -33,6 +33,6 @@ public class FirstVisitInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("컨트롤러 실행 후 인터셉터 동작(첫화면)");
+        System.out.println("첫방문 컨트롤러 실행 후 인터셉터 동작(첫화면)");
     }
 }
