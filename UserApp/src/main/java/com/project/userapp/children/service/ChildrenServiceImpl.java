@@ -3,7 +3,8 @@ package com.project.userapp.children.service;
 import com.project.userapp.children.mapper.ChildrenMapper;
 import com.project.userapp.command.ChildrenVO;
 import com.project.userapp.command.FileVO;
-import com.project.userapp.file.mapper.FileMapper;
+import com.project.userapp.files.mapper.FilesMapper;
+import com.project.userapp.kindermatch.mapper.KinderMatchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,10 @@ public class ChildrenServiceImpl implements ChildrenService{
     private ChildrenMapper childrenMapper;
 
     @Autowired
-    private FileMapper fileMapper;
+    private FilesMapper fileMapper;
+
+    @Autowired
+    private KinderMatchMapper kinderMatchMapper;
 
 
     @Value("${com.project.userapp.upload.path}")
@@ -73,8 +77,17 @@ public class ChildrenServiceImpl implements ChildrenService{
         return result;
     }
 
+    @Transactional
     @Override
     public int deleteChild(Integer childKey) {
+
+        // 1. KINDERMATCH 테이블에서도 삭제
+        kinderMatchMapper.deleteByChildKey(childKey);
+
+        // 2. FILE 테이블에서도 삭제
+        fileMapper.deleteByChildKey(childKey);
+
+        // 3. CHILDREN 테이블에서도 삭제
         return childrenMapper.deleteChild(childKey);
     }
 

@@ -35,8 +35,15 @@ $(function () {
             data: { childKey: selectedChildKey },
             success: function (res) {
                 if (res === 'success') {
-                    selectedCard.remove(); // 자녀 카드 제거
-                    $('#delete-confirm-modal').fadeOut();
+                    $('.modal-message').text('정상적으로 처리되었습니다');
+                    $('#cancel-delete-btn').hide();
+                    $('#confirm-delete-btn')
+                        .text('확인')
+                        .off('click') // 이전 삭제 이벤트 제거
+                        .on('click', function () {
+                            selectedCard.remove();
+                            $('#delete-confirm-modal').fadeOut(); // 모달 닫기
+                        });
                 } else {
                     alert('삭제에 실패했습니다.');
                 }
