@@ -32,6 +32,25 @@ $(document).ready(function(){
     });
     $(document).on('click', '.list-img', function() {
         //아이 상세 보기 모달창 띄우기
+        let $card = $(this).closest(".list-card");
+        let childName = $card.data("child-name");
+        let parentName = $card.data("parent-name");
+        let address = $card.data("address");
+        let kinderName = $card.data("kinder-name");
+        let parentPhone = $card.data("parent-phone");
+        let childGender = $card.data("child-gender");
+
+        $(".name").text(childName);
+        if(childGender=='F') {
+            $(".childGender").text("여");
+        } else {
+            $(".childGender").text("남");
+        }
+        $(".parentName").text(parentName);
+        $(".address").text(address);
+        $(".parentPhone").text(parentPhone);
+        $(".kinder").text(kinderName);
+
         $(".addModal").css("display","block");
     });
 

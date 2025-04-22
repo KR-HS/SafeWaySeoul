@@ -1,9 +1,15 @@
 $(document).ready(function() {
     // 모달 띄우기 + recordKey 저장
     let selectedRecordKey = null;
+    let recordName;
+    let recordCarName;
 
     $(".active, .scheduled").on("click", function() {
         selectedRecordKey = $(this).data("record-key");
+        recordName = $(this).find(".subtitle").data("record-name");
+        recordCarName = $(this).find(".title").data("record-car-name");
+        $(".modal-title").text(recordName);
+        $(".modal-subtitle").text(recordCarName);
         $(".modal-overlay").css("display", "block");
     });
 

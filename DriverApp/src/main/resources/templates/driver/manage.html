@@ -144,7 +144,13 @@
 
         <!--승하차관련-->
         <div class="boarding-status"></div>
-        <div class="list-card" th:each="child : ${childrenList}" >
+        <div class="list-card" th:each="child : ${childrenList}"
+                               th:data-child-name="${child.childName}"
+                               th:data-parent-name="${child.userVO.userName}"
+                               th:data-address="${child.userVO.userAddress+' '+child.userVO.userAddressDetail}"
+                               th:data-kinder-name="${child.kinderVO.kinderName}"
+                               th:data-parent-phone="${child.userVO.userPhone}"
+                               th:data-child-gender="${child.childGender}">
             <div class="list-box">
                 <div class="list-img">
                     <img src="/img/child.png" alt="아이사진">
