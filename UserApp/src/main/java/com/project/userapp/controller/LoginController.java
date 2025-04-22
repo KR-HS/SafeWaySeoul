@@ -34,7 +34,7 @@ public class LoginController {
         UserVO vo = UserVO.builder().userId(id).userPw(pw).build();
         UserVO userVO = userService.findInfo(vo);
 
-        if(userVO==null){
+        if(userVO==null || id.isEmpty() || pw.isEmpty()){
             ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
             return "redirect:/user/login";
         }
