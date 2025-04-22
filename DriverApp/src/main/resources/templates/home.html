@@ -29,6 +29,8 @@
                                 ${list.recordState == 'S' ? 'active':''} +
                                 ${list.recordState == 'P' ? 'scheduled':''}"
                 th:attr="data-record-key=${list.recordKey}"> <!--recodkey받기위해추가-->
+
+
                 <td>
                     <div class="labels">
                         <span class="labels_name">운행담당자 - [[${driverInfo.userName}]]</span>
@@ -37,8 +39,8 @@
                                        ${list.recordState == 'S' ? '운행중':''} +
                                        ${list.recordState == 'P' ? '운행예정':''}"></span>
                     </div>
-                    <div class="title" th:text="${list.recordCarName}"></div>
-                    <div class="subtitle" th:text="${list.recordName}"></div>
+                    <div class="title" th:text="${list.recordCarName}" th:attr="data-record-car-name=${list.recordCarName}"></div>
+                    <div class="subtitle" th:text="${list.recordName}" th:attr="data-record-name=${list.recordName}"></div>
                     <div class="time">운행 | 09:00 ~ 09:45</div>
                 </td>
             </tr>
@@ -47,8 +49,8 @@
 
         <div class="modal-overlay" id="dispatchModal">
             <div class="modal">
-                <h2 class="modal-title">동대문구 1노선 배차</h2>
-                <p class="modal-subtitle">123가 1300 호랑이차량</p>
+                <h2 class="modal-title">노선 이름</h2>
+                <p class="modal-subtitle">차량 이름</p>
                 <p class="modal-time">운행소요시간: <strong>30분</strong></p>
 
                     <div class="modal-buttons">
