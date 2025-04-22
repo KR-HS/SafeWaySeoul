@@ -17,4 +17,6 @@ public class ChildrenVO {
      private Integer parentKey;
 
      private KinderVO kinderVO;
+
+     private String profileImageUrl;
 }

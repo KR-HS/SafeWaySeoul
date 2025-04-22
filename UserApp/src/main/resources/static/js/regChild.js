@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    new AirDatepicker('.birth', {
+    const myDatepicker = new AirDatepicker('.birth', {
         autoClose: true,
         dateFormat: 'yyyy-MM-dd',
         startView: 'years',
@@ -22,9 +22,8 @@ $(document).ready(function() {
 
     // 날짜 입력란에 포커스가 가면 flatpickr 날짜 선택기 열기
     $(".birth").on("click", function() {
-        datepicker.open();  // input에 focus 시 날짜 선택기가 열리도록
+        myDatepicker.show();  // input에 focus 시 날짜 선택기가 열리도록
     });
-
 
     $('.girl').click(function() {
         if($(this).hasClass("selected")) {
@@ -55,14 +54,24 @@ $(document).ready(function() {
             reader.onload = function (e) {
                 document.querySelector(".photo-upload").style.backgroundImage = `url('${e.target.result}')`;
             };
-            reader.readAsDataURL(file); //file을 읽어서 브라우저가 사용할 수 있는 Data URL (Base64) 형식으로 변환
+            reader.readAsDataURL(file); // file을 읽어서 브라우저가 사용할 수 있는 Data URL (Base64) 형식으로 변환
         }
     });
 
     $(".close-btn").click(function(){
         window.history.back();
-    })
+    });
 
+    // 성별 라디오 버튼 유효성 검사 기능
+    $(".submit-btn").on("click", function(e) {
+        const genderRadios = $("input[name='childGender']");
+        const isSelected = genderRadios.is(":checked");
 
+        if (!isSelected) {
+            e.preventDefault(); // 폼 제출 막기
+            alert("성별을 선택해주세요."); // 사용자 피드백
+            return false;
+        }
+    });
 });
 

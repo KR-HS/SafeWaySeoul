@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,22 +32,32 @@ public class ChildController {
     public String regist(ChildrenVO vo, @RequestParam("file")MultipartFile file, HttpServletRequest request, RedirectAttributes ra) {
         UserVO parent = (UserVO)request.getSession().getAttribute("userInfo");
         vo.setParentKey(parent.getUserKey());
-        String contentType = file.getContentType();
-        if (contentType == null || !contentType.startsWith("image")) {
-            String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/")+1);
-            ra.addFlashAttribute("msg","이미지 형식이 아닙니다");
-            return "redirect:/"+previousUrl;
+
+        if (!file.isEmpty()) {
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("image")) {
+                String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/") + 1);
+                ra.addFlashAttribute("msg", "이미지 형식이 아닙니다");
+                return "redirect:/" + previousUrl;
+            }
         }
 
-        int result = childrenService.registChild(vo,file);
-        if(result!=1){
-            String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/")+1);
+        int result = childrenService.registChild(vo, file);
+        if (result != 1) {
+            String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/") + 1);
             ra.addFlashAttribute("msg", "자녀 등록에 실패했습니다.");
-            return "redirect:/"+previousUrl;
-
+            return "redirect:/" + previousUrl;
         }
 
 
-        return "redirect:/home";
+        return "redirect:/child";
     }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public String deleteChild(@RequestParam("childKey") Integer childKey) {
+        int result = childrenService.deleteChild(childKey);
+        return result == 1 ? "success" : "fail";
+    }
+
 }
