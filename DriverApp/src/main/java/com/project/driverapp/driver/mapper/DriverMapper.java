@@ -16,6 +16,6 @@ public interface DriverMapper {
 
 
     List<ChildrenVO> manageOfChildren(int recordKey);
-    KinderVO findKinderForDriver(int driverKey); //기사의 유치원 정보
+    List<KinderVO> findKinderForDriver(int driverKey); //기사의 유치원 정보
 
 }
