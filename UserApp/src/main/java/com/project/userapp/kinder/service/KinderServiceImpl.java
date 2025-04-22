@@ -95,20 +95,27 @@ public class KinderServiceImpl implements KinderService {
                         .kinderNightOpen(node.path("CRSPEC").asText().contains("야간") ? "Y" : "N")
                         .build();
 
+
+
                 String closed = node.path("CRABLDT").asText();
+
                 String zipcode = node.path("ZIPCODE").asText();
                 String phone = node.path("CRTELNO").asText();
                 if (!closed.isBlank()|| zipcode.isBlank()|| phone.isBlank() )
                     continue;
 
+                System.out.println("중복검사");
                 if (!(kinderMapper.existsByNameAndPhone(vo.getKinderName(), vo.getKinderPhone())>0)){
+                    System.out.println("인서트전");
                     kinderMapper.insertKinder(vo);
                     LocationVO locationVO = LocationVO.builder().
                             latitude(node.path("LA").asText()).
                             longitude(node.path("LO").asText()).
                             kinderKey(vo.getKinderKey())
                             .build();
+                    System.out.println("인서트후");
                     locationMapper.registLocation(locationVO);
+                    System.out.println("위치정보인서트");
                 }
             }
 

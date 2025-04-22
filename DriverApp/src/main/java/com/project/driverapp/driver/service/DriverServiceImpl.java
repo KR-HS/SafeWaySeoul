@@ -48,4 +48,9 @@ public class DriverServiceImpl implements DriverService {
     public List<KinderVO> findKinderForDriver(int driverKey) {
         return driverMapper.findKinderForDriver(driverKey);
     }
+
+    @Override
+    public int updateDropState(int recordKey, int childKey, String dropState) {
+        return driverMapper.updateDropState(recordKey, childKey, dropState);
+    }
 }

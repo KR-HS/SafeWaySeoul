@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Driver;
@@ -61,6 +63,17 @@ public class MainController {
         model.addAttribute("childrenList", childrenList);
 
         return "driver/manage";
+    }
+
+    @PostMapping("/updateDropState")
+    @ResponseBody
+    public String updateDropState(
+            @RequestParam int recordKey,
+            @RequestParam int childKey,
+            @RequestParam String dropState) {
+
+        int result = driverService.updateDropState(recordKey, childKey, dropState);
+        return result > 0 ? "success" : "fail";
     }
     
     @GetMapping("/startManage")

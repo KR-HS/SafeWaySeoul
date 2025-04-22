@@ -4,6 +4,7 @@ import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
 import com.project.driverapp.command.KinderVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface DriverMapper {
 
     List<ChildrenVO> manageOfChildren(int recordKey);
     List<KinderVO> findKinderForDriver(int driverKey); //기사의 유치원 정보
-
-}
+    int updateDropState(
+            @Param("recordKey") int recordKey,
+            @Param("childKey") int childKey,
+            @Param("dropState") String dropState);
+    }
