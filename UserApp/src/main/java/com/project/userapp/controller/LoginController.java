@@ -32,6 +32,11 @@ public class LoginController {
     public String loginForm(HttpServletRequest request, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
 
+        if(id.trim()=="" || pw.trim()==""){
+            ra.addFlashAttribute("msg","로그인 정보를 입력해주세요");
+            return "redirect:/user/login";
+        }
+
         UserVO vo = UserVO.builder().userId(id).userPw(pw).build();
         UserVO userVO = userService.findInfo(vo);
 
