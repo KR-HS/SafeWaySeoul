@@ -8,6 +8,7 @@ $(document).ready(function() {
         selectedRecordKey = $(this).data("record-key");
         recordName = $(this).find(".subtitle").data("record-name");
         recordCarName = $(this).find(".title").data("record-car-name");
+
         $(".modal-title").text(recordName);
         $(".modal-subtitle").text(recordCarName);
         $(".modal-overlay").css("display", "block");
