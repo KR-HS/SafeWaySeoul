@@ -41,12 +41,12 @@ public class KinderServiceImpl implements KinderService {
         return kinderMapper.getKinderList();
     }
 
-    // ✅ 서버 실행 직후 1회 실행
-    @PostConstruct
-    public void initOnStartup() {
-        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
-        registKinderAPI();
-    }
+     //✅ 서버 실행 직후 1회 실행
+//    @PostConstruct
+//    public void initOnStartup() {
+//        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
+//        registKinderAPI();
+//    }
 
     // ✅ 매일 새벽 3시에 실행
     @Scheduled(cron = "0 0 3 * * *")
@@ -99,9 +99,9 @@ public class KinderServiceImpl implements KinderService {
 
                 String closed = node.path("CRABLDT").asText();
 
-                if (closed != null || !closed.trim().isEmpty()
-                        || node.path("ZIPCODE").asText()==null
-                        || node.path("ZIPCODE").asText().isBlank())
+                String zipcode = node.path("ZIPCODE").asText();
+                String phone = node.path("CRTELNO").asText();
+                if (!closed.isBlank()|| zipcode.isBlank()|| phone.isBlank() )
                     continue;
 
                 System.out.println("중복검사");

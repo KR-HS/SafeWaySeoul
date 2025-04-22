@@ -32,6 +32,11 @@ public class LoginController {
     public String loginForm(HttpServletRequest request, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
 
+        if(id.trim()=="" || pw.trim()==""){
+            ra.addFlashAttribute("msg","로그인 정보를 입력해주세요");
+            return "redirect:/user/login";
+        }
+
         UserVO vo = UserVO.builder().userId(id).userPw(pw).build();
         UserVO userVO = userService.findInfo(vo);
 
@@ -64,11 +69,15 @@ public class LoginController {
     public String joinForm(UserVO vo, RedirectAttributes ra) {
         // 회원가입 기능 추가 필요 -----
         if(false){
-            // 로그인폼 제약조건 검사
+            // 회원가입 제약조건 검사
             ra.addFlashAttribute("msg","올바르지 않은 회원가입 형태입니다");
             return "redirect:/user/join";
         }
 
+        if(userService.registerCheck(vo)){
+            ra.addFlashAttribute("msg","회원님의 아이디가 이미 존재합니다.");
+            return "redirect:/user/login";
+        }
         // 제약 조건
         System.out.println(vo.toString());
         int result = userService.register(vo);
