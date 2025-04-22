@@ -7,11 +7,12 @@ $(document).ready(function() {
         console.log(email, password);
 
         document.loginForm.submit();
-    })
+    });
 
-    
-
+    $(".email, .password").on("keydown", function(e) {
+        if(e.keyCode == 13) {
+            $(".login-btn").click();
+        }
+    });
 
 });
-
-
