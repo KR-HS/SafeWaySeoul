@@ -96,9 +96,9 @@ public class KinderServiceImpl implements KinderService {
                         .build();
 
                 String closed = node.path("CRABLDT").asText();
-                if (closed != null || !closed.trim().isEmpty()
-                        || node.path("ZIPCODE").asText()==null
-                        || node.path("ZIPCODE").asText().trim().isEmpty())
+                String zipcode = node.path("ZIPCODE").asText();
+                String phone = node.path("CRTELNO").asText();
+                if (!closed.isBlank()|| zipcode.isBlank()|| phone.isBlank() )
                     continue;
 
                 if (!(kinderMapper.existsByNameAndPhone(vo.getKinderName(), vo.getKinderPhone())>0)){
