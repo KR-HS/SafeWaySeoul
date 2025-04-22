@@ -33,6 +33,28 @@
   padding: 8px;
 }
 
+.user-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-image .edit-image-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
 .user-details {
   display: flex;
   flex-direction: column;
@@ -77,21 +99,23 @@
   width: 100%;
 }
 
+.user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .edit-user-btn {
-  margin-left: 20px;
-  margin-top: 5px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .edit-user-btn img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.edit-user-btn:hover {
-  transform: scale(1.1);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 /* ===== 자녀 카드 ===== */
@@ -121,6 +145,28 @@
   padding: 8px;
 }
 
+.child-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.child-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.child-image .edit-child-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
 .child-name {
   display: flex;
   align-items: center;
@@ -147,6 +193,86 @@
   color: #555;
   margin-top: 5px;
   text-align: center;
+}
+
+/* 자녀 카드 삭제 버튼 위치 및 디자인 */
+.child-card {
+  position: relative;
+}
+
+.delete-child-btn {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.delete-child-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding-left: 2px;
+}
+
+/* 자녀 카드 삭제 확인 모달창 */
+.modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  align-items: center; /* 세로 방향 중앙 정렬 */
+  justify-content: center; /* 가로 방향 중앙 정렬 */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  overflow: auto;
+}
+
+.modal-content.small {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 80%; /* 적절한 너비 */
+  max-width: 500px; /* 최대 너비 제한 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-message {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.confirm-btn {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ddd;
 }
 
 /* ===== 유치원 정보 카드 ===== */

@@ -29,5 +29,15 @@
         )
     </insert>
 
+    <!--업로드된 파일 불러오는 기능-->
+    <select id="selectProfileByChild" resultType="FileVO" parameterType="Integer">
+        SELECT *
+        FROM FILES
+        WHERE child_key = #{childKey}
+        ORDER BY file_regdate DESC
+        LIMIT 1
+    </select>
+
+
 
 </mapper>

@@ -16,4 +16,6 @@ public interface DriverService {
 
     List<ChildrenVO> manageOfChildren(int recordKey);
     List<KinderVO> findKinderForDriver(int driverKey); //기사의 유치원 정보
+    int updateDropState(int recordKey, int childKey, String dropState);
+
 }

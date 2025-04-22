@@ -3,27 +3,28 @@
     <h2>아이의 첫걸음</h2>
 
     <form name="childForm" method="post" action="/child/regist" enctype="multipart/form-data">
-    <input type="text" placeholder="내 아이의 이름을 입력해 주세요." class="input-box" name="childName"/>
+    <input type="text" placeholder="내 아이의 이름을 입력해 주세요." class="input-box" required name="childName"/>
 
     <div class="gender-select">
         <label for="girl" class="gender girl">
             <img src="/img/girl.png" alt="Girl" />
         </label>
-        <input type="radio" name='childGender' id="girl" value="F" hidden>
+        <input type="radio" name='childGender' required id="girl" value="F" hidden>
         <label for="boy" class="gender boy" >
             <img src="/img/boy.png" alt="Boy" />
         </label>
-        <input type="radio" name="childGender" id="boy" value="M" hidden>
+        <input type="radio" name="childGender" required id="boy" value="M" hidden>
     </div>
 
-    <input type="text" name='childBirth' placeholder="내 아이와의 처음 만난 일자를 입력해주세요" class="input-box birth"/>
+    <input type="text" name='childBirth' placeholder="내 아이와의 처음 만난 일자를 입력해주세요" required class="input-box birth"/>
 
     <div class="upload-section">
         <p>내 아이 사진 등록하기</p>
+        <p>(등록되지 않은 경우, 기본 이미지로 대체됩니다.)</p>
         <label class="photo-upload" for="child-photo">
             <span>+</span>
         </label>
-        <input type="file" name='file' id="child-photo" required hidden>
+        <input type="file" name='file' id="child-photo" hidden>
     </div>
 
     <button type="submit" class="submit-btn">등록하기</button>

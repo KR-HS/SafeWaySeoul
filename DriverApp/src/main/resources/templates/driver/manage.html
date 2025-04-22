@@ -290,7 +290,9 @@
 
         <!--승하차관련-->
         <div class="boarding-status"></div>
-        <div class="list-card" th:each="child : ${childrenList}"
+        <div class="list-card" th:data-record-key="${recordKey}"
+                                 th:data-child-key="${child.childKey}"
+                                 th:each="child : ${childrenList}"
                                th:data-child-name="${child.childName}"
                                th:data-parent-name="${child.userVO.userName}"
                                th:data-address="${child.userVO.userAddress+' '+child.userVO.userAddressDetail}"
