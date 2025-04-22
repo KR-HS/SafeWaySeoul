@@ -16,7 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throws Exception {
 
         HttpSession session = request.getSession();
-
+        System.out.println(session.getAttribute("userInfo"));
         // 세션에 방문 여부가 없다면
         if (session.getAttribute("userInfo") == null) {
             // 처음 진입일 경우 특정 페이지로 리다이렉트
@@ -29,6 +29,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("컨트롤러 실행 후 인터셉터 동작");
+        System.out.println("로그인 컨트롤러 실행 후 인터셉터 동작");
     }
 }

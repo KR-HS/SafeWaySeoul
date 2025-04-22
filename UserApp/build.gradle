@@ -1,7 +1,15 @@
+// 1. QueryDSL
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.18'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10' // 2. QueryDSL plugin version
 }
 
 group = 'com.project'
@@ -24,6 +32,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -31,6 +40,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// 3. QueryDSL dependencies
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
 	// 타임리프 뷰
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 특정 버전사용시 마지막에 :버전명을 추가
@@ -43,6 +56,31 @@ dependencies {
 	// 유치원 api
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
+
+// 4. Disable test execution during build
+tasks.withType(Test) {
+	enabled = false
+}
+
+// 5. Set location for generated QueryDSL Q-classes
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
 
 tasks.named('test') {
 	useJUnitPlatform()

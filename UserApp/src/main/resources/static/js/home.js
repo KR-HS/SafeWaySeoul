@@ -1,3 +1,7 @@
+    var page = 1;
+    var size = 10;
+    var start = 0; //시작페이지
+    var end = 0; //끝페이지
 $(document).ready(function(){
 
     // 자녀 관련 모달창 기능
@@ -7,31 +11,298 @@ $(document).ready(function(){
     });
 
 
+    // ---------------어린이집 리스트
 
-    // 어린이집 운영형태 버튼
-    $('.label-wrap').on('click',function(){
-        event.stopPropagation(); // 이벤트 버블링 방지
-        event.preventDefault(); // label의 기본동작 막기
+    // 어린이집 유형 버튼 클릭
+    $('.label-wrap').on('click', function(event) {
+        event.preventDefault();
+
         $(this).siblings().removeClass('select');
         $(this).addClass('select');
-        $(this).find("input[type=radio]").prop('checked',true);
+        $(this).find("input[type=radio]").prop('checked', true);
 
-        // 유치원 운영형태에 따른 리스트 출력 (db관련 기능 추가 필요)
-        // -----------
-        var kinderType = $("input[name=kinderType]:checked").val();
-        alert(kinderType);
-    })
+        $(".searchBtn").click();
 
+    });
+    
     // 검색버튼
     $(".searchBtn").on('click',function(){
+        page = 1;
+        getList();
+    })
+    
+    // 유치원 리스트
+    function getList(){
         var kinderType = $("input[name=kinderType]:checked").val();
         var kinderLoc = $("select[name=kinder-loc]").val();
         var kinderName = $("input[name=kinder-name]").val();
 
-        alert(kinderType+"\n"+kinderLoc+"\n"+kinderName);
-        // 검색 결과에 따른 리스트 출력 기능 추가 필요
+        if(kinderType=='A'){
+            if(kinderLoc=='전체'){
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }else{
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?address='+kinderLoc+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?address='+kinderLoc+'&name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }
+        }
+        else if(kinderType=='N'){
+            if(kinderLoc=='전체'){
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?night=Y&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?night=Y&name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }else{
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?night=Y&address='+kinderLoc+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?night=Y&address='+kinderLoc+'&name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }
+
+
+        }
+        else if(kinderType=='W'){
+            if(kinderLoc=='전체'){
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?week=Y&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?week=Y&name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }else{
+                if(kinderName=="" || kinderName==null){
+                    fetch('/kinder/find?week=Y&address='+kinderLoc+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }else{
+                    fetch('/kinder/find?week=Y&address='+kinderLoc+'&name='+kinderName+'&page='+page+'&size='+size, {
+                        method: 'get'
+                    })
+                        .then(response => response.json())  // 응답을 JSON으로 처리
+                        .then(data => {
+                            createKinder(data.pageData);
+                            createPage(data);
+                            console.log('Success:', data);  // 서버로부터 받은 응답 출력
+                        })
+                        .catch((error) => {
+                            console.error("유치원목록을 불러오는 과정에서 오류가 발생했습니다.");
+                        });
+                }
+            }
+        }
         // ----------
-    })
+    }
+
+
+    // 바디 생성 함수
+    // item에는 List<kinderVO>가 옴
+    function createKinder(item){
+        var str = "";
+        item.forEach(function(data){
+            str+="<div class='kinderResult'>";
+                str+="<input type='checkbox' name='kinderKey' value='1'>"
+                str+="<div class='kinderInfo-wrap'>";
+                    str+="<div class='img-wrap'>"
+                    str+="<img src='/img/allKinderType.png' alt='유치원이미지'>"
+                    str+="</div>"
+                    str+="<div class='kinderInfo'>";
+                        str+="<div class='infoUpper'>";
+                        str+="<p class='kinderTitle'>"+data.kinderName+"</p>";
+                        str+="</div>"
+                        str+="<div class='infoUnder'>";
+                        str+="<p class='kinderLoc'>"+data.kinderAddress+"</p>";
+                        str+="<p class='kinderCall'>"+data.kinderPhone+"</p>";
+                        str+="</div>";
+                    str+="</div>"
+                str+="</div>";
+            str+="</div>";
+        })
+        $(".kinderResult-wrap").html(str);
+    }
+
+    // 페이지네이션 생성함수
+    function createPage(item){
+        console.log(item);
+        var pageList = item.pageList; // 페이지목록
+        var next = item.next; // 다음
+        var prev = item.prev; // 이전
+        start = item.start; // 시작페이지
+        end = item.end;
+
+
+        str="";
+
+        if(prev){
+            str+="<li><a href='#' class='prev'>&lsaquo;</a></li>";
+        }
+
+        pageList.forEach(function(data){
+            var activeClass= (data == page) ? "select" : "";
+            str+="<li><a href='#' class='number "+activeClass+"'>"+data+"</a></li>";
+        })
+
+        if(next){
+            str+="<li><a href='#' class='next'>&rsaquo;</a></li>";
+        }
+
+        $(".pagination").html(str);
+
+    }
+
+    // 페이지네이션 클릭 함수
+    $(".pagination").on("click",function(){
+        event.preventDefault();
+        if(event.target.className=='pagination') return; // 버튼일때만 동작
+
+        if(event.target.className=="prev"){
+            if (start > 1) {
+                page = start - 1;
+                getList();
+            }
+        }
+        else if(event.target.className=="next"){
+            page=end + 1;
+        }
+        else if($(event.target).hasClass("number")){
+            page=event.target.innerHTML;
+            $(".pagination .number").removeClass("select");
+            $(event.target).addClass("select");
+        }
+        getList(); // 데이터 가져오기 기능 호출
+    });
+
+    (function(){
+        getList();
+    })();
+
+
+
 
     // 카카오맵 로드후 실행
     kakao.maps.load(function () {
@@ -138,7 +409,6 @@ $(document).ready(function(){
             var checkValues = $("input[type=checkbox]:checked").map(function(){
                 return $(this).val();
             }).get();
-            alert(checkValues);
             return;
         }
 
@@ -158,7 +428,6 @@ $(document).ready(function(){
         var checkValues = $("input[type=checkbox]:checked").map(function(){
             return $(this).val();
         }).get();
-        alert(checkValues);
     })
 
     // 페이지네이션 부분
@@ -180,6 +449,8 @@ $(document).ready(function(){
     $("a[class=next-page]").on('click',function(){
 
     })
+
+    
 
 
 

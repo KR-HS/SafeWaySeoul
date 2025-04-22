@@ -1,16 +1,21 @@
-package com.project.userapp.command;
+package com.project.userapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import javax.persistence.*;
+
+@Entity
+@Table(name ="KINDER")
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class KinderVO {
+public class Kinder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer kinderKey;
+
     private String kinderName;
     private String kinderPhone;
     private String kinderPostcode;
@@ -20,4 +25,8 @@ public class KinderVO {
     private String kinderWeekendOpen;
     private String kinderNightOpen;
     private Integer kinderCapacity;
+
+    @OneToOne
+    @JoinColumn(name="kinder_key")
+    private Location locaiton;
 }

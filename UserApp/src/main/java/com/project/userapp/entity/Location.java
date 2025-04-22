@@ -1,18 +1,22 @@
-package com.project.userapp.command;
+package com.project.userapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
+@Entity
+@Table(name="LOCATION")
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocationVO {
-    private Integer locationId;
+public class Location {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer locationKey;
+
     private String latitude;
     private String longitude;
     private Timestamp locationRegtime;

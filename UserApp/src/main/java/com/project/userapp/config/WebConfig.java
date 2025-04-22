@@ -12,8 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private FirstVisitInterceptor firstVisitInterceptor;
-
-
+    
     @Autowired
     private LoginInterceptor loginInterceptor;
 
@@ -30,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**") // 모든 경로에 적용
                 .excludePathPatterns( "/",               // 첫 방문 페이지
                     "/user/*", // 유저로그인관련
+                    "/kinder", // 유치원리스트가져오기
                     "/css/**", "/js/**", "/img/**", "/favicon.ico"); // 정적 리소스 제외); // 리다이렉트 대상은 제외!
 
     }
