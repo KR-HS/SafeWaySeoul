@@ -3,6 +3,7 @@ package com.project.driverapp.driver.service;
 
 import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public List<ChildrenVO> manageOfChildren(int recordKey) {
         return driverMapper.manageOfChildren(recordKey);
+    }
+
+    @Override
+    public KinderVO findKinderForDriver(int driverKey) {
+        return driverMapper.findKinderForDriver(driverKey);
     }
 }
