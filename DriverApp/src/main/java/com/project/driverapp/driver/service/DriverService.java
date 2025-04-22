@@ -15,5 +15,5 @@ public interface DriverService {
     int modify(DriverVO userVO);// 회원정보 변경
 
     List<ChildrenVO> manageOfChildren(int recordKey);
-    KinderVO findKinderForDriver(int driverKey); //기사의 유치원 정보
+    List<KinderVO> findKinderForDriver(int driverKey); //기사의 유치원 정보
 }

@@ -45,7 +45,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public KinderVO findKinderForDriver(int driverKey) {
+    public List<KinderVO> findKinderForDriver(int driverKey) {
         return driverMapper.findKinderForDriver(driverKey);
     }
 }

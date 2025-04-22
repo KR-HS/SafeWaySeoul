@@ -46,6 +46,7 @@ public class LoginController {
         System.out.println("로그인성공!"+session.getAttribute("userInfo"));
 
         return "redirect:/home";
+        
 
     }
     @GetMapping("/logout")
