@@ -1,32 +1,29 @@
 package com.project.driverapp.controller;
 
+import com.project.driverapp.command.RouteRequest;
 import com.project.driverapp.mapservice.KakaoMapService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/map")
+@RequiredArgsConstructor
 public class MapController {
 
     private final KakaoMapService kakaoMapService;
 
-    public MapController(KakaoMapService kakaoMapService) {
-        this.kakaoMapService = kakaoMapService;
-    }
-
-    @GetMapping("/route")
-    public ResponseEntity<List<Double>> getRoute(
-            @RequestParam double startX,
-            @RequestParam double startY,
-            @RequestParam double endX,
-            @RequestParam double endY
+    @PostMapping("/route")
+    public ResponseEntity<List<Double>> getRouteWithWaypoints(
+            @RequestBody RouteRequest request
     ) {
-        List<Double> coordinates = kakaoMapService.getRoute(startX, startY, endX, endY);
+        List<Double> coordinates = kakaoMapService.getRoute(
+                request.getStartX(), request.getStartY(),
+                request.getEndX(), request.getEndY(),
+                request.getWaypoints()
+        );
         return ResponseEntity.ok(coordinates);
     }
 }

@@ -1,15 +1,17 @@
 package com.project.driverapp.mapservice;
+
 import com.project.driverapp.command.KakaoRouteResponse;
+import com.project.driverapp.command.Waypoint;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class KakaoMapService {
 
     private final RestTemplate restTemplate;
@@ -17,49 +19,47 @@ public class KakaoMapService {
     @Value("${kakao.restapi.key}")
     private String restApiKey;
 
-    // RestTemplate을 Bean으로 주입받는 방식 추천!
-    public KakaoMapService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    public List<Double> getRoute(double startX, double startY,
+                                 double endX, double endY,
+                                 List<Waypoint> waypoints) {
+        String url = "https://apis-navi.kakaomobility.com/v1/waypoints/directions";
 
-    public List<Double> getRoute(double startX, double startY, double endX, double endY) {
-        String url = String.format(
-                "https://apis-navi.kakaomobility.com/v1/directions?origin=%f,%f&destination=%f,%f",
-                startX, startY, endX, endY
-        );
+        // 요청 바디 구성
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("origin", Map.of("x", startX, "y", startY));
+        requestBody.put("destination", Map.of("x", endX, "y", endY));
 
+        if (waypoints != null && !waypoints.isEmpty()) {
+            List<Map<String, Double>> waypointList = waypoints.stream()
+                    .map(wp -> Map.of("x", wp.getX(), "y", wp.getY()))
+                    .collect(Collectors.toList());
+            requestBody.put("waypoints", waypointList);
+        }
+
+        // 헤더 설정
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK " + restApiKey);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+        // API 호출
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+        ResponseEntity<KakaoRouteResponse> response = restTemplate.exchange(
+                url, HttpMethod.POST, entity, KakaoRouteResponse.class);
 
-        try {
-            ResponseEntity<KakaoRouteResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    KakaoRouteResponse.class
-            );
+        // 응답 처리
+        KakaoRouteResponse body = response.getBody();
+        return extractCoordinates(body);
+    }
 
-            KakaoRouteResponse body = response.getBody();
-            if (body == null || body.getRoutes() == null || body.getRoutes().isEmpty()) {
-                throw new IllegalStateException("카카오모빌리티 API에서 경로 데이터가 오지 않았습니다.");
-            }
-
-            // 여러 section/road가 있을 수 있으니, 모든 vertexes를 합쳐서 반환 (실제 경로를 위해)
-            List<KakaoRouteResponse.Route> routes = body.getRoutes();
-            List<Double> allVertexes = new java.util.ArrayList<>();
-            for (KakaoRouteResponse.Section section : routes.get(0).getSections()) {
-                for (KakaoRouteResponse.Road road : section.getRoads()) {
-                    allVertexes.addAll(road.getVertexes());
-                }
-            }
-            return allVertexes;
-
-        } catch (RestClientException e) {
-            // 로그 남기기
-            System.err.println("카카오모빌리티 API 호출 실패: " + e.getMessage());
-            throw new RuntimeException("카카오모빌리티 API 호출 실패", e);
-        }
+    private List<Double> extractCoordinates(KakaoRouteResponse response) {
+        List<Double> coordinates = new ArrayList<>();
+        response.getRoutes().forEach(route ->
+                route.getSections().forEach(section ->
+                        section.getRoads().forEach(road ->
+                                road.getVertexes().forEach(coordinates::add)
+                        )
+                )
+        );
+        return coordinates;
     }
 }
