@@ -10,4 +10,5 @@ public interface UserMapper {
     int register(UserVO userVO); // 회원가입
     UserVO findInfo(UserVO vo);// 회원정보 찾기(아이디찾기, 비밀번호찾기, 로그인)
     int modify(UserVO userVO);// 회원정보 변경
+    boolean registerCheck(UserVO userVO);
 }
