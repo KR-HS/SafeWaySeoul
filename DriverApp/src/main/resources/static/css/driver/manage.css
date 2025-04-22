@@ -129,6 +129,15 @@
     z-index: 2;
 }
 
+/* 경유자 버튼 부분 */
+
+.removeBtn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    margin-left: 5px;
+}
 
 
 

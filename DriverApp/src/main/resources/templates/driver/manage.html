@@ -34,30 +34,100 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
             document.addEventListener('DOMContentLoaded', function() {
-                // 1. 지도 초기화
+
+                let currentPolyline = null; // 현재 지도에 그려진 Polyline(경로 선) 객체를 저장. 새 경로를 그릴 때 기존 선을 지우기 위해 사용
+
+                // 지도 초기화
                 const mapContainer = document.getElementById('map');
                 const mapOption = {
-                    center: new kakao.maps.LatLng(37.5665, 126.9780),
-                    level: 5
+                    center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표(서울 시청 근처)
+                    level: 5 // 지도 확대/축소 레벨 (숫자가 작을수록 확대)
                 };
-                const map = new kakao.maps.Map(mapContainer, mapOption);
+                const map = new kakao.maps.Map(mapContainer, mapOption); // 지도 객체 생성
 
-                // 2. 기존 경로 지우기 위한 변수
-                let currentPolyline = null;
+                // 1. 마커를 관리할 배열
+                let markers = []; // 지도에 표시된 모든 마커를 저장. 나중에 한 번에 지우거나 관리할 때 사용
 
-                // 3. 경로 그리기 함수
+                // 2. 모든 마커 지우기 함수
+                function clearMarkers() {
+                    // 배열에 저장된 모든 마커를 지도에서 제거
+                    markers.forEach(marker => marker.setMap(null));
+                    markers = []; // 배열 비우기
+                }
+
+                // 주소 → 좌표 변환 함수
+                // 입력한 주소(또는 키워드)를 Kakao API로 좌표(x, y)로 변환
+                function addressToCoords(address) {
+                    return new Promise((resolve, reject) => {
+                        const geocoder = new kakao.maps.services.Geocoder();
+                        geocoder.addressSearch(address, function(result, status) {
+                            if (status === kakao.maps.services.Status.OK && result.length > 0) {
+                                resolve({ x: parseFloat(result[0].x), y: parseFloat(result[0].y) });
+                            } else {
+                                // 주소 변환 실패 시 키워드(장소명) 검색으로 재시도
+                                const places = new kakao.maps.services.Places();
+                                places.keywordSearch(address, function(result, status) {
+                                    if (status === kakao.maps.services.Status.OK && result.length > 0) {
+                                        resolve({ x: parseFloat(result[0].x), y: parseFloat(result[0].y) });
+                                    } else {
+                                        reject('주소 변환 실패: ' + address);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+
+
+                // 3. 마커 생성 함수 (출발, 도착, 경유지에 따라 마커 이미지 다르게 표시)
+                function addMarker(lat, lng, type) {
+                    let imageSrc, imageSize, markerImage;
+                    if (type === 'start') {
+                        imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png'; // 파란색(출발)
+                    } else if (type === 'end') {
+                        imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png'; // 빨간색(도착)
+                    } else {
+                        imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png'; // 초록색(경유)
+                    }
+                    imageSize = new kakao.maps.Size(24, 35); // 마커 이미지 크기 지정
+                    markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                    const marker = new kakao.maps.Marker({
+                        position: new kakao.maps.LatLng(lat, lng),
+                        image: markerImage,
+                        map: map
+                    });
+                    markers.push(marker); // 생성한 마커를 배열에 저장
+                }
+
+                // 경로 그리기(경유지 없이)
                 function drawRoute(startX, startY, endX, endY) {
-                    fetch(`/api/map/route?startX=${startX}&startY=${startY}&endX=${endX}&endY=${endY}`)
+                    // 백엔드 API에서 경로 좌표 배열을 받아옴 (fetch: 비동기 통신)
+                    //(POST 요청)
+                    fetch('/api/map/route', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                startX: startX,
+                                startY: startY,
+                                endX: endX,
+                                endY: endY,
+                                waypoints: [] // 경유지가 없으면 빈 배열
+                            })
+                        })
                         .then(response => response.json())
                         .then(coordinates => {
-                            // 기존 경로가 있으면 지우기
-                            if (currentPolyline) {
-                                currentPolyline.setMap(null);
-                            }
+                            if (currentPolyline) currentPolyline.setMap(null); // 기존 경로 선 제거
+                            clearMarkers(); // 기존 마커 제거
+
                             const path = [];
+                            // 좌표 배열을 Kakao LatLng 객체로 변환하여 경로(path) 생성
                             for(let i=0; i<coordinates.length; i+=2) {
                                 path.push(new kakao.maps.LatLng(coordinates[i+1], coordinates[i]));
                             }
+                            // Polyline(경로선) 생성 및 지도에 표시
                             currentPolyline = new kakao.maps.Polyline({
                                 map: map,
                                 path: path,
@@ -65,9 +135,17 @@
                                 strokeColor: '#FF00FF',
                                 strokeOpacity: 0.7
                             });
+
+                            // 경로 전체가 보이도록 지도 영역 조정
                             const bounds = new kakao.maps.LatLngBounds();
                             path.forEach(coord => bounds.extend(coord));
                             map.setBounds(bounds);
+
+                            // 출발지, 도착지 마커 표시
+                            if (path.length > 0) {
+                                addMarker(path[0].getLat(), path[0].getLng(), 'start'); // 출발지
+                                addMarker(path[path.length-1].getLat(), path[path.length-1].getLng(), 'end'); // 도착지
+                            }
                         })
                         .catch(error => {
                             alert('경로를 불러오는데 실패했습니다.');
@@ -75,59 +153,124 @@
                         });
                 }
 
-                // 4. 주소 또는 장소명(POI)로 좌표 얻기
-                function getCoords(input, callback) {
-                    const geocoder = new kakao.maps.services.Geocoder();
-                    geocoder.addressSearch(input, function(result, status) {
-                        if (status === kakao.maps.services.Status.OK && result.length > 0) {
-                            callback(result[0].x, result[0].y);
-                        } else {
-                            // 주소 변환 실패 → 장소명(POI) 검색 시도
-                            const places = new kakao.maps.services.Places();
-                            places.keywordSearch(input, function(result, status) {
-                                if (status === kakao.maps.services.Status.OK && result.length > 0) {
-                                    callback(result[0].x, result[0].y);
-                                } else {
-                                    callback(null, null);
-                                }
-                            });
+                // 경유지 포함 경로 그리기
+                // 경로 그리기 함수
+                async function drawRouteWithWaypoints() {
+                    const startAddr = document.getElementById('startAddress').value;
+                    const endAddr = document.getElementById('endAddress').value;
+                    const waypoints = Array.from(document.querySelectorAll('.waypoint-input'))
+                        .map(input => input.value.trim())
+                        .filter(v => v);
+
+                    try {
+                        // 주소 → 좌표 변환
+                        const start = await addressToCoords(startAddr);
+                        const end = await addressToCoords(endAddr);
+                        const waypointCoords = await Promise.all(
+                            waypoints.map(addr => addressToCoords(addr))
+                        );
+
+                        // 백엔드 API 호출
+                        const response = await fetch('/api/map/route', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                startX: start.x,
+                                startY: start.y,
+                                endX: end.x,
+                                endY: end.y,
+                                waypoints: waypointCoords.map(c => ({ x: c.x, y: c.y }))
+                            })
+                        });
+
+                        const coordinates = await response.json();
+
+                        // === 여기서 직접 경로 그리기 ===
+                        if (currentPolyline) currentPolyline.setMap(null);
+                        clearMarkers();
+
+                        const path = [];
+                        for (let i = 0; i < coordinates.length; i += 2) {
+                            path.push(new kakao.maps.LatLng(coordinates[i + 1], coordinates[i]));
                         }
-                    });
+                        currentPolyline = new kakao.maps.Polyline({
+                            map: map,
+                            path: path,
+                            strokeWeight: 5,
+                            strokeColor: '#FF00FF',
+                            strokeOpacity: 0.7
+                        });
+                        const bounds = new kakao.maps.LatLngBounds();
+                        path.forEach(coord => bounds.extend(coord));
+                        map.setBounds(bounds);
+
+                        // 출발, 경유지, 도착 마커 표시
+                        if (path.length > 0) {
+                            addMarker(path[0].getLat(), path[0].getLng(), 'start');
+                            waypointCoords.forEach(wp => addMarker(wp.y, wp.x, 'way'));
+                            addMarker(path[path.length - 1].getLat(), path[path.length - 1].getLng(), 'end');
+                        }
+
+                    } catch (error) {
+                        console.error('경로 생성 오류:', error);
+                        alert('경로 생성에 실패했습니다.');
+                    }
                 }
 
-                // 5. 버튼 클릭 시 처리
-                document.getElementById('drawRouteBtn').addEventListener('click', function() {
+                // 경로 그리기 버튼 클릭 이벤트
+                document.getElementById('drawRouteBtn').addEventListener('click', async function() {
                     const startAddress = document.getElementById('startAddress').value.trim();
                     const endAddress = document.getElementById('endAddress').value.trim();
-
-
-
+                    const waypoints = Array.from(document.querySelectorAll('.waypoint-input'))
+                        .map(input => input.value.trim())
+                        .filter(v => v);
 
                     if (!startAddress || !endAddress) {
-                        alert('출발지와 도착지 주소 또는 역명을 모두 입력해주세요.');
+                        alert('출발지와 도착지 주소를 모두 입력해주세요.');
                         return;
                     }
 
-                    // 출발지 좌표 변환
-                    getCoords(startAddress, function(startX, startY) {
-                        if (startX && startY) {
-                            // 도착지 좌표 변환
-                            getCoords(endAddress, function(endX, endY) {
-                                if (endX && endY) {
-                                    drawRoute(startX, startY, endX, endY);
-                                    console.log(startX+' '+startY);
-                                    console.log(endX+' '+endY);
-                                } else {
-                                    alert('도착지 주소 또는 역명을 찾을 수 없습니다.');
-                                }
-                            });
+                    try {
+                        const start = await addressToCoords(startAddress);
+                        const end = await addressToCoords(endAddress);
+                        const waypointCoords = await Promise.all(
+                            waypoints.map(addr => addressToCoords(addr))
+                        );
+
+                        // 경유지 있을 때
+                        if (waypointCoords.length > 0) {
+                            drawRouteWithWaypoints(start.x, start.y, end.x, end.y, waypointCoords);
                         } else {
-                            alert('출발지 주소 또는 역명을 찾을 수 없습니다.');
+                            drawRoute(start.x, start.y, end.x, end.y);
                         }
-                    });
+
+                    } catch (error) {
+                        alert(error);
+                    }
                 });
 
-                // 6. 페이지 로드시 기본 경로 자동 표시 (원하면 지워도 됨)
+
+                // 경유지 추가 버튼 이벤트
+                document.getElementById('addWaypointBtn').addEventListener('click', () => {
+                    const container = document.getElementById('waypointContainer');
+                    if (container.children.length >= 30) {
+                        alert('최대 30개까지 추가 가능합니다.');
+                        return;
+                    }
+
+                    const waypointDiv = document.createElement('div');
+                    waypointDiv.className = 'waypoint-item';
+                    waypointDiv.innerHTML = `
+                        <input type="text" class="waypoint-input" placeholder="경유지 주소">
+                        <button class="remove-waypoint">×</button>
+                    `;
+                    waypointDiv.querySelector('.remove-waypoint').addEventListener('click', () => {
+                        container.removeChild(waypointDiv);
+                    });
+                    container.appendChild(waypointDiv);
+                });
+
+                // 기본 경로 표시(페이지 로딩 시)
                 drawRoute(127.03041938929663, 37.50133927181133, 127.030515949937, 37.4996237314472);
             });
             /*]]>*/
@@ -135,10 +278,13 @@
         출발지 도착지 입력
 
         <div style="margin-bottom:10px;">
-            <input type="text" id="startAddress" placeholder="출발지 주소 입력" style="width:200px;"><br>
+            <input type="text" id="startAddress" placeholder="출발지 주소 입력" style="width:200px;">
+            <div id="waypointContainer"></div>
+            <button type="button" id="addWaypointBtn">+ 경유지 추가</button><br>
             <input type="text" id="endAddress" placeholder="도착지 주소 입력" style="width:200px;">
             <button id="drawRouteBtn">경로 그리기</button>
         </div>
+
 
 
 

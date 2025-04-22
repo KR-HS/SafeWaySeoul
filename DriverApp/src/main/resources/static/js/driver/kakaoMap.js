@@ -86,6 +86,11 @@ $(document).ready(function(){
                 sort: 'distance'  // 거리순
             });
         });
+
+
+
+
+
     });
 });
 
