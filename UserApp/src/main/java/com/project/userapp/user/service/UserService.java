@@ -9,4 +9,5 @@ public interface UserService {
     int register(UserVO userVO); // 회원가입
     UserVO findInfo(UserVO vo);// 회원정보 찾기
     int modify(UserVO userVO);// 회원정보 변경
+    boolean registerCheck(UserVO userVO); // 중복 회원가입 불가
 }

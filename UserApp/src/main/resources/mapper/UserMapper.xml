@@ -52,5 +52,10 @@
         </if>
     </update>
 
+    <select id="registerCheck" resultType="boolean">
+        select count(*)>0 from USER
+        where user_name = #{userName} and user_phone = #{userPhone}
+    </select>
+
 
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.project.userapp.repository.KinderRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
