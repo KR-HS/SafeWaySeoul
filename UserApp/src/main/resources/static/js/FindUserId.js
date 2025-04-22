@@ -1,10 +1,13 @@
 $(document).ready(function() {
-    $(".btn-outline").on("click", function() {
-        var userId = $(".user-id").val()
 
-        console.log(userId);
+    $(".login-btn").on("click", function() {
+            location.href = '/user/login';
 
-        document.loginForm.submit();
+    })
+
+    $(".psw-btn").on("click", function() {
+
+            location.href = '/user/pswFind';
     })
 
 

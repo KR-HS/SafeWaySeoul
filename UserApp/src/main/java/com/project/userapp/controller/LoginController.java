@@ -35,7 +35,7 @@ public class LoginController {
         UserVO vo = UserVO.builder().userId(id).userPw(pw).build();
         UserVO userVO = userService.findInfo(vo);
 
-        if(userVO==null || id.isEmpty() || pw.isEmpty()){
+        if(userVO==null){
             ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
             return "redirect:/user/login";
         }
@@ -47,7 +47,6 @@ public class LoginController {
         System.out.println("로그인성공!"+session.getAttribute("userInfo"));
 
         return "redirect:/home";
-        
 
     }
     @GetMapping("/logout")
@@ -120,7 +119,6 @@ public class LoginController {
 
         return "/updatePw";
     }
-
 
 
 }

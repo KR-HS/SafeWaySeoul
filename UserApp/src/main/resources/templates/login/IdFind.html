@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/css/login/IdFind.css">
     <script src="/js/jquery-3.7.1.min.js"></script>
-<!--    <script src="/js/login/IdFind.js"></script>-->
+    <script src="/js/login/IdFind.js"></script>
     <script th:inline="javascript" >
         var msg = [[${msg}]];
         if(msg!=null && msg!=''){
@@ -19,29 +19,29 @@
 <body>
 
 <div class="findBox">
-    
-    
+
+
     <form class="findForm" name="IdFindForm" method="post" action="IdFindForm">
 
         <div class="findImg">
             <img src="/img/login/findlogo.png" alt="">
         </div>
-    
+
 
         <h3>아이디 찾기</h3>
         <p>회원정보에 등록된
-        <br>이름과 휴대전화 번호를 입력해 주세요</p>
-        
+            <br>이름과 휴대전화 입력해 주세요</p>
+
         <div class="find">
             <input type="text" class="name" name="name" placeholder="이름">
             <input type="text" class="phone" name="phone" placeholder="휴대폰 번호 ( '-' 제외)" maxlength="11">
-       
+
             <button type="submit" class="find-btn">아이디 찾기</button>
         </div>
-    
+
     </form>
 
 </div>
-    
+
 </body>
 </html>
