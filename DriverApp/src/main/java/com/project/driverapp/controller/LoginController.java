@@ -32,7 +32,7 @@ public class LoginController {
         DriverVO vo = DriverVO.builder().userId(id).userPw(pw).build();
         DriverVO userVO = driverService.findInfo(vo);
 
-        if(userVO==null){
+        if(userVO==null || id.isEmpty() || pw.isEmpty()){
             ra.addFlashAttribute("msg","회원정보를 다시 확인해주세요.");
             return "redirect:/user/login";
         }
@@ -42,6 +42,7 @@ public class LoginController {
 
         session.setAttribute("driverInfo",userVO);
         System.out.println("로그인성공!"+session.getAttribute("driverInfo"));
+        System.out.println(id + ' ' + pw + " testtesttesttesttesttesttesttesttesttesttesttesttesttest");
 
         return "redirect:/home";
     }
