@@ -5,26 +5,34 @@
   <title>아이디 찾기 완료</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/FindUserId.css">
+
 </head>
 <body>
-  <div class="find-id-card">
-    <!-- 카드 내용 -->
-    <div class="card-check">
-      <span class="check-icon">✔</span>
-    </div>
-    <div class="card-title">아이디 찾기 완료</div>
-    <div class="card-info">
-      <div class="info-row">
-        <span>가입일</span>
-        <span>2021.02.19</span>
+
+      <div class="find-id-card">
+        <!-- 카드 내용 -->
+        <div class="card-check">
+          <span class="check-icon">✔</span>
+        </div>
+
+        <div class="card-title">아이디 찾기 완료</div>
+
+        <div class="card-info">
+          <div class="info-row">
+            <span>가입일</span>
+            <span>[[${userInfo.userRegdate}]]</span>
+          </div>
+
+          <div class="info-row">
+            <span>아이디</span>
+            <span class="user-id">[[${userInfo.userId}]]</span>
+          </div>
+        </div>
+
+        <button class="btn-outline">비밀번호 찾기</button>
+        <button class="btn-fill">로그인 하러가기</button>
       </div>
-      <div class="info-row">
-        <span>아이디</span>
-        <span class="user-id">test****@naver.com</span>
-      </div>
-    </div>
-    <button class="btn-outline">비밀번호 재설정하기</button>
-    <button class="btn-fill">로그인 하러가기</button>
-  </div>
+
+
 </body>
 </html>

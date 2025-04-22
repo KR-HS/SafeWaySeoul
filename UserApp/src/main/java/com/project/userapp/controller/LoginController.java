@@ -6,6 +6,7 @@ import org.apache.coyote.Request;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -76,7 +77,48 @@ public class LoginController {
 
         return "redirect:/user/login";
     }
-    
+
+    @GetMapping("/IdFind")
+    public String IdFind() {return "login/IdFind";}
+
+    @PostMapping("/IdFindForm")
+    public String IdFindForm(@RequestParam("name") String userName, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
+
+        UserVO vo = UserVO.builder().userName(userName).userPhone(userPhone).build();
+        UserVO userVO = userService.findInfo(vo);
+
+        if(userVO==null){
+            ra.addFlashAttribute("msg","등록된 회원정보를 다시 확인해주세요.");
+            return "redirect:/user/IdFind";
+        }
+
+        model.addAttribute("userInfo",userVO);
+
+        return "/FindUserId";
+    }
+
+    @GetMapping("/FindUserId")
+    public String FindUserId() {return "login/FindUserId";}
+
+
+    @GetMapping("/pswFind")
+    public String pswFind() {return "login/pswFind";}
+
+    @PostMapping("pswFindForm")
+    public String pswFindForm(@RequestParam("id") String userId, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
+
+        UserVO vo = UserVO.builder().userId(userId).userPhone(userPhone).build();
+        UserVO userVO = userService.findInfo(vo);
+
+        if(userVO==null){
+            ra.addFlashAttribute("msg","등록된 회원정보를 다시 확인해주세요.");
+            return "redirect:/user/pswFind";
+        }
+
+        model.addAttribute("userInfo",userVO);
+
+        return "/updatePw";
+    }
 
 
 
