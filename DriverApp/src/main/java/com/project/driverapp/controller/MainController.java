@@ -3,6 +3,7 @@ package com.project.driverapp.controller;
 import com.project.driverapp.children.service.ChildrenService;
 import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.command.RecordVO;
 import com.project.driverapp.driver.service.DriverService;
 import com.project.driverapp.record.service.RecordService;
@@ -41,8 +42,13 @@ public class MainController {
 
         List<RecordVO> list = recordService.getRecordList(vo.getUserKey());
         System.out.println(list.toString());
+
+        KinderVO kinderVo = driverService.findKinderForDriver(vo.getUserKey());
+        System.out.println(kinderVo.toString());
+
         model.addAttribute("driverInfo", vo);
         model.addAttribute("recordInfo", list);
+        model.addAttribute("kinderInfo", kinderVo);
 
         return "home";
     }

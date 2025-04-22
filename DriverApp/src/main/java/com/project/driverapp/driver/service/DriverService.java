@@ -3,6 +3,7 @@ package com.project.driverapp.driver.service;
 
 import com.project.driverapp.command.ChildrenVO;
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.command.KinderVO;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface DriverService {
     int modify(DriverVO userVO);// 회원정보 변경
 
     List<ChildrenVO> manageOfChildren(int recordKey);
+    KinderVO findKinderForDriver(int driverKey); //기사의 유치원 정보
 }

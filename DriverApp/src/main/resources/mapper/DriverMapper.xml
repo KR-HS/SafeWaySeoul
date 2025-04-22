@@ -112,5 +112,14 @@
         </if>
     </update>
 
+    <select id="findKinderForDriver" resultType="KinderVO">
+        SELECT DISTINCT k.*
+        FROM RECORD r
+                 JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
+                 JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
+                 JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
+        WHERE r.DRIVER_KEY = ${driverKey};
+    </select>
+
 
 </mapper>
