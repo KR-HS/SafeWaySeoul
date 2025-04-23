@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.userapp.file.mapper.FileMapper">
+<mapper namespace="com.project.userapp.files.mapper.FilesMapper">
     <insert id="registFile" parameterType="FileVO">
         insert into files(file_name,file_path,file_uuid
         <if test="childKey != '' and childKey != null">
@@ -38,6 +38,8 @@
         LIMIT 1
     </select>
 
-
+    <delete id="deleteByChildKey" parameterType="int">
+        DELETE FROM FILES WHERE CHILD_KEY = #{childKey}
+    </delete>
 
 </mapper>
