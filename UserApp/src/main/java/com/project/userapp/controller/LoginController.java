@@ -31,7 +31,8 @@ public class LoginController {
     }
 
     @PostMapping("/loginOk")
-    public String loginForm(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String id
+    public String loginForm(HttpServletRequest request, HttpServletResponse response,
+                            @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
 
         if(id.isBlank() || pw.isBlank()){
@@ -66,8 +67,16 @@ public class LoginController {
 
     }
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("userInfo");
+    public String logout(HttpServletRequest request,HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if(session!=null) session.invalidate();
+
+        Cookie cookie = new Cookie("loginToken", null); // "loginToken"은 실제 쿠키 이름으로 교체
+        cookie.setPath("/"); // 설정했던 path와 동일하게
+        cookie.setMaxAge(0); // 유효기간 0초 → 즉시 삭제
+        cookie.setHttpOnly(true); // 필요 시 보안 설정도 유지
+        response.addCookie(cookie);
+
         return "redirect:/user/login";
     }
 

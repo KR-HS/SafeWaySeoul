@@ -47,7 +47,9 @@ public class LoginController {
 
         HttpSession session = request.getSession();
 
-        session.setAttribute("userInfo",userVO);
+        session.setAttribute("driverInfo",userVO);
+
+
 
         // 쿠키 생성
         Cookie loginCookie = new Cookie("loginToken", userVO.getUserId()); // JWT나 유저 ID 등 고유값
@@ -64,8 +66,24 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("driverInfo");
+    public String logout(HttpServletRequest request,HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if(session!=null) session.invalidate();
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                System.out.println("쿠키 이름: " + c.getName() + ", 만료: " + c.getMaxAge());
+            }
+        }
+        
+        Cookie cookie = new Cookie("loginToken", null); // "loginToken"은 실제 쿠키 이름으로 교체
+        cookie.setPath("/"); // 설정했던 path와 동일하게
+        cookie.setMaxAge(0); // 유효기간 0초 → 즉시 삭제
+        cookie.setHttpOnly(true); // 필요 시 보안 설정도 유지
+        response.addCookie(cookie);
+
+
         return "redirect:/user/login";
     }
 

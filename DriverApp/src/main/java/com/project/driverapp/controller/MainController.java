@@ -50,7 +50,7 @@ public class MainController {
 
         model.addAttribute("driverInfo", vo);
         model.addAttribute("recordInfo", list);
-        model.addAttribute("kinderInfo", kinderVo.get(0));
+//        model.addAttribute("kinderInfo", kinderVo.get(0));
 
         return "home";
     }

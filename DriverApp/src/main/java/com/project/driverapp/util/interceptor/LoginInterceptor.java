@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throws Exception {
 
         HttpSession session = request.getSession();
-        if (session != null && session.getAttribute("userInfo") != null) {
+        if (session != null && session.getAttribute("driverInfo") != null) {
             return true; // 이미 로그인 상태
         }
 
@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     // 🔍 DB 조회를 통해 사용자 정보 가져오기
                     DriverVO driver = driverService.findInfo(vo);
                     if (driver != null) {
-                        request.getSession().setAttribute("userInfo", driver); // 세션에 유저 저장
+                        request.getSession().setAttribute("driverInfo", driver); // 세션에 유저 저장
 
                         // 앱 접속시 쿠키 재생성
                         Cookie renewedCookie = new Cookie("loginToken", userId);

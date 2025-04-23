@@ -20,6 +20,8 @@
         <div class="driver-text"><strong>[[${driverInfo.userName}]] 기사님</strong> 반갑습니다</div>
     </div>
 
+        <th:block th:if="${kinderInfo != null}">
+
     <h2>오늘의 배차 - [[${kinderInfo.kinderName}]]</h2>
 
         <table class="dispatch-table">
@@ -59,7 +61,7 @@
                 </div>
             </div>
         </div>
-
+        </th:block>
     </section>
 </th:block>
 </body>
