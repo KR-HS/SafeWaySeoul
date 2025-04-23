@@ -4,27 +4,46 @@
   <meta charset="UTF-8">
   <title>아이디 찾기 완료</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/css/FindUserId.css">
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/FindUserId.js"></script>
+
 </head>
 <body>
-  <div class="find-id-card">
-    <!-- 카드 내용 -->
-    <div class="card-check">
-      <span class="check-icon">✔</span>
-    </div>
-    <div class="card-title">아이디 찾기 완료</div>
-    <div class="card-info">
-      <div class="info-row">
-        <span>가입일</span>
-        <span>2021.02.19</span>
-      </div>
-      <div class="info-row">
-        <span>아이디</span>
-        <span class="user-id">test****@naver.com</span>
-      </div>
-    </div>
-    <button class="btn-outline">비밀번호 재설정하기</button>
-    <button class="btn-fill">로그인 하러가기</button>
+
+<div class="findId">
+
+  <div class="check">
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+      <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    </svg>
   </div>
+
+  <h3>아이디 찾기 완료</h3>
+
+  <form class="info">
+
+    <div class="idInfo">
+      <span>아이디</span>
+      <span class="userId">[[${driverInfo.userId}]]</span>
+    </div>
+
+    <div class="regInfo">
+      <span>가입일</span>
+      <span class="joinReg">[[${#dates.format(driverInfo.userRegdate, 'yyyy-MM-dd')}]]</span>
+    </div>
+
+  </form>
+
+  <div class="btn">
+    <button class="login-btn">로그인</button>
+    <button class="psw-btn">비밀번호 찾기</button>
+  </div>
+
+</div>
+
+
 </body>
 </html>
