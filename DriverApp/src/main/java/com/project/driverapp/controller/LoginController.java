@@ -5,6 +5,7 @@ import com.project.driverapp.driver.mapper.DriverMapper;
 import com.project.driverapp.driver.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,14 +111,77 @@ public class LoginController {
         return "redirect:/user/login";
     }
 
-    //로그인 성공창
+    @GetMapping("/IdFind")
+    public String IdFind() {return "login/IdFind";}
+
+    @PostMapping("/IdFindForm")
+    public String IdFindForm(@RequestParam("name") String userName, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
+
+            if(userName.trim().isBlank() || userPhone.trim().isBlank()){
+            ra.addFlashAttribute("msg","정보를 입력해주세요");
+            return "redirect:/user/IdFind";
+        }
+
+        DriverVO vo = DriverVO.builder().userName(userName).userPhone(userPhone).build();
+        DriverVO DriverVO = driverService.findInfo(vo);
+
+        if(DriverVO==null){
+            ra.addFlashAttribute("msg","등록된 회원정보를 다시 확인해주세요.");
+            return "redirect:/user/IdFind";
+        }
+
+        model.addAttribute("driverInfo",DriverVO);
+
+        return "/FindUserId";
+
+    }
+
     @GetMapping("/FindUserId")
-    public String findUserIdPage() {
-        return "FindUserId"; // templates/FindUserId.html
+    public String FindUserId() {return "login/FindUserId";}
+
+
+
+    @GetMapping("/pswFind")
+    public String pswFind() {return "login/pswFind";}
+
+    @PostMapping("pswFindForm")
+    public String pswFindForm(@RequestParam("id") String userId, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
+
+        if(userId.trim().isBlank() || userPhone.trim().isBlank()){
+            ra.addFlashAttribute("msg","정보를 입력해주세요");
+            return "redirect:/user/pswFind";
+        }
+
+        DriverVO vo = DriverVO.builder().userId(userId).userPhone(userPhone).build();
+        DriverVO DriverVO = driverService.findInfo(vo);
+        model.addAttribute("userId", userId);
+
+        if(DriverVO==null){
+            ra.addFlashAttribute("msg","등록된 회원정보를 다시 확인해주세요.");
+            return "redirect:/user/pswFind";
+        }
+
+        model.addAttribute("driverInfo",DriverVO);
+
+        return "/updatePw";
     }
-    //비밀번호 재설정창
-    @GetMapping("/updatePw")
-    public String updatePw() {
-        return "updatePw"; //
+
+    @PostMapping("/updatePw")
+    public String updatePw(@RequestParam("id") String userId, @RequestParam("password") String userPw, RedirectAttributes ra, Model model) {
+
+
+        DriverVO vo = DriverVO.builder().userId(userId).userPw(userPw).build();
+        int result = driverService.modify(vo);
+
+        if(result == 1){
+            ra.addFlashAttribute("msg","변경되었습니다.");
+        } else {
+            ra.addFlashAttribute("msg", "작업에 실패하였습니다");
+        }
+
+        return "redirect:/user/login";
     }
+
+
+
 }

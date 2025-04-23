@@ -113,7 +113,7 @@ public class LoginController {
     @PostMapping("/IdFindForm")
     public String IdFindForm(@RequestParam("name") String userName, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
 
-        if(userName.trim()=="" || userPhone.trim()==""){
+        if(userName.trim().isBlank() || userPhone.trim().isBlank()){
             ra.addFlashAttribute("msg","정보를 입력해주세요");
             return "redirect:/user/IdFind";
         }

@@ -4,29 +4,55 @@
   <meta charset="UTF-8">
   <title>비밀번호 재설정</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/css/updatePw.css">
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/updatePw.js"></script>
+
 </head>
 <body>
-  <div class="wrap">
-    <div class="icon">
-      <span>🔑</span>
-    </div>
-    <div class="title">비밀번호 재설정</div>
-    <div class="card">
-      <div class="row">
-        <label class="label">아이디</label>
-        <span class="id">test****@naver.com</span>
-      </div>
-      <div class="row">
-        <label class="label">새 비밀번호</label>
-        <input type="password" class="input" placeholder="••••">
-      </div>
-      <div class="row">
-        <label class="label">새 비밀번호<br>확인</label>
-        <input type="password" class="input" placeholder="••••">
-      </div>
-    </div>
-    <button class="btn">재설정하기</button>
+
+<div class="findPsw">
+
+  <div class="check">
+    <svg class="lockmark" viewBox="0 0 52 60">
+      <path class="lockmark__shackle" d="M13 26 Q13 10 26 10 Q39 10 39 26" fill="none"/>
+      <rect class="lockmark__body" x="13" y="26" width="26" height="22" rx="4"/>
+      <circle class="lockmark__hole" cx="26" cy="37" r="2"/>
+      <rect class="lockmark__slot" x="24.5" y="37" width="3" height="6" rx="1"/>
+    </svg>
   </div>
+
+  <h3>비밀번호 재설정</h3>
+
+<!--   아이디-->
+<!--    <div class="idInfobox">-->
+<!--      <div class="idInfo">-->
+<!--        <label>아이디</label>-->
+<!--        <span class="id">[[${driverInfo.userId}]]</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+  <form class="info" name="updatePwForm" method="post" action="/user/updatePw">
+    <input type="text" name="id" th:value="${userId}" hidden>
+
+    <div class="newPsw">
+      <label>새 비밀번호</label>
+      <input type="password" class="pw" name="password" required>
+    </div>
+
+    <div class="newPswCheck">
+      <label>새 비밀번호 확인</label>
+      <input type="password" class="pwCheck" required>
+    </div>
+
+    <div class="btnBox">
+      <button type="submit" class="btn">재설정 하기</button>
+    </div>
+
+  </form>
+
+</div>
+
 </body>
 </html>
