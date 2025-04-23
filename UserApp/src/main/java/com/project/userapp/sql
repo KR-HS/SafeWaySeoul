@@ -41,6 +41,7 @@ CREATE TABLE KINDER (
 );
 
 
+
 #파일 테이블
 CREATE TABLE FILES (
 	FILE_KEY	INT	PRIMARY KEY AUTO_INCREMENT,
@@ -90,7 +91,9 @@ CREATE TABLE LOCATION(
     USER_KEY INT,
     KINDER_KEY INT
 );
-select * from kinder;
+
+ALTER TABLE LOCATION ADD UNIQUE KEY uniq_lat_lng (latitude, longitude);
+select * from kinder k left join location l on k.kinder_key = l.kinder_key where k.kinder_address like '%강북구%';
 
 select * from location;
 
