@@ -398,7 +398,7 @@ $(document).ready(function () {
 
         // 체크박스를 클릭한 경우: 토글하지 않고 상태에 따라 처리만 함
         if ($(event.target).is("input[type=checkbox]")) {
-            isChecked = !isChecked;
+            isChecked = checkbox.prop("checked");
         } else {
             checkbox.prop("checked", !isChecked);
             isChecked = !isChecked;
