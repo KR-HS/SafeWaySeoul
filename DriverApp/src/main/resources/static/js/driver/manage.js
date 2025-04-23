@@ -4,6 +4,13 @@ var recordKey;
 
 $(document).ready(function(){
 
+    var routeBtn=document.querySelector(".routeBtn");
+    var routebox=document.querySelector(".routebox");
+    routeBtn.onclick= function (){
+        routebox.classList.toggle('show');;
+    };
+
+
     var urlParams = new URLSearchParams(window.location.search);
     recordKey = urlParams.get('recordKey');
 

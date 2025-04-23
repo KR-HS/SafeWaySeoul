@@ -139,6 +139,89 @@
     margin-left: 5px;
 }
 
+/*루트박스부분*/
 
+.routebox.show {
+    display: block;
+}
+.routebox {
+    display: none;
+    background: #e8e8e8;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 16px 14px 12px 14px;
+    margin: 18px 0 14px 0;
+    width: 100%;
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
 
+.routebox label {
+    display: block;
+    margin-bottom: 4px;
+    color: #222;
+    font-weight: 500;
+    font-size: 14px;
+}
 
+.routebox input[type="text"] {
+    width: 96%;
+    padding: 7px 8px;
+    margin-bottom: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #fff;
+}
+
+#waypointContainer {
+    margin-bottom: 6px;
+}
+
+.waypoint-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.remove-waypoint {
+    background: #fff0f0;
+    border: 1px solid #e0b4b4;
+    color: #c0392b;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 15px;
+    cursor: pointer;
+    line-height: 20px;
+    padding: 0;
+    transition: background 0.15s;
+}
+.remove-waypoint:hover {
+    background: #ffeaea;
+}
+
+#addWaypointBtn, #drawRouteBtn {
+    background: #e8f1ff;
+    color: #2267b1;
+    border: 1px solid #b3cfff;
+    border-radius: 6px;
+    padding: 6px 13px;
+    font-size: 14px;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+#drawRouteBtn {
+    background: #2267b1;
+    color: #fff;
+    border: none;
+    margin-left: 6px;
+}
+#addWaypointBtn:hover {
+    background: #d4e7ff;
+}
+#drawRouteBtn:hover {
+    background: #174a7b;
+}

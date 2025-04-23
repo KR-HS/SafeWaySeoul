@@ -61,7 +61,7 @@ public class LoginController {
 
         response.addCookie(loginCookie);
 
-        System.out.println("로그인성공!"+session.getAttribute("userInfo"));
+        System.out.println("로그인성공!"+session.getAttribute("driverInfo"));
 
         return "redirect:/home";
     }
