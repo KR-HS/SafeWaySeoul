@@ -1,5 +1,6 @@
 package com.project.userapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,7 +27,6 @@ public class Kinder {
     private String kinderNightOpen;
     private Integer kinderCapacity;
 
-    @OneToOne
-    @JoinColumn(name="kinder_key")
-    private Location locaiton;
+    @OneToOne(mappedBy = "kinder", fetch = FetchType.LAZY)
+    private Location location;
 }
