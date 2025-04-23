@@ -19,8 +19,8 @@ $(document).ready(function(){
 
         // --------------지도 확대 축소 기능-------------
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-        var zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        // var zoomControl = new kakao.maps.ZoomControl();
+        // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
         // // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
         // kakao.maps.event.addListener(map, 'zoom_changed', function() {
