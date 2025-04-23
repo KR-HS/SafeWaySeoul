@@ -24,8 +24,8 @@
 
 
         <!-- 카카오맵 스크립트 추가 -->
-        <script type="text/javascript"
-                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao.javascript.key}&libraries=services"></script>
+<!--        <script type="text/javascript"-->
+<!--                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao.javascript.key}&libraries=services"></script>-->
 
         <!-- 지도 컨테이너 -->
         <div id="map" style="width:100%;height:250px;"></div>
@@ -349,8 +349,10 @@
                     <div th:text="${child.userVO.userAddress+' '+child.userVO.userAddressDetail}">주소</div>
 <!--                    <div th:text="'하차 시간 ' + (${child.dropoffTime} ?: '')">하차 시간 &#45;&#45;:&#45;&#45; </div>-->
                 </div>
+
                 <div th:class="'list-time' + (${child.dropState} == '하차완료' ? ' done' : '')"
-                     th:text="${child.dropState} == '하차완료' ? '하차완료' : '하차'">하차</div>
+                     th:text="${child.dropState} == '하차완료' ? '하차완료' : '하차'">
+                </div>
             </div>
 
         </div>
