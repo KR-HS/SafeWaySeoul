@@ -28,5 +28,6 @@ public class Kinder {
     private Integer kinderCapacity;
 
     @OneToOne(mappedBy = "kinder", fetch = FetchType.LAZY)
+    @JsonManagedReference // Jackson 직렬화 문제
     private Location location;
 }

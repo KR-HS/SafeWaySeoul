@@ -7,7 +7,7 @@
 
 
     <insert id="registLocation" parameterType="LocationVO">
-        insert into LOCATION(latitude,longitude
+        insert ignore into LOCATION(latitude,longitude
         <if test="recordKey!=null and recordKey!=''">
             ,record_key
         </if>
