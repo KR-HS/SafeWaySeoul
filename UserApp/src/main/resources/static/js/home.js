@@ -2,6 +2,7 @@
     var size = 10;
     var start = 0; //시작페이지
     var end = 0; //끝페이지
+    var locations=[]; // 좌표 찍을 리스트
 $(document).ready(function(){
 
     // 자녀 관련 모달창 기능
@@ -224,7 +225,15 @@ $(document).ready(function(){
     // item에는 List<kinderVO>가 옴
     function createKinder(item){
         var str = "";
+        locations=[];
         item.forEach(function(data){
+
+            // 좌표 추가
+            locations.push({
+                lat: data.location.latitude,
+                lng: data.location.longitude}
+            );
+
             str+="<div class='kinderResult'>";
                 str+="<input type='checkbox' name='kinderKey' value='1'>"
                 str+="<div class='kinderInfo-wrap'>";
@@ -243,6 +252,7 @@ $(document).ready(function(){
                 str+="</div>";
             str+="</div>";
         })
+        renderMap(locations);
         $(".kinderResult-wrap").html(str);
     }
 
@@ -305,19 +315,14 @@ $(document).ready(function(){
 
 
     // 카카오맵 로드후 실행
-    kakao.maps.load(function () {
-        //마커 좌표들
-        var locations = [
-            {lat: 37.5665, lng: 126.9780}
-            ,{ lat: 37.5651, lng: 126.9895 }
-            ,{ lat: 37.5700, lng: 126.9820 }
-        ];
+    function renderMap(locations) {
 
         // 이 코드는 script 태그 밑에 바로 두세요!
         var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
         var options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(37.5665, 126.9780), //지도의 중심좌표.
-            level: 9 //지도의 레벨(확대, 축소 정도)
+            // center: new kakao.maps.LatLng(locations[0].lat, locations[0].lng),
+            level: 10 //지도의 레벨(확대, 축소 정도)
         };
 
         var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -391,7 +396,7 @@ $(document).ready(function(){
                 sort: 'distance'  // 거리순
             });
         });
-    });
+    };
 
     // 유치원 리스트 체크박스 기능
     $(".kinderResult").on('click',function(){
