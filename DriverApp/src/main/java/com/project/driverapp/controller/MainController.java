@@ -60,7 +60,12 @@ public class MainController {
 
         // recordKey에 해당하는 아이들 정보 조회
         List<ChildrenVO> childrenList = driverService.manageOfChildren(recordKey);
+        ChildrenVO childrevo= childrenList.get(0);
         model.addAttribute("childrenList", childrenList);
+        model.addAttribute("childrevo", childrevo);
+
+
+
 
         //태초에 맵화면상에 출발지,도착지, 경유지 db상에서 불러와서 맵에 띄우기위한작업
         //유치원 주소
@@ -72,10 +77,10 @@ public class MainController {
         List<String> waypointAddresses = new ArrayList<>();
         for (int i = 0; i < childrenList.size(); i++) {
 
-
             String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
                     childrenList.get(i).getUserVO().getUserAddressDetail();
             waypointAddresses.add(addr);
+
         }
         String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
         List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);

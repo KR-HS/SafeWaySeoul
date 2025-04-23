@@ -14,6 +14,7 @@
         <result property="childGender" column="child_gender" />
         <result property="parentKey" column="parent_key"/>
         <result property="dropState" column="drop_state"/>
+        <result property="recordName" column="record_name"></result>
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
@@ -44,12 +45,14 @@
     </resultMap>
 
     <select id="manageOfChildren" resultMap="manageOfChildren" parameterType="int">
-        select c.*, u.*, k.*,rm.drop_state
+
+        select c.*, u.*, k.*,r.*
         from children c
                  left join user u on u.user_key = c.parent_key
                  left join kindermatch km on c.child_key = km.child_key
                  left join kinder k on km.kinder_key = k.kinder_key
                  left join recordmatch rm on km.km_key = rm.km_key
+                 left join record r on rm.RECORD_KEY=r.RECORD_KEY
         where c.child_key in (
             select child_key
             from kindermatch
@@ -59,6 +62,7 @@
                 where record_key = #{recordKey}
             )
         )
+
     </select>
 
     <update id="updateDropState">
