@@ -46,7 +46,7 @@
 
     <select id="manageOfChildren" resultMap="manageOfChildren" parameterType="int">
 
-        select c.*, u.*, k.*,r.*
+        select c.*, u.*, k.*,r.*,rm.*
         from children c
                  left join user u on u.user_key = c.parent_key
                  left join kindermatch km on c.child_key = km.child_key
