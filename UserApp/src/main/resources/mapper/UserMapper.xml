@@ -50,6 +50,7 @@
         <if test="userAddressDetail != '' and userAddressDetail != null">
             ,user_address_detail =#{userAddressDetail}
         </if>
+        where user_id=#{userId}
     </update>
 
     <select id="registerCheck" resultType="boolean">

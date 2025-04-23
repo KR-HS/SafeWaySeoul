@@ -113,6 +113,11 @@ public class LoginController {
     @PostMapping("/IdFindForm")
     public String IdFindForm(@RequestParam("name") String userName, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
 
+        if(userName.trim()=="" || userPhone.trim()==""){
+            ra.addFlashAttribute("msg","정보를 입력해주세요");
+            return "redirect:/user/IdFind";
+        }
+
         UserVO vo = UserVO.builder().userName(userName).userPhone(userPhone).build();
         UserVO userVO = userService.findInfo(vo);
 
@@ -136,8 +141,14 @@ public class LoginController {
     @PostMapping("pswFindForm")
     public String pswFindForm(@RequestParam("id") String userId, @RequestParam("phone") String userPhone, RedirectAttributes ra, Model model) {
 
+        if(userId.trim()=="" || userPhone.trim()==""){
+            ra.addFlashAttribute("msg","정보를 입력해주세요");
+            return "redirect:/user/pswFind";
+        }
+
         UserVO vo = UserVO.builder().userId(userId).userPhone(userPhone).build();
         UserVO userVO = userService.findInfo(vo);
+        model.addAttribute("userId", userId);
 
         if(userVO==null){
             ra.addFlashAttribute("msg","등록된 회원정보를 다시 확인해주세요.");
@@ -149,5 +160,20 @@ public class LoginController {
         return "/updatePw";
     }
 
+    @PostMapping("/updatePw")
+    public String updatePw(@RequestParam("id") String userId, @RequestParam("password") String userPw, RedirectAttributes ra, Model model) {
+
+
+        UserVO vo = UserVO.builder().userId(userId).userPw(userPw).build();
+        int result = userService.modify(vo);
+
+        if(result == 1){
+            ra.addFlashAttribute("msg","변경되었습니다.");
+        } else {
+            ra.addFlashAttribute("msg", "작업에 실패하였습니다");
+        }
+
+        return "redirect:/user/login";
+    }
 
 }

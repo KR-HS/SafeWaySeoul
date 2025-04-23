@@ -32,7 +32,7 @@
 
     <div class="regInfo">
       <span>가입일</span>
-      <span class="joinReg">[[${userInfo.userRegdate}]]</span>
+      <span class="joinReg">[[${#dates.format(userInfo.userRegdate, 'yyyy-MM-dd')}]]</span>
     </div>
 
   </form>

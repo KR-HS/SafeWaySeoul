@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.findInfo(vo);
     }
 
-
     @Override
     public int modify(UserVO userVO) {
         return userMapper.modify(userVO);
