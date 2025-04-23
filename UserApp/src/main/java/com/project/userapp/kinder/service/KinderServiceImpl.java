@@ -49,11 +49,11 @@ public class KinderServiceImpl implements KinderService {
     }
 
     // ✅ 매일 새벽 3시에 실행
-//    @Scheduled(cron = "0 0 3 * * *")
-//    public void scheduledUpdate() {
-//        System.out.println("⏰ 주기적 Kinder 데이터 수집 시작");
-//        registKinderAPI();
-//    }
+    @Scheduled(cron = "0 0 3 * * *")
+    public void scheduledUpdate() {
+        System.out.println("⏰ 주기적 Kinder 데이터 수집 시작");
+        registKinderAPI();
+    }
 
     @Override
     public void registKinderAPI() {

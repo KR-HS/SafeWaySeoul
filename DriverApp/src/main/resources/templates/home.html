@@ -21,7 +21,7 @@
     </div>
 
 
-
+     <th:block th:if="${kinderInfo != null}">
     <h2>오늘의 배차 - [[${kinderInfo.kinderName}]]</h2>
 
         <table class="dispatch-table">
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-
+     </th:block>
     </section>
 </th:block>
 </body>
