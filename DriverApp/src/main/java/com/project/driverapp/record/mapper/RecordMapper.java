@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface RecordMapper {
     List<RecordVO> getRecordList(Integer driverKey);
+    int getRemainPassengerCount(Integer recordKey);
 }

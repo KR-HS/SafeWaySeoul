@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface RecordService {
     List<RecordVO> getRecordList(Integer driverKey);
+    int getRemainPassengerCount(Integer recordKey);
 }

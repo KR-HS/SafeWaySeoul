@@ -17,4 +17,9 @@ public class RecordServiceImpl implements RecordService {
     public List<RecordVO> getRecordList(Integer driverKey) {
         return recordMapper.getRecordList(driverKey);
     }
+
+    @Override
+    public int getRemainPassengerCount(Integer recordKey) {
+        return recordMapper.getRemainPassengerCount(recordKey);
+    }
 }
