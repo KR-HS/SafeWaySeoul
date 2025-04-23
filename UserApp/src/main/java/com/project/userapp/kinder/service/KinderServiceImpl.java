@@ -42,18 +42,18 @@ public class KinderServiceImpl implements KinderService {
     }
 
      //✅ 서버 실행 직후 1회 실행
-//    @PostConstruct
-//    public void initOnStartup() {
-//        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
-//        registKinderAPI();
-//    }
-
-    // ✅ 매일 새벽 3시에 실행
-    @Scheduled(cron = "0 0 3 * * *")
-    public void scheduledUpdate() {
-        System.out.println("⏰ 주기적 Kinder 데이터 수집 시작");
+    @PostConstruct
+    public void initOnStartup() {
+        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
         registKinderAPI();
     }
+
+    // ✅ 매일 새벽 3시에 실행
+//    @Scheduled(cron = "0 0 3 * * *")
+//    public void scheduledUpdate() {
+//        System.out.println("⏰ 주기적 Kinder 데이터 수집 시작");
+//        registKinderAPI();
+//    }
 
     @Override
     public void registKinderAPI() {
@@ -152,6 +152,7 @@ public class KinderServiceImpl implements KinderService {
 
     // 5. 전체 데이터를 페이징으로 조회
     public Page<Kinder> getAllKinders(int page, int size) {
+        System.out.println(page+":"+size);
         Pageable pageable = PageRequest.of(page, size);  // PageRequest 객체 생성
         return kinderRepository.findAll(pageable);  // 전체 데이터를 페이징 처리하여 반환
     }

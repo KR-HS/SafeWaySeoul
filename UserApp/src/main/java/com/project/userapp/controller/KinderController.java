@@ -69,6 +69,7 @@ public class KinderController {
         }
         
         PageDTO<Kinder> pageDTO =new PageDTO<>(getPage);
+        System.out.println("*****************************"+pageDTO);
         return pageDTO;
         // 조건 안걸려있을떄(모든 리스트)
     }
