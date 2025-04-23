@@ -167,6 +167,9 @@
                                 addMarker(path[0].getLat(), path[0].getLng(), 'start');
                                 addMarker(path[path.length-1].getLat(), path[path.length-1].getLng(), 'end');
                             }
+                            //화면 최상단으로 이동
+                            document.querySelector('.app-content')
+                                .scrollTo({top:0, left:0, behavior:'smooth'});
                         })
                         .catch(error => {
                             alert('경로를 불러오는데 실패했습니다.');
@@ -229,13 +232,28 @@
 
                         // 출발, 경유지, 도착 마커 및 번호 오버레이 표시
                         if (path.length > 0) {
+
                             addMarker(path[0].getLat(), path[0].getLng(), 'start'); // 출발지
+
                             waypointCoords.forEach((wp, idx) => {
                                 addMarker(wp.y, wp.x, 'way'); // 경유지 마커
                                 addWaypointOverlay(wp.y, wp.x, idx + 1); // 경유지 번호 오버레이
                             });
-                            addMarker(path[path.length - 1].getLat(), path[path.length - 1].getLng(), 'end'); // 도착지
+
+                            // 도착지 마커+오버레이 (경유지가 있을 때만)
+                            if (waypointCoords.length > 0) {
+                                // 도착지 마커
+                                addMarker(end.y, end.x, 'way');
+                                // 마지막 번호 (경유지 개수 + 1)
+                                addWaypointOverlay(end.y, end.x, waypointCoords.length + 1);
+                            } else {
+                                // 경유지 없으면 도착지 마커만
+                                addMarker(path[path.length - 1].getLat(), path[path.length - 1].getLng(), 'end');
+                            }
                         }
+                        //화면 최상단으로 이동
+                        document.querySelector('.app-content')
+                            .scrollTo({top:0, left:0, behavior:'smooth'});
 
                     } catch (error) {
                         console.error('경로 생성 오류:', error);
@@ -265,7 +283,10 @@
 
                         if (waypointCoords.length > 0) {
                             drawRouteWithWaypoints();
+
+
                         } else {
+                            //경유지 없을때
                             drawRoute(start.x, start.y, end.x, end.y);
                         }
 
@@ -295,9 +316,9 @@
                     const waypointDiv = document.createElement('div');
                     waypointDiv.className = 'waypoint-item';
                     waypointDiv.innerHTML = `
-            <input type="text" class="waypoint-input" placeholder="경유지 주소">
-            <button class="remove-waypoint">×</button>
-        `;
+                        <input type="text" class="waypoint-input" placeholder="경유지 주소">
+                        <button class="remove-waypoint">×</button>
+                    `;
                     waypointDiv.querySelector('.remove-waypoint').addEventListener('click', () => {
                         container.removeChild(waypointDiv);
                         drawRouteWithWaypoints();
@@ -311,23 +332,27 @@
             /*]]>*/
         </script>
 
-        출발지 도착지 입력
 
-        <div style="margin-bottom:10px;">
+        <button class="routeBtn">루트조회</button>
 
-            <input type="text" id="startAddress" th:value="${startAddress}" placeholder="출발지 주소 입력" style="width:200px;">
+        <div class="routebox">
+            <div style="font-size:16px; font-weight:bold; margin-bottom:8px;">경로 조회</div>
+            <label for="startAddress">출발지</label>
+            <input type="text" id="startAddress" th:value="${startAddress}" placeholder="출발지 주소 입력">
+
+            <label>경유지</label>
             <div id="waypointContainer">
                 <div th:each="waypoint : ${waypoints}" class="waypoint-item">
                     <input type="text" class="waypoint-input" th:value="${waypoint}" placeholder="경유지 주소">
                     <button class="remove-waypoint">×</button>
                 </div>
             </div>
-            <button type="button" id="addWaypointBtn">+ 경유지 추가</button><br>
-            <input type="text" id="endAddress" th:value="${endAddress}" placeholder="도착지 주소 입력" style="width:200px;">
+            <button type="button" id="addWaypointBtn">+ 경유지 추가</button>
+
+            <label for="endAddress" style="margin-top:8px;">도착지</label>
+            <input type="text" id="endAddress" th:value="${endAddress}" placeholder="도착지 주소 입력">
             <button id="drawRouteBtn">경로 그리기</button>
-
         </div>
-
 
         <!--승하차관련-->
         <div class="boarding-status"></div>
