@@ -167,7 +167,7 @@ body {
   line-height: 1.2;
 }
 
-.input {
+.pw, .pwCheck {
   background: #fffff2cb;
   border: none;
   border-radius: 8px;
@@ -184,8 +184,13 @@ body {
   outline: 2px solid #f5e0b2;
 }
 
+.btnBox {
+  display: flex;
+  justify-content: center;
+}
+
 .btn {
-  width: 90%;
+  width: 100%;
   background: #fce9ad;
   color: black;
   border: none;
@@ -193,9 +198,7 @@ body {
   font-size: 1.18rem;
   font-weight: bold;
   padding: 15px 0;
-  margin-top: 12px;
-  cursor: pointer;
-  letter-spacing: 1px;
+  margin-top: 20px;
 }
 
 .btn:hover {
