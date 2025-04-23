@@ -10,6 +10,14 @@
         from RECORD
         where DRIVER_KEY = ${driverKey}
     </select>
+    
+    <select id="getRemainPassengerCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM record rc
+                 LEFT JOIN recordmatch rm ON rc.record_key = rm.record_key
+        WHERE rc.record_key = #{recordKey}
+          AND drop_state = '하차'
+    </select>
 
 
 </mapper>

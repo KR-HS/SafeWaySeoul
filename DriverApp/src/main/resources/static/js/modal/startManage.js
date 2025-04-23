@@ -10,6 +10,20 @@ $(document).ready(function() {
         recordCarName = $(this).find(".title").data("record-car-name");
         $(".modal-title").text(recordName);
         $(".modal-subtitle").text(recordCarName);
+
+        // Ajax 호출 추가
+        $.ajax({
+            url: "/getRemainPassengerCount",
+            type: "GET",
+            data: { recordKey: selectedRecordKey },
+            success: function (count) {
+                $(".modal-leftCount").text(count + "명");
+            },
+            error: function () {
+                $(".modal-leftCount").text("조회 실패");
+            }
+        });
+
         $(".modal-overlay").css("display", "block");
     });
 
