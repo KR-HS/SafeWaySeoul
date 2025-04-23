@@ -62,16 +62,39 @@ $(document).ready(function() {
         window.history.back();
     });
 
-    // 성별 라디오 버튼 유효성 검사 기능
     $(".submit-btn").on("click", function(e) {
         const genderRadios = $("input[name='childGender']");
         const isSelected = genderRadios.is(":checked");
 
         if (!isSelected) {
-            e.preventDefault(); // 폼 제출 막기
-            alert("성별을 선택해주세요."); // 사용자 피드백
+            e.preventDefault();
+
+            // 혹시 삭제 모달이 떠 있으면 먼저 닫기
+            $('#delete-confirm-modal').hide();
+
+            // 성별 확인 모달 표시
+            $('#gender-alert-modal').fadeIn().css("display", "flex");
             return false;
         }
     });
+
+// 성별 확인 모달 확인 버튼
+    $("#gender-alert-confirm-btn").on("click", function () {
+        $("#gender-alert-modal").fadeOut();
+    });
+
+// 성별 확인 모달 바깥 클릭 시 → 성별 모달만 닫기
+    $("#gender-alert-modal").on("click", function (e) {
+        if (e.target.id === "gender-alert-modal") {
+            $("#gender-alert-modal").fadeOut();
+        }
+    });
+
+
+
+
+
+
+
 });
 

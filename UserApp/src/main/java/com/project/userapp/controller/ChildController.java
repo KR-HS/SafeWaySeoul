@@ -49,7 +49,7 @@ public class ChildController {
             return "redirect:/" + previousUrl;
         }
 
-
+        ra.addFlashAttribute("childRegSuccess", true);
         return "redirect:/child";
     }
 

@@ -4,30 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.userapp.files.mapper.FilesMapper">
+
     <insert id="registFile" parameterType="FileVO">
-        insert into files(file_name,file_path,file_uuid
-        <if test="childKey != '' and childKey != null">
-            ,child_key
-        </if>
-        <if test="kinderKey != '' and kinderKey != null">
-            ,kinder_key
-        </if>
-        <if test="userKey != '' and userKey != null">
-            ,user_key
-        </if>
+        insert into files (
+        file_name, file_path, file_uuid, file_regdate
+        <if test="childKey != '' and childKey != null">, child_key</if>
+        <if test="kinderKey != '' and kinderKey != null">, kinder_key</if>
+        <if test="userKey != '' and userKey != null">, user_key</if>
         )
-        values(#{fileName},#{filePath},#{fileUuid}
-        <if test="childKey != '' and childKey != null">
-            ,#{childKey}
-        </if>
-        <if test="kinderKey != '' and kinderKey != null">
-            ,#{kinderKey}
-        </if>
-        <if test="userKey != '' and userKey != null">
-            ,#{userKey}
-        </if>
+        values (
+        #{fileName}, #{filePath}, #{fileUuid}, NOW()
+        <if test="childKey != '' and childKey != null">, #{childKey}</if>
+        <if test="kinderKey != '' and kinderKey != null">, #{kinderKey}</if>
+        <if test="userKey != '' and userKey != null">, #{userKey}</if>
         )
     </insert>
+
 
     <!--업로드된 파일 불러오는 기능-->
     <select id="selectProfileByChild" resultType="FileVO" parameterType="Integer">
