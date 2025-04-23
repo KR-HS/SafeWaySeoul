@@ -21,14 +21,16 @@ $(function () {
 
     // 삭제 버튼 클릭 시 모달창 열기
     $('.delete-child-btn').on('click', function () {
+        // 모달 초기화
+        resetDeleteModal();
+
         selectedChildKey = $(this).data('child-id');
         selectedCard = $(this).closest('.child-card');
-        $('#delete-confirm-modal').fadeIn();
-        $('#delete-confirm-modal').css('display', 'flex');
+        $('#delete-confirm-modal').fadeIn().css('display', 'flex');
     });
 
-    // 삭제 확인 버튼 클릭 시
-    $('#confirm-delete-btn').on('click', function () {
+    // 삭제 확인 기본 처리 함수 (재사용 가능)
+    function defaultDeleteHandler() {
         $.ajax({
             url: '/child/delete',
             method: 'POST',
@@ -39,10 +41,14 @@ $(function () {
                     $('#cancel-delete-btn').hide();
                     $('#confirm-delete-btn')
                         .text('확인')
-                        .off('click') // 이전 삭제 이벤트 제거
+                        .off('click')
                         .on('click', function () {
                             selectedCard.remove();
-                            $('#delete-confirm-modal').fadeOut(); // 모달 닫기
+                            $('#delete-confirm-modal').fadeOut();
+                            resetDeleteModal();
+
+                            // 다시 기본 삭제 핸들러 바인딩
+                            $('#confirm-delete-btn').off('click').on('click', defaultDeleteHandler);
                         });
                 } else {
                     alert('삭제에 실패했습니다.');
@@ -52,12 +58,48 @@ $(function () {
                 alert('요청 처리 중 오류가 발생했습니다.');
             }
         });
-    });
+    }
 
-    // 취소 버튼 또는 바깥 클릭 시 모달창 닫기
+    // 삭제 확인 버튼에 기본 핸들러 바인딩
+    $('#confirm-delete-btn').on('click', defaultDeleteHandler);
+
+    // 모달 상태 초기화 함수
+    function resetDeleteModal() {
+        $('.modal-message').text('선택하신 카드를 삭제하시겠습니까?');
+        $('#cancel-delete-btn').show();
+        $('#confirm-delete-btn').text('확인').off('click').on('click', defaultDeleteHandler);
+    }
+
+    // 취소 버튼 또는 바깥 클릭 시 모달창 닫기 + 리다이렉트 처리
     $('#cancel-delete-btn, #delete-confirm-modal').on('click', function (e) {
         if (e.target.id === 'cancel-delete-btn' || e.target.id === 'delete-confirm-modal') {
+            const isSuccess = $('.modal-message').text().includes('정상적으로 처리되었습니다');
             $('#delete-confirm-modal').fadeOut();
+            resetDeleteModal();
+
+            if (isSuccess) {
+                window.location.href = '/child'; // 리다이렉트
+            }
         }
     });
+
+    // 등록 성공 시 모달 표시
+    if ($("body").data("reg-success") === true) {
+        $("#child-success-modal").fadeIn().css("display", "flex");
+    }
+
+// 확인 버튼 클릭 시 모달 닫기
+    $("#child-success-confirm-btn").on("click", function () {
+        $("#child-success-modal").fadeOut();
+    });
+
+    // 등록 성공 모달 바깥 클릭 시 해당 모달만 닫기
+    $("#child-success-modal").on("click", function (e) {
+        if (e.target.id === "child-success-modal") {
+            $("#child-success-modal").fadeOut();
+        }
+    });
+
+
+
 });

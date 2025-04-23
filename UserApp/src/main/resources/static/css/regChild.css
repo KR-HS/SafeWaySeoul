@@ -139,3 +139,33 @@
 .modalWrap .submit-btn:hover {
     background-color: #357ABD;
 }
+
+/* 성별 미선택 모달에만 적용될 스타일 */
+.gender-alert-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#gender-alert-message {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.gender-confirm-btn {
+    background-color: #4A90E2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}

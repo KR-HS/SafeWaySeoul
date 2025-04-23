@@ -67,6 +67,7 @@ public class ChildrenServiceImpl implements ChildrenService{
                         .filePath(filepath)
                         .fileName(filename)
                         .childKey(vo.getChildKey())
+                        .userKey(vo.getParentKey())  // 유저키도 추가
                         .build());
 
             } catch (Exception e) {

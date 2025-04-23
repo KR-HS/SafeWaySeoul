@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
+<body th:data-reg-success="${childRegSuccess}">
 
 <!-- 자녀 카드 삭제 확인 모달 -->
 <div id="delete-confirm-modal" class="modal" style="display: none;">
@@ -69,8 +69,16 @@
           </div>
 
           <div class="child-image">
-            <img th:if="${child.childGender == 'F'}" th:src="@{/img/temp-basic-mypage-female.png}" alt="자녀 사진">
-            <img th:if="${child.childGender != 'F'}" th:src="@{/img/temp-basic-mypage-male.png}" alt="자녀 사진">
+            <img th:if="${child.profileImageUrl != null}"
+                 th:src="@{${child.profileImageUrl}}"
+                 alt="자녀 프로필 이미지" />
+            <img th:if="${child.profileImageUrl == null && child.childGender == 'F'}"
+                 th:src="@{/img/temp-basic-mypage-female.png}"
+                 alt="기본 여성 이미지" />
+            <img th:if="${child.profileImageUrl == null && child.childGender != 'F'}"
+                 th:src="@{/img/temp-basic-mypage-male.png}"
+                 alt="기본 남성 이미지" />
+
             <img src="/img/image-editing.png" alt="자녀 사진 수정 버튼" class="edit-child-btn">
           </div>
           <div class="child-info">
@@ -127,6 +135,16 @@
     </div>
   </section>
 </th:block>
+
+<!-- 등록 성공 모달 -->
+<div id="child-success-modal" class="modal" style="display: none;">
+  <div class="modal-content small">
+    <p class="modal-message">정상적으로 등록되었습니다.</p>
+    <div class="modal-buttons">
+      <button id="child-success-confirm-btn" class="confirm-btn">확인</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
