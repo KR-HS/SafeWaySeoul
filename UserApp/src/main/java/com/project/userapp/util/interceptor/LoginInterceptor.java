@@ -1,9 +1,13 @@
 package com.project.userapp.util.interceptor;
 
+import com.project.userapp.command.UserVO;
+import com.project.userapp.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,20 +15,47 @@ import javax.servlet.http.HttpSession;
 @Component // webConfig에서 bean으로 등록안해도됨 (자동 빈 등록)
 public class LoginInterceptor implements HandlerInterceptor {
     // 로딩후 무조건 로그인화면
+    @Autowired
+    private UserService userService; // 💡 서비스 주입 필요
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
         HttpSession session = request.getSession();
-        System.out.println(session.getAttribute("userInfo"));
-        // 세션에 방문 여부가 없다면
-        if (session.getAttribute("userInfo") == null) {
-            // 처음 진입일 경우 특정 페이지로 리다이렉트
-            response.sendRedirect("/user/login");
-            return false; // 이후 컨트롤러로 안 넘어감
+        if (session != null && session.getAttribute("userInfo") != null) {
+            return true; // 이미 로그인 상태
         }
 
-        return true; // 이미 방문했으면 계속 진행
+        // 쿠키에서 로그인 토큰 꺼내기
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("loginToken".equals(cookie.getName())) {
+                    String userId = cookie.getValue();
+
+                    UserVO vo = UserVO.builder().userId(userId).build();
+                    // 🔍 DB 조회를 통해 사용자 정보 가져오기
+                    UserVO user = userService.findInfo(vo);
+                    if (user != null) {
+                        request.getSession().setAttribute("userInfo", user); // 세션에 유저 저장
+
+                        // 앱 접속시 쿠키 재생성
+                        Cookie renewedCookie = new Cookie("loginToken", userId);
+                        renewedCookie.setHttpOnly(true);
+                        renewedCookie.setSecure(true);
+                        renewedCookie.setMaxAge(60 * 60 * 24 * 7); // 다시 7일로 설정
+                        renewedCookie.setPath("/"); // 모든 경로의 요청에서 쿠키 전송
+                        response.addCookie(renewedCookie); // 쿠키 갱신
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // 로그인 페이지로 리디렉션
+        response.sendRedirect("/login");
+        return false;
     }
 
     @Override

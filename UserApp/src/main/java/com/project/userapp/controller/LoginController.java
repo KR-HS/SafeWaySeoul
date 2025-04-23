@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.util.HashMap;
@@ -29,10 +31,10 @@ public class LoginController {
     }
 
     @PostMapping("/loginOk")
-    public String loginForm(HttpServletRequest request, @RequestParam("email") String id
+    public String loginForm(HttpServletRequest request, HttpServletResponse response, @RequestParam("email") String id
             , @RequestParam("password") String pw, RedirectAttributes ra) {
 
-        if(id.trim()=="" || pw.trim()==""){
+        if(id.isBlank() || pw.isBlank()){
             ra.addFlashAttribute("msg","로그인 정보를 입력해주세요");
             return "redirect:/user/login";
         }
@@ -45,10 +47,19 @@ public class LoginController {
             return "redirect:/user/login";
         }
 
-
         HttpSession session = request.getSession();
 
         session.setAttribute("userInfo",userVO);
+
+        // 쿠키 생성
+        Cookie loginCookie = new Cookie("loginToken", userVO.getUserId()); // JWT나 유저 ID 등 고유값
+        loginCookie.setHttpOnly(true);           // JS에서 접근 못하도록
+        loginCookie.setSecure(true);             // HTTPS에서만 전송
+        loginCookie.setPath("/");                // 전체 경로에서 유효
+        loginCookie.setMaxAge(60 * 60 * 24 * 7); // 7일간 유지
+
+        response.addCookie(loginCookie);
+
         System.out.println("로그인성공!"+session.getAttribute("userInfo"));
 
         return "redirect:/home";
