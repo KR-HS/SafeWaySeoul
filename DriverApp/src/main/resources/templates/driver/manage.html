@@ -162,6 +162,13 @@
                         .map(input => input.value.trim())
                         .filter(v => v);
 
+                    // 서버에서 미리 받은 주소가 없을 경우 처리
+                    if (!startAddr || !endAddr) {
+                        console.warn('주소 정보가 없습니다.');
+                        return;
+                    }
+
+
                     try {
                         // 주소 → 좌표 변환
                         const start = await addressToCoords(startAddr);
@@ -270,22 +277,27 @@
                     container.appendChild(waypointDiv);
                 });
 
-                // 기본 경로 표시(페이지 로딩 시)
-                drawRoute(127.03041938929663, 37.50133927181133, 127.030515949937, 37.4996237314472);
+                // 최초 경로 표시(페이지 로딩 시)
+                drawRouteWithWaypoints();
             });
             /*]]>*/
         </script>
         출발지 도착지 입력
 
         <div style="margin-bottom:10px;">
-            <input type="text" id="startAddress" placeholder="출발지 주소 입력" style="width:200px;">
-            <div id="waypointContainer"></div>
+
+            <input type="text" id="startAddress" th:value="${startAddress}" placeholder="출발지 주소 입력" style="width:200px;">
+            <div id="waypointContainer">
+                <div th:each="waypoint : ${waypoints}" class="waypoint-item">
+                    <input type="text" class="waypoint-input" th:value="${waypoint}" placeholder="경유지 주소">
+                    <button class="remove-waypoint">×</button>
+                </div>
+            </div>
             <button type="button" id="addWaypointBtn">+ 경유지 추가</button><br>
-            <input type="text" id="endAddress" placeholder="도착지 주소 입력" style="width:200px;">
+            <input type="text" id="endAddress" th:value="${endAddress}" placeholder="도착지 주소 입력" style="width:200px;">
             <button id="drawRouteBtn">경로 그리기</button>
+
         </div>
-
-
 
 
         <!--승하차관련-->
