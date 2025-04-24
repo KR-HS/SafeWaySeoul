@@ -44,6 +44,7 @@ $(document).ready(function(){
 
                 $("input[name='childName']").val(child.childName);
                 $("input[name='childBirth']").val(child.childBirth);
+                $("input[name='regChild-kinder-name']").val(child.kinderVO.kinderName);
                 $("form[name='childForm']").attr("action", "/child/update");
                 $(".submit-btn").text("수정하기");
 
