@@ -46,15 +46,6 @@
   border-radius: 50%;
 }
 
-.user-image .edit-image-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-}
-
 .user-details {
   display: flex;
   flex-direction: column;
@@ -158,15 +149,6 @@
   border-radius: 50%;
 }
 
-.child-image .edit-child-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-}
-
 .child-name {
   display: flex;
   align-items: center;
@@ -198,6 +180,27 @@
 /* 자녀 카드 삭제 버튼 위치 및 디자인 */
 .child-card {
   position: relative;
+}
+
+.edit-child-btn {
+  position: absolute;
+  top: 12px;
+  right: 42px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.edit-child-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding-left: 2px;
 }
 
 .delete-child-btn {

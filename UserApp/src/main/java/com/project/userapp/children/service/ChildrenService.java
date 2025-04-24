@@ -7,9 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ChildrenService {
-    int registChild(ChildrenVO vo, MultipartFile file);
+    int registChild(ChildrenVO vo, MultipartFile file, Integer kinderKey);
     int deleteChild(Integer childKey);
     List<ChildrenVO> myChildren(Integer parentKey);
+    ChildrenVO getChildDetail(Integer childKey);
+    int updateChild(ChildrenVO vo, MultipartFile file);
+
 
 
 

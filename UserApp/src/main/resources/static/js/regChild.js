@@ -1,3 +1,6 @@
+var page = 1;
+var size = 10;
+
 $(document).ready(function() {
     const myDatepicker = new AirDatepicker('.birth', {
         autoClose: true,
@@ -91,8 +94,50 @@ $(document).ready(function() {
     });
 
 
+    $("input[name='regChild-kinder-name']").on("input click", function () {
+        const keyword = $(this).val();
+        if (keyword.length < 1) {
+            $("#autocomplete-list").hide();
+            return;
+        }
 
+        fetch(`/kinder/find?name=${encodeURIComponent(keyword)}&page=1&size=20`, { method: 'get' })
+            .then(res => res.json())
+            .then(data => {
+                const list = data.pageData || [];
+                let html = "";
 
+                if (list.length > 0) {
+                    list.forEach(kinder => {
+                        html += `<div class="autocomplete-item" data-name="${kinder.kinderName}" data-key="${kinder.kinderKey}">${kinder.kinderName}<br>${kinder.kinderAddress}</div>`;
+                    });
+                } else {
+                    html = `<div class="autocomplete-item" style="color:#999;">검색 결과 없음</div>`;
+                }
+
+                $("#autocomplete-list").html(html).show();
+            })
+            .catch(err => {
+                console.error("자동완성 요청 실패", err);
+                $("#autocomplete-list").hide();
+            });
+    });
+
+// 자동완성 항목 클릭 시 input 값으로 입력
+    $(document).on("click", ".autocomplete-item", function () {
+        const selectedName = $(this).data("name");
+        const selectedKey = $(this).data("key");
+        $("input[name='regChild-kinder-name']").val(selectedName);
+        $("input[name='regChild-kinder-key']").val(selectedKey);
+        $("#autocomplete-list").hide();
+    });
+
+// 바깥 클릭 시 자동완성 닫기
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".regChild-kinder-search-wrap").length) {
+            $("#autocomplete-list").hide();
+        }
+    });
 
 
 

@@ -5,6 +5,8 @@
     <form name="childForm" method="post" action="/child/regist" enctype="multipart/form-data">
     <input type="text" placeholder="내 아이의 이름을 입력해 주세요." class="input-box" required name="childName"/>
 
+        <input type="hidden" name="childKey" value="">
+
     <div class="gender-select">
         <label for="girl" class="gender girl">
             <img src="/img/girl.png" alt="Girl" />
@@ -16,7 +18,18 @@
         <input type="radio" name="childGender" required id="boy" value="M" hidden>
     </div>
 
-    <input type="text" name='childBirth' placeholder="내 아이와의 처음 만난 일자를 입력해주세요" required class="input-box birth"/>
+    <div class="regChild-kinder-search-wrap">
+        <input type="text" placeholder="어린이집명을 입력하세요" name="regChild-kinder-name" autocomplete="off">
+        <input type="hidden" name="regChild-kinder-key">
+        <div id="autocomplete-list" class="autocomplete-list"
+             style="position:absolute; top:100%; left:0; right:0; z-index:99; background:white; border:1px solid #ccc; display:block;">
+        </div>
+    </div>
+
+
+
+    <input type="text" name='childBirth' placeholder="내 아이와의 처음 만난 일자를 입력해주세요" required class="input-box birth" autocomplete="off"/>
+
 
     <div class="upload-section">
         <p>내 아이 사진 등록하기</p>

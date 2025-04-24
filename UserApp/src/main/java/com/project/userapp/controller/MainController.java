@@ -28,7 +28,7 @@ public class MainController {
     private LocationService locationService;
 
 
-    @GetMapping("/*")
+    @GetMapping("/loading")
     public String loading() {
         return "loading";
     }
@@ -108,5 +108,9 @@ public class MainController {
         return "updatePw"; //
     }
 
+    @GetMapping("/websocket")
+    public String websocket() {
+        return "map";
+    }
 
 }

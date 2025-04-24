@@ -36,8 +36,8 @@
     </insert>
 
     <insert id="registKinderRelation" parameterType="int">
-        insert into KINDERMATCH(CHILD_KEY)
-        VALUES(#{childKey})
+        insert into KINDERMATCH(CHILD_KEY, KINDER_KEY)
+        VALUES(#{childKey}, #{kinderKey})
     </insert>
     <delete id="deleteChild" parameterType="int">
         delete from CHILDREN where child_key=#{childKey}
@@ -52,6 +52,26 @@
         on km.kinder_key=k.kinder_key
         where c.parent_key=#{parentKey};
     </select>
+
+    <!-- 아이 정보 수정 모달 창에 DB에 저장되어 있는 정보를 가져와서 입력해두는 기능-->
+    <select id="getChildDetail" resultMap="kinderOfChild" parameterType="int">
+        select c.*, k.*
+        from children c
+                 left join kindermatch km on c.child_key = km.child_key
+                 left join kinder k on km.kinder_key = k.kinder_key
+        where c.child_key = #{childKey}
+    </select>
+
+    <!-- 아이 카드 정보 수정 기능 -->
+    <update id="updateChild" parameterType="ChildrenVO">
+        UPDATE CHILDREN
+        SET child_name = #{childName},
+            child_birth = #{childBirth},
+            child_gender = #{childGender}
+        WHERE child_key = #{childKey}
+    </update>
+
+
 
 
 </mapper>

@@ -20,7 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(firstVisitInterceptor)
-                .addPathPatterns("/**"); // 모든 경로에 적용
+                .addPathPatterns("/**")// 모든 경로에 적용
+                .excludePathPatterns(
+                "/loading","/css/**", "/js/**", "/img/**", "/favicon.ico");
 
 
 

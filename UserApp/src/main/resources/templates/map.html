@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
+
+<div id="map" style="width:100%;height:100vh;"></div>
+
+<script>
+    const recordKey = 2;
+
+    let map = new kakao.maps.Map(document.getElementById('map'), {
+        // center: new kakao.maps.LatLng(37.5665, 126.9780),
+        center: new kakao.maps.LatLng(37.49953928976487, 127.03043069202396),
+        level: 3
+    });
+    let linePath = [];
+    let polyline;
+
+    fetch(`/api/locations/${recordKey}`)
+        .then(res => res.json())
+        .then(data => {
+            linePath = data.map(p => new kakao.maps.LatLng(parseFloat(p.latitude), parseFloat(p.longitude)));
+            polyline = new kakao.maps.Polyline({
+                path: linePath,
+                strokeWeight: 5,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeStyle: 'solid'
+            });
+            polyline.setMap(map);
+        });
+
+    const socket = new SockJS("http://localhost:8082/ws");
+    // const socket = new SockJS("https://1166-218-153-162-9.ngrok-free.app/ws");
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+        console.log("WebSocket connected");
+        stompClient.subscribe(`/topic/location/update/${recordKey}`, message => {
+
+            const data = JSON.parse(message.body);
+            const latlng = new kakao.maps.LatLng(parseFloat(data.latitude), parseFloat(data.longitude));
+            console.log("WebSocket message received:", data);
+
+            map.setCenter(latlng);
+
+            // 경로 추가
+            linePath.push(latlng);
+            polyline.setPath(linePath);
+        });
+    });
+</script>
+
+
+</body>
+</html>

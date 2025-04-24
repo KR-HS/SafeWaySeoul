@@ -8,8 +8,12 @@ import java.util.List;
 @Mapper
 public interface ChildrenMapper {
     int registChild(ChildrenVO vo);
-    void registKinderRelation(int childKey);
+    void registKinderRelation(int childKey, Integer kinderKey);
     int deleteChild(Integer childKey);
     List<ChildrenVO> myChildren(Integer parentKey);
+    ChildrenVO getChildDetail(Integer childKey);
+    int updateChild(ChildrenVO vo);
+
+
 
 }

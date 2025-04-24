@@ -45,9 +45,9 @@ public class ChildrenServiceImpl implements ChildrenService{
 
     @Override
     @Transactional
-    public int registChild(ChildrenVO vo, MultipartFile file) {
+    public int registChild(ChildrenVO vo, MultipartFile file, Integer kinderKey) {
         int result = childrenMapper.registChild(vo);
-        childrenMapper.registKinderRelation(vo.getChildKey());
+        childrenMapper.registKinderRelation(vo.getChildKey(), kinderKey);
 
         // 자녀 프로필사진 등록
         if (!file.isEmpty()) {
@@ -107,4 +107,53 @@ public class ChildrenServiceImpl implements ChildrenService{
 
         return list;
     }
+
+    @Override
+    public ChildrenVO getChildDetail(Integer childKey) {
+        ChildrenVO vo = childrenMapper.getChildDetail(childKey);
+        FileVO fileVO = fileMapper.selectProfileByChild(childKey);
+        if (fileVO != null) {
+            String imageUrl = "/upload/" + fileVO.getFilePath() + "/" + fileVO.getFileUuid() + "_" + fileVO.getFileName();
+            vo.setProfileImageUrl(imageUrl);
+        }
+        return vo;
+    }
+
+    @Override
+    @Transactional
+    public int updateChild(ChildrenVO vo, MultipartFile file) {
+        int result = childrenMapper.updateChild(vo);
+
+        if (!file.isEmpty()) {
+            try {
+                String originName = file.getOriginalFilename();
+                String filename = originName.substring(originName.lastIndexOf("/") + 1);
+
+                UUID uuid = UUID.randomUUID();
+                String filepath = makeFolder();
+                String path = uploadPath + "/" + filepath + "/" + uuid + "_" + filename;
+
+                File saveFile = new File(path);
+                file.transferTo(saveFile);
+
+                fileMapper.registFile(FileVO.builder()
+                        .fileUuid(uuid.toString())
+                        .filePath(filepath)
+                        .fileName(filename)
+                        .childKey(vo.getChildKey())
+                        .userKey(vo.getParentKey())
+                        .build());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
+
+
+
+
+
 }

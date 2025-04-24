@@ -31,7 +31,6 @@
         )
     </insert>
 
-
     <!-- id는 resultMap의 이름, type에는 객체타입 -->
     <!-- id = 키에 대한 맵핑,  property  = 멤버변수명, column = 실제컬럼명-->
     <resultMap id="mychildRoutebyrecordKey" type="ChildrenVO">
@@ -86,6 +85,10 @@
                 select km_key
                 from kindermatch where child_key=#{childKey})
         )
+
+    <select id="selectByRecordKey" resultType="LocationVO">
+        SELECT * FROM location WHERE record_key = #{recordKey} ORDER BY location_regtime
+
     </select>
 
 
