@@ -27,4 +27,6 @@ public class UserVO {
     private String userPhone;
     private Timestamp userRegdate;
 
+    private String userProfileImageUrl;
+
 }

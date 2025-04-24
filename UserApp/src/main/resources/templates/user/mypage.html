@@ -34,22 +34,23 @@
     <div class="user-info-section">
       <h5 class="section-title">내 정보</h5>
       <div class="user-card">
+
+        <div class="edit-user-btn">
+          <img src="/img/edit-text.png" alt="내 정보 수정 버튼">
+        </div>
+
         <div class="user-image">
-          <img src="/img/parents.png" alt="내 프로필 사진"> <!--따로 등록하지 않는 이상 기본 썸네일 사용-->
+          <img th:src="${profile != null and profile.filePath != null} ? ${profile.filePath} : '/img/parents.png'" alt="프로필 이미지" />
         </div>
 
         <div class="user-details">
           <div class="user-name-row">
-            <p class="user-name" th:text="${session.userInfo.userName}"></p>
-            <div class="edit-user-btn">
-              <img src="/img/edit-text.png" alt="내 정보 수정 버튼">
-            </div>
+            <p class="user-name" th:text="${session.userInfo.userName} + ' 님'"></p>
           </div>
+          <p>연락처</p>
           <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
           <p>주소</p>
           <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
-          <p>근무지</p>
-          <p>선덕고등학교 본관 교무실</p>
         </div>
       </div>
     </div>

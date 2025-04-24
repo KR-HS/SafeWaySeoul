@@ -58,5 +58,18 @@
         where user_name = #{userName} and user_phone = #{userPhone}
     </select>
 
+    <update id="updateUser" parameterType="UserVO">
+        UPDATE user
+        SET
+        user_pw = #{userPw},
+        user_phone = #{userPhone},
+        user_birth = #{userBirth},
+        user_postcode = #{userPostcode},
+        user_address = #{userAddress},
+        user_address_detail = #{userAddressDetail}
+        WHERE user_key = #{userKey}
+    </update>
+
+
 
 </mapper>

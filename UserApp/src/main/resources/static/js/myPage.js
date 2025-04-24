@@ -92,6 +92,10 @@ $(function () {
         }
     });
 
+    $(".edit-user-btn").on("click", function () {
+        location.href = "/user/userInfoModi";
+    });
+
 
 
 });
