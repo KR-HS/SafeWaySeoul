@@ -85,6 +85,7 @@
                 select km_key
                 from kindermatch where child_key=#{childKey})
         )
+    </select>
 
     <select id="selectByRecordKey" resultType="LocationVO">
         SELECT * FROM location WHERE record_key = #{recordKey} ORDER BY location_regtime
