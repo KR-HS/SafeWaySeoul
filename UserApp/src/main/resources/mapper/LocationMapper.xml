@@ -32,4 +32,9 @@
     </insert>
 
 
+    <select id="selectByRecordKey" resultType="LocationVO">
+        SELECT * FROM location WHERE record_key = #{recordKey} ORDER BY location_regtime
+    </select>
+
+
 </mapper>

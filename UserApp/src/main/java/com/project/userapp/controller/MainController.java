@@ -5,6 +5,7 @@ import com.project.userapp.command.ChildrenVO;
 import com.project.userapp.command.KinderVO;
 import com.project.userapp.command.UserVO;
 import com.project.userapp.kinder.service.KinderService;
+import com.project.userapp.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class MainController {
 
 
 
-    @GetMapping("/*")
+    @GetMapping("/loading")
     public String loading() {
         return "loading";
     }
@@ -82,5 +83,9 @@ public class MainController {
         return "updatePw"; //
     }
 
+    @GetMapping("/websocket")
+    public String websocket() {
+        return "map";
+    }
 
 }

@@ -13,8 +13,10 @@ import java.sql.Timestamp;
 @Builder
 public class LocationVO {
     private Integer locationId;
-    private String lattitude;
+    private String latitude;
     private String longitude;
     private Timestamp locationRegtime;
-    private Integer recKey;
+    private Integer recordKey;
+    private Integer userKey;
+    private Integer kinderKey;
 }

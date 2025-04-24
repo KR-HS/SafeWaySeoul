@@ -5,6 +5,8 @@ import com.project.userapp.location.mapper.LocationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationServiceImpl implements LocationService {
 
@@ -14,5 +16,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void registLocation(LocationVO vo) {
         locationMapper.registLocation(vo);
+    }
+
+    @Override
+    public List<LocationVO> selectByRecordKey(int recordKey) {
+        return locationMapper.selectByRecordKey(recordKey);
     }
 }
