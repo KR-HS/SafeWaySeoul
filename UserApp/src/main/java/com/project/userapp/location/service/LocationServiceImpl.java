@@ -22,8 +22,9 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public List<ChildrenVO> mychildRoutebyrecordKey(int childKey) {
-       return locationMapper.mychildRoutebyrecordKey(childKey);
-
+        return locationMapper.mychildRoutebyrecordKey(childKey);
+    }
+    @Override
     public List<LocationVO> selectByRecordKey(int recordKey) {
         return locationMapper.selectByRecordKey(recordKey);
 
