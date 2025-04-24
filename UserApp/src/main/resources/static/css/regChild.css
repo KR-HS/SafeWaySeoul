@@ -141,17 +141,16 @@
 }
 
 /* 성별 미선택 모달에만 적용될 스타일 */
-.gender-alert-box {
-    background-color: #fff;
+#gender-alert-modal {
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 80%;
-    max-width: 400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 #gender-alert-message {
@@ -168,4 +167,53 @@
     border: none;
     font-weight: bold;
     cursor: pointer;
+}
+
+.regChild-kinder-search-wrap{
+    padding:2px 0 10px 0;
+    display: flex;
+    position: relative;
+}
+.regChild-kinder-search-wrap>input{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 10px;
+    background-color:white;
+}
+.regChild-kinder-search-wrap>input:focus{
+    border-color: #4A90E2;
+    outline: none;
+}
+
+/*.autocomplete-list div {*/
+/*    padding: 8px;*/
+/*    cursor: pointer;*/
+/*    border-bottom: 1px solid #eee;*/
+/*}*/
+/*.autocomplete-list div:last-child {*/
+/*    border-bottom: none; !* ✅ 마지막 항목은 선 없애기 *!*/
+/*}*/
+/*.autocomplete-list div:hover {*/
+/*    background-color: #f0f0f0;*/
+/*}*/
+
+.autocomplete-list {
+    max-height: 200px;   /* 필요에 따라 높이 조절 */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 99;
+}
+
+.autocomplete-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
 }
