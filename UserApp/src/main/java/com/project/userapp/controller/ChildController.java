@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,5 +56,33 @@ public class ChildController {
         int result = childrenService.deleteChild(childKey);
         return result == 1 ? "success" : "fail";
     }
+
+    @GetMapping("/detail")
+    @ResponseBody
+    public ChildrenVO getChildDetail(@RequestParam("childKey") Integer childKey) {
+
+        return childrenService.getChildDetail(childKey);
+    }
+
+    @PostMapping("/update")
+    public String updateChild(ChildrenVO vo, @RequestParam("file") MultipartFile file,
+                              HttpServletRequest request, RedirectAttributes ra) {
+        UserVO parent = (UserVO) request.getSession().getAttribute("userInfo");
+        vo.setParentKey(parent.getUserKey());
+
+        int result = childrenService.updateChild(vo, file);
+
+        if (result != 1) {
+            ra.addFlashAttribute("msg", "자녀 정보 수정에 실패했습니다.");
+        } else {
+            ra.addFlashAttribute("childRegSuccess", true);
+        }
+
+        return "redirect:/child";
+    }
+
+
+
+
 
 }
