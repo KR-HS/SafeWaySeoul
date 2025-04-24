@@ -4,6 +4,7 @@
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>유저 자녀관리 & 마이페이지</title>
     <link rel="stylesheet" href="/css/tracing.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
     <script src="/js/tracing.js"></script>
 </head>
 <body>
@@ -19,86 +20,23 @@
             <div class="mylocation">
                 <img src="/img/myposition.png" alt="mylocation">
             </div>
-            <div id="map"></div>
 
+
+            <div id="map" style="width:100%;height:250px;"></div>
+            <input type="hidden" id="startAddress" th:value="${startAddress}" >
+            <input type="hidden" id="endAddress" th:value="${endAddress}" >
+            <div th:each="waypoint : ${waypoints}" class="waypoint-item">
+                <input type="hidden" class="waypoint-input" th:value="${waypoint}">
+            </div>
 
         </div>
 
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8997d782f5298e9e818dbcbf6a5ab396"></script>
 
         <script>
-            // 이 코드는 script 태그 밑에 바로 두세요!
 
-            // 선 그릴 좌표
-            var linePath = [
-                new kakao.maps.LatLng(37.4979, 127.0276),  // 강남역
-                new kakao.maps.LatLng(37.4983, 127.0278),  // 강남역 근처
-                new kakao.maps.LatLng(37.4990, 127.0272),  // 강남역 근처
-                new kakao.maps.LatLng(37.5001, 127.0290),  // 강남역 근처
-                new kakao.maps.LatLng(37.4974, 127.0301),  // 강남역 근처
-                new kakao.maps.LatLng(37.4962, 127.0294),  // 강남역 근처
-                new kakao.maps.LatLng(37.4965, 127.0283),  // 강남역 근처
-                new kakao.maps.LatLng(37.4977, 127.0310),  // 강남역 근처
-                new kakao.maps.LatLng(37.4985, 127.0303),  // 강남역 근처
-                new kakao.maps.LatLng(37.4992, 127.0280),  // 강남역 근처
-                new kakao.maps.LatLng(37.5003, 127.0285),  // 강남역 근처
-                new kakao.maps.LatLng(37.4958, 127.0275),  // 강남역 근처
-                new kakao.maps.LatLng(37.4952, 127.0278),  // 강남역 근처
-                new kakao.maps.LatLng(37.4960, 127.0269),  // 강남역 근처
-                new kakao.maps.LatLng(37.4950, 127.0282),  // 강남역 근처
-                new kakao.maps.LatLng(37.4996, 127.0293),  // 강남역 근처
-                new kakao.maps.LatLng(37.5007, 127.0300),  // 강남역 근처
-                new kakao.maps.LatLng(37.5012, 127.0292),  // 강남역 근처
-                new kakao.maps.LatLng(37.4968, 127.0288),  // 강남역 근처
-                new kakao.maps.LatLng(37.4973, 127.0295),  // 강남역 근처
-                new kakao.maps.LatLng(37.4980, 127.0287),  // 강남역 근처
-                new kakao.maps.LatLng(37.4976, 127.0273),  // 강남역 근처
-                new kakao.maps.LatLng(37.4964, 127.0291),  // 강남역 근처
-                new kakao.maps.LatLng(37.4988, 127.0279),  // 강남역 근처
-                new kakao.maps.LatLng(37.4994, 127.0286),  // 강남역 근처
-                new kakao.maps.LatLng(37.4956, 127.0271)   // 강남역 근처
-            ];
-
-            // 중심 좌표 계산 (위도, 경도 평균값)
-            var latSum = 0;
-            var lngSum = 0;
-
-            for (var i = 0; i < linePath.length; i++) {
-                latSum += linePath[i].getLat();  // 위도 더하기
-                lngSum += linePath[i].getLng();  // 경도 더하기
-            }
-
-            var centerLat = latSum / linePath.length;  // 평균 위도
-            var centerLng = lngSum / linePath.length;  // 평균 경도
-
-            // 지도를 담을 영역의 DOM 레퍼런스
-            var container = document.getElementById('map');
-            var options = {
-                center: new kakao.maps.LatLng(centerLat, centerLng), // 계산된 중심 좌표
-                level: 5  // 지도의 레벨(확대, 축소 정도)
-            };
-
-            var map = new kakao.maps.Map(container, options);  // 지도 생성 및 객체 리턴
-
-            // 지도에 표시할 선을 생성합니다
-            var polyline = new kakao.maps.Polyline({
-                path: linePath,  // 선을 구성하는 좌표배열
-                strokeWeight: 5,  // 선의 두께
-                strokeColor: '#3f38fb',  // 선의 색깔
-                strokeOpacity: 0.7,  // 선의 불투명도
-                strokeStyle: 'solid'  // 선의 스타일
-            });
-
-            // 지도에 선을 표시합니다
-            polyline.setMap(map);
-
-            // 5초마다 지도 중심을 강남역에서 다른 곳으로 변경
-            setInterval(function () {
-                // 예시로 서울시청 좌표로 변경
-                var newCenter = new kakao.maps.LatLng(37.4979, 127.0276);  // 서울시청 좌표
-                map.setCenter(newCenter);  // 중심 좌표 변경
-            }, 5000 );  // 5초마다 중심 좌표 변경
         </script>
+
+
 
 
 

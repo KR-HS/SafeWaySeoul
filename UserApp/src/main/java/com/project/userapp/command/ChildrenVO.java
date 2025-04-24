@@ -19,4 +19,11 @@ public class ChildrenVO {
      private KinderVO kinderVO;
 
      private String profileImageUrl;
+
+
+     //
+     private UserVO userVO;
+     private String dropState;
+     private String recordName;
+
 }

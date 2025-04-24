@@ -5,10 +5,12 @@ import com.project.userapp.command.ChildrenVO;
 import com.project.userapp.command.KinderVO;
 import com.project.userapp.command.UserVO;
 import com.project.userapp.kinder.service.KinderService;
+import com.project.userapp.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -22,7 +24,8 @@ public class MainController {
 
     @Autowired
     private KinderService kinderService;
-
+    @Autowired
+    private LocationService locationService;
 
 
     @GetMapping("/*")
@@ -62,7 +65,30 @@ public class MainController {
     public String regChild(){ return "/modal/regChild";}
 
     @GetMapping("/tracing")
-    public String tracing(){
+    public String tracing(Model model , @RequestParam("childKey") int childKey){
+
+        List<ChildrenVO> childrenList = locationService.mychildRoutebyrecordKey(childKey);
+
+        //유치원 주소
+        KinderVO kinder = childrenList.get(0).getKinderVO();
+        //시작점- 유치원
+        String startAddress = kinder.getKinderAddress();
+        // 아이들 집 주소 리스트
+        List<String> waypointAddresses = new ArrayList<>();
+        for (int i = 0; i < childrenList.size(); i++) {
+            String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
+                    childrenList.get(i).getUserVO().getUserAddressDetail();
+            waypointAddresses.add(addr);
+        }
+        //도착지 - 마지막 아이의 주소
+        String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
+        //경유지 - 중간에 내릴 아이들의 주소
+        List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
+
+        model.addAttribute("startAddress", startAddress);
+        model.addAttribute("waypoints", waypoints);
+        model.addAttribute("endAddress", endAddress);
+
         return "/user/tracing";
     }
 

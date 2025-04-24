@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 public class LocationVO {
     private Integer locationId;
     private String lattitude;
-    private String longitude;
     private Timestamp locationRegtime;
     private Integer recKey;
 }
