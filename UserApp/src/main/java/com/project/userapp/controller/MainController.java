@@ -2,17 +2,25 @@ package com.project.userapp.controller;
 
 import com.project.userapp.children.service.ChildrenService;
 import com.project.userapp.command.ChildrenVO;
-import com.project.userapp.command.KinderVO;
+import com.project.userapp.command.FileVO;
 import com.project.userapp.command.UserVO;
+import com.project.userapp.files.mapper.FilesMapper;
 import com.project.userapp.kinder.service.KinderService;
+import com.project.userapp.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -23,7 +31,14 @@ public class MainController {
     @Autowired
     private KinderService kinderService;
 
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private FilesMapper filesMapper;
+
+    @Value("${com.project.userapp.upload.path}")
+    private String uploadPath;
 
     @GetMapping("/*")
     public String loading() {
@@ -50,6 +65,10 @@ public class MainController {
         System.out.println(vo.toString());
 
         List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
+
+        FileVO profile = filesMapper.selectProfileByUser(vo.getUserKey());
+        model.addAttribute("profile", profile);
+
 
         model.addAttribute("childrenList", list); // 자녀 정보도 리스트에 담아 전달
         model.addAttribute("userInfo", vo);       // 사용자 정보 전달
@@ -81,6 +100,61 @@ public class MainController {
     public String updatePw() {
         return "updatePw"; //
     }
+
+    @GetMapping("/user/userInfoModi")
+    public String userInfoModifyPage(Model model, HttpSession session) {
+        UserVO user = (UserVO) session.getAttribute("userInfo");
+        model.addAttribute("user", user);
+
+        FileVO profile = filesMapper.selectProfileByUser(user.getUserKey());
+        model.addAttribute("profile", profile);
+
+        return "user/userInfoModi";
+    }
+
+
+    @PostMapping("/user/update")
+    public String updateUser(UserVO vo, @RequestParam("profile") MultipartFile profile, HttpSession session, RedirectAttributes ra) {
+
+        UserVO sessionUser = (UserVO) session.getAttribute("userInfo");
+        vo.setUserKey(sessionUser.getUserKey());
+
+        // 1. DB 정보 수정
+        userService.updateUser(vo);
+
+        // 2. 프로필 이미지 업로드
+        if (!profile.isEmpty()) {
+
+            String fileName = profile.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            String saveName = uuid + "_" + fileName;
+
+            File saveFile = new File(uploadPath, saveName);
+
+            try {
+                profile.transferTo(saveFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            FileVO fileVO = FileVO.builder()
+                    .fileName(fileName)
+                    .filePath("/upload/" + saveName)  // 웹에서 접근할 경로
+                    .fileUuid(uuid)
+                    .userKey(vo.getUserKey())
+                    .build();
+
+            filesMapper.registFile(fileVO);  // 직접 FilesMapper 호출 or FilesService 확장
+        }
+
+        // 3. 세션 갱신 - DB에서 최신 정보 다시 조회해서 저장
+        UserVO updatedUser = userService.findInfo(vo); // 또는 findUserByKey(vo.getUserKey())
+        session.setAttribute("userInfo", updatedUser);
+
+
+        return "redirect:/child";
+    }
+
 
 
 }

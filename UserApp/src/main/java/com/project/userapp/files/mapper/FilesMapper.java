@@ -8,4 +8,6 @@ public interface FilesMapper {
     int registFile(FileVO fileVO);
     FileVO selectProfileByChild(Integer childKey);
     int deleteByChildKey(Integer childKey);
+    FileVO selectProfileByUser(Integer userKey);
+
 }

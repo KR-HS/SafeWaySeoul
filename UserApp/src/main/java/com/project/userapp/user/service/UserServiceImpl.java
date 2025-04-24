@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
     public boolean registerCheck(UserVO userVO) {
         return userMapper.registerCheck(userVO);
     }
+
+    @Override
+    public void updateUser(UserVO vo) {
+        userMapper.updateUser(vo);
+    }
 }

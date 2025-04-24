@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="/include/headerBaseLayout"/>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userInfoModi.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/userInfoModi.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API_KEY&libraries=services"></script>
+</head>
+<body>
+
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+    <section class="app-content">
+        <div class="modi">
+            <form class="userInfoModiForm" method="post" action="/user/update" enctype="multipart/form-data">
+
+            <h5 class="section-title">회원 정보 수정</h5>
+
+                <div class="profile-upload-section">
+                    <input type="file" id="profileUploadInput" name="profile" accept="image/*" hidden>
+
+
+                    <div class="profile-image-wrapper">
+                        <img id="profilePreview"
+                             th:src="${profile != null and profile.filePath != null} ? ${profile.filePath} : '/img/parents.png'"
+                             alt="프로필 이미지">
+                        <div class="upload-overlay">클릭하여 변경</div>
+                    </div>
+
+                </div>
+
+
+                <div>
+                    <h3>비밀번호 변경</h3>
+                    <input type="password" class="pass" name="userPw" th:value="${user.userPw}" placeholder="변경할 비밀번호를 입력해주세요" required>
+
+                    <h3>비밀번호 변경 재확인</h3>
+                    <input type="password" class="pass-check" name="userPwCheck" th:value="${user.userPw}" placeholder="비밀번호를 한 번 더 입력해주세요" required>
+
+                    <p class="passMsg"></p>
+
+                    <h3>휴대폰 번호</h3>
+                    <input type="text" class="phone" name="userPhone" th:value="${user.userPhone}" maxlength="11" placeholder="휴대폰 번호를 입력해주세요 ( '-' 제외)" required>
+                    <h3>생년월일</h3>
+                    <input type="text" class="birth" name="userBirth" th:value="${user.userBirth}" placeholder="생년월일 8자리" required>
+
+                    <h3>주소</h3>
+                    <div class="address">
+                        <input type="text" class="address-number" name="userPostcode" th:value="${user.userPostcode}" placeholder="우편번호" readonly required>
+                        <button type="button" class="address-find-btn">우편번호 찾기</button>
+                    </div>
+                    <input type="text" class="address-road" name="userAddress" th:value="${user.userAddress}" placeholder="도로명 주소" readonly required>
+                    <input type="text" class="address-detail" name="userAddressDetail" th:value="${user.userAddressDetail}" placeholder="상세주소 입력">
+
+                    <button type="submit" class="modi-btn">정보 수정</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</th:block>
+
+</body>
+</html>

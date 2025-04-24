@@ -34,4 +34,11 @@
         DELETE FROM FILES WHERE CHILD_KEY = #{childKey}
     </delete>
 
+    <select id="selectProfileByUser" resultType="FileVO" parameterType="Integer">
+        SELECT * FROM FILES
+        WHERE user_key = #{userKey}
+        ORDER BY file_regdate DESC
+            LIMIT 1
+    </select>
+
 </mapper>
