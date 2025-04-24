@@ -101,16 +101,22 @@ public class KinderServiceImpl implements KinderService {
 
                 String zipcode = node.path("ZIPCODE").asText();
                 String phone = node.path("CRTELNO").asText();
+                String latitude = node.path("LA").asText();
+                String longitude = node.path("LO").asText();
                 if (!closed.isBlank()|| zipcode.isBlank()|| phone.isBlank() )
                     continue;
+
+                if(kinderMapper.existsByLaAndLo(latitude,longitude)>0) continue;
+
+
 
                 System.out.println("중복검사");
                 if (!(kinderMapper.existsByNameAndPhone(vo.getKinderName(), vo.getKinderPhone())>0)){
                     System.out.println("인서트전");
                     kinderMapper.insertKinder(vo);
                     LocationVO locationVO = LocationVO.builder().
-                            latitude(node.path("LA").asText()).
-                            longitude(node.path("LO").asText()).
+                            latitude(latitude).
+                            longitude(longitude).
                             kinderKey(vo.getKinderKey())
                             .build();
                     System.out.println("인서트후");

@@ -16,6 +16,7 @@ public class FirstVisitInterceptor implements HandlerInterceptor {
             throws Exception {
 
         HttpSession session = request.getSession();
+        String uri = request.getRequestURI();
 
         System.out.println("firstVisit: " + session.getAttribute("firstVisit"));
 
@@ -23,9 +24,11 @@ public class FirstVisitInterceptor implements HandlerInterceptor {
         if (session.getAttribute("firstVisit") == null) {
             session.setAttribute("firstVisit", true);
 
-            // 처음 진입일 경우 특정 페이지로 리다이렉트
-            response.sendRedirect("/");
-            return false; // 이후 컨트롤러로 안 넘어감
+            // 로딩 페이지 자체는 리다이렉트하지 않도록 예외 처리
+            if (!uri.equals("/loading")) {
+                response.sendRedirect("/loading");
+                return false;
+            }
         }
 
         return true; // 이미 방문했으면 계속 진행
