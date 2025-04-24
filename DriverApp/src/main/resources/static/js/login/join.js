@@ -116,11 +116,76 @@ $(document).ready(function() {
 
     // 회원가입 버튼 클릭
     $(".join-btn").on("click", function () {
+
+        // 주소 유효성 검사////////////////////////////////////////
+        var address = $(".address-road").val();
+        var postcode = $(".address-number").val();
+        var detail = $(".address-detail").val();
+
+        // 주소 또는 우편번호가 비어있으면
+        if (address === "" || postcode === "" || detail === "") {
+            alert("주소를 모두 입력해주세요.");
+            return;
+        }
+        // ////////////////////////////////////////////////////
+
         if (!isIdChecked) {
             alert("아이디 중복 확인을 해주세요.");
             return;
         }
+
         document.joinForm.submit();
+    });
+
+    //유치원 주소
+    $("input[name='userAddressDetail']").on("input click", function () {
+        const keyword = $(this).val();
+        if (keyword.length < 4) {
+            $("#autocomplete-list").hide();
+            return;
+        }
+
+        fetch(`/user/find?name=${encodeURIComponent(keyword)}`, { method: 'get' })
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+
+                let html = "";
+
+                if (data.length > 0) {
+                    data.forEach(kinder => {
+                        html += `<div class="autocomplete-item" data-name="${kinder.kinderName}" data-postcode="${kinder.kinderPostcode}" data-address="${kinder.kinderAddress}"> <div class="kinderNameSt">${kinder.kinderName}</div><div class="KinderAddressSt">${kinder.kinderAddress}</div></div>`;
+                    });
+                } else {
+                    html = `<div class="autocomplete-item" style="color:#999;">검색 결과 없음</div>`;
+                }
+
+                $("#autocomplete-list").html(html).show();
+            })
+            .catch(err => {
+                console.error("자동완성 요청 실패", err);
+                $("#autocomplete-list").hide();
+            });
+    });
+
+// 자동완성 항목 클릭 시 input 값으로 입력
+    $(document).on("click", ".autocomplete-item", function () {
+        const selectedName = $(this).data("name");
+        const selectedPostcode = $(this).data("postcode");
+        const selectedAddress = $(this).data("address");
+        $("input[name='userAddressDetail']").val(selectedName);
+        $("input[name='userPostcode']").val(selectedPostcode);
+        $("input[name='userAddress']").val(selectedAddress);
+        $("#autocomplete-list").hide();
+    });
+
+// 바깥 클릭 시 자동완성 닫기
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".regChild-kinder-search-wrap").length) {
+            $("#autocomplete-list").hide();
+        }
     });
 
 

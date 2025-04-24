@@ -46,7 +46,6 @@ p {
     border-radius: 20px;
     padding: 28px 18px 18px 18px;
 }
-
 input {
     width: 100%;
     padding: 12px;
@@ -57,7 +56,9 @@ input {
     box-sizing: border-box;
 }
 
-input:focus {
+.id .join-password .address > input:focus ,
+.name:focus, .phone:focus, .birth:focus,
+.userAddress:focus {
     border: none;
     outline: 2px solid #64a5f0;
 }
@@ -105,8 +106,21 @@ input:focus {
     width: 100%;
 }
 
-.address-road, .address-detail {
+.address-road {
     margin-bottom: 7px;
+}
+
+.address-detail {
+    margin-bottom: 0px;
+}
+
+.address-detail:focus {
+    border: none;
+    border-bottom: 1px solid #bebebe;
+    outline: none;
+    /*box-shadow: 0 -2px 0 0 #64a5f0, -2px 0 0 0 #64a5f0, 2px 0 0 0 #64a5f0;*/
+    border-radius: 6px 6px 0px 0px;
+
 }
 
 .address > input {
@@ -150,3 +164,29 @@ input:focus {
     font-size: 10px;
 }
 
+/*주소창*/
+.autocomplete-list {
+    max-height: 200px;   /* 필요에 따라 높이 조절 */
+    overflow-y: auto;
+    /*border: 1px solid #ccc;*/
+    background-color: white;
+    z-index: 99;
+    border-radius: 0px 0px 6px 6px;
+}
+
+.kinderNameSt{
+    font-size: 13px;
+    font-weight: bold;
+    margin: 7px 5px 1px 5px;
+}
+
+.KinderAddressSt{
+    font-size: 10px;
+    border-bottom: 1px solid #bebebe;
+    margin: 1px 5px 0px 5px;
+    padding-bottom: 7px;
+}
+
+.scrollable::-webkit-scrollbar {
+    border-radius: 0px 0px 0px 6px;
+}
