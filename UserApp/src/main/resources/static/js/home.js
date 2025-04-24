@@ -6,13 +6,17 @@ var locations = []; // 좌표 찍을 리스트
 var markers = [];
 var map = null;
 var currentInfoWindow = null;
+var childKey= null;
 
 $(document).ready(function () {
 
 
     // 자녀 관련 모달창 기능
     $(".viewInfo").on('click', function () {
-        window.location.href = "/tracing";
+
+        childKey = $(this).data("userkey"); //이거 tracing화면 넘어갈떄, childkey넘기기 위한 작업
+        window.location.href = "/tracing?childKey="+childKey;
+        console.log(childKey);
         // $(".infoModal").css("display","block");
     });
 

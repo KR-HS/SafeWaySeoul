@@ -33,7 +33,7 @@ public class MainController {
     private DriverService driverService;
 
 
-    @GetMapping("/*")
+    @GetMapping("/loading")
     public String loading() {
         return "loading";
     }
@@ -116,5 +116,8 @@ public class MainController {
     @GetMapping("/childDetail")
     public String childDetail() {return "child/childDetail";}
 
+
+    @GetMapping("/driving")
+    public String driving() {return "driving";}
 }
 

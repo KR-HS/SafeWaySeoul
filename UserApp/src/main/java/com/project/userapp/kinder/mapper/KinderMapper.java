@@ -12,4 +12,5 @@ public interface KinderMapper {
 
     int existsByNameAndPhone(@Param("kinderName") String kinderName,@Param("kinderPhone") String kinderPhone);
     void insertKinder(KinderVO vo);
+    int existsByLaAndLo(@Param("latitude") String latitude, @Param("longitude") String longitude);
 }

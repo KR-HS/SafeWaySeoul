@@ -28,4 +28,12 @@
         WHERE KINDER_NAME = #{kinderName} AND KINDER_PHONE = #{kinderPhone}
     </select>
 
+    <select id = "existsByLaAndLo" resultType="int">
+        select COUNT(*)
+        from LOCATION
+        where latitude = #{latitude}
+          and longitude=#{longitude}
+          and kinder_key is not null
+    </select>
+
 </mapper>

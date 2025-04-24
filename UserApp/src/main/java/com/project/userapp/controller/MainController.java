@@ -7,6 +7,7 @@ import com.project.userapp.command.UserVO;
 import com.project.userapp.files.mapper.FilesMapper;
 import com.project.userapp.kinder.service.KinderService;
 import com.project.userapp.user.service.UserService;
+import com.project.userapp.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -30,6 +32,8 @@ public class MainController {
 
     @Autowired
     private KinderService kinderService;
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     private UserService userService;
@@ -40,7 +44,7 @@ public class MainController {
     @Value("${com.project.userapp.upload.path}")
     private String uploadPath;
 
-    @GetMapping("/*")
+    @GetMapping("/loading")
     public String loading() {
         return "loading";
     }
@@ -81,7 +85,35 @@ public class MainController {
     public String regChild(){ return "/modal/regChild";}
 
     @GetMapping("/tracing")
-    public String tracing(){
+    public String tracing(Model model , @RequestParam("childKey") int childKey){
+
+        List<ChildrenVO> childrenList = locationService.mychildRoutebyrecordKey(childKey);
+
+        //유치원 주소
+        KinderVO kinder = childrenList.get(0).getKinderVO();
+        //시작점- 유치원
+        String startAddress = kinder.getKinderAddress();
+        // 아이들 집 주소 리스트
+        List<String> waypointAddresses = new ArrayList<>();
+        for (int i = 0; i < childrenList.size(); i++) {
+            String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
+                    childrenList.get(i).getUserVO().getUserAddressDetail();
+            waypointAddresses.add(addr);
+        }
+        //도착지 - 마지막 아이의 주소
+        String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
+        //경유지 - 중간에 내릴 아이들의 주소
+        List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
+
+
+        //recordname찍어주기
+        String recordName=childrenList.get(0).getRecordName();
+
+        model.addAttribute("startAddress", startAddress);
+        model.addAttribute("waypoints", waypoints);
+        model.addAttribute("endAddress", endAddress);
+        model.addAttribute("recordName", recordName);
+
         return "/user/tracing";
     }
 
@@ -100,7 +132,7 @@ public class MainController {
     public String updatePw() {
         return "updatePw"; //
     }
-
+  
     @GetMapping("/user/userInfoModi")
     public String userInfoModifyPage(Model model, HttpSession session) {
         UserVO user = (UserVO) session.getAttribute("userInfo");
@@ -155,6 +187,9 @@ public class MainController {
         return "redirect:/child";
     }
 
-
+    @GetMapping("/websocket")
+    public String websocket() {
+        return "map";
+    }
 
 }

@@ -47,19 +47,23 @@
                 
             <div>
                 <input type="text" class="name" name="userName" placeholder="이름" required>
-                <input type="text" class="phone" name="userPhone" placeholder="휴대폰 번호 ( '-' 제외)" maxlength="11" required>
-                <input type="text" class="birth" name="userBirth" placeholder="생년월일 8자리" required>
+                <input type="text" class="phone" name="userPhone" placeholder="휴대폰 번호 ( '-' 제외)" maxlength="11" required autocomplete="off">
+                <input type="text" class="birth" name="userBirth" placeholder="생년월일 8자리" required autocomplete="off">
 
 
                     <p>유치원 주소</p>
 
-                        <input type="text" name="userAddressDetail" class="address-detail" placeholder="유치원명">
+                        <input type="text" name="userAddressDetail" class="address-detail" placeholder="유치원명" autocomplete="off">
+                        <div id="autocomplete-list" class="autocomplete-list">
+<!--                            style="position:absolute; top:100%; left:0; right:0; z-index:99; background:white; border:1px solid #ccc; display:block;">-->
+                        </div>
 
                         <div class="address">
-                            <input type="text" name="userPostcode" class="address-number" placeholder="유치원 우편번호" readonly required>
-                            <button type="button" class="address-find-btn">우편번호 찾기</button>
+                            <input type="hidden" name="userPostcode" class="address-number" placeholder="유치원 우편번호" readonly required>
+<!--                            <button type="button" class="address-find-btn">우편번호 찾기</button>-->
                         </div>
-                         <input type="text" name="userAddress"  class="address-road" readonly placeholder="주소 자동입력">
+                        <input type="hidden" name="userAddress"  class="address-road" readonly placeholder="주소 자동입력">
+
 
                     <input type="text" name="userType" value="D" hidden readonly>
                 <button type="button" class="join-btn">가입 하기</button>

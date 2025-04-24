@@ -1,21 +1,22 @@
 package com.project.driverapp.controller;
 
 import com.project.driverapp.command.DriverVO;
+import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
 import com.project.driverapp.driver.service.DriverService;
+import com.project.driverapp.kinder.service.KinderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -23,6 +24,8 @@ public class LoginController {
 
     @Autowired
     private DriverService driverService;
+    @Autowired
+    private KinderService kinderService;
 
     @GetMapping("/login")
     public String login() {
@@ -101,6 +104,22 @@ public class LoginController {
             ra.addFlashAttribute("msg","올바르지 않은 회원가입 형태입니다");
             return "redirect:/user/join";
         }
+/// //////////////////////////////////
+        // 1. 컨트롤러에서 유치원명, 우편번호로 KinderVO에서 해당값이 있는지 조회 후
+        //    있으면 회원가입(로그인창) / 없으면 회원가입 불가(다시 회원가입창으로 돌려보내기)
+
+//        System.out.println("으아ㅏㅏㅏㅏㅏㅏㅏㅏㅇ");
+//        System.out.println(vo.getUserAddressDetail());
+//        System.out.println(vo.getUserAddress());
+//        System.out.println(vo.getUserPostcode());
+//
+//        boolean checkAddress = kinderService.isValidAddress(vo.getUserAddressDetail(), vo.getUserAddress(), vo.getUserPostcode());
+//        System.out.println(checkAddress);
+//        if (!checkAddress) {
+//            System.out.println("끄아ㅏㅏㅏㅏㅏㅏㅏㅏㅇ");
+//            ra.addFlashAttribute("msg", "입력하신 유치원 주소가 존재하지 않습니다.");
+//            return "redirect:/user/join";
+//        }
 
         // 제약 조건
         System.out.println(vo.toString());
@@ -111,6 +130,22 @@ public class LoginController {
         return "redirect:/user/login";
     }
 
+    /**
+     * 유치원조회
+     * @return
+     */
+    @GetMapping("/find")
+    @ResponseBody
+    public List<KinderVO> find(@RequestParam("name") String name) {
+        System.out.println(name);
+        List<KinderVO> kindervo = kinderService.getKinderList(name);
+
+        return kindervo;
+    }
+    
+    
+    
+    
     @GetMapping("/IdFind")
     public String IdFind() {return "login/IdFind";}
 

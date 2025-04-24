@@ -31,5 +31,66 @@
         )
     </insert>
 
+    <!-- id는 resultMap의 이름, type에는 객체타입 -->
+    <!-- id = 키에 대한 맵핑,  property  = 멤버변수명, column = 실제컬럼명-->
+    <resultMap id="mychildRoutebyrecordKey" type="ChildrenVO">
+        <id property="childKey" column="child_key" />
+        <result property="childName" column="child_name" />
+        <result property="childBirth" column="child_birth" />
+        <result property="childGender" column="child_gender" />
+        <result property="parentKey" column="parent_key"/>
+        <result property="dropState" column="drop_state"/>
+        <result property="recordName" column="record_name"></result>
+
+        <!-- 연관 유치원 정보 -->
+        <association property="kinderVO" javaType="KinderVO">
+            <id property="kinderKey" column="kinder_key"/>
+            <result property="kinderName" column="kinder_name"/>
+            <result property="kinderPostcode" column="kinder_postcode"/>
+            <result property="kinderAddress" column="kinder_address"/>
+            <result property="kinderOpenTime" column="kinder_open_time"/>
+            <result property="kinderCloseTime" column="kinder_close_time"/>
+            <result property="kinderWeekendOpen" column="kinder_weekend_open"/>
+            <result property="kinderNightOpen" column="kinder_night_open"/>
+        </association>
+
+        <association property="userVO" javaType="UserVO">
+            <id property="userKey" column="user_key"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPw" column="user_pw"/>
+            <result property="userName" column="user_name"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userPostcode" column="user_postcode"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userAddressDetail" column="user_address_detail"/>
+            <result property="userType" column="user_type"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRegdate" column="user_regdate"/>
+        </association>
+
+    </resultMap>
+
+
+    <select id="mychildRoutebyrecordKey" resultMap="mychildRoutebyrecordKey" parameterType="int">
+        select c.*, u.*, k.*,r.*,rm.*
+        from user u
+                 left join children c on u.user_key=c.PARENT_KEY
+                 left join kindermatch km on c.CHILD_KEY=km.child_key
+                 left join kinder k on km.KINDER_KEY=k.KINDER_KEY
+                 left join recordmatch rm on km.KM_KEY=rm.KM_KEY
+                 left join record r on rm.RECORD_KEY=r.RECORD_KEY
+        where r.record_key in(
+            select record_key
+            from recordmatch where km_key in (
+                select km_key
+                from kindermatch where child_key=#{childKey})
+        )
+    </select>
+
+    <select id="selectByRecordKey" resultType="LocationVO">
+        SELECT * FROM location WHERE record_key = #{recordKey} ORDER BY location_regtime
+
+    </select>
+
 
 </mapper>

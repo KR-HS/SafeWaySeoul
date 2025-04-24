@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Driver App</title>
+</head>
+<body>
+
+<button onclick="startDriving(this)" data-key="2">운행 시작</button>
+<button onclick="stopDriving()">운행 종료</button>
+
+<script>
+    let intervalId = null;
+    let recordKey = null;
+
+    function startDriving(button) {
+        recordKey = button.dataset.key;
+
+        fetch(`/driver/location/start?recordKey=${recordKey}`, {
+            method: "POST"
+        }).then(() => {
+            alert("운행 시작됨");
+
+            // 2.5초마다 위치 전송
+            intervalId = setInterval(() => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        fetch("/driver/location/send", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                recordKey: recordKey,
+                                latitude: latitude.toString(),
+                                longitude: longitude.toString()
+                            })
+                        });
+                    });
+                }
+            }, 2500); // 2.5초마다 실행
+        });
+    }
+
+    function stopDriving() {
+        fetch("/driver/location/stop", {
+            method: "POST"
+        }).then(() => {
+            alert("운행 종료됨");
+            if (intervalId !== null) {
+                clearInterval(intervalId); // 인터벌 중단
+                intervalId = null;
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
