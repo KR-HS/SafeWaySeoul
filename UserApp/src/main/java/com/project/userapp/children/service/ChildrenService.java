@@ -10,6 +10,9 @@ public interface ChildrenService {
     int registChild(ChildrenVO vo, MultipartFile file);
     int deleteChild(Integer childKey);
     List<ChildrenVO> myChildren(Integer parentKey);
+    ChildrenVO getChildDetail(Integer childKey);
+    int updateChild(ChildrenVO vo, MultipartFile file);
+
 
 
 

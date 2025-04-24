@@ -36,7 +36,6 @@
       <div class="user-card">
         <div class="user-image">
           <img src="/img/parents.png" alt="내 프로필 사진"> <!--따로 등록하지 않는 이상 기본 썸네일 사용-->
-          <img src="/img/image-editing.png" alt="프로필 편집 버튼" class="edit-image-btn">
         </div>
 
         <div class="user-details">
@@ -63,23 +62,26 @@
       <!-- 자녀 리스트 -->
       <div class="child-list">
         <div class="child-card" th:each="child : ${childrenList}">
-
+          
+          <div class="edit-child-btn" th:data-child-id="${child.childKey}">
+            <img src="/img/edit-text.png" alt="자녀 정보 수정 버튼">
+          </div>
+          
           <div class="delete-child-btn" th:data-child-id="${child.childKey}">
-            <img src="/img/delete-user.png" alt="삭제 버튼">
+            <img src="/img/delete-user.png" alt="자녀 카드 삭제 버튼">
           </div>
 
           <div class="child-image">
             <img th:if="${child.profileImageUrl != null}"
                  th:src="@{${child.profileImageUrl}}"
                  alt="자녀 프로필 이미지" />
-            <img th:if="${child.profileImageUrl == null && child.childGender == 'F'}"
-                 th:src="@{/img/temp-basic-mypage-female.png}"
-                 alt="기본 여성 이미지" />
             <img th:if="${child.profileImageUrl == null && child.childGender != 'F'}"
                  th:src="@{/img/temp-basic-mypage-male.png}"
-                 alt="기본 남성 이미지" />
+                 alt="남아 이미지" />
+            <img th:if="${child.profileImageUrl == null && child.childGender == 'F'}"
+                 th:src="@{/img/temp-basic-mypage-female.png}"
+                 alt="여아 이미지" />
 
-            <img src="/img/image-editing.png" alt="자녀 사진 수정 버튼" class="edit-child-btn">
           </div>
           <div class="child-info">
             <div class="child-name">

@@ -5,15 +5,7 @@ $(function () {
         $('.child-register-box').show();
     }
 
-    // 성별 아이콘 전환
-    $('.child-card').each(function () {
-        var $card = $(this);
-        var profileSrc = $card.find('.child-image img').attr('src');
-        var isFemale = profileSrc && profileSrc.includes('female');
-        if (!isFemale) {
-            $card.find('.child-name img').attr('src', '/img/man.png');
-        }
-    });
+
 
     // 자녀 삭제 관련 변수
     var selectedChildKey = null;

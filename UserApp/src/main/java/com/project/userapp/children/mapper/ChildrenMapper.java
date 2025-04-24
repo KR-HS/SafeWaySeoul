@@ -11,5 +11,9 @@ public interface ChildrenMapper {
     void registKinderRelation(int childKey);
     int deleteChild(Integer childKey);
     List<ChildrenVO> myChildren(Integer parentKey);
+    ChildrenVO getChildDetail(Integer childKey);
+    int updateChild(ChildrenVO vo);
+
+
 
 }
