@@ -36,8 +36,8 @@
     </insert>
 
     <insert id="registKinderRelation" parameterType="int">
-        insert into KINDERMATCH(CHILD_KEY)
-        VALUES(#{childKey})
+        insert into KINDERMATCH(CHILD_KEY, KINDER_KEY)
+        VALUES(#{childKey}, #{kinderKey})
     </insert>
     <delete id="deleteChild" parameterType="int">
         delete from CHILDREN where child_key=#{childKey}

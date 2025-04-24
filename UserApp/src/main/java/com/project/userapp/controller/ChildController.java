@@ -26,7 +26,11 @@ public class ChildController {
     private ChildrenService childrenService;
 
     @PostMapping("/regist")
-    public String regist(ChildrenVO vo, @RequestParam("file")MultipartFile file, HttpServletRequest request, RedirectAttributes ra) {
+    public String regist(ChildrenVO vo,
+                         @RequestParam("file")MultipartFile file,
+                         @RequestParam("regChild-kinder-key")Integer kinderKey,
+                         HttpServletRequest request,
+                         RedirectAttributes ra) {
         UserVO parent = (UserVO)request.getSession().getAttribute("userInfo");
         vo.setParentKey(parent.getUserKey());
 
@@ -39,7 +43,7 @@ public class ChildController {
             }
         }
 
-        int result = childrenService.registChild(vo, file);
+        int result = childrenService.registChild(vo, file, kinderKey);
         if (result != 1) {
             String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/") + 1);
             ra.addFlashAttribute("msg", "자녀 등록에 실패했습니다.");
