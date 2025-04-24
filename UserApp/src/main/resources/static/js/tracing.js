@@ -179,6 +179,7 @@ $(document).ready(function(){
                 addMarker(path[0].getLat(), path[0].getLng(), 'start'); // 출발지
 
                 waypointCoords.forEach((wp, idx) => {
+
                     addMarker(wp.y, wp.x, 'way'); // 경유지 마커
                     addWaypointOverlay(wp.y, wp.x, idx + 1); // 경유지 번호 오버레이
                 });

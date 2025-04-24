@@ -18,7 +18,7 @@
                 <img src="/img/backBtn.png" alt="backbtn">
             </div>
             <div class="mylocation">
-                <img src="/img/myposition.png" alt="mylocation">
+                <img src="/img/myposition.png" alt="my  location">
             </div>
 
 
@@ -29,12 +29,8 @@
                 <input type="hidden" class="waypoint-input" th:value="${waypoint}">
             </div>
 
+
         </div>
-
-
-        <script>
-
-        </script>
 
 
 
@@ -43,7 +39,7 @@
 
         <!-- 타임라인 -->
         <div class="timeline-section">
-            <div class="arrival-time">도착예정시간 17:30</div>
+            <div class="arrival-time" th:text="${recordName}"></div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-img">
