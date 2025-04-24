@@ -85,9 +85,14 @@ public class MainController {
         //경유지 - 중간에 내릴 아이들의 주소
         List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
 
+
+        //recordname찍어주기
+        String recordName=childrenList.get(0).getRecordName();
+
         model.addAttribute("startAddress", startAddress);
         model.addAttribute("waypoints", waypoints);
         model.addAttribute("endAddress", endAddress);
+        model.addAttribute("recordName", recordName);
 
         return "/user/tracing";
     }

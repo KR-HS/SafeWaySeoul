@@ -81,7 +81,7 @@
                  left join record r on rm.RECORD_KEY=r.RECORD_KEY
         where r.record_key in(
             select record_key
-            from recordmatch where rm_key in (
+            from recordmatch where km_key in (
                 select km_key
                 from kindermatch where child_key=#{childKey})
         )
