@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.driverapp.driveInfo.mapper.DriveInfoMapper">
+
+    <!-- id는 resultMap의 이름, type에는 객체타입 -->
+    <!-- id = 키에 대한 맵핑,  property  = 멤버변수명, column = 실제컬럼명-->
+    <resultMap id="getDriveInfo" type="DriveInfoVO">
+        <id property="driveInfoKey" column="drive_info_key" />
+        <result property="driveInfoName" column="drive_info_name" />
+        <result property="driveCarName" column="drive_car_Name" />
+        <result property="userKey" column="user_key" />
+
+        <!-- 연관 운행기록 정보 -->
+        <association property="recordVO" javaType="RecordVO">
+            <id property="recordKey" column="record_key"/>
+            <result property="recordStartTime" column="record_start_time"/>
+            <result property="recordEndTime" column="record_end_time"/>
+            <result property="recordState" column="record_state"/>
+            <result property="driveInfoKey" column="drive_info_key"/>
+        </association>
+
+    </resultMap>
+
+    <select id="getDriveInfo" resultMap="getDriveInfo" parameterType="int">
+        select di.*, rc.*
+        from driveinfo di
+                 left join record rc on di.DRIVE_INFO_KEY = rc.DRIVE_INFO_KEY
+        where user_key = #{userKey};
+    </select>
+
+
+</mapper>
