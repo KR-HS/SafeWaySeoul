@@ -1,7 +1,7 @@
 var page = 1;
 var size = 10;
 
-$(document).ready(function() {
+$(document).ready(function () {
     const myDatepicker = new AirDatepicker('.birth', {
         autoClose: true,
         dateFormat: 'yyyy-MM-dd',
@@ -23,27 +23,26 @@ $(document).ready(function() {
         }
     });
 
-    // 날짜 입력란에 포커스가 가면 flatpickr 날짜 선택기 열기
-    $(".birth").on("click", function() {
-        myDatepicker.show();  // input에 focus 시 날짜 선택기가 열리도록
+    $(".birth").on("click", function () {
+        myDatepicker.show();
     });
 
-    $('.girl').click(function() {
-        if($(this).hasClass("selected")) {
+    $('.girl').click(function () {
+        if ($(this).hasClass("selected")) {
             $(this).removeClass("selected");
         } else {
-            if($(".boy").hasClass("selected")) {
+            if ($(".boy").hasClass("selected")) {
                 $(".boy").removeClass("selected");
             }
             $(this).addClass("selected");
         }
     });
 
-    $(".boy").click(function() {
-        if($(this).hasClass("selected")) {
+    $(".boy").click(function () {
+        if ($(this).hasClass("selected")) {
             $(this).removeClass("selected");
         } else {
-            if($(".girl").hasClass("selected")) {
+            if ($(".girl").hasClass("selected")) {
                 $(".girl").removeClass("selected");
             }
             $(this).addClass("selected");
@@ -57,42 +56,49 @@ $(document).ready(function() {
             reader.onload = function (e) {
                 document.querySelector(".photo-upload").style.backgroundImage = `url('${e.target.result}')`;
             };
-            reader.readAsDataURL(file); // file을 읽어서 브라우저가 사용할 수 있는 Data URL (Base64) 형식으로 변환
+            reader.readAsDataURL(file);
         }
     });
 
-    $(".close-btn").click(function(){
+    $(".close-btn").click(function () {
         window.history.back();
     });
 
-    $(".submit-btn").on("click", function(e) {
+    $(".submit-btn").on("click", function (e) {
         const genderRadios = $("input[name='childGender']");
         const isSelected = genderRadios.is(":checked");
 
         if (!isSelected) {
             e.preventDefault();
-
-            // 혹시 삭제 모달이 떠 있으면 먼저 닫기
             $('#delete-confirm-modal').hide();
-
-            // 성별 확인 모달 표시
             $('#gender-alert-modal').fadeIn().css("display", "flex");
             return false;
         }
+
+        // KM_PICKUP 체크박스 값을 hidden 필드로 변환 (Y/N)
+        let pickupValue = $("input[name='kmPickup']").is(":checked") ? "Y" : "N";
+
+        // 이미 있으면 값만 수정, 없으면 새로 생성
+        if ($("input[name='pickupHidden']").length > 0) {
+            $("input[name='pickupHidden']").val(pickupValue);
+        } else {
+            $("<input>").attr({
+                type: "hidden",
+                name: "pickupHidden",
+                value: pickupValue
+            }).appendTo("form[name='childForm']");
+        }
     });
 
-// 성별 확인 모달 확인 버튼
     $("#gender-alert-confirm-btn").on("click", function () {
         $("#gender-alert-modal").fadeOut();
     });
 
-// 성별 확인 모달 바깥 클릭 시 → 성별 모달만 닫기
     $("#gender-alert-modal").on("click", function (e) {
         if (e.target.id === "gender-alert-modal") {
             $("#gender-alert-modal").fadeOut();
         }
     });
-
 
     $("input[name='regChild-kinder-name']").on("input click", function () {
         const keyword = $(this).val();
@@ -123,7 +129,6 @@ $(document).ready(function() {
             });
     });
 
-// 자동완성 항목 클릭 시 input 값으로 입력
     $(document).on("click", ".autocomplete-item", function () {
         const selectedName = $(this).data("name");
         const selectedKey = $(this).data("key");
@@ -132,14 +137,9 @@ $(document).ready(function() {
         $("#autocomplete-list").hide();
     });
 
-// 바깥 클릭 시 자동완성 닫기
     $(document).on("click", function (e) {
         if (!$(e.target).closest(".regChild-kinder-search-wrap").length) {
             $("#autocomplete-list").hide();
         }
     });
-
-
-
 });
-
