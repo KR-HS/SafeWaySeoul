@@ -26,6 +26,16 @@
             <result property="kinderCapacity" column="kinder_capacity"/>
         </association>
 
+        <association property="recordVO" javaType="RecordVO">
+            <id property="recordKey" column="record_key"/>
+            <result property="kinderName" column="kinder_name"/>
+            <result property="recordStartTime" column="record_start_time"/>
+            <result property="recordEndTime" column="record_end_time"/>
+            <result property="recordState" column="record_state"/>
+            <result property="kinderCloseTime" column="kinder_close_time"/>
+
+        </association>
+
     </resultMap>
 
 
