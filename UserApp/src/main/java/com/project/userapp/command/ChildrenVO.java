@@ -26,4 +26,7 @@ public class ChildrenVO {
      private String dropState;
      private String recordName;
 
-}
+     private String kmPickup;
+
+
+ }

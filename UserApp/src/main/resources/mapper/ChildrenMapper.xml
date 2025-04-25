@@ -12,6 +12,10 @@
         <result property="childName" column="child_name" />
         <result property="childBirth" column="child_birth" />
         <result property="childGender" column="child_gender" />
+        <result property="profileImageUrl" column="profile_image_url"/>
+        <result property="kmPickup" column="km_pickup"/>
+
+
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
@@ -50,16 +54,19 @@
         on c.child_key=km.child_key
         left join kinder k
         on km.kinder_key=k.kinder_key
+        left join files f
+        on c.child_key = f.child_key
         where c.parent_key=#{parentKey};
     </select>
 
     <!-- 아이 정보 수정 모달 창에 DB에 저장되어 있는 정보를 가져와서 입력해두는 기능-->
     <select id="getChildDetail" resultMap="kinderOfChild" parameterType="int">
-        select c.*, k.*
-        from children c
-                 left join kindermatch km on c.child_key = km.child_key
-                 left join kinder k on km.kinder_key = k.kinder_key
-        where c.child_key = #{childKey}
+        SELECT c.*, k.*, km.km_pickup AS km_pickup
+        FROM children c
+                 LEFT JOIN kindermatch km ON c.child_key = km.child_key
+                 LEFT JOIN kinder k ON km.kinder_key = k.kinder_key
+        WHERE c.child_key = #{childKey}
+
     </select>
 
     <!-- 아이 카드 정보 수정 기능 -->

@@ -17,7 +17,12 @@ $(document).ready(function(){
     } else if (path === '/child') {
         $('.child').siblings().removeClass("click");
         $('.child').addClass('click');
+    } else if (path.includes('/user')) {
+        $('.child').siblings().removeClass("click");
+        $('.child').addClass('click');
     }
+
+
     // else if (path === '/kinder') {
     //     $('.tbd').siblings().removeClass("click");
     //     $('.tbd').addClass('click');

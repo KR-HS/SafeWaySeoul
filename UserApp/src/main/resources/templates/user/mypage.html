@@ -40,7 +40,9 @@
         </div>
 
         <div class="user-image">
-          <img th:src="${profile != null and profile.filePath != null} ? ${profile.filePath} : '/img/parents.png'" alt="프로필 이미지" />
+          <img th:if="${profile != null and profile.filePath != null}" th:src="@{${profile.filePath}}" alt="프로필 이미지"/>
+          <img th:unless="${profile != null and profile.filePath != null}" src="/img/parents.png" alt="기본 이미지"/>
+
         </div>
 
         <div class="user-details">
