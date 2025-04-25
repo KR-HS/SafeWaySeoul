@@ -13,5 +13,5 @@ public class DriveInfoVO {
     private Integer driveInfoKey;
     private String driveInfoName;
     private String driveCarName;
-    private Integer userKey;
+    private Integer driverKey;
 }

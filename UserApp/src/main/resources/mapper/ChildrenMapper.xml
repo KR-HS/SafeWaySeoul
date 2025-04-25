@@ -28,12 +28,17 @@
 
         <association property="recordVO" javaType="RecordVO">
             <id property="recordKey" column="record_key"/>
-            <result property="kinderName" column="kinder_name"/>
             <result property="recordStartTime" column="record_start_time"/>
             <result property="recordEndTime" column="record_end_time"/>
             <result property="recordState" column="record_state"/>
-            <result property="kinderCloseTime" column="kinder_close_time"/>
+            <result property="driveInfoKey" column="drive_info_key"/>
+        </association>
 
+        <association property="driveInfoVO" javaType="DriveInfoVO">
+            <id property="driveInfoKey" column="drive_info_key"/>
+            <result property="driveInfoName" column="dirve_info_name"/>
+            <result property="driveCarName" column="dirve_car_name"/>
+            <result property="driverKey" column="user_key"/>
         </association>
 
     </resultMap>
@@ -54,13 +59,20 @@
     </delete>
 
     <select id="myChildren" resultMap="kinderOfChild">
-        select c.*,k.*
+
+        select c.*,k.*,r.*,di.*
         from children c
-        left join kindermatch km
-        on c.child_key=km.child_key
-        left join kinder k
-        on km.kinder_key=k.kinder_key
-        where c.parent_key=#{parentKey};
+                 left join kindermatch km
+                           on c.child_key=km.child_key
+                 left join kinder k
+                           on km.kinder_key=k.kinder_key
+                 left join recordMatch rm
+                           on km.km_key = rm.km_key
+                 left join record r
+                           on rm.record_key = r.record_key
+                 left join driveinfo di
+                           on r.drive_info_key = di.drive_info_key
+        where c.parent_key=#{parentKey}
     </select>
 
     <!-- 아이 정보 수정 모달 창에 DB에 저장되어 있는 정보를 가져와서 입력해두는 기능-->

@@ -1,6 +1,8 @@
-const recordKey = 2;
+var recordKey;
 
 $(document).ready(function(){
+
+    recordKey = $(".timeline-section").data("recordkey");
 
     $(".backBtn").on('click',function(){
         history.back();

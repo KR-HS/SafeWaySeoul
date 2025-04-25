@@ -4,6 +4,8 @@
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>유저 자녀관리 & 마이페이지</title>
     <link rel="stylesheet" href="/css/tracing.css">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8997d782f5298e9e818dbcbf6a5ab396&libraries=services"></script>
     <script src="/js/tracing.js"></script>
 </head>
@@ -34,7 +36,7 @@
 
 
         <!-- 타임라인 -->
-        <div class="timeline-section">
+        <div class="timeline-section" th:data-recordKey="${recordKey}">
             <div class="arrival-time" th:text="${driveInfoName}"></div>
             <div class="timeline">
                 <div class="timeline-item">

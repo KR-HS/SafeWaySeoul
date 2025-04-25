@@ -14,9 +14,10 @@ $(document).ready(function () {
     // 자녀 관련 모달창 기능
     $(".viewInfo").on('click', function () {
 
-        childKey = $(this).data("userkey"); //이거 tracing화면 넘어갈떄, childkey넘기기 위한 작업
-        window.location.href = "/tracing?childKey="+childKey;
-        console.log(childKey);
+        childKey = $(this).data("childkey"); //이거 tracing화면 넘어갈떄, childkey넘기기 위한 작업
+        recordKey = $(this).data("recordkey");
+        window.location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+        console.log(childKey+"/"+recordKey);
         // $(".infoModal").css("display","block");
     });
 

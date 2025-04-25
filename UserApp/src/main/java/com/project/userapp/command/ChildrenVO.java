@@ -19,6 +19,7 @@ public class ChildrenVO {
      private KinderVO kinderVO;
 
      private RecordVO recordVO;
+     private DriveInfoVO driveInfoVO;
      private String profileImageUrl;
 
 

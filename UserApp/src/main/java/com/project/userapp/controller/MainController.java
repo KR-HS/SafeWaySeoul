@@ -87,7 +87,9 @@ public class MainController {
     public String regChild(){ return "/modal/regChild";}
 
     @GetMapping("/tracing")
-    public String tracing(Model model , @RequestParam("childKey") int childKey){
+    public String tracing(Model model ,
+                          @RequestParam("childKey") int childKey,
+                          @RequestParam("recordKey") int recordKey){
 
         List<ChildrenVO> childrenList = locationService.mychildRoutebyrecordKey(childKey);
 
@@ -116,6 +118,7 @@ public class MainController {
         model.addAttribute("waypoints", waypoints);
         model.addAttribute("endAddress", endAddress);
         model.addAttribute("driveInfoName", driveInfoName);
+        model.addAttribute("recordKey", recordKey);
 
         return "/user/tracing";
     }

@@ -174,6 +174,19 @@ $(document).ready(function(){
         //     });
         // });
 
+
+        // 실시간 좌표 보내기 종료 함수
+        function stopDriving() {
+            fetch("/driver/location/stop", {
+                method: "POST"
+            }).then(() => {
+                alert("운행 종료됨");
+                if (intervalId !== null) {
+                    clearInterval(intervalId); // 인터벌 중단
+                    intervalId = null;
+                }
+            });
+        }
     });
 });
 

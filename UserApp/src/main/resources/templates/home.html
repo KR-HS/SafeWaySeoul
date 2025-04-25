@@ -34,7 +34,7 @@
       <section class="childList-section">
           <h3>소중한 내 아이들의 걸음마</h3>
           <div class="childList">
-            <div th:each="child : ${children}" class="childInfo-wrap viewInfo" th:data-userKey="${child.childKey}">
+            <div th:each="child : ${children}" class="childInfo-wrap viewInfo" th:data-childKey="${child.childKey}" th:data-recordKey="${child.recordVO.recordKey}">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>[[${child.childName}]]</p>
