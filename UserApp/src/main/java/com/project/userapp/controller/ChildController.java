@@ -2,7 +2,9 @@ package com.project.userapp.controller;
 
 import com.project.userapp.children.service.ChildrenService;
 import com.project.userapp.command.ChildrenVO;
+import com.project.userapp.command.KinderMatchVO;
 import com.project.userapp.command.UserVO;
+import com.project.userapp.kindermatch.service.KinderMatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -25,12 +27,18 @@ public class ChildController {
     @Autowired
     private ChildrenService childrenService;
 
+    @Autowired
+    private KinderMatchService kinderMatchService;
+
+
     @PostMapping("/regist")
     public String regist(ChildrenVO vo,
-                         @RequestParam("file")MultipartFile file,
-                         @RequestParam("regChild-kinder-key")Integer kinderKey,
+                         @RequestParam("file") MultipartFile file,
+                         @RequestParam("regChild-kinder-key") Integer kinderKey,
+                         @RequestParam(value = "pickupHidden", required = false, defaultValue = "Y") String kmPickup,
                          HttpServletRequest request,
-                         RedirectAttributes ra) {
+                         RedirectAttributes ra)
+    {
         UserVO parent = (UserVO)request.getSession().getAttribute("userInfo");
         vo.setParentKey(parent.getUserKey());
 
@@ -44,6 +52,16 @@ public class ChildController {
         }
 
         int result = childrenService.registChild(vo, file, kinderKey);
+
+        KinderMatchVO matchVO = KinderMatchVO.builder()
+                .childKey(vo.getChildKey())
+                .kinderKey(kinderKey)
+                .kmPickup(kmPickup)
+                .build();
+
+        kinderMatchService.insertMatch(matchVO);
+
+
         if (result != 1) {
             String previousUrl = request.getHeader("Referer").substring(request.getHeader("Referer").lastIndexOf("/") + 1);
             ra.addFlashAttribute("msg", "자녀 등록에 실패했습니다.");
@@ -70,7 +88,8 @@ public class ChildController {
 
     @PostMapping("/update")
     public String updateChild(ChildrenVO vo, @RequestParam("file") MultipartFile file,
-                              HttpServletRequest request, RedirectAttributes ra) {
+                              HttpServletRequest request, RedirectAttributes ra, @RequestParam(value = "pickupHidden", required = false, defaultValue = "Y") String kmPickup
+    ) {
         UserVO parent = (UserVO) request.getSession().getAttribute("userInfo");
         vo.setParentKey(parent.getUserKey());
 
@@ -81,6 +100,13 @@ public class ChildController {
         } else {
             ra.addFlashAttribute("childRegSuccess", true);
         }
+
+        KinderMatchVO matchVO = KinderMatchVO.builder()
+                .childKey(vo.getChildKey())
+                .kmPickup(kmPickup)
+                .build();
+
+        kinderMatchService.updatePickup(matchVO);
 
         return "redirect:/child";
     }
