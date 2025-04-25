@@ -109,12 +109,13 @@ public class MainController {
 
 
         //recordname찍어주기
-        String recordName=childrenList.get(0).getRecordName();
+        String driveInfoName=childrenList.get(0).getDriveInfoName();
+        System.out.println(driveInfoName);
 
         model.addAttribute("startAddress", startAddress);
         model.addAttribute("waypoints", waypoints);
         model.addAttribute("endAddress", endAddress);
-        model.addAttribute("recordName", recordName);
+        model.addAttribute("driveInfoName", driveInfoName);
 
         return "/user/tracing";
     }

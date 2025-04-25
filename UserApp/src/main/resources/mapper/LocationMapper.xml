@@ -40,7 +40,7 @@
         <result property="childGender" column="child_gender" />
         <result property="parentKey" column="parent_key"/>
         <result property="dropState" column="drop_state"/>
-        <result property="recordName" column="record_name"></result>
+        <result property="driveInfoName" column="drive_info_name"></result>
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
@@ -68,17 +68,19 @@
             <result property="userRegdate" column="user_regdate"/>
         </association>
 
+
     </resultMap>
 
 
     <select id="mychildRoutebyrecordKey" resultMap="mychildRoutebyrecordKey" parameterType="int">
-        select c.*, u.*, k.*,r.*,rm.*
+        select c.*, u.*, k.*,r.*,rm.*,di.*
         from user u
                  left join children c on u.user_key=c.PARENT_KEY
                  left join kindermatch km on c.CHILD_KEY=km.child_key
                  left join kinder k on km.KINDER_KEY=k.KINDER_KEY
                  left join recordmatch rm on km.KM_KEY=rm.KM_KEY
                  left join record r on rm.RECORD_KEY=r.RECORD_KEY
+                 left join driveinfo di on r.DRIVE_INFO_KEY=di.DRIVE_INFO_KEY
         where r.record_key in(
             select record_key
             from recordmatch where km_key in (

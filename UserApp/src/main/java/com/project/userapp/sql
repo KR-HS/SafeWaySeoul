@@ -242,3 +242,34 @@ INSERT INTO USER (
 (3, 'qwer', '1234', '박종범', '960226', '13839', '경기 하남시 위례순환로 310', '204동', 'U', '01093007221', '2025-04-21 09:54:51'),
 (4, 'qqqq', 'qwer', '박종범', '2025-04-02', '13543', '경기 하남시 위례순환로 53', '위례초본관 53', 'U', '01093007221', '2025-04-21 10:21:14'),
 (5, 'driver01', 'driver01', 'driver01', '2025-04-10', '25464', '서울특별시 강남구 밤고개로 99', '수서역', 'U', '01011111111', '2025-04-21 10:56:05');
+
+
+######## record, driveInfo 재설정및 추가
+
+CREATE TABLE DRIVEINFO(
+	DRIVE_INFO_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    DRIVE_INFO_NAME VARCHAR(100),
+    DRIVE_CAR_NAME VARCHAR(100),
+    USER_KEY INT NOT NULL
+);
+
+
+# 운행기록 테이블
+CREATE TABLE RECORD(
+	RECORD_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    RECORD_START_TIME TIMESTAMP DEFAULT NOW(), # 운행시작시간
+    RECORD_END_TIME TIMESTAMP , # 운행종료시간
+    RECORD_STATE CHAR DEFAULT 'P' CHECK(RECORD_STATE IN ('P','S','E')), # P = 예정(PLAN), S = 진행중(START), E = 종료(END)
+    DRIVE_INFO_KEY INT NOT NULL
+);
+
+INSERT INTO record (RECORD_KEY, RECORD_START_TIME, RECORD_END_TIME, RECORD_STATE, DRIVE_INFO_KEY) VALUES
+(1, '2025-04-21 09:19:15', NULL, 'E', 1),
+(2, '2025-04-21 15:19:15', NULL, 'S', 2),
+(3, '2025-04-22 15:19:15', NULL, 'P', 3);
+
+INSERT INTO driveinfo (DRIVE_INFO_KEY, DRIVE_INFO_NAME, DRIVE_CAR_NAME, USER_KEY) VALUES
+(1, '오전 둘다묶구 1노선', '123가 3000 흰둥이차량', 2),
+(2, '오전 둘다묶구 2노선', '123가 4000 고양이차량', 2),
+(3, '오후 둘다묶구 3노선', '123가 5000 벤츠차량', 3);
+
