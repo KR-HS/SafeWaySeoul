@@ -3,13 +3,17 @@ h6{
     color:#777;
 }
 
+h3 {
+    font-size: 17px;
+}
+
 .childList,.childName,.kinderType-wrap,
 .kinder-search-wrap,.kinderResult,
 .kinderInfo-wrap,.pagination{
     display:flex;
 }
 .app-content img{
-    height:20px;
+    height:15px;
 }
 /* 아이들 리스트 부분*/
 .childList-section >.childList{
@@ -98,7 +102,7 @@ h6{
 .childList-section > .childList >.childInfo-wrap.addChild> .applyComment{
     margin-top:5px;
     font-weight:600;
-    font-size:20px;
+    font-size:13px;
 }
 
 /*어린이집 운영형태 버튼형*/
@@ -129,8 +133,9 @@ h6{
 }
 .kinderType-section>.kinderType-wrap>.label-wrap>p{
     text-align:center;
-    font-size:18px;
+    font-size:13px;
     font-weight:bold;
+    margin-top: 3px;
 }
 
 
@@ -159,9 +164,9 @@ h6{
     margin-left:10px;
     background-color:#5289FF;
     color:white;
-    padding:0 24px;
+    padding:3px 24px;
     border-radius:24px;
-    font-size:20px;
+    font-size:14px;
 }
 .map-section>.map{
     padding:10px 2px;
@@ -210,14 +215,21 @@ h6{
     display:flex;
     flex-direction:column;
     justify-content: center;
-    gap:10px;
+    gap:8px;
 }
+
 .kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUpper>.kinderTitle{
-    font-size:20px;
+    font-size:15px;
     font-weight:600;
 }
-.kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUnder>p {
-    font-size: 15px;
+
+.kinderCall {
+    margin-top: 9px;
+    font-size: 11px;
+}
+
+.kinderResult-wrap>.kinderResult>.kinderInfo-wrap>.kinderInfo>.infoUnder> .kinderLoc {
+    font-size: 12px;
     line-height:1;
 }
 .page-section>.paging-wrap{
@@ -240,7 +252,7 @@ h6{
     background-color: transparent;
     color: black;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 13px;
     border-radius: 5px;            /* 모서리 살짝 둥글게 */
 }
 .page-section>.paging-wrap>.pagination>li>a.select{
@@ -249,33 +261,49 @@ h6{
 
 /* InfoWindow 스타일 */
 .info-window {
+    position: relative;
+    right: 1px;
+    bottom: 1px;
     padding: 15px;
     font-size: 14px;
     line-height: 1.5;
     color: #333;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 7px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     width: 250px;
 }
+
 .info-window strong {
-    font-size: 20px;
-    color: #555;
+    font-size: 15px;
+    color: #333;
 }
-.info-window a {
-    color: #007aff;
-    text-decoration: none;
-    font-size:15px;
-}
+
+/*.info-window a {*/
+/*    color: #007aff;*/
+/*    text-decoration: none;*/
+/*    font-size:15px;*/
+/*}*/
+
 .info-window a:hover {
     text-decoration: underline;
 }
+
 .info-window .address {
     margin: 5px 0;
-    font-size: 15px;
+    font-size: 13px;
     color: #666;
 }
+
+.info-window .phoneIcon {
+    display: flex;
+    justify-content: left;
+}
+
 .info-window .phone {
-    font-size: 15px;
+    font-size: 11px;
     color: #666;
+    margin-left: 3px;
+    padding-top: 2px;
 }
+
