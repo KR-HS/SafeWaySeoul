@@ -8,7 +8,7 @@
         select count(*) from USER where user_id=#{userId}
     </select>
 
-    <insert id="register" parameterType="UserVO">
+    <insert id="register" parameterType="UserVO"  >
         INSERT INTO USER(user_id,user_pw,user_name,
                          user_birth,user_postcode,user_address,
                          user_address_detail,user_type,user_phone)

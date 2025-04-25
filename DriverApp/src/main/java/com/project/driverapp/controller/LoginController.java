@@ -1,5 +1,6 @@
 package com.project.driverapp.controller;
 
+import com.project.driverapp.command.DriveInfoVO;
 import com.project.driverapp.command.DriverVO;
 import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
@@ -97,7 +98,8 @@ public class LoginController {
     }
 
     @PostMapping("/joinForm")
-    public String joinForm(DriverVO vo, RedirectAttributes ra) {
+    public String joinForm(@RequestParam("driverInfoName") String driverName,
+                           @RequestParam("driverCarName") String driverCarName, DriverVO vo, RedirectAttributes ra) {
         // 회원가입 기능 추가 필요 -----
         if(false){
             // 로그인폼 제약조건 검사
@@ -121,10 +123,23 @@ public class LoginController {
 //            return "redirect:/user/join";
 //        }
 
+
+
         // 제약 조건
-        System.out.println(vo.toString());
+        System.out.println(driverName);
+        System.out.println(driverCarName);
+
         int result = driverService.register(vo);
-        System.out.println("등록결과"+result);
+
+        System.out.println(vo.toString());
+        int driverKey = vo.getUserKey();
+        DriveInfoVO driveInfo1 = DriveInfoVO.builder().driveInfoName("오전" + driverName).driveCarName(driverCarName).userKey(driverKey).build();
+        DriveInfoVO driveInfo2 = DriveInfoVO.builder().driveInfoName("오후" + driverName).driveCarName(driverCarName).userKey(driverKey).build();
+        System.out.println("********"+driveInfo1.toString());
+        result = driverService.registerInfo(driveInfo1);
+        result = driverService.registerInfo(driveInfo2);
+
+
         ra.addFlashAttribute("msg","회원으로 등록되셨습니다.");
 
         return "redirect:/user/login";

@@ -16,7 +16,7 @@ body {
 }
 
 p {
-    font-size: 17px;
+    font-size: 15px;
     margin-top: 5px;
     margin-bottom: 3px;
 }
@@ -46,6 +46,7 @@ p {
     border-radius: 20px;
     padding: 28px 18px 18px 18px;
 }
+
 input {
     width: 100%;
     padding: 12px;
@@ -58,7 +59,8 @@ input {
 
 .id .join-password .address > input:focus ,
 .name:focus, .phone:focus, .birth:focus,
-.userAddress:focus {
+.userAddress:focus, .id:focus, .pass:focus,
+.pass-check:focus {
     border: none;
     outline: 2px solid #64a5f0;
 }
@@ -100,6 +102,7 @@ input {
     margin-bottom: 7px;
 }
 
+/* 유치원 정보 */
 .address {
     display: flex;
     justify-content: space-between;
@@ -111,7 +114,7 @@ input {
 }
 
 .address-detail {
-    margin-bottom: 0px;
+    margin-bottom: 3px;
 }
 
 .address-detail:focus {
@@ -190,3 +193,14 @@ input {
 .scrollable::-webkit-scrollbar {
     border-radius: 0px 0px 0px 6px;
 }
+
+/* 운행정보 */
+.driverInfoName{
+    margin-bottom: 7px;
+}
+
+.driverInfoName:focus, .driverCarName:focus {
+    border: none;
+    outline: 2px solid #64a5f0;
+}
+
