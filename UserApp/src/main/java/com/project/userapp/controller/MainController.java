@@ -58,10 +58,10 @@ public class MainController {
         List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
 
         //전체 유치원에 관한 정보 받아오기
-//        List<KinderVO> kinderList = kinderService.getKinderList();
+        List<KinderVO> kinderList = kinderService.getKinderList();
 
         model.addAttribute("children",list);
-//        model.addAttribute("kinderInfo",kinderList);
+        model.addAttribute("kinderInfo",kinderList);
         return "home";
     }
 
