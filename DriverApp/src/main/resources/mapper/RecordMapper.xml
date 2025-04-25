@@ -19,5 +19,13 @@
           AND drop_state = '하차'
     </select>
 
+    <update id="updateDriveStateFinish" parameterType="Integer">
+        update record set record_state ="E" where record_key = #{recordKey} ;
+    </update>
+
+    <update id="updateDriveStateStart" parameterType="Integer">
+        update record set record_state ="S" where record_key = #{recordKey} ;
+    </update>
+
 
 </mapper>

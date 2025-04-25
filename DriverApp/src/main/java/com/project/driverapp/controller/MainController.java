@@ -68,6 +68,9 @@ public class MainController {
                          @RequestParam(required = false) Integer recordKey,
                          @RequestParam(required = false) String driveInfoName) {
 
+        //manage에 들어오면 recordState"S"로 변경
+        recordService.updateDriveStateStart(recordKey);
+
         // recordKey에 해당하는 아이들 정보 조회
         List<ChildrenVO> childrenList = driverService.manageOfChildren(recordKey);
         //배차정보제목조회-그냥 첫번째애 배차정보로 조회
@@ -125,5 +128,11 @@ public class MainController {
 
     @GetMapping("/driving")
     public String driving() {return "driving";}
+
+    @GetMapping("/finishDrive")
+    public String finishDrive(@RequestParam("recordKey") Integer recordKey) {
+        recordService.updateDriveStateFinish(recordKey);
+        return "redirect:/home";
+    }
 }
 
