@@ -18,6 +18,7 @@ public class ChildrenVO {
 
      private KinderVO kinderVO;
 
+     private RecordVO recordVO;
      private String profileImageUrl;
 
 

@@ -1,41 +1,42 @@
+const recordKey = 2;
+
 $(document).ready(function(){
 
     $(".backBtn").on('click',function(){
         history.back();
     })
-    $(".mylocation").on('click',function(){
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-                    var locPosition = new kakao.maps.LatLng(lat, lng);
-
-                    console.log(lat);
-                    console.log(lng);
-
-                    // 지도 중심 이동
-                    map.setCenter(locPosition);
-
-                    // 마커 표시(선택)
-                    new kakao.maps.Marker({
-                        map: map,
-                        position: locPosition
-                    });
-                }, function(error) {
-                    alert('위치 정보를 가져올 수 없습니다.');
-                }, );
-            } else {
-                alert('이 브라우저에서는 Geolocation을 지원하지 않습니다.');
-            }
-        }
-    )
+    // $(".mylocation").on('click',function(){
+    //         if (navigator.geolocation) {
+    //             navigator.geolocation.getCurrentPosition(function(position) {
+    //                 var lat = position.coords.latitude;
+    //                 var lng = position.coords.longitude;
+    //                 var locPosition = new kakao.maps.LatLng(lat, lng);
+    //
+    //                 console.log(lat);
+    //                 console.log(lng);
+    //
+    //                 // 지도 중심 이동
+    //                 map.setCenter(locPosition);
+    //
+    //                 // 마커 표시(선택)
+    //                 new kakao.maps.Marker({
+    //                     map: map,
+    //                     position: locPosition
+    //                 });
+    //             }, function(error) {
+    //                 alert('위치 정보를 가져올 수 없습니다.');
+    //             }, );
+    //         } else {
+    //             alert('이 브라우저에서는 Geolocation을 지원하지 않습니다.');
+    //         }
+    //     }
+    // )
     $(".phonecall").on('click',function(){
         alert('통화하기버튼 작동됨');
     })
 
 
-    //지도 관련
-
+    //지도 관련 (자녀 기반 경로깔아주는거)
     let currentPolyline = null; // 현재 지도에 그려진 경로선(Polyline) 객체
 
     // 지도 컨테이너와 옵션 설정
@@ -44,7 +45,7 @@ $(document).ready(function(){
         center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표(서울 시청)
         level: 5 // 지도 확대/축소 레벨 (숫자가 작을수록 확대)
     };
-    const map = new kakao.maps.Map(mapContainer, mapOption); // 지도 객체 생성
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 객체 생성
 
     // 마커와 오버레이를 저장할 배열
     let markers = []; // 지도에 표시된 모든 마커 저장
@@ -68,6 +69,8 @@ $(document).ready(function(){
         });
         markers.push(marker); // 배열에 추가
     }
+
+
 
     // 경유지 번호 오버레이 생성 함수
     function addWaypointOverlay(lat, lng, number) {
@@ -207,12 +210,54 @@ $(document).ready(function(){
 
 
 
-
-
-
-
     drawRouteWithWaypoints();
 
+
+
+
+    // 실시간 경로 찍어주는 맵
+    map = new kakao.maps.Map(document.getElementById('map'), {
+        // center: new kakao.maps.LatLng(37.5665, 126.9780),
+        center: new kakao.maps.LatLng(37.49953928976487, 127.03043069202396),
+        level: 3
+    });
+    let linePath = [];
+    let polyline;
+
+    // db에 저장되어있는 위도,경도 받아와서 locations(실시간위치저장되어있는 맵) 저장하는 함수
+    fetch(`/api/locations/${recordKey}`)
+        .then(res => res.json())
+        .then(data => {
+            linePath = data.map(p => new kakao.maps.LatLng(parseFloat(p.latitude), parseFloat(p.longitude)));
+            polyline = new kakao.maps.Polyline({
+                path: linePath,
+                strokeWeight: 5,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeStyle: 'solid'
+            });
+            polyline.setMap(map);
+        });
+
+    // websocket에서 실시간으로 좌표 받아서 추가해주는 곳
+    const socket = new SockJS("http://localhost:8082/ws");
+    // const socket = new SockJS("https://1166-218-153-162-9.ngrok-free.app/ws");
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+        console.log("WebSocket connected");
+        stompClient.subscribe(`/topic/location/update/${recordKey}`, message => {
+
+            const data = JSON.parse(message.body);
+            const latlng = new kakao.maps.LatLng(parseFloat(data.latitude), parseFloat(data.longitude));
+            console.log("WebSocket message received:", data);
+
+            map.setCenter(latlng);
+
+            // 경로 추가
+            linePath.push(latlng);
+            polyline.setPath(linePath);
+        });
+    });
 
 
 })
