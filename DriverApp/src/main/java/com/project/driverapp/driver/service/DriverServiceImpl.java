@@ -2,6 +2,7 @@ package com.project.driverapp.driver.service;
 
 
 import com.project.driverapp.command.ChildrenVO;
+import com.project.driverapp.command.DriveInfoVO;
 import com.project.driverapp.command.DriverVO;
 import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
@@ -27,6 +28,12 @@ public class DriverServiceImpl implements DriverService {
     public int register(DriverVO userVO) {
         return driverMapper.register(userVO);
     }
+
+    @Override
+    public int registerInfo(DriveInfoVO driveInfoVO) {
+        return driverMapper.registerInfo(driveInfoVO);
+    }
+
 
     @Override
     public DriverVO findInfo(DriverVO vo) {
