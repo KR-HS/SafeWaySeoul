@@ -10,5 +10,18 @@
         DELETE FROM KINDERMATCH WHERE CHILD_KEY = #{childKey}
     </delete>
 
+    <insert id="insertMatch" parameterType="KinderMatchVO">
+        INSERT INTO KINDERMATCH (CHILD_KEY, KINDER_KEY, KM_PICKUP)
+        VALUES (#{childKey}, #{kinderKey}, #{kmPickup})
+    </insert>
+
+    <update id="updatePickup" parameterType="KinderMatchVO">
+        UPDATE KINDERMATCH
+        SET KM_PICKUP = #{kmPickup}
+        WHERE CHILD_KEY = #{childKey}
+    </update>
+
+
+
 
 </mapper>
