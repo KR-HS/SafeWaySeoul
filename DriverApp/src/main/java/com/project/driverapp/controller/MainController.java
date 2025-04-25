@@ -79,27 +79,29 @@ public class MainController {
         for (ChildrenVO child : childrenList) {
             System.out.println("dropState: " + child.getDropState());
         }
+        if(childrenList != null && childrenList.size() > 0) {
+            //태초에 맵화면상에 출발지,도착지, 경유지 db상에서 불러와서 맵에 띄우기위한작업
+            //유치원 주소
+            KinderVO kinder = childrenList.get(0).getKinderVO();
+            //시작점- 유치원
+            String startAddress = kinder.getKinderAddress();
 
-        //태초에 맵화면상에 출발지,도착지, 경유지 db상에서 불러와서 맵에 띄우기위한작업
-        //유치원 주소
-        KinderVO kinder = childrenList.get(0).getKinderVO();
-        //시작점- 유치원
-        String startAddress = kinder.getKinderAddress();
+            // 아이들 집 주소 리스트
+            List<String> waypointAddresses = new ArrayList<>();
+            for (int i = 0; i < childrenList.size(); i++) {
 
-        // 아이들 집 주소 리스트
-        List<String> waypointAddresses = new ArrayList<>();
-        for (int i = 0; i < childrenList.size(); i++) {
+                String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
+                        childrenList.get(i).getUserVO().getUserAddressDetail();
+                waypointAddresses.add(addr);
+            }
+            String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
+            List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
 
-            String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
-                    childrenList.get(i).getUserVO().getUserAddressDetail();
-            waypointAddresses.add(addr);
+            model.addAttribute("startAddress", startAddress);
+            model.addAttribute("waypoints", waypoints);
+            model.addAttribute("endAddress", endAddress);
         }
-        String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
-        List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
 
-        model.addAttribute("startAddress", startAddress);
-        model.addAttribute("waypoints", waypoints);
-        model.addAttribute("endAddress", endAddress);
 
 
         return "driver/manage";

@@ -28,4 +28,7 @@ public class ChildrenVO {
      private String recordName;
      private String driveInfoName;
 
-}
+     private String kmPickup;
+
+
+ }

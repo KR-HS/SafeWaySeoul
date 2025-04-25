@@ -10,7 +10,6 @@ var childKey= null;
 
 $(document).ready(function () {
 
-
     // 자녀 관련 모달창 기능
     $(".viewInfo").on('click', function () {
 
@@ -357,20 +356,17 @@ $(document).ready(function () {
 
             markers.push(marker);
 
-            // 마커 클릭시 뜨는 정보창 내용
+            //마커 클릭시 뜨는 정보창 내용
             var content = `
                     <div class="info-window">
                         <strong>${loc.name}</strong><br>
-                        <div class="address">📍 ${loc.address}</div>
-                        <div class="phone">☎ ${loc.phone}</div>
-                    </div>
-                `;
+                        <div class="address">${loc.address}</div>
+                        <div class="phoneIcon"><span class="material-symbols-outlined" style="padding-top: 3px; font-size: 12px; color: #666;">call</span> <div class="phone">${loc.phone}</div></div>`;
 
             var infowindow = new kakao.maps.InfoWindow({
                 content: content,
                 removable: true
             });
-
             marker.infoWindow = infowindow;
             kakao.maps.event.addListener(marker, 'click', function () {
                 // 이미 열린 창을 다시 클릭했을 때 닫기
@@ -383,6 +379,7 @@ $(document).ready(function () {
                 if (currentInfoWindow) currentInfoWindow.close();
                 infowindow.open(map, marker);
                 currentInfoWindow = infowindow;
+                $(".info-window").parent().parent().css("border","none");
             });
         });
 
