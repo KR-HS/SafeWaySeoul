@@ -2,6 +2,20 @@
 var map;
 var recordKey;
 
+//함수 임시로 잠깐 빼놨음..전역에 없어서.. 함수가 안먹음
+function stopDriving() {
+    console.log("stopDriving함수호출됨");
+    fetch("/driver/location/stop", {
+        method: "POST"
+    }).then(() => {
+        alert("운행 종료됨");
+        if (intervalId !== null) {
+            clearInterval(intervalId); // 인터벌 중단
+            intervalId = null;
+        }
+    });
+}
+
 $(document).ready(function(){
 
     var routeBtn=document.querySelector(".routeBtn");
@@ -9,6 +23,8 @@ $(document).ready(function(){
     routeBtn.onclick= function (){
         routebox.classList.toggle('show');;
     };
+
+
 
 
     var urlParams = new URLSearchParams(window.location.search);
@@ -28,19 +44,34 @@ $(document).ready(function(){
        window.location.href="/home";
    })
 
+    //승하차인원 카운팅을 위한함수
     function updateBoardingStatus() {
         var total = $('.list-time').length;
         var done = $('.list-time.done').length;
         var remain = total - done;
         $('.boarding-status').text(remain + "명 남음 - " + done + "명 완료");
     }
-    updateBoardingStatus();
+    updateBoardingStatus(); //함수 실행해서 화면 로드됬을떄 처음에 상태를 보여줌
 
+    //전부다 하차하면 하차버튼 활성화를 위한 함수
+    function updateFinishDriveButton() {
+        var total = $('.list-time').length;
+        var done = $('.list-time.done').length;
+        if (total > 0 && total === done) {
+            $('.finishDrive').show();
+        } else {
+            $('.finishDrive').hide();
+        }
+    }
+
+    updateFinishDriveButton(); // 처음에 상태를 확인해서 버튼을 보이거나 숨김
+
+    // 서버에 하차상태 변경 요청
     $(document).on('click', '.list-time', function() {
         var $this = $(this);
         var $card = $this.closest('.list-card');
         var childKey = $card.data('child-key');
-        var newState = $this.hasClass('done') ? '하차' : '하차완료';
+        var newState = $this.hasClass('done') ? '하차' : '하차완료';  // 상태 변경 이거 뽀인트임 토굴버튼 느낌이임
 
         // 서버에 상태 업데이트 요청
         $.ajax({
@@ -62,6 +93,7 @@ $(document).ready(function(){
                         $this.closest('.list-box').removeClass('done');
                     }
                     updateBoardingStatus();
+                    updateFinishDriveButton();
                 } else {
                     alert('상태 업데이트에 실패했습니다.');
                 }
@@ -177,6 +209,7 @@ $(document).ready(function(){
 
         // 실시간 좌표 보내기 종료 함수
         function stopDriving() {
+            console.log("stopDriving함수호출됨");
             fetch("/driver/location/stop", {
                 method: "POST"
             }).then(() => {
@@ -186,6 +219,16 @@ $(document).ready(function(){
                     intervalId = null;
                 }
             });
+        }
+
+
+    });
+
+    // 운행 종료 버튼 이벤트 핸들러 추가
+    $(".finishDrive").on("click", function(){
+        if(confirm("운행을 종료하시겠습니까?")) {
+            stopDriving();
+            window.location.href = "/finishDrive?recordKey=" + recordKey;
         }
     });
 });

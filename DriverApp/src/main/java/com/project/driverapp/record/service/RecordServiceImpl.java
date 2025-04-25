@@ -22,4 +22,14 @@ public class RecordServiceImpl implements RecordService {
     public int getRemainPassengerCount(Integer recordKey) {
         return recordMapper.getRemainPassengerCount(recordKey);
     }
+
+    @Override
+    public int updateDriveStateFinish(Integer recordKey) {
+        return recordMapper.updateDriveStateFinish(recordKey);
+    }
+
+    @Override
+    public int updateDriveStateStart(Integer recordKey) {
+        return recordMapper.updateDriveStateStart(recordKey);
+    }
 }
