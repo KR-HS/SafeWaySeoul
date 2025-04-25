@@ -17,6 +17,7 @@
                #{userAddressDetail},#{userType},#{userPhone})
     </insert>
 
+
     <select id="findInfo" resultType="UserVO" parameterType="UserVO">
         select * from USER
         where user_type='U'

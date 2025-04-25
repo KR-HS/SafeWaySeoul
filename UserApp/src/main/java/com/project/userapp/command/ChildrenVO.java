@@ -25,5 +25,6 @@ public class ChildrenVO {
      private UserVO userVO;
      private String dropState;
      private String recordName;
+     private String driveInfoName;
 
 }
