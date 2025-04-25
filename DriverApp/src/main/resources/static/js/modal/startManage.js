@@ -3,13 +3,16 @@ $(document).ready(function() {
     let selectedRecordKey = null;
     let recordName;
     let recordCarName;
+    let selectedDriveInfoName;
 
     $(".active, .scheduled").on("click", function() {
         selectedRecordKey = $(this).data("record-key");
         recordName = $(this).find(".subtitle").data("record-name");
         recordCarName = $(this).find(".title").data("record-car-name");
+        selectedDriveInfoName = $(this).data("driveInfo-name")
         $(".modal-title").text(recordName);
         $(".modal-subtitle").text(recordCarName);
+        console.log(selectedDriveInfoName);
 
         // Ajax 호출 추가
         $.ajax({
@@ -30,7 +33,7 @@ $(document).ready(function() {
     // 운행시작 버튼 누르면 recordKey를 URL로 넘김
     $(".start").on("click", function() {
         if(selectedRecordKey) {
-            window.location.href = "/manage?recordKey=" + selectedRecordKey;
+            window.location.href = "/manage?recordKey=" + selectedRecordKey + "&&driveInfoName=" + selectedDriveInfoName;
         }
     });
 

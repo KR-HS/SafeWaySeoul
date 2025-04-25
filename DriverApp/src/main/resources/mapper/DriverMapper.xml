@@ -128,11 +128,12 @@
 
     <select id="findKinderForDriver" resultType="KinderVO">
         SELECT DISTINCT k.*
-        FROM RECORD r
+        FROM DRIVEINFO di
+                 JOIN RECORD r ON r.DRIVE_INFO_KEY = di.DRIVE_INFO_KEY
                  JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
                  JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
                  JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
-        WHERE r.DRIVER_KEY = ${driverKey};
+        WHERE di.USER_KEY = #{driverKey};
     </select>
 
 

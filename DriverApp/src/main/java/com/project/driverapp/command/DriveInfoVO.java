@@ -14,4 +14,6 @@ public class DriveInfoVO {
     private String driveInfoName;
     private String driveCarName;
     private Integer userKey;
+
+    private RecordVO recordVO;
 }

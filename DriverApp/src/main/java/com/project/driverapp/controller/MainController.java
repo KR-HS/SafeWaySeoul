@@ -1,10 +1,8 @@
 package com.project.driverapp.controller;
 
 import com.project.driverapp.children.service.ChildrenService;
-import com.project.driverapp.command.ChildrenVO;
-import com.project.driverapp.command.DriverVO;
-import com.project.driverapp.command.KinderVO;
-import com.project.driverapp.command.RecordVO;
+import com.project.driverapp.command.*;
+import com.project.driverapp.driveInfo.service.DriveInfoService;
 import com.project.driverapp.driver.service.DriverService;
 import com.project.driverapp.record.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,9 @@ public class MainController {
     @Autowired
     private DriverService driverService;
 
+    @Autowired
+    private DriveInfoService driveInfoService;
+
 
     @GetMapping("/loading")
     public String loading() {
@@ -43,15 +44,18 @@ public class MainController {
         DriverVO vo = (DriverVO) session.getAttribute("driverInfo");
         System.out.println(vo.toString());
 
-        List<RecordVO> list = recordService.getRecordList(vo.getUserKey());
+        //로그인된 기사의 운행정보 불러오기
+        List<DriveInfoVO> list = driveInfoService.getDriveInfo(vo.getUserKey());
         System.out.println(list.toString());
 
         List<KinderVO> kinderVo = driverService.findKinderForDriver(vo.getUserKey());
         System.out.println(kinderVo.toString());
 
         model.addAttribute("driverInfo", vo);
-        model.addAttribute("recordInfo", list);
-        model.addAttribute("kinderInfo", kinderVo.get(0));
+        model.addAttribute("driveInfo", list);
+        if(kinderVo != null && kinderVo.size() > 0) {
+            model.addAttribute("kinderInfo", kinderVo.get(0));
+        }
 
         return "home";
 
@@ -60,15 +64,17 @@ public class MainController {
 
     }
     @GetMapping("/manage")
-    public String manage(Model model, @RequestParam(required = false) Integer recordKey) {
+    public String manage(Model model,
+                         @RequestParam(required = false) Integer recordKey,
+                         @RequestParam(required = false) String driveInfoName) {
 
         // recordKey에 해당하는 아이들 정보 조회
         List<ChildrenVO> childrenList = driverService.manageOfChildren(recordKey);
         //배차정보제목조회-그냥 첫번째애 배차정보로 조회
-        ChildrenVO childrevo= childrenList.get(0);
+        //ChildrenVO childrevo= childrenList.get(0);
 
         model.addAttribute("childrenList", childrenList);
-        model.addAttribute("childrevo", childrevo);
+        model.addAttribute("driveInfoName", driveInfoName);
 
         for (ChildrenVO child : childrenList) {
             System.out.println("dropState: " + child.getDropState());
