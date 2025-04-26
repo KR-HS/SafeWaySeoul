@@ -79,7 +79,7 @@ $(document).ready(function(){
         const overlayContent = `
                         <div style="
                             background: #fff;
-                            border: 2px solid #19bb35;
+                            border: 2px solid #777777;
                             border-radius: 50%;
                             width: 28px;
                             height: 28px;
@@ -88,7 +88,7 @@ $(document).ready(function(){
                             justify-content: center;
                             font-weight: bold;
                             font-size: 15px;
-                            color: #19bb35;
+                            color: #777777;  
                             box-shadow: 0 1px 2px rgba(0,0,0,0.15);
                         ">
                             ${number}

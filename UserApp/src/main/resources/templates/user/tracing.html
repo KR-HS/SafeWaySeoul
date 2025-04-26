@@ -39,17 +39,21 @@
         <div class="timeline-section" th:data-recordKey="${recordKey}">
             <div class="arrival-time" th:text="${driveInfoName}"></div>
             <div class="timeline">
+                <!-- 학교 아이콘: 운행예정(P)일 때만 school-animate 클래스 추가 -->
                 <div class="timeline-item">
-                    <div class="timeline-img">
+                    <div class="timeline-img"
+                         th:classappend="${driveInfoFromChild.recordState} == 'P' ? ' school-animate' : ''">
                         <img src="/img/school.png" alt="어린이집이미지">
                     </div>
-                    <p th:text= "'출발: '+${#dates.format(driveInfoFromChild.recordStartTime, 'HH:mm')}"></p>
+                    <p th:text="'출발: '+${#dates.format(driveInfoFromChild.recordStartTime, 'HH:mm')}"></p>
                 </div>
                 <div class="arrow">
                     <img src="/img/arrow-removebg-preview.png" alt="화살표">
                 </div>
+                <!-- 버스 아이콘: 운행중(S)일 때만 bus-animate 클래스 추가 -->
                 <div class="timeline-item">
-                    <div class="timeline-img bus-animate">
+                    <div class="timeline-img"
+                         th:classappend="${driveInfoFromChild.recordState} == 'S' ? ' bus-animate' : ''">
                         <img src="/img/bus.png" alt="버스이미지">
                     </div>
                     <p th:switch="${driveInfoFromChild.recordState}">
@@ -61,11 +65,12 @@
                 <div class="arrow">
                     <img src="/img/arrow-removebg-preview.png" alt="화살표">
                 </div>
+                <!-- 집 아이콘: 운행완료(E)일 때만 home-animate 클래스 추가 -->
                 <div class="timeline-item">
-                    <div class="timeline-img">
+                    <div class="timeline-img"
+                         th:classappend="${driveInfoFromChild.recordState} == 'E' ? ' home-animate' : ''">
                         <img src="/img/home.png" alt="집이미지">
                     </div>
-                    <!--시간데이터 이쁘게 변환.. -->
                     <p>도착</p>
                 </div>
             </div>
@@ -102,6 +107,8 @@
 
             </div>
         </div>
+
+
     </section>
 </th:block>
 

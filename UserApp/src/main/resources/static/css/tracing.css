@@ -95,21 +95,6 @@
     gap: 20px;   
 }
 
-/*버스 애니메이션*/
-@keyframes busLeftToRight {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(80px); }
-}
-
-.timeline-img.bus-animate img {
-    animation: busLeftToRight 1.7s linear infinite;
-    position: absolute; /* 부모 기준으로 움직이게 */
-    left: -40px;  /* 왼쪽에서 출발*/
-    top: 5px;
-    width: 40px;  /* 이미지 크기는 부모보다 살짝 작게 */
-    height: 40px;
-}
-
 
 .timeline-item {
     text-align: center;
@@ -206,4 +191,46 @@
 .arrow img {
     width: 20px; /* 원하는 너비 */
     height: auto; /* 비율 유지 */
+}
+
+
+/*tracing 애니메이션 관련*/
+@keyframes schoolMove {
+    0% { transform: translateX(0);}
+    100% { transform: translateX(80px);}
+}
+.school-animate img {
+    animation: schoolMove 1.7s linear infinite;
+    position: absolute;
+    left: -40px;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes busMove {
+    0% { transform: translateX(0);}
+    100% { transform: translateX(80px);}
+}
+.bus-animate img {
+    animation: busMove 1.7s linear infinite;
+    position: absolute;
+    left: -40px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+/* 집(도착) 애니메이션 */
+@keyframes homeMove {
+    0% { transform: translateX(0);}
+    100% { transform: translateX(80px);}
+}
+.home-animate img {
+    animation: homeMove 1.7s linear infinite;
+    position: absolute;
+    left: -40px;
+    top: 4px;
+    width: 40px;
+    height: 40px;
 }
