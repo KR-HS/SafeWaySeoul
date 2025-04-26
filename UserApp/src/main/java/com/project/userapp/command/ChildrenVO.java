@@ -5,6 +5,8 @@
  import lombok.Data;
  import lombok.NoArgsConstructor;
 
+ import java.sql.Timestamp;
+
  @Data
  @AllArgsConstructor
  @NoArgsConstructor
@@ -28,5 +30,7 @@ public class ChildrenVO {
      private String dropState;
      private String recordName;
      private String driveInfoName;
+     private String recordState;
+     private Timestamp recordStartTime;
 
 }

@@ -19,4 +19,6 @@ public interface LocationService {
 
     List<LocationVO> selectByRecordKey(int recordKey);
 
+    ChildrenVO recordStateFromChild(int childKey);
+
 }

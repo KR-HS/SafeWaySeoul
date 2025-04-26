@@ -20,7 +20,7 @@
                 <img src="/img/backBtn.png" alt="backbtn">
             </div>
             <div class="mylocation">
-                <img src="/img/myposition.png" alt="my  location">
+                <img src="/img/myposition.png" alt="my location">
             </div>
 
 
@@ -43,7 +43,7 @@
                     <div class="timeline-img">
                         <img src="/img/school.png" alt="어린이집이미지">
                     </div>
-                    <p>출발 17:00</p>
+                    <p th:text= "'출발: '+${#dates.format(driveInfoFromChild.recordStartTime, 'HH:mm')}"></p>
                 </div>
                 <div class="arrow">
                     <img src="/img/arrow-removebg-preview.png" alt="화살표">
@@ -52,7 +52,11 @@
                     <div class="timeline-img bus-animate">
                         <img src="/img/bus.png" alt="버스이미지">
                     </div>
-                    <p>운행중...</p>
+                    <p th:switch="${driveInfoFromChild.recordState}">
+                        <span th:case="P">운행예정</span>
+                        <span th:case="S">운행중..</span>
+                        <span th:case="E">운행완료</span>
+                    </p>
                 </div>
                 <div class="arrow">
                     <img src="/img/arrow-removebg-preview.png" alt="화살표">
@@ -61,7 +65,8 @@
                     <div class="timeline-img">
                         <img src="/img/home.png" alt="집이미지">
                     </div>
-                    <p>도착 17:30</p>
+                    <!--시간데이터 이쁘게 변환.. -->
+                    <p>도착</p>
                 </div>
             </div>
         </div>

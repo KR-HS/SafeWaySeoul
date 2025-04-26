@@ -15,8 +15,13 @@ public interface LocationMapper {
     void registLocation(LocationVO vo);
 
 
+    //내 아이의 집오는 경로를 탐색하기
     List<ChildrenVO> mychildRoutebyrecordKey(int childKey);
 
+
     List<LocationVO> selectByRecordKey(@Param("recordKey") int recordKey);
+
+    //한아이의 배차의 상태 조회하기
+    ChildrenVO recordStateFromChild(int childKey);
 
 }

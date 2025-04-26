@@ -93,32 +93,38 @@ public class MainController {
 
         List<ChildrenVO> childrenList = locationService.mychildRoutebyrecordKey(childKey);
 
+        //해당아이가 타고있는 차의 운행상태/운행출발시간 찍어주기
+        ChildrenVO driveInfoFromChild = locationService.recordStateFromChild(childKey);
+        System.out.println(driveInfoFromChild.getRecordStartTime());
+
         //유치원 주소
         KinderVO kinder = childrenList.get(0).getKinderVO();
         //시작점- 유치원
         String startAddress = kinder.getKinderAddress();
-        // 아이들 집 주소 리스트
+        //경유지 리스트 - 아이들 집 주소 리스트
         List<String> waypointAddresses = new ArrayList<>();
         for (int i = 0; i < childrenList.size(); i++) {
             String addr = childrenList.get(i).getUserVO().getUserAddress() + " " +
                     childrenList.get(i).getUserVO().getUserAddressDetail();
             waypointAddresses.add(addr);
         }
-        //도착지 - 마지막 아이의 주소
-        String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
-        //경유지 - 중간에 내릴 아이들의 주소
         List<String> waypoints = waypointAddresses.subList(0, waypointAddresses.size() - 1);
 
+        //도착지 - 마지막 아이의 주소
+        String endAddress = waypointAddresses.get(waypointAddresses.size() - 1);
 
         //recordname찍어주기
         String driveInfoName=childrenList.get(0).getDriveInfoName();
-        System.out.println(driveInfoName);
+
+
+
 
         model.addAttribute("startAddress", startAddress);
         model.addAttribute("waypoints", waypoints);
         model.addAttribute("endAddress", endAddress);
         model.addAttribute("driveInfoName", driveInfoName);
         model.addAttribute("recordKey", recordKey);
+        model.addAttribute("driveInfoFromChild", driveInfoFromChild);
 
         return "/user/tracing";
     }

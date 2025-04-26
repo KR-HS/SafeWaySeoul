@@ -42,11 +42,11 @@ public class KinderServiceImpl implements KinderService {
     }
 
      //✅ 서버 실행 직후 1회 실행
-    @PostConstruct
-    public void initOnStartup() {
-        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
-        registKinderAPI();
-    }
+//    @PostConstruct
+//    public void initOnStartup() {
+//        System.out.println("🚀 서버 실행 후 Kinder 데이터 수집 시작");
+//        registKinderAPI();
+//    }
 
     // ✅ 매일 새벽 3시에 실행
     @Scheduled(cron = "0 0 3 * * *")
