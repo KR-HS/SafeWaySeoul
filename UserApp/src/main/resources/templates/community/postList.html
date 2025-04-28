@@ -32,7 +32,8 @@
             </div>
 
 
-            <div class="post-card" th:each="list : ${postList}">
+            <div class="post-card" th:each="list : ${postList}"
+                                    th:data-post-key="${list.postKey}">
 
                 <div class="post-header">
                     <img src="/img/boy.png" alt="프로필" class="profile-img">
@@ -49,138 +50,6 @@
                 <div class="post-footer">
                     <div class="post-stats">
                         <span>💬 댓글 2</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">하얀</div>
-                        <div class="kindergarten-name">중앙어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">중앙 어린이집 급식 괜찮네요.</div>
-                <div class="post-body">중앙어린이집 급식 괜찮네요~ 아이가 맛있다고 하고, 꼭 먹는다고 하니 마음이 놓이네요.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">보라</div>
-                        <div class="kindergarten-name">빛의자녀 어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
-                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">보라</div>
-                        <div class="kindergarten-name">빛의자녀 어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
-                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">보라</div>
-                        <div class="kindergarten-name">빛의자녀 어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
-                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">보라</div>
-                        <div class="kindergarten-name">빛의자녀 어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
-                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="/img/girl.png" alt="프로필" class="profile-img">
-                    <div class="user-info">
-                        <div class="user-name">보라</div>
-                        <div class="kindergarten-name">빛의자녀 어린이집</div>
-                    </div>
-                    <div class="post-time">23시간 전</div>
-                </div>
-
-                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
-                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
-
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span>❤️ 10</span>
-                        <span>👁️ 170</span>
-                        <span>💬 댓글 37</span>
                     </div>
                 </div>
             </div>

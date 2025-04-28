@@ -10,4 +10,10 @@
         from post
     </select>
 
+    <select id="getPostById" resultType="PostVO">
+        select *
+        from post
+        where POST_KEY = ${postKey}
+    </select>
+
 </mapper>
