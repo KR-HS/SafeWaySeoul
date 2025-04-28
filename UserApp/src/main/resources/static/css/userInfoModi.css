@@ -91,7 +91,7 @@ h3 {
 }
 
 .section-title {
-    font-size: 27px;
+    font-size: 25px;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
@@ -178,8 +178,8 @@ input:valid + .placeholder-label {
 
 .profile-image-wrapper {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     overflow: hidden;
     background-color: #fff;

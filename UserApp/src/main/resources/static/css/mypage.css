@@ -87,7 +87,7 @@
 }
 
 .user-name {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -103,7 +103,7 @@
 .user-region,
 .user-address,
 .user-workplace {
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1;
   color: #444;
 }
@@ -185,21 +185,21 @@
 }
 
 .child-name img {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
 }
 
 .child-name span {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1;
   display: inline-block;
-  margin: 7px 0 0 3px;
+  margin: 5px 0 0 2px;
 }
 
 .child-age {
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
   text-align: center;
 }
@@ -311,7 +311,7 @@
 }
 
 .kinder-label {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: bold;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -354,7 +354,7 @@
   font-weight: bold;
   color: #222;
   line-height:1;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .kinder-meta {

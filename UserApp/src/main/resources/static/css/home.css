@@ -61,7 +61,7 @@ h3 {
     filter: opacity(0.5) drop-shadow(0 0 0 #ff4646);
 }
 .childList-section > .childList > .childInfo-wrap > .childName> p{
-    font-size:20px;
+    font-size:16px;
     font-weight:500;
 }
 
@@ -87,7 +87,7 @@ h3 {
 .childList-section > .childList > .childInfo-wrap > .kinderName{
     text-align:center;
     margin-top:5px;
-    font-size:25px;
+    font-size:14px;
     font-weight:600;
 }
 
