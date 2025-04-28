@@ -46,7 +46,7 @@ public class MainController {
 
         //로그인된 기사의 운행정보 불러오기
         List<DriveInfoVO> list = driveInfoService.getDriveInfo(vo.getUserKey());
-        System.out.println(list.toString());
+        System.out.println(list.size());
 
         List<KinderVO> kinderVo = driverService.findKinderForDriver(vo.getUserKey());
         System.out.println(kinderVo.toString());
