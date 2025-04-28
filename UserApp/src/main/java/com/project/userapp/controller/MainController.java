@@ -57,6 +57,7 @@ public class MainController {
     public String home(Model model, HttpSession session) {
         UserVO vo = (UserVO) session.getAttribute("userInfo");
         System.out.println(vo.toString());
+
         List<ChildrenVO> list = childrenService.myChildren(vo.getUserKey());
 
         //전체 유치원에 관한 정보 받아오기
