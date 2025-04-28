@@ -1,5 +1,6 @@
 $(function () {
     // 자녀 정보가 아예 없는 경우
+    event.stopPropagation(); //이벤트 버블링으로 인해서 부모상자 이벤트가 먼저실행되는데 이거 막음..
     if ($('.child-list .child-card').length === 0) {
         $('.child-list').hide();
         $('.child-register-box').show();
@@ -13,6 +14,7 @@ $(function () {
 
     // 삭제 버튼 클릭 시 모달창 열기
     $('.delete-child-btn').on('click', function () {
+
         // 모달 초기화
         resetDeleteModal();
 
@@ -93,9 +95,26 @@ $(function () {
     });
 
     $(".edit-user-btn").on("click", function () {
+
         location.href = "/user/userInfoModi";
     });
 
+    /*자녀카드 클릭시 해당아이의 tracing 화면으로 넘어가기*/
 
+    $(".child-card").on("click",function(){
+
+        //이벤트 버블링으로 인해서 부모상자 이벤트가 먼저실행되는데 이거 막음..
+        if ($(event.target).closest('.edit-child-btn, .delete-child-btn').length > 0) return; //수정 삭제버튼 안먹는 방지
+
+        if ($(this).hasClass('child-register-box')) {
+            return;
+        }
+
+        var childKey = $(this).data('childId');
+        var recordKey = $(this).data('childRecordKey');
+        console.log(childKey, recordKey);
+
+        location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+    })
 
 });
