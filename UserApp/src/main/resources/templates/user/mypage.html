@@ -47,10 +47,12 @@
           <div class="user-name-row">
             <p class="user-name" th:text="${session.userInfo.userName} + ' 님'"></p>
           </div>
-          <p>연락처</p>
-          <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
-          <p>주소</p>
-          <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
+
+          <p class="info-title">연락처</p>
+            <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
+
+          <p class="info-title">주소</p>
+            <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
         </div>
       </div>
     </div>
@@ -110,8 +112,8 @@
                   <span class="kinder-capacity"
                         th:text="${child.kinderVO.kinderCapacity} != null ? '정원: ' + ${child.kinderVO.kinderCapacity} + '명' : '정원 정보 없음'"></span>
 
-                  <img src="/img/location.png" alt="위치 아이콘">
-                  <span class="kinder-address" th:text="${child.kinderVO.kinderAddress}"></span>
+<!--                  <img src="/img/location.png" alt="위치 아이콘">-->
+<!--                  <span class="kinder-address" th:text="${child.kinderVO.kinderAddress}"></span>-->
                 </div>
               </div>
             </div>
