@@ -98,6 +98,25 @@ CREATE TABLE LOCATION(
     USER_KEY INT,
     KINDER_KEY INT
 );
+
+CREATE TABLE POST(
+	POST_KEY INT PRIMARY KEY AUTO_INCREMENT,
+    POST_TITLE VARCHAR(1000),
+    POST_CONTENT VARCHAR(3000),
+    POST_REGDATE TIMESTAMP DEFAULT NOW(),
+    USER_KEY INT
+);
+
+CREATE TAbLE COMMENT(
+	COMMENT_ID INT PRIMARY KEY AUTO_INCREMENT,
+    COMMENT_LV INT,
+    COMMENT_PARENT_LV INT,
+    COMMENT_CONTNET VARCHAR(3000),
+    COMMENT_REGDATE TIMESTAMP DEFAULT NOW(),
+    POST_KEY INT,
+    USER_KEY INT
+);
+
 select * from kinder;
 
 select * from location;
@@ -190,10 +209,21 @@ select c.*,k.*
 
 select * from kinder;
 
+## 기사의 유치원 조회
+SELECT DISTINCT k.*
+FROM DRIVEINFO di
+JOIN RECORD r ON r.DRIVE_INFO_KEY = di.DRIVE_INFO_KEY
+JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
+JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
+JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
+WHERE di.USER_KEY = 3;
 
-
-
-
+## 하차 남은 인원 조회
+select count(*)
+from record rc
+left join recordmatch rm on rc.record_key = rm.record_key
+where rc.record_key = 2
+and drop_state = '하차';
 
 #---------------------------------
 #--------------------------------------

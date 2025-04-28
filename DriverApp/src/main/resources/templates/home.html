@@ -21,8 +21,9 @@
     </div>
 
 
-    <h2>오늘의 배차 - [[${kinderInfo.kinderName}]]</h2>
+        <h2>오늘의 배차 - [[${kinderInfo?.kinderName} ?: '배차 정보 없음']]</h2>
 
+        <th:block th:if="${driveInfo !=null}">
         <table class="dispatch-table">
             <tbody>
             <tr class="card" th:each="list : ${driveInfo}"
@@ -49,6 +50,7 @@
             </tbody>
         </table>
 
+        </th:block>
         <div class="modal-overlay" id="dispatchModal">
             <div class="modal">
                 <h2 class="modal-title">노선 이름</h2>

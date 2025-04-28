@@ -47,10 +47,12 @@
           <div class="user-name-row">
             <p class="user-name" th:text="${session.userInfo.userName} + ' 님'"></p>
           </div>
-          <p>연락처</p>
-          <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
-          <p>주소</p>
-          <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
+
+          <p class="info-title">연락처</p>
+            <p class="user-phone" th:text="${session.userInfo.userPhone}"></p>
+
+          <p class="info-title">주소</p>
+            <p class="user-address" th:text="${session.userInfo.userAddress}"></p>
         </div>
       </div>
     </div>
@@ -62,8 +64,10 @@
 
       <!-- 자녀 리스트 -->
       <div class="child-list">
-        <div class="child-card" th:each="child : ${childrenList}">
-          
+        <div class="child-card" th:each="child : ${childrenList}"
+             th:data-child-id="${child.childKey}"
+             th:data-child-record-key="${child.recordVO?.recordKey ?: 0}">
+
           <div class="edit-child-btn" th:data-child-id="${child.childKey}">
             <img src="/img/edit-text.png" alt="자녀 정보 수정 버튼">
           </div>
@@ -108,8 +112,8 @@
                   <span class="kinder-capacity"
                         th:text="${child.kinderVO.kinderCapacity} != null ? '정원: ' + ${child.kinderVO.kinderCapacity} + '명' : '정원 정보 없음'"></span>
 
-                  <img src="/img/location.png" alt="위치 아이콘">
-                  <span class="kinder-address" th:text="${child.kinderVO.kinderAddress}"></span>
+<!--                  <img src="/img/location.png" alt="위치 아이콘">-->
+<!--                  <span class="kinder-address" th:text="${child.kinderVO.kinderAddress}"></span>-->
                 </div>
               </div>
             </div>

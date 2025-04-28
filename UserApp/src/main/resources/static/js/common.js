@@ -19,14 +19,16 @@ $(document).ready(function(){
         $('.child').siblings().removeClass("click");
         $('.child').addClass('click');
     }
-    // else if (path === '/kinder') {
-    //     $('.tbd').siblings().removeClass("click");
-    //     $('.tbd').addClass('click');
-    // }
 
-    $('.app-footer > .menu').on('click', function(){
-        if($(this).hasClass('tbd')){
-            alert("추후 업데이트 예정입니다.");
+    else if (path === '/community/postList') {
+        $('.tbd').siblings().removeClass("click");
+        $('.tbd').addClass('click');
+    }
+
+    $('.app-footer > .menu').on('click', function () {
+        if ($(this).hasClass('tbd')) {
+            window.location.href = "/community/postList";
+
         }
         else if($(this).hasClass('home') && path !== '/home'){
             window.location.href="/home";

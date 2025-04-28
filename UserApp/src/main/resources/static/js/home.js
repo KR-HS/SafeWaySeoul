@@ -362,10 +362,8 @@ $(document).ready(function () {
             var content = `
                     <div class="info-window">
                         <strong>${loc.name}</strong><br>
-                        <div class="address">📍 ${loc.address}</div>
-                        <div class="phone">☎ ${loc.phone}</div>
-                    </div>
-                `;
+                         <div class="address">${loc.address}</div>
+                         <div class="phoneIcon"><span class="material-symbols-outlined" style="padding-top: 3px; font-size: 12px; color: #666;">call</span> <div class="phone">${loc.phone}</div></div>`;
 
             var infowindow = new kakao.maps.InfoWindow({
                 content: content,
@@ -384,6 +382,7 @@ $(document).ready(function () {
                 if (currentInfoWindow) currentInfoWindow.close();
                 infowindow.open(map, marker);
                 currentInfoWindow = infowindow;
+                $(".info-window").parent().parent().css("border","none");
             });
         });
 
