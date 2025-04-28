@@ -1,6 +1,6 @@
 $(document).ready(function() {
-   $(".post-card").on("click",function () {
+   $(".post-write").on("click",function () {
        console.log("click");
-       window.location.href="/community/postDetail";
+       window.location.href="/community/postWrite";
    });
 });
