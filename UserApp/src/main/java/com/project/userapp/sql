@@ -302,3 +302,7 @@ INSERT INTO driveinfo (DRIVE_INFO_KEY, DRIVE_INFO_NAME, DRIVE_CAR_NAME, USER_KEY
 (2, '오전 둘다묶구 2노선', '123가 4000 고양이차량', 2),
 (3, '오후 둘다묶구 3노선', '123가 5000 벤츠차량', 3);
 
+insert into post (post_title, post_content, user_key)
+values('다들 아이 픽업 어떻게 하시나요?', '저희 부부는 맞벌이라서 직장 근처 어린이집에 보내고 있는데, 가끔 출장 때문에 픽업 하기 힘들 때가 있어요..ㅠ' , 1);
+insert into post (post_title, post_content, user_key)
+values('오늘 점심 메뉴 추천해주세요.', '매일 점심 메뉴 추천 받는것도 일이에요. 밥을 먹을려고 사는건지 살려고 밥을 먹는건지는 잘 모르겠지만, 메뉴 선정은 언제나 중요하고 힘든 일이에요.' , 1);

@@ -17,4 +17,7 @@ public class CommunityServiceImpl implements CommunityService {
     public List<PostVO> getPostList() {
         return communityMapper.getPostList();
     }
+
+    @Override
+    public PostVO getPostById(int postKey) { return communityMapper.getPostById(postKey);}
 }

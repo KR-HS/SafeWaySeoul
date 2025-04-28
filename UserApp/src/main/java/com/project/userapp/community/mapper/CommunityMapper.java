@@ -9,4 +9,5 @@ import java.util.List;
 public interface CommunityMapper {
 
     List<PostVO> getPostList();
+    PostVO getPostById(int postKey);
 }
