@@ -36,8 +36,8 @@
 
         <association property="driveInfoVO" javaType="DriveInfoVO">
             <id property="driveInfoKey" column="drive_info_key"/>
-            <result property="driveInfoName" column="dirve_info_name"/>
-            <result property="driveCarName" column="dirve_car_name"/>
+            <result property="driveInfoName" column="drive_info_name"/>
+            <result property="driveCarName" column="drive_car_name"/>
             <result property="driverKey" column="user_key"/>
         </association>
 

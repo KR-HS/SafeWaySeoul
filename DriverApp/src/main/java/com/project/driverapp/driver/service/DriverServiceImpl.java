@@ -6,6 +6,7 @@ import com.project.driverapp.command.DriverVO;
 import com.project.driverapp.command.KinderVO;
 import com.project.driverapp.driver.mapper.DriverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,14 @@ public class DriverServiceImpl implements DriverService {
 
     @Autowired
     private DriverMapper driverMapper;
+
+
+    // ✅ 매일 새벽 3시에 실행
+    @Scheduled(cron = "0 0 0 * * *")
+    public void scheduledUpdate() {
+
+        System.out.println("주기적 운행정보 추가");
+    }
 
 
     @Override
