@@ -81,7 +81,7 @@
         select count(*) from USER where user_id=#{userId}
     </select>
 
-    <insert id="register" parameterType="DriverVO">
+    <insert id="register" parameterType="DriverVO" useGeneratedKeys="true" keyProperty="userKey">
         INSERT INTO USER(user_id,user_pw,user_name,
                          user_birth,user_postcode,user_address,
                          user_address_detail,user_type,user_phone)
@@ -133,8 +133,13 @@
                  JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
                  JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
                  JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
-        WHERE di.USER_KEY = #{driverKey};
+        WHERE di.USER_KEY = #{driverKey}
     </select>
+
+    <insert id="registerInfo" parameterType="DriveInfoVO">
+        INSERT INTO DRIVEINFO (DRIVE_INFO_NAME, DRIVE_CAR_NAME, USER_KEY)
+        VALUES (#{driveInfoName}, #{driveCarName}, #{userKey})
+    </insert>
 
 
 </mapper>

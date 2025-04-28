@@ -42,7 +42,11 @@
 
               <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
               <p class="kinderName">[[${child.kinderVO.kinderName}]]</p>
-              <p class="commuteType rideOn">승차중</p>
+              <p class="commuteType rideOn" th:switch="${child.recordVO.recordState}">
+                <span th:case="P">운행전</span>
+                <span th:case="S">이동중</span>
+                <span th:case="E">운행완료</span>
+              </p>
             </div>
 
 

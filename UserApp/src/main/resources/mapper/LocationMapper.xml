@@ -40,7 +40,9 @@
         <result property="childGender" column="child_gender" />
         <result property="parentKey" column="parent_key"/>
         <result property="dropState" column="drop_state"/>
-        <result property="driveInfoName" column="drive_info_name"></result>
+        <result property="driveInfoName" column="drive_info_name"/>
+        <result property="recordState" column="record_state"/>
+        <result property="recordStartTime" column="record_start_time"/>
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
@@ -88,11 +90,32 @@
                 from kindermatch where child_key=#{childKey})
         )
     </select>
-
+    
+    
     <select id="selectByRecordKey" resultType="LocationVO">
         SELECT * FROM location WHERE record_key = #{recordKey} ORDER BY location_regtime
 
     </select>
+
+    <select id="recordStateFromChild" resultMap="mychildRoutebyrecordKey">
+        select c.*, u.*, k.*,rm.*,r.*
+        from children c
+                 left join user u on u.user_key = c.parent_key
+                 left join kindermatch km on c.child_key = km.child_key
+                 left join kinder k on km.kinder_key = k.kinder_key
+                 left join recordmatch rm on km.km_key = rm.km_key
+                 left join record r on rm.RECORD_KEY=r.RECORD_KEY
+        where c.child_key in (
+            select child_key
+            from kindermatch
+            where km_key in (
+                select km_key
+                from recordmatch
+                where c.CHILD_KEY = #{childKey}
+            )
+        )
+    </select>
+
 
 
 </mapper>

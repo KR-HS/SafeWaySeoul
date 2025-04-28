@@ -225,3 +225,6 @@
 #drawRouteBtn:hover {
     background: #174a7b;
 }
+
+/* 하차버튼숨기기 */
+.finishDrive { display: none; }
