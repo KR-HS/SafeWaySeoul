@@ -27,4 +27,8 @@ public class CommunityController {
 
     @GetMapping("/postDetail")
     public String postDetail() {return "community/postDetail";}
+
+    @GetMapping("/postWrite")
+    public String postWrite() {return "community/postWrite";}
+
 }
