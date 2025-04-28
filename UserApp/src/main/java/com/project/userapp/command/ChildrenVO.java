@@ -33,4 +33,7 @@ public class ChildrenVO {
      private String recordState;
      private Timestamp recordStartTime;
 
-}
+     private String kmPickup;
+
+
+ }

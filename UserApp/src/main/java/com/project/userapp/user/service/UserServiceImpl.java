@@ -5,6 +5,7 @@ import com.project.userapp.command.UserVO;
 import com.project.userapp.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,4 +44,17 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserVO vo) {
         userMapper.updateUser(vo);
     }
+
+    @Transactional
+    @Override
+    public int deleteUser(int userKey) {
+        userMapper.deleteKinderMatchByParent(userKey);
+        userMapper.deleteFilesByChildKey(userKey); // 추가: 자녀 파일 먼저 삭제
+        userMapper.deleteChildrenByParent(userKey);
+        userMapper.deleteFilesByParent(userKey); // 부모 파일 삭제
+        return userMapper.deleteUser(userKey);   // 마지막으로 유저 삭제
+    }
+
+
+
 }

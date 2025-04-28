@@ -12,6 +12,8 @@
         <result property="childName" column="child_name" />
         <result property="childBirth" column="child_birth" />
         <result property="childGender" column="child_gender" />
+        <result property="kmPickup" column="km_pickup"/>
+
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
@@ -84,12 +86,13 @@
 
     <!-- 아이 정보 수정 모달 창에 DB에 저장되어 있는 정보를 가져와서 입력해두는 기능-->
     <select id="getChildDetail" resultMap="kinderOfChild" parameterType="int">
-        select c.*, k.*
+        select c.*, k.*, km.km_pickup
         from children c
                  left join kindermatch km on c.child_key = km.child_key
                  left join kinder k on km.kinder_key = k.kinder_key
         where c.child_key = #{childKey}
     </select>
+
 
     <!-- 아이 카드 정보 수정 기능 -->
     <update id="updateChild" parameterType="ChildrenVO">

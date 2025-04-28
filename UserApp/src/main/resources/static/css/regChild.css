@@ -33,7 +33,7 @@
     margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 10px;
+    font-size: 13px;
     background-color:white;
 }
 
@@ -96,8 +96,15 @@
     margin: 16px 0;
 }
 
-.modalWrap .upload-section p {
-    font-size: 20px;
+.childPhoto {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.childPhotoDetail {
+    font-size: 13px;
     margin-bottom: 8px;
     color: #666;
 }
@@ -170,17 +177,17 @@
 }
 
 .regChild-kinder-search-wrap{
-    padding:2px 0 10px 0;
+    padding:2px 0 0 0;
     display: flex;
     position: relative;
 }
 .regChild-kinder-search-wrap>input{
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
+    margin-top: 8px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 10px;
+    font-size: 13px;
     background-color:white;
 }
 .regChild-kinder-search-wrap>input:focus{
@@ -224,7 +231,8 @@
     justify-content: center;
     gap: 10px;
     margin-top: 16px;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: bold;
     color: #666;
     text-align: center;
 }
@@ -233,8 +241,8 @@
 .switch-button {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 20px;
+    width: 34px;
+    height: 19px;
 }
 
 .switch-button input {
@@ -259,8 +267,8 @@
 .onoff-switch:before {
     position: absolute;
     content: "";
-    height: 14px;
-    width: 14px;
+    height: 13px;
+    width: 13px;
     left: 3px;
     bottom: 3px;
     background-color: #fff;
@@ -274,7 +282,7 @@
 }
 
 .switch-button input:checked + .onoff-switch:before {
-    transform: translateX(20px);
+    transform: translateX(15px);
 }
 
 .modal-buttons {

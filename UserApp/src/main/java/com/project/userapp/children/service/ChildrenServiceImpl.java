@@ -51,7 +51,6 @@ public class ChildrenServiceImpl implements ChildrenService{
     @Transactional
     public int registChild(ChildrenVO vo, MultipartFile file, Integer kinderKey) {
         int result = childrenMapper.registChild(vo);
-        childrenMapper.registKinderRelation(vo.getChildKey(), kinderKey);
 
         // 자녀 프로필사진 등록
         if (!file.isEmpty()) {

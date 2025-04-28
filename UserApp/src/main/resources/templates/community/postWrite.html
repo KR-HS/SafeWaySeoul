@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="/include/headerBaseLayout"/>
+    <title>글쓰기</title>
+    <link rel="stylesheet" href="/css/community/postWrite.css">
+</head>
+<body>
+
+
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+    <section class="app-content">
+        <div class="write-page">
+            <div class="write-card">
+                <button class="write-finish-btn">완료</button>
+                <input type="text" class="write-title" placeholder="제목" maxlength="50" />
+                <hr class="write-divider" />
+                <textarea class="write-content" placeholder="내용"></textarea>
+            </div>
+
+            <!--이미지영역-->
+            <div class="write-footer">
+                <div class="photo-upload">
+                    <img src="/img/camera.png" alt="사진" class="camera-icon" />
+                    <span class="photo-count">0/5</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</th:block>
+
+
+</body>
+</html>
