@@ -81,6 +81,25 @@ $(document).ready(function () {
         $("#profileUploadInput").click();
     });
 
+    // 회원 탈퇴 버튼 클릭 이벤트
+    $(".withdraw-btn").on("click", function () {
+        if (confirm("정말로 회원 탈퇴하시겠습니까? 탈퇴 시 모든 정보가 삭제됩니다.")) {
+            $.ajax({
+                url: "/user/delete", // 이 경로는 컨트롤러에서 구현해야 함
+                type: "POST",
+                success: function () {
+                    alert("회원 탈퇴가 완료되었습니다.");
+                    // 세션/쿠키 제거 후 로그인 페이지로 이동
+                    window.location.href = "/user/login";
+                },
+                error: function () {
+                    alert("회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.");
+                }
+            });
+        }
+    });
+
+
 
 
 

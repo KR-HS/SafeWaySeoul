@@ -208,3 +208,18 @@ input:valid + .placeholder-label {
     text-align: center;
     padding: 1px 0;
 }
+
+.modi .withdraw-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #ff9999;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+

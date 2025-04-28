@@ -35,10 +35,13 @@
     </delete>
 
     <select id="selectProfileByUser" resultType="FileVO" parameterType="Integer">
-        SELECT * FROM FILES
+        SELECT *
+        FROM FILES
         WHERE user_key = #{userKey}
+          AND file_path LIKE '/upload/%'
         ORDER BY file_regdate DESC
             LIMIT 1
     </select>
+
 
 </mapper>

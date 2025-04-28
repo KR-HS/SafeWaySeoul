@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -169,11 +171,22 @@ public class MainController {
         // 2. 프로필 이미지 업로드
         if (!profile.isEmpty()) {
 
+            // [수정1] 오늘 날짜 폴더명 생성
+            String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+            // [수정2] 오늘 날짜 폴더 객체 생성
+            File uploadFolder = new File(uploadPath, today);
+            if (!uploadFolder.exists()) {
+                uploadFolder.mkdirs(); // 폴더 없으면 생성
+            }
+
+            // [수정3] 저장 파일명 만들기
             String fileName = profile.getOriginalFilename();
             String uuid = UUID.randomUUID().toString();
             String saveName = uuid + "_" + fileName;
 
-            File saveFile = new File(uploadPath, saveName);
+            // [수정4] 최종 저장할 파일 경로 (날짜 폴더 안에)
+            File saveFile = new File(uploadFolder, saveName);
 
             try {
                 profile.transferTo(saveFile);
@@ -181,14 +194,17 @@ public class MainController {
                 e.printStackTrace();
             }
 
+            // [수정5] DB에 저장할 파일 경로 (웹 경로)
+            String dbFilePath = "/upload/" + today + "/" + saveName;
+
             FileVO fileVO = FileVO.builder()
                     .fileName(fileName)
-                    .filePath("/upload/" + saveName)  // 웹에서 접근할 경로
+                    .filePath(dbFilePath)
                     .fileUuid(uuid)
                     .userKey(vo.getUserKey())
                     .build();
 
-            filesMapper.registFile(fileVO);  // 직접 FilesMapper 호출 or FilesService 확장
+            filesMapper.registFile(fileVO); // DB insert
         }
 
         // 3. 세션 갱신 - DB에서 최신 정보 다시 조회해서 저장

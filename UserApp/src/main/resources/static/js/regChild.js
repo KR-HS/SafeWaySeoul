@@ -75,10 +75,17 @@ $(document).ready(function () {
             return false;
         }
 
-        // KM_PICKUP 체크박스 값을 hidden 필드로 변환 (Y/N)
+
+        const kinderKeyInput = $("input[name='regChild-kinder-key']");
+        if (!kinderKeyInput.val()) {
+            e.preventDefault();
+            alert("어린이집 리스트에서 정확히 선택해 주세요.");
+            return false;
+        }
+
+
         let pickupValue = $("input[name='kmPickup']").is(":checked") ? "Y" : "N";
 
-        // 이미 있으면 값만 수정, 없으면 새로 생성
         if ($("input[name='pickupHidden']").length > 0) {
             $("input[name='pickupHidden']").val(pickupValue);
         } else {
@@ -89,6 +96,7 @@ $(document).ready(function () {
             }).appendTo("form[name='childForm']");
         }
     });
+
 
     $("#gender-alert-confirm-btn").on("click", function () {
         $("#gender-alert-modal").fadeOut();

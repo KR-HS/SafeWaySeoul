@@ -12,4 +12,20 @@ public interface UserMapper {
     int modify(UserVO userVO);// 회원정보 변경
     boolean registerCheck(UserVO userVO);
     void updateUser(UserVO vo);
+
+    // 기존 메서드들은 유지하면서 추가
+
+    // KinderMatch 삭제
+    int deleteKinderMatchByParent(int parentKey);
+    // Files 삭제 (자녀 기준)
+    int deleteFilesByChildKey(int parentKey);
+    // Files 삭제 (부모 기준)
+    int deleteFilesByParent(int parentKey);
+    // Children 삭제
+    int deleteChildrenByParent(int parentKey);
+    // User 삭제
+    int deleteUser(int userKey);
+
+
+
 }
