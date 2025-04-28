@@ -3,6 +3,7 @@ package com.project.userapp.children.service;
 import com.project.userapp.children.mapper.ChildrenMapper;
 import com.project.userapp.command.ChildrenVO;
 import com.project.userapp.command.FileVO;
+import com.project.userapp.command.RecordVO;
 import com.project.userapp.files.mapper.FilesMapper;
 import com.project.userapp.kindermatch.mapper.KinderMatchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,10 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ChildrenServiceImpl implements ChildrenService{
@@ -96,6 +100,35 @@ public class ChildrenServiceImpl implements ChildrenService{
 
         List<ChildrenVO> list = childrenMapper.myChildren(parentKey);
 
+        // 1. child_key별로 데이터를 그룹화
+        Map<Integer, List<ChildrenVO>> groupedByChildKey = list.stream()
+                .collect(Collectors.groupingBy(ChildrenVO::getChildKey));
+
+        System.out.println("*맵:"+groupedByChildKey.toString());
+        // 2. 각 그룹에서 null인 recordVO를 제외하고, 매칭된 recordVO만 남기기
+        list = groupedByChildKey.values().stream()
+                .flatMap(childGroup -> {
+                    // 그룹 내에서 recordVO가 존재하는 것 중 하나를 찾음
+                    RecordVO representativeRecord = childGroup.stream()
+                            .map(ChildrenVO::getRecordVO) // ChildrenVO에서 recordVO꺼내기
+                            .filter(Objects::nonNull)// recordVO에서 null이 아닌값 찾기
+                            .findFirst()// null이 아닌 가장 처음값 선택
+                            .orElse(null); // 없으면 null로 설정
+
+                    // 각 ChildrenVO에 대해 대표 recordVO를 세팅 (필요하면 새로 복사하거나)
+                    return childGroup.stream()
+                            .map(child -> {
+                                if (representativeRecord != null) {
+                                    child.setRecordVO(representativeRecord);
+                                }
+                                return child;
+                            });
+                })
+                .collect(Collectors.toList());
+
+        System.out.println("사이즈"+list.size());
+
+
         for (ChildrenVO vo : list) {
             FileVO fileVO = fileMapper.selectProfileByChild(vo.getChildKey());
             if (fileVO != null) {
@@ -103,7 +136,7 @@ public class ChildrenServiceImpl implements ChildrenService{
                 vo.setProfileImageUrl(imageUrl);
             }
         }
-
+        System.out.println("********"+ list.toString());
         return list;
     }
 

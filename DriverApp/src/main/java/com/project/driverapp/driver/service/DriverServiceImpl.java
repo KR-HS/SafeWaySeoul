@@ -19,27 +19,27 @@ public class DriverServiceImpl implements DriverService {
 
 
     // ✅ 매일 새벽 0시에 실행
-    @Scheduled(cron = "0 0 0 * * *")
-    @Transactional
-    public void scheduledUpdate() {
-        int result = 0;
-        // 오전, 오후에 맞는 driveInfoKey받기
-        List<Integer> am = getDriveInfoKey("오전");
-        List<Integer> pm = getDriveInfoKey("오후");
-
-        // record테이블에 추가
-        registRecordDailyAM(am);
-        registRecordDailyPM(pm);
-
-        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
-        List<RecordMatchVO> list = getRecordMatachInfo();
-
-        // recordMatch에도 추가
-        registRecordMatchDaily(list);
-
-        
-        System.out.println("기사 운행정보 추가");
-    }
+//    @Scheduled(cron = "0 0 0 * * *")
+//    @Transactional
+//    public void scheduledUpdate() {
+//        int result = 0;
+//        // 오전, 오후에 맞는 driveInfoKey받기
+//        List<Integer> am = getDriveInfoKey("오전");
+//        List<Integer> pm = getDriveInfoKey("오후");
+//
+//        // record테이블에 추가
+//        registRecordDailyAM(am);
+//        registRecordDailyPM(pm);
+//
+//        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
+//        List<RecordMatchVO> list = getRecordMatachInfo();
+//
+//        // recordMatch에도 추가
+//        registRecordMatchDaily(list);
+//
+//
+//        System.out.println("기사 운행정보 추가");
+//    }
 
     // 테스트용, 서버실행시 한번 실행
 //    @PostConstruct
@@ -49,9 +49,6 @@ public class DriverServiceImpl implements DriverService {
 //        List<Integer> am = getDriveInfoKey("오전");
 //        List<Integer> pm = getDriveInfoKey("오후");
 //
-//        if (am.isEmpty() || pm.isEmpty()) {
-//            System.out.println("오전 또는 오후에 해당하는 데이터가 없습니다.");
-//        }
 //        // record테이블에 추가
 //        registRecordDailyAM(am);
 //        registRecordDailyPM(pm);

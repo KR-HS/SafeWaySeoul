@@ -1,29 +1,25 @@
 $(document).ready(function() {
 
-    // flatpickr 초기화
-    var datepicker = flatpickr(".birth", {
-        altInput: true,
-        altFormat: "Y년 m월 d일",
-        locale: 'ko',
-        dateFormat: "Y-m-d", // 날짜 포맷
-        maxDate: "today", // 오늘 이전 날짜만 선택 가능
-        onReady: function(selectedDates, dateStr, instance) {
-            // 초기 상태에서 placeholder만 보이도록 날짜 값을 초기화
-            instance.clear();  // 날짜를 비워서 placeholder가 보이도록 처리
-        },
-        onChange: function(selectedDates, dateStr, instance) {
-            if (selectedDates.length === 0) {
-                instance.input.placeholder = "생년월일 8자리";  // 날짜를 선택하지 않으면 placeholder 표시
-            }
+    new AirDatepicker('.birth', {
+        autoClose: true,
+        dateFormat: 'yyyy-MM-dd',
+        startView: 'years',
+        view: 'days',
+        maxDate: new Date(),
+        locale: {
+            days: ['일', '월', '화', '수', '목', '금', '토'],
+            daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+            daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+            months: ['1월', '2월', '3월', '4월', '5월', '6월',
+                '7월', '8월', '9월', '10월', '11월', '12월'],
+            monthsShort: ['1월', '2월', '3월', '4월', '5월', '6월',
+                '7월', '8월', '9월', '10월', '11월', '12월'],
+            today: '오늘',
+            clear: '지우기',
+            dateFormat: 'yyyy-MM-dd',
+            firstDay: 0
         }
     });
-
-    // 날짜 입력란에 포커스가 가면 flatpickr 날짜 선택기 열기
-    $(".birth").on("focus", function() {
-        datepicker.open();  // input에 focus 시 날짜 선택기가 열리도록
-    });
-
-
 
 
     // 아이디 중복 확인
@@ -140,7 +136,7 @@ $(document).ready(function() {
     //유치원 주소
     $("input[name='userAddressDetail']").on("input click", function () {
         const keyword = $(this).val();
-        if (keyword.length < 4) {
+        if (keyword.length < 2) {
             $("#autocomplete-list").hide();
             return;
         }

@@ -126,16 +126,13 @@ public class LoginController {
 
 
         // 제약 조건
-        System.out.println(driverName);
-        System.out.println(driverCarName);
 
         int result = driverService.register(vo);
 
         System.out.println(vo.toString());
         int driverKey = vo.getUserKey();
-        DriveInfoVO driveInfo1 = DriveInfoVO.builder().driveInfoName("오전" + driverName).driveCarName(driverCarName).userKey(driverKey).build();
-        DriveInfoVO driveInfo2 = DriveInfoVO.builder().driveInfoName("오후" + driverName).driveCarName(driverCarName).userKey(driverKey).build();
-        System.out.println("********"+driveInfo1.toString());
+        DriveInfoVO driveInfo1 = DriveInfoVO.builder().driveInfoName("오전 " + driverName).driveCarName(driverCarName).userKey(driverKey).build();
+        DriveInfoVO driveInfo2 = DriveInfoVO.builder().driveInfoName("오후 " + driverName).driveCarName(driverCarName).userKey(driverKey).build();
         result = driverService.registerInfo(driveInfo1);
         result = driverService.registerInfo(driveInfo2);
 
