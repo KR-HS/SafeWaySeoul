@@ -1,9 +1,6 @@
 package com.project.driverapp.driver.mapper;
 
-import com.project.driverapp.command.ChildrenVO;
-import com.project.driverapp.command.DriveInfoVO;
-import com.project.driverapp.command.DriverVO;
-import com.project.driverapp.command.KinderVO;
+import com.project.driverapp.command.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +21,15 @@ public interface DriverMapper {
             @Param("recordKey") int recordKey,
             @Param("childKey") int childKey,
             @Param("dropState") String dropState);
-    }
+
+    List<Integer> getDriveInfoKey(String time);
+    int registRecordDailyAM(Integer key);
+    int registRecordDailyPM(Integer key);
+    List<RecordMatchVO> getRecordMatachInfo();
+    int registRecordMatchDaily(RecordMatchVO vo);
+
+
+
+}
+
+

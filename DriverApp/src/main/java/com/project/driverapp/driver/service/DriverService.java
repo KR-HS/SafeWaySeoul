@@ -1,10 +1,7 @@
 package com.project.driverapp.driver.service;
 
 
-import com.project.driverapp.command.ChildrenVO;
-import com.project.driverapp.command.DriveInfoVO;
-import com.project.driverapp.command.DriverVO;
-import com.project.driverapp.command.KinderVO;
+import com.project.driverapp.command.*;
 
 import java.util.List;
 
@@ -19,5 +16,12 @@ public interface DriverService {
     List<ChildrenVO> manageOfChildren(int recordKey);
     List<KinderVO> findKinderForDriver(int driverKey); //기사의 유치원 정보
     int updateDropState(int recordKey, int childKey, String dropState);
+
+    List<Integer> getDriveInfoKey(String time);
+    int registRecordDailyAM(List<Integer> list);
+    int registRecordDailyPM(List<Integer> list);
+    List<RecordMatchVO> getRecordMatachInfo();
+    int registRecordMatchDaily(List<RecordMatchVO> vo);
+
 
 }

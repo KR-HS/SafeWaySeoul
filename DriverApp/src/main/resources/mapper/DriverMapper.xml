@@ -142,4 +142,49 @@
     </insert>
 
 
+
+    <!--  매일 기사에게 운행 리스트 넣어주는 부분(오전, 오후)  -->
+    <!--  오전, 오후에 맞춰 drvieInfo키 가져오기  -->
+    <select id="getDriveInfoKey" resultType="Integer">
+        select drive_info_key
+        from driveInfo
+        where drive_info_name like concat('%',#{time},'%')
+    </select>
+
+    <insert id="registRecordDailyAM" parameterType="Integer">
+        insert into record(record_start_time,record_state,drive_info_key)
+        values(TIMESTAMP(CURDATE(), '09:00:00'),'P',#{key})
+    </insert>
+
+    <insert id="registRecordDailyPM" parameterType="Integer">
+        insert into record(record_start_time,record_state,drive_info_key)
+        values(TIMESTAMP(CURDATE(), '16:00:00'),'P',#{key})
+    </insert>
+
+    <select id="getRecordMatachInfo" resultType="RecordMatchVO">
+        SELECT km.km_key, r.record_key
+        FROM kinder k
+        JOIN user u
+        ON k.kinder_postcode = u.user_postcode
+        AND u.user_address_detail = k.KINDER_NAME
+        JOIN kindermatch km
+        ON km.kinder_key = k.kinder_key
+        JOIN driveinfo di
+        ON di.user_key = u.user_key
+        JOIN record r
+        ON r.drive_info_key = di.drive_info_key
+        WHERE u.user_type = 'D'
+        AND km.km_pickup = 'Y'
+        <![CDATA[
+          AND r.record_start_time >= TIMESTAMP(CURDATE(), ' 00:00:00')
+        ]]>
+        <![CDATA[
+        AND r.record_start_time <= TIMESTAMP(CURDATE(), ' 23:59:59')
+        ]]>
+    </select>
+
+    <insert id="registRecordMatchDaily" parameterType="RecordMatchVO">
+        insert into RECORDMATCH(km_key,record_key,drop_state)
+        values(#{kmKey},#{recordKey},'N')
+    </insert>
 </mapper>

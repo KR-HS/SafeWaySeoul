@@ -13,4 +13,5 @@ public class RecordMatchVO {
     private Integer rmKey;
     private Integer kmKey;
     private Integer recordKey;
+    private String dropState;
 }

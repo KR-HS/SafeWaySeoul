@@ -1,15 +1,14 @@
 package com.project.driverapp.driver.service;
 
 
-import com.project.driverapp.command.ChildrenVO;
-import com.project.driverapp.command.DriveInfoVO;
-import com.project.driverapp.command.DriverVO;
-import com.project.driverapp.command.KinderVO;
+import com.project.driverapp.command.*;
 import com.project.driverapp.driver.mapper.DriverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -19,12 +18,53 @@ public class DriverServiceImpl implements DriverService {
     private DriverMapper driverMapper;
 
 
-    // ✅ 매일 새벽 3시에 실행
+    // ✅ 매일 새벽 0시에 실행
     @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
     public void scheduledUpdate() {
+        int result = 0;
+        // 오전, 오후에 맞는 driveInfoKey받기
+        List<Integer> am = getDriveInfoKey("오전");
+        List<Integer> pm = getDriveInfoKey("오후");
 
-        System.out.println("주기적 운행정보 추가");
+        // record테이블에 추가
+        registRecordDailyAM(am);
+        registRecordDailyPM(pm);
+
+        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
+        List<RecordMatchVO> list = getRecordMatachInfo();
+
+        // recordMatch에도 추가
+        registRecordMatchDaily(list);
+
+        
+        System.out.println("기사 운행정보 추가");
     }
+
+    // 테스트용, 서버실행시 한번 실행
+//    @PostConstruct
+//    @Transactional
+//    public void scheduledUpdateTest() {
+//        // 오전, 오후에 맞는 driveInfoKey받기
+//        List<Integer> am = getDriveInfoKey("오전");
+//        List<Integer> pm = getDriveInfoKey("오후");
+//
+//        if (am.isEmpty() || pm.isEmpty()) {
+//            System.out.println("오전 또는 오후에 해당하는 데이터가 없습니다.");
+//        }
+//        // record테이블에 추가
+//        registRecordDailyAM(am);
+//        registRecordDailyPM(pm);
+//
+//        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
+//        List<RecordMatchVO> list = getRecordMatachInfo();
+//
+//        // recordMatch에도 추가
+//        registRecordMatchDaily(list);
+//
+//
+//        System.out.println("기사 운행정보 추가<테스트>");
+//    }
 
 
     @Override
@@ -68,5 +108,50 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public int updateDropState(int recordKey, int childKey, String dropState) {
         return driverMapper.updateDropState(recordKey, childKey, dropState);
+    }
+
+
+
+
+
+    // 자동적으로 기사 운행예정 리스트 매일 넣어주는 부분
+    // 0. 오전, 오후에 맞는 driveInfo키 받아오기
+    @Override
+    public List<Integer> getDriveInfoKey(String time) {
+        return driverMapper.getDriveInfoKey(time);
+    }
+    // 1. record테이블에 기록추가
+    @Override
+    public int registRecordDailyAM(List<Integer> list) {
+        int result = 0;
+        for(Integer i : list) {
+            result = driverMapper.registRecordDailyAM(i);
+        }
+        return result;
+    }
+
+    @Override
+    public int registRecordDailyPM(List<Integer> list) {
+        int result = 0;
+        for(Integer i : list) {
+            result = driverMapper.registRecordDailyPM(i);
+        }
+        return result;
+    }
+
+        // 2. recordMatch테이블에 넣을 recordKey와 km_key받아오기(아이의 픽업여부가 Y이고 오늘의 레코드에 대해서만)
+    @Override
+    public List<RecordMatchVO> getRecordMatachInfo() {
+        return driverMapper.getRecordMatachInfo();
+    }
+
+        // 3. recordMatch테이블에 기록추가
+    @Override
+    public int registRecordMatchDaily(List<RecordMatchVO> list) {
+        int result = 0;
+        for(RecordMatchVO RMvo : list){
+            result = driverMapper.registRecordMatchDaily(RMvo);
+        }
+        return result;
     }
 }
