@@ -62,7 +62,7 @@
 
     <select id="myChildren" resultMap="kinderOfChild">
 
-        select c.*,k.*,r.*,di.*
+        select distinct c.*,k.*,r.*,di.*
         from children c
                  left join kindermatch km
                            on c.child_key=km.child_key
@@ -74,7 +74,14 @@
                            on rm.record_key = r.record_key
                  left join driveinfo di
                            on r.drive_info_key = di.drive_info_key
+                            <![CDATA[
+                               and r.record_start_time >= TIMESTAMP(CURDATE(), ' 00:00:00')
+                            ]]>
+                            <![CDATA[
+                            and r.record_start_time <= TIMESTAMP(CURDATE(), ' 23:59:59')
+                            ]]>
         where c.parent_key=#{parentKey}
+
     </select>
 
     <!-- 아이 정보 수정 모달 창에 DB에 저장되어 있는 정보를 가져와서 입력해두는 기능-->
