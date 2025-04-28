@@ -21,7 +21,7 @@
     </div>
 
 
-    <h2>오늘의 배차 - [[${kinderInfo.kinderName}]]</h2>
+        <h2>오늘의 배차 - [[${kinderInfo?.kinderName} ?: '배차 정보 없음']]</h2>
 
         <th:block th:if="${driveInfo !=null}">
         <table class="dispatch-table">
