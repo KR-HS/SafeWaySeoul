@@ -126,14 +126,21 @@
         where user_id=#{userId}
     </update>
 
-    <select id="findKinderForDriver" resultType="KinderVO">
-        SELECT DISTINCT k.*
-        FROM DRIVEINFO di
-                 JOIN RECORD r ON r.DRIVE_INFO_KEY = di.DRIVE_INFO_KEY
-                 JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
-                 JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
-                 JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
-        WHERE di.USER_KEY = #{driverKey}
+<!--    SELECT DISTINCT k.*-->
+<!--    FROM DRIVEINFO di-->
+<!--    JOIN RECORD r ON r.DRIVE_INFO_KEY = di.DRIVE_INFO_KEY-->
+<!--    JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY-->
+<!--    JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY-->
+<!--    JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY-->
+<!--    WHERE di.USER_KEY = #{driverKey}-->
+    <select id="findKinderForDriver" resultType="KinderVO" parameterType="int">
+        select k.*
+        from user u
+        join kinder k
+        where u.user_key=#{driverKey}
+          and u.user_postcode = k.kinder_postcode
+          and u.user_address_detail = k.kinder_name
+
     </select>
 
     <insert id="registerInfo" parameterType="DriveInfoVO">
