@@ -33,8 +33,8 @@
       <!--   자녀관련부분   -->
       <section class="childList-section">
           <h3>소중한 내 아이들의 걸음마</h3>
-          <div class="childList">
-            <div th:each="child : ${children}" class="childInfo-wrap viewInfo" th:data-childKey="${child.childKey}" th:data-recordKey="${child.recordVO.recordKey}">
+          <div class="childList" >
+            <div th:each="child : ${children}" class="childInfo-wrap viewInfo" th:if="${child.recordVO != null}" th:data-childKey="${child.childKey}" th:data-recordKey="${child.recordVO.recordKey}">
               <div class="childName">
                 <img class="gender man" src="/img/man.png" alt="">
                 <p>[[${child.childName}]]</p>
@@ -42,7 +42,7 @@
 
               <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
               <p class="kinderName">[[${child.kinderVO.kinderName}]]</p>
-              <p class="commuteType rideOn" th:switch="${child.recordVO.recordState}">
+              <p class="commuteType rideOn"  th:switch="${child.recordVO.recordState}">
                 <span th:case="P">운행전</span>
                 <span th:case="S">이동중</span>
                 <span th:case="E">운행완료</span>

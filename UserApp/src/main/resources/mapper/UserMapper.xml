@@ -71,6 +71,44 @@
         WHERE user_key = #{userKey}
     </update>
 
+    <!-- 아래부터는 회원 삭제 기능 유저키랑 연관된 테이블 전부를 전부 날릴거에요.-->
+
+    <delete id="deleteFilesByChildKey">
+        DELETE FROM files
+        WHERE child_key IN (
+            SELECT child_key
+            FROM children
+            WHERE parent_key = #{parentKey}
+        )
+    </delete>
+
+    <!-- 1. KINDERMATCH 삭제 (부모-자녀 매칭 삭제) -->
+    <delete id="deleteKinderMatchByParent">
+        DELETE FROM kindermatch
+        WHERE child_key IN (
+            SELECT child_key
+            FROM children
+            WHERE parent_key = #{parentKey}
+        )
+    </delete>
+
+    <!-- 2. FILES 삭제 (부모 프로필 파일 삭제) -->
+    <delete id="deleteFilesByParent">
+        DELETE FROM files
+        WHERE user_key = #{parentKey}
+    </delete>
+
+    <!-- 3. CHILDREN 삭제 (부모 기준 자녀 삭제) -->
+    <delete id="deleteChildrenByParent">
+        DELETE FROM children
+        WHERE parent_key = #{parentKey}
+    </delete>
+
+    <!-- 4. USER 삭제 (회원 본인 삭제) -->
+    <delete id="deleteUser">
+        DELETE FROM user
+        WHERE user_key = #{userKey}
+    </delete>
 
 
 </mapper>

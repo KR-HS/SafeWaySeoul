@@ -176,4 +176,30 @@ public class LoginController {
         return "redirect:/user/login";
     }
 
+    @PostMapping("/delete")
+    @ResponseBody
+    public String deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            UserVO user = (UserVO) session.getAttribute("userInfo");
+
+            if (user != null) {
+                int userKey = user.getUserKey();
+                userService.deleteUser(userKey);
+
+                // 세션 및 쿠키 삭제
+                session.invalidate();
+                Cookie cookie = new Cookie("loginToken", null);
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                cookie.setHttpOnly(true);
+                response.addCookie(cookie);
+            }
+        }
+        return "success"; // Ajax 호출이니까 "success" 문자열로 응답
+    }
+
+
+
 }

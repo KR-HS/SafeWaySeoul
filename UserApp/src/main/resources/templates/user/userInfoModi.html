@@ -38,10 +38,12 @@
 
                 <div>
                     <h3>비밀번호 변경</h3>
-                    <input type="password" class="pass" name="userPw" th:value="${user.userPw}" placeholder="변경할 비밀번호를 입력해주세요" required>
+                    <input type="password" class="pass" name="userPw"
+                           placeholder="비밀번호를 입력해주세요" required>
 
                     <h3>비밀번호 변경 재확인</h3>
-                    <input type="password" class="pass-check" name="userPwCheck" th:value="${user.userPw}" placeholder="비밀번호를 한 번 더 입력해주세요" required>
+                    <input type="password" class="pass-check" name="userPwCheck"
+                           placeholder="비밀번호를 한 번 더 입력해주세요" required>
 
                     <p class="passMsg"></p>
 
@@ -60,6 +62,9 @@
 
                     <button type="submit" class="modi-btn">정보 수정</button>
                 </div>
+
+                    <button type="button" class="withdraw-btn">회원 탈퇴</button>
+
             </form>
         </div>
     </section>

@@ -11,4 +11,6 @@ public interface UserService {
     int modify(UserVO userVO);// 회원정보 변경
     boolean registerCheck(UserVO userVO); // 중복 회원가입 불가
     void updateUser(UserVO vo);
+    int deleteUser(int userKey);
+
 }
