@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="/include/headerBaseLayout"/>
+    <title>커뮤니티 목록화면</title>
+
+    <link rel="stylesheet" href="/css/community/postList.css">
+    <script src="/js/community/postList.js"></script>
+
+    <!-- Air Datepicker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!--  flatpickr 한글설정  -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+</head>
+
+<body>
+
+<th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+    <section class="app-content">
+        <div class="community-page">
+            <div class="search-bar">
+                <input type="text" class="search">
+                <img src="/img/search.png" alt="검색" class="icon">
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/boy.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">푸름</div>
+                        <div class="kindergarten-name">강남어린이집</div>
+                    </div>
+                    <div class="post-time">8분 전</div>
+                </div>
+
+                <div class="post-title">다들 아이 픽업 어떻게 하시나요?</div>
+                <div class="post-body">저희 부부는 맞벌이라서 직접 근처 어린이집에 보내고 있는데, 가끔 출장 때문에 픽업 하기 힘들 때가...</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 1</span>
+                        <span>👁️ 5</span>
+                        <span>💬 댓글 2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">하얀</div>
+                        <div class="kindergarten-name">중앙어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">중앙 어린이집 급식 괜찮네요.</div>
+                <div class="post-body">중앙어린이집 급식 괜찮네요~ 아이가 맛있다고 하고, 꼭 먹는다고 하니 마음이 놓이네요.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">보라</div>
+                        <div class="kindergarten-name">빛의자녀 어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
+                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">보라</div>
+                        <div class="kindergarten-name">빛의자녀 어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
+                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">보라</div>
+                        <div class="kindergarten-name">빛의자녀 어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
+                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">보라</div>
+                        <div class="kindergarten-name">빛의자녀 어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
+                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="/img/girl.png" alt="프로필" class="profile-img">
+                    <div class="user-info">
+                        <div class="user-name">보라</div>
+                        <div class="kindergarten-name">빛의자녀 어린이집</div>
+                    </div>
+                    <div class="post-time">23시간 전</div>
+                </div>
+
+                <div class="post-title">다수의 카드가 나올시 스크롤 확인용.</div>
+                <div class="post-body">다수의 카드가 나올시 스크롤 확인용.다수의 카드가 나올시 스크롤 확인용.</div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span>❤️ 10</span>
+                        <span>👁️ 170</span>
+                        <span>💬 댓글 37</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</th:block>
+
+
+
+</body>
+</html>
