@@ -190,10 +190,21 @@ select c.*,k.*
 
 select * from kinder;
 
+## 기사의 유치원 조회
+SELECT DISTINCT k.*
+FROM DRIVEINFO di
+JOIN RECORD r ON r.DRIVE_INFO_KEY = di.DRIVE_INFO_KEY
+JOIN RECORDMATCH rm ON r.RECORD_KEY = rm.RECORD_KEY
+JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY
+JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY
+WHERE di.USER_KEY = 3;
 
-
-
-
+## 하차 남은 인원 조회
+select count(*)
+from record rc
+left join recordmatch rm on rc.record_key = rm.record_key
+where rc.record_key = 2
+and drop_state = '하차';
 
 #---------------------------------
 #--------------------------------------

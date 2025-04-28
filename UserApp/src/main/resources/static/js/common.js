@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     $('.app-footer > .menu').on('click',function(){
         if($(this).hasClass('tbd')){
-            alert("추후 업데이트 예정입니다.")
+            window.location.href="/community/postList";
         }
         else if($(this).hasClass('home')&& path!=='/home'){
                 window.location.href="/home";
