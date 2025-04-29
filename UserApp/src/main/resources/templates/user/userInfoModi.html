@@ -18,7 +18,7 @@
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
     <section class="app-content">
         <div class="modi">
-            <form class="userInfoModiForm" method="post" action="/user/update" enctype="multipart/form-data">
+            <form class="userInfoModiForm" name="modiForm" method="post" action="/user/update" enctype="multipart/form-data">
 
             <h5 class="section-title">회원 정보 수정</h5>
 
@@ -37,13 +37,17 @@
 
 
                 <div>
-                    <h3>비밀번호 변경</h3>
-                    <input type="password" class="pass" name="userPw"
-                           placeholder="비밀번호를 입력해주세요" required>
+                    <div class="changePwWrap">
+                        <h3>비밀번호 변경</h3>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="changePw">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <input type="password" class="pass" name="userPw" disabled required>
 
                     <h3>비밀번호 변경 재확인</h3>
-                    <input type="password" class="pass-check" name="userPwCheck"
-                           placeholder="비밀번호를 한 번 더 입력해주세요" required>
+                    <input type="password" class="pass-check" name="userPwCheck" disabled required>
 
                     <p class="passMsg"></p>
 

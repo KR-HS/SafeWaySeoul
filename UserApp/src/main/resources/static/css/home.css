@@ -38,6 +38,7 @@ h3 {
     display:flex;
     flex-direction:column;
     cursor:pointer;
+    gap:3px;
 }
 /*아이 추가하기용 디자인*/
 .childList-section > .childList >.childInfo-wrap.addChild{
@@ -89,7 +90,11 @@ h3 {
     margin-top:5px;
     font-size:14px;
     font-weight:600;
+    max-width: 100px;
+    word-wrap: break-word;
+    white-space: normal;
 }
+
 
 .childList-section > .childList > .childInfo-wrap > .commuteType.rideOn{
     color:blue;

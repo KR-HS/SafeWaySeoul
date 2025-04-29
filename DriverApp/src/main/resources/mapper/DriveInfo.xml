@@ -24,11 +24,28 @@
 
     </resultMap>
 
+<!--    <resultMap id="getDriveInfo" type="RecordVO">-->
+<!--        <id property="recordKey" column="record_key"/>-->
+<!--        <result property="recordStartTime" column="record_start_time"/>-->
+<!--        <result property="recordEndTime" column="record_end_time"/>-->
+<!--        <result property="recordState" column="record_state"/>-->
+<!--        <result property="driveInfoKey" column="drive_info_key"/>-->
+
+<!--        <association property="driveInfoVO" javaType="DriveInfoVO">-->
+<!--            <id property="driveInfoKey" column="drive_info_key" />-->
+<!--            <result property="driveInfoName" column="drive_info_name" />-->
+<!--            <result property="driveCarName" column="drive_car_Name" />-->
+<!--            <result property="userKey" column="user_key" />-->
+<!--        </association>-->
+
+<!--    </resultMap>-->
+
     <select id="getDriveInfo" resultMap="getDriveInfo" parameterType="int">
         select di.*, rc.*
         from driveinfo di
                  left join record rc on di.DRIVE_INFO_KEY = rc.DRIVE_INFO_KEY
-        where user_key = #{userKey};
+        where user_key = #{userKey}
+        and DATE(rc.RECORD_START_TIME) = DATE(NOW())
     </select>
 
 

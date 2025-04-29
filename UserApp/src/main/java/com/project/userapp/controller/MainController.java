@@ -42,11 +42,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+
     @Autowired
     private FilesMapper filesMapper;
-
-    @Value("${com.project.userapp.upload.path}")
-    private String uploadPath;
 
     @GetMapping({"/",""})
     public String redirect(HttpSession session) {
@@ -156,73 +154,7 @@ public class MainController {
         return "updatePw"; //
     }
   
-    @GetMapping("/user/userInfoModi")
-    public String userInfoModifyPage(Model model, HttpSession session) {
-        UserVO user = (UserVO) session.getAttribute("userInfo");
-        model.addAttribute("user", user);
 
-        FileVO profile = filesMapper.selectProfileByUser(user.getUserKey());
-        model.addAttribute("profile", profile);
-
-        return "user/userInfoModi";
-    }
-
-
-    @PostMapping("/user/update")
-    public String updateUser(UserVO vo, @RequestParam("profile") MultipartFile profile, HttpSession session, RedirectAttributes ra) {
-
-        UserVO sessionUser = (UserVO) session.getAttribute("userInfo");
-        vo.setUserKey(sessionUser.getUserKey());
-
-        // 1. DB 정보 수정
-        userService.updateUser(vo);
-
-        // 2. 프로필 이미지 업로드
-        if (!profile.isEmpty()) {
-
-            // [수정1] 오늘 날짜 폴더명 생성
-            String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-
-            // [수정2] 오늘 날짜 폴더 객체 생성
-            File uploadFolder = new File(uploadPath, today);
-            if (!uploadFolder.exists()) {
-                uploadFolder.mkdirs(); // 폴더 없으면 생성
-            }
-
-            // [수정3] 저장 파일명 만들기
-            String fileName = profile.getOriginalFilename();
-            String uuid = UUID.randomUUID().toString();
-            String saveName = uuid + "_" + fileName;
-
-            // [수정4] 최종 저장할 파일 경로 (날짜 폴더 안에)
-            File saveFile = new File(uploadFolder, saveName);
-
-            try {
-                profile.transferTo(saveFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // [수정5] DB에 저장할 파일 경로 (웹 경로)
-            String dbFilePath = "/upload/" + today + "/" + saveName;
-
-            FileVO fileVO = FileVO.builder()
-                    .fileName(fileName)
-                    .filePath(dbFilePath)
-                    .fileUuid(uuid)
-                    .userKey(vo.getUserKey())
-                    .build();
-
-            filesMapper.registFile(fileVO); // DB insert
-        }
-
-        // 3. 세션 갱신 - DB에서 최신 정보 다시 조회해서 저장
-        UserVO updatedUser = userService.findInfo(vo); // 또는 findUserByKey(vo.getUserKey())
-        session.setAttribute("userInfo", updatedUser);
-
-
-        return "redirect:/child";
-    }
 
     @GetMapping("/websocket")
     public String websocket() {

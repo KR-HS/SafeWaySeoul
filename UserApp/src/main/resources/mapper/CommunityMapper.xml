@@ -6,18 +6,49 @@
 <mapper namespace="com.project.userapp.community.mapper.CommunityMapper">
 
     <select id="getPostList" resultType="PostVO">
-        select *
-        from post
+        SELECT
+            p.POST_KEY AS postKey,
+            p.POST_TITLE AS postTitle,
+            p.POST_CONTENT AS postContent,
+            p.POST_REGDATE AS postRegdate,
+            p.USER_KEY AS userKey,
+            u.USER_NAME AS `userName`
+--             u.KINDER_NAME AS kinderName
+        FROM post p
+                 JOIN user u ON p.USER_KEY = u.USER_KEY
+        ORDER BY p.POST_KEY DESC
+    </select>
+  
+    <select id="getPostById" resultType="PostVO">
+        SELECT
+            p.POST_KEY AS postKey,
+            p.POST_TITLE AS postTitle,
+            p.POST_CONTENT AS postContent,
+            p.POST_REGDATE AS postRegdate,
+            p.USER_KEY AS userKey,
+            u.USER_NAME AS `userName`
+--             u.KINDER_NAME AS kinderName
+        FROM post p
+                 JOIN user u ON p.USER_KEY = u.USER_KEY
+        WHERE p.POST_KEY = #{postKey}
     </select>
 
-    <select id="getPostById" resultType="PostVO">
-        select *
-        from post
-        where POST_KEY = ${postKey}
-    </select>
 
     <insert id="write" parameterType="PostVO">
         INSERT INTO POST(post_title, post_content, user_key)
         VALUES(#{postTitle},#{postContent},#{userKey})
     </insert>
+
+    <insert id="writeComment" parameterType="CommentVO">
+        insert into
+        `comment`(COMMENT_CONTENT, POST_KEY, USER_KEY)
+        values (#{commentContent}, #{postKey}, #{userKey})
+    </insert>
+
+    <select id="getAllComment" resultType="CommentVO">
+        select *
+        from comment
+        where POST_KEY = #{postKey}
+    </select>
+      
 </mapper>
