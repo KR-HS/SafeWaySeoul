@@ -24,6 +24,10 @@ public class CommunityServiceImpl implements CommunityService {
     public PostVO getPostById(int postKey) { return communityMapper.getPostById(postKey);}
 
     @Override
+    public int write(PostVO vo) {
+        return communityMapper.write(vo);
+  
+    @Override
     public void writeComment(CommentVO commentVO) {
         communityMapper.writeComment(commentVO);
     }
@@ -31,5 +35,6 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<CommentVO> getAllComment(int postKey) {
         return communityMapper.getAllComment(postKey);
+
     }
 }

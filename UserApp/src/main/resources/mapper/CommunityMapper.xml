@@ -33,6 +33,12 @@
         WHERE p.POST_KEY = #{postKey}
     </select>
 
+
+    <insert id="write" parameterType="PostVO">
+        INSERT INTO POST(post_title, post_content, user_key)
+        VALUES(#{postTitle},#{postContent},#{userKey})
+    </insert>
+
     <insert id="writeComment" parameterType="CommentVO">
         insert into
         `comment`(COMMENT_CONTENT, POST_KEY, USER_KEY)

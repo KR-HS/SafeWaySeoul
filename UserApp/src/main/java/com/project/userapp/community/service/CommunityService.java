@@ -10,6 +10,8 @@ public interface CommunityService {
 
     List<PostVO> getPostList();
     PostVO getPostById(int postKey);
+    int write(PostVO vo);
     void writeComment(CommentVO commentVO);
     List<CommentVO> getAllComment(int postKey);
+
 }
