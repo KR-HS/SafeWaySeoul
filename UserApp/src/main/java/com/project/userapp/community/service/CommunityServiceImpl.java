@@ -26,6 +26,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public int write(PostVO vo) {
         return communityMapper.write(vo);
+    }
   
     @Override
     public void writeComment(CommentVO commentVO) {

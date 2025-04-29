@@ -65,6 +65,7 @@ public class CommunityController {
 
 
         return "redirect:/community/postList";
+    }
 
     @PostMapping("/commentWrite")
     @ResponseBody
