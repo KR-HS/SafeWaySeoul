@@ -38,4 +38,9 @@ public class CommunityServiceImpl implements CommunityService {
         return communityMapper.getAllComment(postKey);
 
     }
+
+    @Override
+    public Integer getCommentCountByPostKey(int postKey) {
+        return communityMapper.getCommentCountByPostKey(postKey);
+    }
 }

@@ -25,6 +25,8 @@ public class PostVO {
     private String userName;
     private String kinderName;
 
+    private Integer countComment;
+
     // 상대 시간 계산 메서드
     public String getElapsedTime() {
         if (postRegdate == null) {
