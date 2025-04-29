@@ -26,6 +26,7 @@
                  ) t
             WHERE rn = 1
         ) f ON f.user_key = u.user_key
+        WHERE P.POST_TITLE LIKE #{searchStr}
         ORDER BY p.POST_KEY DESC
 
 

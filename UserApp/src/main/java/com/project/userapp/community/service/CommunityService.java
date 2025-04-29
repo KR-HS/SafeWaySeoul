@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommunityService {
 
-    List<PostVO> getPostList();
+    List<PostVO> getPostList(String searchStr);
     PostVO getPostById(int postKey);
     int write(PostVO vo);
     void writeComment(CommentVO commentVO);

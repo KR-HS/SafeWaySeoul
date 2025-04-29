@@ -16,8 +16,8 @@ public class CommunityServiceImpl implements CommunityService {
     private CommunityMapper communityMapper;
 
     @Override
-    public List<PostVO> getPostList() {
-        return communityMapper.getPostList();
+    public List<PostVO> getPostList(String searchStr) {
+        return communityMapper.getPostList(searchStr);
     }
 
     @Override

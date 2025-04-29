@@ -24,9 +24,14 @@ public class CommunityController {
     private CommunityService communityService;
 
     @GetMapping("/postList")
-    public String postList(Model model) {
-        List<PostVO> postList = communityService.getPostList();
-
+    public String postList(Model model,
+                           @RequestParam(required = false)String search) {
+        String searchStr = "%%";
+        if(search != null) {
+            searchStr = "%" + search + "%";
+        }
+        List<PostVO> postList = communityService.getPostList(searchStr);
+        System.out.println(searchStr);
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
