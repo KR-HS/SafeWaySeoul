@@ -60,4 +60,7 @@ public class PostVO {
         }
     }
 
+    private String profileImageUrl;
+
+
 }
