@@ -54,7 +54,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         // 로그인 페이지로 리디렉션
-        response.sendRedirect("/login");
+        response.sendRedirect("/user/login");
         return false;
     }
 

@@ -402,6 +402,10 @@ $(document).ready(function () {
     }
 
 
+    $(".kinderLoc").on("change",function(){
+        $(".searchBtn").click();
+    })
+
     // 유치원 리스트 체크박스 기능
     $(document).on('click', ".kinderResult", function () {
 

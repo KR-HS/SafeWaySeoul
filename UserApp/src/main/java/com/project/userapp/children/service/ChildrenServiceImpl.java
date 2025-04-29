@@ -1,9 +1,7 @@
 package com.project.userapp.children.service;
 
 import com.project.userapp.children.mapper.ChildrenMapper;
-import com.project.userapp.command.ChildrenVO;
-import com.project.userapp.command.FileVO;
-import com.project.userapp.command.RecordVO;
+import com.project.userapp.command.*;
 import com.project.userapp.files.mapper.FilesMapper;
 import com.project.userapp.kindermatch.mapper.KinderMatchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,29 +102,67 @@ public class ChildrenServiceImpl implements ChildrenService{
         Map<Integer, List<ChildrenVO>> groupedByChildKey = list.stream()
                 .collect(Collectors.groupingBy(ChildrenVO::getChildKey));
 
-        System.out.println("*맵:"+groupedByChildKey.toString());
-        // 2. 각 그룹에서 null인 recordVO를 제외하고, 매칭된 recordVO만 남기기
         list = groupedByChildKey.values().stream()
                 .flatMap(childGroup -> {
                     // 그룹 내에서 recordVO가 존재하는 것 중 하나를 찾음
                     RecordVO representativeRecord = childGroup.stream()
-                            .map(ChildrenVO::getRecordVO) // ChildrenVO에서 recordVO꺼내기
-                            .filter(Objects::nonNull)// recordVO에서 null이 아닌값 찾기
-                            .findFirst()// null이 아닌 가장 처음값 선택
-                            .orElse(null); // 없으면 null로 설정
+                            .map(ChildrenVO::getRecordVO) // ChildrenVO에서 recordVO 꺼내기
+                            .filter(Objects::nonNull) // recordVO에서 null이 아닌 값 찾기
+                            .filter(record -> {
+                                // 지금 시간 가져오기
+                                LocalDateTime now = LocalDateTime.now();
 
-                    // 각 ChildrenVO에 대해 대표 recordVO를 세팅 (필요하면 새로 복사하거나)
-                    return childGroup.stream()
-                            .map(child -> {
-                                if (representativeRecord != null) {
-                                    child.setRecordVO(representativeRecord);
+                                // 오늘 날짜의 00시 00분 00초
+                                LocalDateTime todayMidnight = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
+                                System.out.println("오늘 0시 0분 0초 :" + todayMidnight);
+
+                                // 오늘 날짜의 12시 00분 00초
+                                LocalDateTime todayNoon = LocalDateTime.of(LocalDate.now(), LocalTime.NOON);
+                                System.out.println("오늘 12시 00분 00초: " + todayNoon);
+
+                                // 내일 날짜의 00시 00분 00초
+                                LocalDateTime tomorrowMidnight = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.MIDNIGHT);
+
+                                // `record.getRecordStartTime()`이 `Timestamp` 타입일 경우
+                                Timestamp recordStartTime = record.getRecordStartTime();
+                                LocalDateTime recordDateTime = recordStartTime.toLocalDateTime(); // Timestamp -> LocalDateTime
+                                System.out.println("Record Start Time: " + recordStartTime);
+                                System.out.println("Record DateTime: " + recordDateTime);
+
+                                // 조건: 현재 시간이 오전인지 오후인지 판단하여, 해당 구간의 RecordStartTime을 확인
+                                if (now.isBefore(todayNoon)) { // 오전 구간: 00시~12시
+                                    // 오전 구간에 해당하는지 확인
+                                    boolean isInMorning = recordDateTime.isAfter(todayMidnight) && recordDateTime.isBefore(todayNoon);
+                                    System.out.println(now + " 오전, " + isInMorning);
+                                    return isInMorning;
+                                } else { // 오후 구간: 12시~24시
+                                    // 오후 구간에 해당하는지 확인
+                                    boolean isInAfternoon = recordDateTime.isAfter(todayNoon) && recordDateTime.isBefore(tomorrowMidnight);
+                                    System.out.println(now + " 오후, " + isInAfternoon);
+                                    return isInAfternoon;
                                 }
+                            })
+                            .findFirst() // 조건을 만족하는 첫 번째 값을 찾기
+                            .orElse(null); // 없으면 null이 아닌 다른 기본값을 반환할 수도 있지만, null로 유지 가능
+
+                    // 각 ChildrenVO에 대해 대표 recordVO를 세팅
+                    return childGroup.stream()
+                            .filter(child -> {
+                                // child.getRecordVO()가 representativeRecord와 일치하는지 확인
+                                if (representativeRecord == null) {
+                                    return child.getRecordVO() == null; // 대표 레코드가 null이면 child의 recordVO도 null이어야만 일치
+                                }
+                                return representativeRecord.equals(child.getRecordVO()); // 대표 레코드와 child의 recordVO가 일치하는지 확인
+                            })
+                            .map(child -> {
+                                // 일치하는 경우만 대표 recordVO 설정
+                                child.setRecordVO(representativeRecord);
                                 return child;
                             });
                 })
                 .collect(Collectors.toList());
 
-        System.out.println("사이즈"+list.size());
+
 
 
         for (ChildrenVO vo : list) {
@@ -137,6 +173,7 @@ public class ChildrenServiceImpl implements ChildrenService{
             }
         }
         System.out.println("********"+ list.toString());
+        System.out.println(list.size());
         return list;
     }
 
