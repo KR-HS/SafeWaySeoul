@@ -42,6 +42,7 @@ public class DriverServiceImpl implements DriverService {
 //    }
 
     // 테스트용, 서버실행시 한번 실행
+    // kindermatch먼저 넣고 실행 -> recordMatch 들어감
 //    @PostConstruct
 //    @Transactional
 //    public void scheduledUpdateTest() {

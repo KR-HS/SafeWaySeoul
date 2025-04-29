@@ -28,6 +28,8 @@ public class LoginController {
     @Autowired
     private KinderService kinderService;
 
+
+
     @GetMapping("/login")
     public String login() {
         return "login/login";

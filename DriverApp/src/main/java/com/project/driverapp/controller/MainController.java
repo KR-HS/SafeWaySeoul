@@ -34,6 +34,14 @@ public class MainController {
     private DriveInfoService driveInfoService;
 
 
+    @GetMapping({"/",""})
+    public String redirect(HttpSession session) {
+        if(session.getAttribute("driverInfo") != null) {
+            return "redirect:/home";
+        }
+        return "redirect:/user/login";
+    }
+
     @GetMapping("/loading")
     public String loading() {
         return "loading";
