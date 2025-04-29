@@ -43,7 +43,8 @@
                  th:attr="data-recordKey=${child.recordVO != null} ? ${child.recordVO.recordKey} : null">
 
               <div class="childName">
-                <img class="gender man" src="/img/man.png" alt="">
+                <img th:if="${child.childGender == 'F'}" class="gender woman" th:src="@{/img/woman.png}" alt="여자아이 아이콘">
+                <img th:if="${child.childGender != 'F'}" class="gender man" th:src="@{/img/man.png}" alt="남자아이 아이콘">
                 <p>[[${child.childName}]]</p>
               </div>
 
