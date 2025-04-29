@@ -43,21 +43,21 @@
                  th:attr="data-recordKey=${child.recordVO != null} ? ${child.recordVO.recordKey} : null">
 
               <div class="childName">
-                <img class="gender man" src="/img/man.png" alt="">
+                <img class="gender man" th:src="${child.childGender=='M'?'/img/man.png':'/img/woman.png'}" alt="">
                 <p>[[${child.childName}]]</p>
               </div>
 
               <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
-              <p class="kinderName">[[${child.kinderVO.kinderName}]]</p>
+              <p class="kinderName" th:text="${child.kinderVO.kinderName}"></p>
 
-              <p class="commuteType rideOn">
+              <div class="commuteType rideOn">
                 <th:block th:if="${child.recordVO!=null}" th:switch="${child.recordVO.recordState}">
-                <span th:case="P">운행전</span>
-                <span th:case="S">이동중</span>
-                <span th:case="E">운행완료</span>
+                <p th:case="P">운행전</p>
+                <p th:case="S">이동중</p>
+                <p th:case="E">운행완료</p>
                 </th:block>
-                <span th:if="${child.recordVO==null}">-</span>
-              </p>
+                <p th:if="${child.recordVO==null}">-</p>
+              </div>
             </div>
 
 

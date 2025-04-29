@@ -60,6 +60,22 @@ $(document).ready(function () {
         }
     });
 
+    $('.changePw').on('change', function() {
+        if ($(this).is(':checked')) {
+            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).prop('disabled',false);
+            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).css('backgroundColor','#fff');
+
+            $(document.modiForm.userPw).prop('placeholder','비밀번호를 입력해주세요');
+            $(document.modiForm.userPwCheck).prop('placeholder','비밀번호를 한 번 더 입력해주세요');
+        } else {
+            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).prop('disabled',true);
+            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).css('backgroundColor','#eee');
+
+            $(document.modiForm.userPw).prop('placeholder','');
+            $(document.modiForm.userPwCheck).prop('placeholder','');
+        }
+    });
+
     // 비밀번호 확인 메시지
     $(".pass, .pass-check").on("keyup change", function () {
         const pw = $(".pass").val();

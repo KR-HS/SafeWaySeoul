@@ -339,8 +339,8 @@ $(document).ready(function () {
         map = new kakao.maps.Map(container, options);
 
         // 줌 컨트롤 추가
-        const zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        // const zoomControl = new kakao.maps.ZoomControl();
+        // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     }
 
 
