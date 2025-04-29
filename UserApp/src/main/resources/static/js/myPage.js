@@ -112,9 +112,15 @@ $(function () {
 
         var childKey = $(this).data('childId');
         var recordKey = $(this).data('childRecordKey');
+
+        if (recordKey == null || recordKey === "" || recordKey == 0) {
+            alert("운행예정정보가 없습니다");
+        } else {
+            window.location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+        }
         console.log(childKey, recordKey);
 
-        location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+
     })
 
 });

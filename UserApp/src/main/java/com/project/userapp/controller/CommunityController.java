@@ -22,7 +22,14 @@ public class CommunityController {
     @GetMapping("/postList")
     public String postList(Model model) {
         List<PostVO> postList = communityService.getPostList();
+
+        // 디버깅용 콘솔 출력
+//        for (PostVO post : postList) {
+//            System.out.println(post);
+//        }
+
         model.addAttribute("postList", postList);
+
 
         return "community/postList";
     }

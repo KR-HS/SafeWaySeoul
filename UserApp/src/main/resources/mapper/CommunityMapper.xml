@@ -6,14 +6,31 @@
 <mapper namespace="com.project.userapp.community.mapper.CommunityMapper">
 
     <select id="getPostList" resultType="PostVO">
-        select *
-        from post
+        SELECT
+            p.POST_KEY AS postKey,
+            p.POST_TITLE AS postTitle,
+            p.POST_CONTENT AS postContent,
+            p.POST_REGDATE AS postRegdate,
+            p.USER_KEY AS userKey,
+            u.USER_NAME AS `userName`
+--             u.KINDER_NAME AS kinderName
+        FROM post p
+                 JOIN user u ON p.USER_KEY = u.USER_KEY
+        ORDER BY p.POST_KEY DESC
     </select>
-
+  
     <select id="getPostById" resultType="PostVO">
-        select *
-        from post
-        where POST_KEY = #{postKey}
+        SELECT
+            p.POST_KEY AS postKey,
+            p.POST_TITLE AS postTitle,
+            p.POST_CONTENT AS postContent,
+            p.POST_REGDATE AS postRegdate,
+            p.USER_KEY AS userKey,
+            u.USER_NAME AS `userName`
+--             u.KINDER_NAME AS kinderName
+        FROM post p
+                 JOIN user u ON p.USER_KEY = u.USER_KEY
+        WHERE p.POST_KEY = #{postKey}
     </select>
 
     <insert id="writeComment" parameterType="CommentVO">
@@ -27,5 +44,5 @@
         from comment
         where POST_KEY = #{postKey}
     </select>
-
+      
 </mapper>

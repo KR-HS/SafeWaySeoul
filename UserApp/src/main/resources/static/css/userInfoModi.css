@@ -59,7 +59,55 @@ h3 {
     margin-top: 10px;
     margin-bottom: 7px;
 }
+.modi .custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+/* 체크박스 디자인 */
+.modi .custom-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 4px; /* 둥글게 하고 싶으면 조정 */
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+}
 
+/* 체크되었을 때 스타일 변경 */
+.modi .custom-checkbox input[type="checkbox"]:checked + .checkmark {
+    background-color: #4CAF50; /* 체크시 색상 변경 */
+    border-color: #4CAF50;
+}
+
+/* 체크된 상태에서 표시할 체크 아이콘 */
+.modi .custom-checkbox .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* 체크되었을 때 체크모양 표시 */
+.modi .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    display: block;
+    left: 4px;
+    top: 0px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.modi .changePwWrap{
+    display:flex;
+    align-items: center;
+    gap:10px;
+}
+.modi .changePw{
+    width:auto;
+    height:auto;
+}
 .modi #id > input {
     width: 70%;
     font-size: 13px;
@@ -84,7 +132,9 @@ h3 {
 .modi .pass {
     margin-bottom: 7px;
 }
-
+.modi .pass,.modi .pass-check{
+    background-color:#eee;
+}
 .modi .name,.modi .phone,.modi .birth {
     margin-bottom: 10px;
     background-color:white;

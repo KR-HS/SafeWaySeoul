@@ -133,6 +133,7 @@
 <!--    JOIN KINDERMATCH km ON rm.KM_KEY = km.KM_KEY-->
 <!--    JOIN KINDER k ON km.KINDER_KEY = k.KINDER_KEY-->
 <!--    WHERE di.USER_KEY = #{driverKey}-->
+
     <select id="findKinderForDriver" resultType="KinderVO" parameterType="int">
         select k.*
         from user u

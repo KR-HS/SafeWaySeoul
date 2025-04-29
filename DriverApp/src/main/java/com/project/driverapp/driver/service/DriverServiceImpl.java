@@ -19,29 +19,30 @@ public class DriverServiceImpl implements DriverService {
 
 
     // ✅ 매일 새벽 0시에 실행
-//    @Scheduled(cron = "0 0 0 * * *")
-//    @Transactional
-//    public void scheduledUpdate() {
-//        int result = 0;
-//        // 오전, 오후에 맞는 driveInfoKey받기
-//        List<Integer> am = getDriveInfoKey("오전");
-//        List<Integer> pm = getDriveInfoKey("오후");
-//
-//        // record테이블에 추가
-//        registRecordDailyAM(am);
-//        registRecordDailyPM(pm);
-//
-//        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
-//        List<RecordMatchVO> list = getRecordMatachInfo();
-//
-//        // recordMatch에도 추가
-//        registRecordMatchDaily(list);
-//
-//
-//        System.out.println("기사 운행정보 추가");
-//    }
+    @Scheduled(cron = "0 0 12 * * *")
+    @Transactional
+    public void scheduledUpdate() {
+        int result = 0;
+        // 오전, 오후에 맞는 driveInfoKey받기
+        List<Integer> am = getDriveInfoKey("오전");
+        List<Integer> pm = getDriveInfoKey("오후");
+
+        // record테이블에 추가
+        registRecordDailyAM(am);
+        registRecordDailyPM(pm);
+
+        // recordMatch테이블에 필요한 데이터 가져오기(km_key, record_key)
+        List<RecordMatchVO> list = getRecordMatachInfo();
+
+        // recordMatch에도 추가
+        registRecordMatchDaily(list);
+
+        System.out.println("기사 운행정보 추가");
+    }
 
     // 테스트용, 서버실행시 한번 실행
+
+    // kindermatch먼저 넣고 실행 -> recordMatch 들어감
 //    @PostConstruct
 //    @Transactional
 //    public void scheduledUpdateTest() {
@@ -62,6 +63,7 @@ public class DriverServiceImpl implements DriverService {
 //
 //        System.out.println("기사 운행정보 추가<테스트>");
 //    }
+
 
 
     @Override
