@@ -30,7 +30,7 @@
 
 
     </select>
-  
+
     <select id="getPostById" resultType="PostVO">
         SELECT
             p.POST_KEY AS postKey,
@@ -38,12 +38,23 @@
             p.POST_CONTENT AS postContent,
             p.POST_REGDATE AS postRegdate,
             p.USER_KEY AS userKey,
-            u.USER_NAME AS `userName`
---             u.KINDER_NAME AS kinderName
+            u.USER_NAME AS userName,
+            f.file_path AS profileImageUrl
         FROM post p
                  JOIN user u ON p.USER_KEY = u.USER_KEY
+                 LEFT JOIN (
+            SELECT file_path, user_key
+            FROM (
+                     SELECT *,
+                            ROW_NUMBER() OVER (PARTITION BY user_key ORDER BY file_regdate DESC) AS rn
+                     FROM files
+                     WHERE file_path LIKE '/upload/%'
+                 ) t
+            WHERE rn = 1
+        ) f ON f.user_key = u.user_key
         WHERE p.POST_KEY = #{postKey}
     </select>
+
 
 
     <insert id="write" parameterType="PostVO">
@@ -58,11 +69,26 @@
     </insert>
 
     <select id="getAllComment" resultType="CommentVO">
-        select c.*, u.USER_NAME as userName
-        from comment c
-        left join user u on c.USER_KEY = u.USER_KEY
-        where POST_KEY = #{postKey}
+        SELECT
+            c.*,
+            u.USER_NAME as userName,
+            f.file_path AS profileImageUrl
+        FROM comment c
+                 LEFT JOIN user u ON c.USER_KEY = u.USER_KEY
+                 LEFT JOIN (
+            SELECT file_path, user_key
+            FROM (
+                     SELECT *,
+                            ROW_NUMBER() OVER (PARTITION BY user_key ORDER BY file_regdate DESC) AS rn
+                     FROM files
+                     WHERE file_path LIKE '/upload/%'
+                 ) t
+            WHERE rn = 1
+        ) f ON f.user_key = u.user_key
+        WHERE POST_KEY = #{postKey}
+
     </select>
+
 
     <select id="getCommentCountByPostKey" resultType="Integer">
         select count(*)
