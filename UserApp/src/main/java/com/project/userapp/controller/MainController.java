@@ -103,7 +103,7 @@ public class MainController {
         List<ChildrenVO> childrenList = locationService.mychildRoutebyrecordKey(childKey);
 
         //해당아이가 타고있는 차의 운행상태/운행출발시간 찍어주기
-        ChildrenVO driveInfoFromChild = locationService.recordStateFromChild(childKey);
+        ChildrenVO driveInfoFromChild = locationService.recordStateFromChild(childKey,recordKey);
         System.out.println(driveInfoFromChild.getRecordStartTime());
 
         //유치원 주소

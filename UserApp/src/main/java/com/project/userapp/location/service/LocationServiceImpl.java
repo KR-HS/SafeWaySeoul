@@ -30,7 +30,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public ChildrenVO recordStateFromChild(int childKey) {
-        return locationMapper.recordStateFromChild(childKey);
+    public ChildrenVO recordStateFromChild(int childKey,int recordKey) {
+        return locationMapper.recordStateFromChild(childKey, recordKey);
     }
 }

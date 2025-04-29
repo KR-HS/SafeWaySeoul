@@ -83,6 +83,7 @@
                  left join driveinfo di
                            on r.drive_info_key = di.drive_info_key
         where c.parent_key=#{parentKey}
+        order by c.child_key, r.record_key
 
     </select>
 

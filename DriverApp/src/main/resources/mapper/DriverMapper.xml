@@ -53,15 +53,7 @@
                  left join kinder k on km.kinder_key = k.kinder_key
                  left join recordmatch rm on km.km_key = rm.km_key
                  left join record r on rm.RECORD_KEY=r.RECORD_KEY
-        where c.child_key in (
-            select child_key
-            from kindermatch
-            where km_key in (
-                select km_key
-                from recordmatch
-                where record_key = #{recordKey}
-            )
-        )
+        where r.record_key = #{recordKey}
 
     </select>
 
