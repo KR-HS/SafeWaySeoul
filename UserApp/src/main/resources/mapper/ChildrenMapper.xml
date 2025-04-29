@@ -9,6 +9,8 @@
     <!-- id = 키에 대한 맵핑,  property  = 멤버변수명, column = 실제컬럼명-->
     <resultMap id="kinderOfChild" type="ChildrenVO">
         <id property="childKey" column="child_key" />
+        <id property="recordVO.recordKey" column="record_key"/>
+
         <result property="childName" column="child_name" />
         <result property="childBirth" column="child_birth" />
         <result property="childGender" column="child_gender" />
@@ -17,7 +19,7 @@
 
         <!-- 연관 유치원 정보 -->
         <association property="kinderVO" javaType="KinderVO">
-            <id property="kinderKey" column="kinder_key"/>
+            <result property="kinderKey" column="kinder_key"/>
             <result property="kinderName" column="kinder_name"/>
             <result property="kinderPostcode" column="kinder_postcode"/>
             <result property="kinderAddress" column="kinder_address"/>
@@ -29,7 +31,7 @@
         </association>
 
         <association property="recordVO" javaType="RecordVO">
-            <id property="recordKey" column="record_key"/>
+            <result property="recordKey" column="record_key"/>
             <result property="recordStartTime" column="record_start_time"/>
             <result property="recordEndTime" column="record_end_time"/>
             <result property="recordState" column="record_state"/>
@@ -37,7 +39,7 @@
         </association>
 
         <association property="driveInfoVO" javaType="DriveInfoVO">
-            <id property="driveInfoKey" column="drive_info_key"/>
+            <result property="driveInfoKey" column="drive_info_key"/>
             <result property="driveInfoName" column="drive_info_name"/>
             <result property="driveCarName" column="drive_car_name"/>
             <result property="driverKey" column="user_key"/>
@@ -72,14 +74,14 @@
                            on km.km_key = rm.km_key
                  left join record r
                            on rm.record_key = r.record_key
+                            <![CDATA[
+                               and r.record_start_time >= TIMESTAMP(CURDATE(), '00:00:00')
+                            ]]>
+                            <![CDATA[
+                            and r.record_start_time <= TIMESTAMP(CURDATE(), '23:59:59')
+                            ]]>
                  left join driveinfo di
                            on r.drive_info_key = di.drive_info_key
-                            <![CDATA[
-                               and r.record_start_time >= TIMESTAMP(CURDATE(), ' 00:00:00')
-                            ]]>
-                            <![CDATA[
-                            and r.record_start_time <= TIMESTAMP(CURDATE(), ' 23:59:59')
-                            ]]>
         where c.parent_key=#{parentKey}
 
     </select>

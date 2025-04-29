@@ -16,7 +16,15 @@ $(document).ready(function () {
 
         childKey = $(this).data("childkey"); //이거 tracing화면 넘어갈떄, childkey넘기기 위한 작업
         recordKey = $(this).data("recordkey");
-        window.location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+
+        if (recordKey == null || recordKey === "") {
+            alert("운행예정정보가 없습니다");
+        } else {
+            window.location.href = "/tracing?childKey=" + childKey + "&recordKey=" + recordKey;
+        }
+
+
+
         console.log(childKey+"/"+recordKey);
         // $(".infoModal").css("display","block");
     });
@@ -331,8 +339,8 @@ $(document).ready(function () {
         map = new kakao.maps.Map(container, options);
 
         // 줌 컨트롤 추가
-        const zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        // const zoomControl = new kakao.maps.ZoomControl();
+        // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     }
 
 
@@ -393,6 +401,10 @@ $(document).ready(function () {
         }
     }
 
+
+    $(".kinderLoc").on("change",function(){
+        $(".searchBtn").click();
+    })
 
     // 유치원 리스트 체크박스 기능
     $(document).on('click', ".kinderResult", function () {

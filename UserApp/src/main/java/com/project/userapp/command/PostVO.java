@@ -15,11 +15,13 @@ import java.time.ZoneId;
 @NoArgsConstructor
 @Builder
 public class PostVO {
+
     private Integer postKey;
     private String postTitle;
     private String postContent;
     private Timestamp postRegdate;
     private Integer userKey;
+
     private String userName;
     private String kinderName;
 
@@ -57,4 +59,5 @@ public class PostVO {
             return years + "년 전";
         }
     }
+
 }

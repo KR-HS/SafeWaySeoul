@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'MapoPeacefull';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* reset + 기본 모바일 스타일 */
 * {
     box-sizing: border-box;
@@ -8,7 +16,8 @@
 }
 
 html, body {
-    font-family: 'Noto Sans KR', sans-serif;
+    /*font-family: 'Noto Sans KR', sans-serif;*/
+    font-family: 'MapoPeacefull';
     background-color: #f7f7f7;
     color: #333;
     /* overflow: hidden; 스크롤 제거 (필요 시 조절) */

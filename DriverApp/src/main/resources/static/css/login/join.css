@@ -113,10 +113,6 @@ input {
     margin-bottom: 7px;
 }
 
-.address-detail {
-    margin-bottom: 3px;
-}
-
 .address-detail:focus {
     border: none;
     border-bottom: 1px solid #bebebe;
