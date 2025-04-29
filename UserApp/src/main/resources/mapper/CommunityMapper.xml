@@ -13,7 +13,19 @@
     <select id="getPostById" resultType="PostVO">
         select *
         from post
-        where POST_KEY = ${postKey}
+        where POST_KEY = #{postKey}
+    </select>
+
+    <insert id="writeComment" parameterType="CommentVO">
+        insert into
+        `comment`(COMMENT_CONTENT, POST_KEY, USER_KEY)
+        values (#{commentContent}, #{postKey}, #{userKey})
+    </insert>
+
+    <select id="getAllComment" resultType="CommentVO">
+        select *
+        from comment
+        where POST_KEY = #{postKey}
     </select>
 
 </mapper>
