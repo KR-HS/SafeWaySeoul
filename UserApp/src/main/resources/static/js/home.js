@@ -16,7 +16,15 @@ $(document).ready(function () {
 
         childKey = $(this).data("childkey"); //이거 tracing화면 넘어갈떄, childkey넘기기 위한 작업
         recordKey = $(this).data("recordkey");
-        window.location.href = "/tracing?childKey="+childKey+"&recordKey="+recordKey;
+
+        if (recordKey == null || recordKey === "") {
+            alert("운행예정정보가 없습니다");
+        } else {
+            window.location.href = "/tracing?childKey=" + childKey + "&recordKey=" + recordKey;
+        }
+
+
+
         console.log(childKey+"/"+recordKey);
         // $(".infoModal").css("display","block");
     });
