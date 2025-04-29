@@ -42,7 +42,7 @@
 
             <div class="post-footer">
                 <div class="post-stats">
-                    <!--❤️ 2&nbsp;&nbsp;|&nbsp;&nbsp;-->💬 2
+                    <span>💬</span><span th:text="${post.countComment}"></span>
                 </div>
             </div>
 
@@ -52,8 +52,8 @@
                     <div class="comment-header">
                         <img src="/img/boy.png" alt="프로필" class="comment-profile-img">
                         <div class="comment-info">
-                            <div class="comment-user-name">이름</div>
-                            <div class="comment-time">7분 전</div>
+                            <div class="comment-user-name" th:text="${commentList.userName}">이름</div>
+                            <div class="comment-time" th:text="${commentList.elapsedTime}"></div>
                         </div>
                     </div>
                     <div class="comment-body" th:text="${commentList.commentContent}">

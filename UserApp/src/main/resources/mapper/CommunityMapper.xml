@@ -58,7 +58,14 @@
     </insert>
 
     <select id="getAllComment" resultType="CommentVO">
-        select *
+        select c.*, u.USER_NAME as userName
+        from comment c
+        left join user u on c.USER_KEY = u.USER_KEY
+        where POST_KEY = #{postKey}
+    </select>
+
+    <select id="getCommentCountByPostKey" resultType="Integer">
+        select count(*)
         from comment
         where POST_KEY = #{postKey}
     </select>

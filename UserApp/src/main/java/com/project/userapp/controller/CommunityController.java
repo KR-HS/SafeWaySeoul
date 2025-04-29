@@ -27,6 +27,9 @@ public class CommunityController {
     public String postList(Model model) {
         List<PostVO> postList = communityService.getPostList();
 
+        for (PostVO post : postList) {
+            post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
+        }
         // 디버깅용 콘솔 출력
 //        for (PostVO post : postList) {
 //            System.out.println(post);
@@ -42,6 +45,7 @@ public class CommunityController {
     public String postDetail(Model model,
                              @RequestParam("postKey") Integer postId) {
         PostVO vo = communityService.getPostById(postId);
+        vo.setCountComment(communityService.getCommentCountByPostKey(vo.getPostKey()));
         List<CommentVO> commentList = communityService.getAllComment(postId);
 
         model.addAttribute("post", vo);

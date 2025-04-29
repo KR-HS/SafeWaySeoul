@@ -13,5 +13,6 @@ public interface CommunityService {
     int write(PostVO vo);
     void writeComment(CommentVO commentVO);
     List<CommentVO> getAllComment(int postKey);
+    Integer getCommentCountByPostKey(int postKey);
 
 }
