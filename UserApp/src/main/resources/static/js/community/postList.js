@@ -11,7 +11,33 @@ $(document).ready(function() {
         window.location.href="/community/postDetail?postKey=" + postKey;
     });
 
+    let searchClicked = false;
+
    $(".search-icon").on("click", function () {
-        $(".search").css("display", "block");
+       const $searchInput = $(".search");
+
+       if (!searchClicked) {
+           $searchInput.css("display", "inline-block").focus();
+           searchClicked = true;
+       } else {
+           const keyword = $searchInput.val().trim();
+           if (keyword.length > 0) {
+               window.location.href = "/community/postList?search=" + encodeURIComponent(keyword);
+               console.log(keyword);
+           } else {
+               alert("검색어를 입력해주세요.");
+           }
+       }
    });
+
+    $(".search").on("keydown", function(e) {
+        if (e.keyCode === 13) {
+            const keyword = $(this).val().trim();
+            if (keyword.length > 0) {
+                window.location.href = "/community/postList?search=" + encodeURIComponent(keyword);
+            } else {
+                alert("검색어를 입력해주세요.");
+            }
+        }
+    });
 });
