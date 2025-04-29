@@ -60,4 +60,7 @@ public class CommentVO {
             return years + "년 전";
         }
     }
+
+    private String profileImageUrl;
+
 }
