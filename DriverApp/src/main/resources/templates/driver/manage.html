@@ -335,23 +335,29 @@
         <button type="button" class="routeBtn">경로 수정</button>
         <button type="button" class="finishDrive">운행 종료</button>
 
-        <div class="routebox">
-            <div style="font-size:16px; font-weight:bold; margin-bottom:8px;">경로 조회</div>
-            <label for="startAddress">출발지</label>
-            <input type="text" id="startAddress" th:value="${startAddress}" placeholder="출발지 주소 입력">
+        <div class="routebox-par">
+            <div class="routebox">
+                <div style="font-size:16px; font-weight:bold; margin-bottom:8px;">경로 조회</div>
+                <label for="startAddress">출발지</label>
+                <input type="text" id="startAddress" th:value="${startAddress}" placeholder="출발지 주소 입력">
 
-            <label>경유지</label>
-            <div id="waypointContainer">
-                <div th:each="waypoint : ${waypoints}" class="waypoint-item">
-                    <input type="text" class="waypoint-input" th:value="${waypoint}" placeholder="경유지 주소">
-                    <button class="remove-waypoint">×</button>
+                <label>경유지 <button type="button" id="addWaypointBtn"> +</button> </label>
+                <div id="waypointContainer">
+                    <div th:each="waypoint : ${waypoints}" class="waypoint-item">
+                        <input type="text" class="waypoint-input" th:value="${waypoint}" placeholder="경유지 주소">
+                        <button class="remove-waypoint">×</button>
+                    </div>
                 </div>
-            </div>
-            <button type="button" id="addWaypointBtn">+ 경유지 추가</button>
 
-            <label for="endAddress" style="margin-top:8px;">도착지</label>
-            <input type="text" id="endAddress" th:value="${endAddress}" placeholder="도착지 주소 입력">
-            <button id="drawRouteBtn">경로 그리기</button>
+
+                <label for="endAddress" style="margin-top:8px;">도착지</label>
+                <input type="text" id="endAddress" th:value="${endAddress}" placeholder="도착지 주소 입력">
+
+                <div class="btn-right">
+                    <button id="drawRouteBtn">경로 그리기</button>
+                </div>
+
+            </div>
         </div>
 
         <!--승하차관련-->

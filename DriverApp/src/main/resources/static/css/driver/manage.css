@@ -1,6 +1,14 @@
+@font-face {
+    font-family: 'MapoPeacefull';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .app-content{
     padding:0;
     background-color: #F8F8F8;
+    font-family: 'MapoPeacefull';
 }
 .app-content > .content-header{
     position:relative;
@@ -19,7 +27,7 @@
     height:20px;
 }
 .app-content > .content-header > .header-comment-wrap> .header-mainComment{
-    font-size:25px;
+    font-size:20px;
     font-weight:bold;
     text-align:center;
 }
@@ -141,17 +149,24 @@
 
 /*루트박스부분*/
 
+.routebox-par {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .routebox.show {
     display: block;
 }
+
 .routebox {
     display: none;
-    background: #e8e8e8;
+    background: #e9eef7;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     padding: 16px 14px 12px 14px;
-    margin: 18px 0 14px 0;
-    width: 100%;
+    margin: 5px 0 14px 0;
+    width: 90%;
     font-size: 15px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
@@ -159,7 +174,7 @@
 .routebox label {
     display: block;
     margin-bottom: 4px;
-    color: #222;
+    color: #5b5b5b;
     font-weight: 500;
     font-size: 14px;
 }
@@ -202,10 +217,28 @@
     background: #ffeaea;
 }
 
-#addWaypointBtn, #drawRouteBtn {
-    background: #e8f1ff;
-    color: #2267b1;
-    border: 1px solid #b3cfff;
+#addWaypointBtn {
+    background: none;
+    color: #5b5b5b;
+    border: none;
+    font-size: 16px;
+    margin-top: 2px;
+    transition: background 0.15s;
+    font-weight: bold;
+}
+
+.btn-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 13px;
+}
+
+#drawRouteBtn {
+    font-family: 'MapoPeacefull';
+    background: #7ea6c5;
+    color: #fff;
+    border: none;
     border-radius: 6px;
     padding: 6px 13px;
     font-size: 14px;
@@ -213,18 +246,42 @@
     cursor: pointer;
     transition: background 0.15s;
 }
-#drawRouteBtn {
-    background: #2267b1;
-    color: #fff;
-    border: none;
-    margin-left: 6px;
-}
+
 #addWaypointBtn:hover {
-    background: #d4e7ff;
+    background: none;
 }
+
 #drawRouteBtn:hover {
-    background: #174a7b;
+    background: #7093af;
 }
+
+/*경로수정 버튼*/
+.routeBtn {
+    font-family: 'MapoPeacefull';
+    border: 0;
+    background: none;
+    margin: 10px;
+    padding: 0;
+    outline: 0;
+    background-color: #759FCA;
+    color: #ffffff;
+    border-radius: 12px;
+    width: 67px;
+    height: 30px;
+    font-size: 13px;
+    box-shadow: 2px 4px 3px -1px rgba(0, 0, 0, 0.2);
+    transition:
+            transform 0.07s cubic-bezier(.2,.7,.4,1),
+            box-shadow 0.07s cubic-bezier(.2,.7,.4,1),
+            background 0.15s;
+}
+
+.routeBtn:active {
+    transform: translateY(2px) scale(1); /* 아래로 살짝 이동 & 약간 작아짐 */
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.15); /* 그림자 약하게 */
+    background-color: #4a77a8; /* 더 눌린 듯한 색상(선택) */
+}
+
 
 /* 하차버튼숨기기 */
 .finishDrive { display: none; }
