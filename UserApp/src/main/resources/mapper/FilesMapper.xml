@@ -20,6 +20,14 @@
         )
     </insert>
 
+    <update id="updateFileByUser" parameterType="FileVO">
+        update files
+        set file_name = #{fileName},
+            file_path=#{filePath},
+            file_uuid=#{fileUuid},
+            file_regdate=NOW()
+        where user_key=#{userKey}
+    </update>
 
     <!--업로드된 파일 불러오는 기능-->
     <select id="selectProfileByChild" resultType="FileVO" parameterType="Integer">
@@ -38,10 +46,13 @@
         SELECT *
         FROM FILES
         WHERE user_key = #{userKey}
-          AND file_path LIKE '/upload/%'
         ORDER BY file_regdate DESC
             LIMIT 1
     </select>
 
+    <select id="isExistFileByUserKey" resultType="int">
+        SELECT COUNT(*) FROM FILES
+        WHERE user_key = #{userKey}
+    </select>
 
 </mapper>
