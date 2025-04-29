@@ -48,6 +48,14 @@ public class MainController {
     @Value("${com.project.userapp.upload.path}")
     private String uploadPath;
 
+    @GetMapping({"/",""})
+    public String redirect(HttpSession session) {
+        if(session.getAttribute("userInfo") != null) {
+            return "redirect:/home";
+        }
+        return "redirect:/user/login";
+    }
+
     @GetMapping("/loading")
     public String loading() {
         return "loading";
