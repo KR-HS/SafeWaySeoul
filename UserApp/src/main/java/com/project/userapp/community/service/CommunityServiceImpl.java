@@ -20,4 +20,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostVO getPostById(int postKey) { return communityMapper.getPostById(postKey);}
+
+    @Override
+    public int write(PostVO vo) {
+        return communityMapper.write(vo);
+    }
 }

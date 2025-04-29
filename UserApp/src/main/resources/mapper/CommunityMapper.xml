@@ -16,4 +16,8 @@
         where POST_KEY = ${postKey}
     </select>
 
+    <insert id="write" parameterType="PostVO">
+        INSERT INTO POST(post_title, post_content, user_key)
+        VALUES(#{postTitle},#{postContent},#{userKey})
+    </insert>
 </mapper>
