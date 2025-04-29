@@ -14,6 +14,7 @@ public class LocationController {
 
     @PostMapping("/start")
     public void start(@RequestParam int recordKey){
+        System.out.println("1894571895719857198517");
         locationSender.startDriving(recordKey);
     }
 

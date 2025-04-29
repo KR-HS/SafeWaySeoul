@@ -55,13 +55,13 @@
               <div class="child-image"><img src="/img/childLogo.png" alt=""></div>
               <p class="kinderName" th:text="${child.kinderVO.kinderName}"></p>
 
-              <div class="commuteType rideOn">
+              <div class="commuteType">
                 <th:block th:if="${child.recordVO!=null}" th:switch="${child.recordVO.recordState}">
-                <p th:case="P">운행전</p>
-                <p th:case="S">이동중</p>
-                <p th:case="E">운행완료</p>
+                <p class="rideOff" th:case="P">운행전</p>
+                <p class="rideOn" th:case="S">이동중</p>
+                <p class="rideComp" th:case="E">운행완료</p>
                 </th:block>
-                <p th:if="${child.recordVO==null}">-</p>
+                <p class="rideOff" th:if="${child.recordVO==null}">-</p>
               </div>
             </div>
 

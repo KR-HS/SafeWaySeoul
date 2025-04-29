@@ -63,6 +63,7 @@ $(document).ready(function() {
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
 
+                        try{
                         fetch("/driver/location/send", {
                             method: "POST",
                             headers: {
@@ -73,7 +74,16 @@ $(document).ready(function() {
                                 latitude: latitude.toString(),
                                 longitude: longitude.toString()
                             })
-                        });
+                        })
+                            .then()
+                            .catch(function(err){
+                                alert(err);
+                            });
+                        }catch(e){
+                            alert(e);
+                        }
+
+
                     });
                 }
             }, 2500); // 2.5초마다 실행
