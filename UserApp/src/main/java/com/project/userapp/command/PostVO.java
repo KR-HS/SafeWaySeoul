@@ -12,9 +12,11 @@ import java.security.Timestamp;
 @NoArgsConstructor
 @Builder
 public class PostVO {
+
     private Integer postKey;
     private String postTitle;
     private String postContent;
     private Timestamp postRegdate;
     private Integer userKey;
+
 }
