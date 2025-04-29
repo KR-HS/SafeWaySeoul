@@ -3,7 +3,12 @@
 <head>
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>포스팅 상세화면</title>
+
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/community/postDetail.css">
+
+    <script src="/js/common.js"></script>
+    <script src="/js/community/postDetail.js"></script>
 
     <!-- Air Datepicker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
@@ -23,78 +28,54 @@
             <div class="post-title" th:text="${post.postTitle}">다들 아이 픽업 어떻게 하시나요?</div>
 
             <div class="post-header">
-                <img src="/img/boy.png" alt="프로필" class="profile-img">
+                <img th:src="${post.profileImageUrl != null} ? ${post.profileImageUrl} : '/img/parents.png'" alt="프로필" class="profile-img">
                 <div class="user-info">
-                    <div class="user-name">이름</div>
+                    <div class="user-name" th:text="${post.userName}"></div>
                 </div>
-                <div class="post-time">8분 전</div>
+                <div class="post-time" th:text="${post.getElapsedTime()}"></div>
                 <div class="post-menu">⋮</div>
             </div>
 
+
+
             <div class="post-content" th:text="${post.postContent}">
-                저희 부부는 맞벌이라서
-                직장 근처 어린이집에 보내고 있는데,
-                가끔 출장 때문에 픽업 하기 힘들 때가 있어요..ㅠ
 
-                <br><br>
-
-                그럴때마다 가끔 친정엄마한테 부탁하고는 하는데
-                너무 죄송하더라구요..ㅠㅠ
-
-                <br><br>
-
-                보니까 픽업서비스가 있던데 사용해보신 분 계신가요?
             </div>
 
             <div class="post-footer">
                 <div class="post-stats">
-                    &nbsp;&nbsp;💬 2
+                    <span>💬</span><span th:text="${post.countComment}"></span>
                 </div>
             </div>
 
             <div class="comments-section">
-                <div class="comment-card">
-                    <div class="comment-header">
-                        <img src="/img/boy.png" alt="프로필" class="comment-profile-img">
-                        <div class="comment-info">
-                            <div class="comment-user-name">이름</div>
-                            <div class="comment-time">7분 전</div>
-                        </div>
-                    </div>
-                    <div class="comment-body">
-                        저희는 픽업서비스로 돌려보고 좋아서 어린이집 원장님이랑 상의해봤어요.
-                    </div>
-                </div>
 
-                <div class="comment-card">
+                <div class="comment-card" th:each="commentList : ${comment}">
                     <div class="comment-header">
-                        <img src="/img/boy.png" alt="프로필" class="comment-profile-img">
+                        <img th:src="${commentList.profileImageUrl != null} ? ${commentList.profileImageUrl} : '/img/parents.png'" alt="프로필" class="comment-profile-img">
                         <div class="comment-info">
-                            <div class="comment-user-name">이름</div>
-                            <div class="comment-time">20분 전</div>
+                            <div class="comment-user-name" th:text="${commentList.userName}">이름</div>
+                            <div class="comment-time" th:text="${commentList.elapsedTime}"></div>
                         </div>
                     </div>
-                    <div class="comment-body">
-                        픽업서비스 좋긴한데, 차량 탑승 중 안전 문제 때문에 위험하지 않을까 걱정되더라고요.
-                    </div>
-                </div>
+                    <div class="comment-body" th:text="${commentList.commentContent}">
 
-                <div class="comment-card">
-                    <div class="comment-header">
-                        <img src="/img/boy.png" alt="프로필" class="comment-profile-img">
-                        <div class="comment-info">
-                            <div class="comment-user-name">이름</div>
-                            <div class="comment-time">1시간 전</div>
-                        </div>
-                    </div>
-                    <div class="comment-body">
-                        남편도 많이 바쁘신가요?ㅠㅠ
                     </div>
                 </div>
 
             </div>
 
+
+
         </div>
+        <div class="comment-input-area"
+             th:data-post-key="${post.postKey}"
+             th:data-post-user-key="${post.userKey}"
+             >
+            <input type="text" placeholder="댓글을 입력하세요" class="comment-input">
+            <button type="submit" class="comment-submit">전송</button>
+        </div>
+
 
     </section>
 </th:block>

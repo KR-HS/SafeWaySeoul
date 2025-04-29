@@ -36,14 +36,15 @@
                                     th:data-post-key="${list.postKey}">
 
                 <div class="post-header">
-                    <img src="/img/boy.png" alt="프로필" class="profile-img">
+                    <img th:src="${list.profileImageUrl != null} ? ${list.profileImageUrl} : '/img/parents.png'" alt="프로필" class="profile-img">
+
                     <div class="user-info">
 
                         <div class="user-name" th:text="${list.userName}"></div>
 <!--                        <div class="kindergarten-name" th:text="${list.kinderName}"></div>-->
 
                     </div>
-                    <div class="post-time" th:text="${list.elapsedTime}">8분 전</div>
+                    <div class="post-time" th:text="${list.getElapsedTime()}"></div>
 
 
                 </div>
@@ -53,7 +54,7 @@
 
                 <div class="post-footer">
                     <div class="post-stats">
-                        <span>💬 댓글 2</span>
+                        <span>💬 댓글</span> <span th:text="${list.countComment}"></span>
                     </div>
                 </div>
             </div>

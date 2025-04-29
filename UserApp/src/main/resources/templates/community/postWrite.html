@@ -3,19 +3,24 @@
 <head>
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>글쓰기</title>
+
     <link rel="stylesheet" href="/css/community/postWrite.css">
+
 </head>
 <body>
 
-
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
+
     <section class="app-content">
-        <div class="write-page">
+
+        <form class="writePage" name="writePage" method="post" action="postWrite">
+
             <div class="write-card">
-                <button class="write-finish-btn">완료</button>
-                <input type="text" class="write-title" placeholder="제목" maxlength="50" />
-                <hr class="write-divider" />
-                <textarea class="write-content" placeholder="내용"></textarea>
+                <button type="submit" class="write-finish-btn">완료</button>
+
+                <input type="text" class="write-title" name="postTitle" placeholder="제목" maxlength="50" required />
+                     <hr class="write-divider" />
+                <textarea class="write-content" name="postContent" placeholder="내용" required></textarea>
             </div>
 
             <!--이미지영역-->
@@ -25,7 +30,8 @@
                     <span class="photo-count">0/5</span>
                 </div>
             </div>
-        </div>
+
+        </form>
 
     </section>
 </th:block>

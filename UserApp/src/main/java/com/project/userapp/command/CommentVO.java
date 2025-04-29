@@ -11,30 +11,29 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class PostVO {
+public class CommentVO {
+    private Integer commentId;
+    private Integer commentLV;
+    private Integer commentParentLV;
+    private String commentContent;
+    private Timestamp commentRegdate;
 
     private Integer postKey;
-    private String postTitle;
-    private String postContent;
-    private Timestamp postRegdate;
     private Integer userKey;
 
     private String userName;
-    private String kinderName;
-
-    private Integer countComment;
 
     // 상대 시간 계산 메서드
     public String getElapsedTime() {
-        if (postRegdate == null) {
+        if (commentRegdate == null) {
             return "";
         }
 
         // Timestamp → LocalDateTime 변환
-        LocalDateTime postTime = postRegdate.toInstant()
+        LocalDateTime postTime = commentRegdate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
 
@@ -63,6 +62,5 @@ public class PostVO {
     }
 
     private String profileImageUrl;
-
 
 }

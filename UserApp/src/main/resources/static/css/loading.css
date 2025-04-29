@@ -26,10 +26,10 @@ html,body{
     width:200px;
 }
 .logo>p{
-    bottom:10px;
+    bottom:20px;
     left:20px;
     position:absolute;
-    font-size:35px;
+    font-size:22px;
     font-weight:800;
     text-align:center;
     color: #ffc300;

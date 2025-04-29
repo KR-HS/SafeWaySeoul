@@ -20,7 +20,7 @@ $(document).ready(function(){
         $('.child').addClass('click');
     }
 
-    else if (path === '/community/postList') {
+    else if (path === '/community/postList' || path.startsWith('/community')) {
         $('.tbd').siblings().removeClass("click");
         $('.tbd').addClass('click');
     }
