@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommunityService {
 
     List<PostVO> getPostList(String searchStr);
+    List<PostVO> getMyPostList(Integer userKey, String searchStr);
     PostVO getPostById(int postKey);
     int write(PostVO vo);
     void writeComment(CommentVO commentVO);

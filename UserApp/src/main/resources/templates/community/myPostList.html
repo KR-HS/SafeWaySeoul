@@ -5,9 +5,9 @@
     <title>커뮤니티 목록화면</title>
 
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/community/postList.css">
+    <link rel="stylesheet" href="/css/community/myPostList.css">
     <script src="/js/common.js"></script>
-    <script src="/js/community/postList.js"></script>
+    <script src="/js/community/myPostList.js"></script>
 
     <!-- Air Datepicker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.css">
@@ -27,13 +27,14 @@
         <div class="community-page">
             <div class="search-bar">
                 <input type="text" class="search">
-                <img src="/img/search.png" alt="검색" class="search-icon icon">
-                <img src="/img/user.png" alt="내정보" class="icon my-page" th:data-user-key="${userKey}">
+                <img src="/img/search.png" alt="검색" class="search-icon icon" th:data-user-key="${userKey}">
+                <img src="/img/user.png" alt="내정보" class="icon my-page">
             </div>
 
+            <h2>내가 쓴 글</h2>
 
             <div class="post-card" th:each="list : ${postList}"
-                                    th:data-post-key="${list.postKey}">
+                 th:data-post-key="${list.postKey}">
 
                 <div class="post-header">
                     <img th:src="${list.profileImageUrl != null} ? ${list.profileImageUrl} : '/img/parents.png'" alt="프로필" class="profile-img">
@@ -41,7 +42,6 @@
                     <div class="user-info">
 
                         <div class="user-name" th:text="${list.userName}"></div>
-<!--                        <div class="kindergarten-name" th:text="${list.kinderName}"></div>-->
 
                     </div>
                     <div class="post-time" th:text="${list.getElapsedTime()}"></div>

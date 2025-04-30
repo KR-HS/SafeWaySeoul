@@ -25,6 +25,7 @@ public class CommunityController {
 
     @GetMapping("/postList")
     public String postList(Model model,
+                           HttpSession session,
                            @RequestParam(required = false)String search) {
         String searchStr = "%%";
         if(search != null) {
@@ -35,15 +36,32 @@ public class CommunityController {
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
-        // 디버깅용 콘솔 출력
-//        for (PostVO post : postList) {
-//            System.out.println(post);
-//        }
-
+        UserVO userVO = (UserVO) session.getAttribute("userInfo");
+        System.out.println(userVO);
+        model.addAttribute("userKey", userVO.getUserKey());
         model.addAttribute("postList", postList);
 
-
         return "community/postList";
+    }
+
+    @GetMapping("/myPostList")
+    public String myPostList(Model model,
+                             @RequestParam(required = false)String search,
+                             @RequestParam("userKey")Integer userKey) {
+        String searchStr = "%%";
+        if(search != null) {
+            searchStr = "%" + search + "%";
+        }
+        List<PostVO> postList = communityService.getMyPostList(userKey, searchStr);
+        System.out.println(searchStr);
+        for (PostVO post : postList) {
+            post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
+        }
+
+        model.addAttribute("userKey", userKey);
+        model.addAttribute("postList", postList);
+
+        return "community/myPostList";
     }
 
     @GetMapping("/postDetail")
