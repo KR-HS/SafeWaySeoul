@@ -168,9 +168,7 @@ public class CommunityController {
 
   
     @GetMapping("/postUpdatePage")
-    public String postUpdate(@ModelAttribute("postKey") int postKey) {
-
-
+    public String postUpdate(@ModelAttribute("postKey") int postId, Model model) {
 
         PostVO PostVO = communityService.getPostById(postId);
         List<CommentVO> commentList = communityService.getAllComment(postId);
