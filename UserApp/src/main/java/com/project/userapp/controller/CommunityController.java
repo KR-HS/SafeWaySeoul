@@ -6,6 +6,7 @@ import com.project.userapp.command.PostVO;
 import com.project.userapp.command.UserVO;
 import com.project.userapp.community.service.CommunityService;
 import com.project.userapp.files.mapper.FilesMapper;
+import com.project.userapp.files.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,9 @@ public class CommunityController {
 
     @Autowired
     private FilesMapper filesMapper;
+
+    @Autowired
+    private FilesService filesService;
 
     @GetMapping("/postList")
     public String postList(Model model,
@@ -83,6 +87,7 @@ public class CommunityController {
 
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
         int userKey = userVO.getUserKey();
+        System.out.println(fileList);
 
         model.addAttribute("userKey", userKey);
         model.addAttribute("post", vo);
@@ -114,7 +119,6 @@ public class CommunityController {
         int result = communityService.write(postVO);
         System.out.println("result:"+result);
         System.out.println("[DEBUG] 생성된 postKey: " + postVO.getPostKey()); // 로그 추가
-
         if (uploadImages != null && !uploadImages.isEmpty()) {
             for (MultipartFile file : uploadImages) {
                 if (!file.isEmpty()) {
@@ -161,7 +165,7 @@ public class CommunityController {
         return "redirect:/community/postDetail?postKey=" + commentVO.getPostKey();
     }
 
-    @GetMapping("/postUpdate")
+    @GetMapping("/postUpdatePage")
     public String postUpdate(@ModelAttribute("postKey") int postKey) {
         return "community/postWrite";
     }
@@ -169,8 +173,47 @@ public class CommunityController {
     @PostMapping("/postUpdate")
     public String postUpdate(@RequestParam("postKey") int postKey,
                              @RequestParam("postTitle") String postTitle,
-                             @RequestParam("postContent") String postContent) {
+                             @RequestParam("postContent") String postContent,
+                             @RequestParam(value = "uploadImages", required = false) List<MultipartFile> uploadImages,
+                             HttpSession session) {
         communityService.update(postKey, postTitle, postContent);
+
+        UserVO userInfo = (UserVO) session.getAttribute("userInfo");
+
+        //postKey 기준으로 이미지 파일 삭제(업데이트 하기 위해서, 삭제 후 등록으로 업데이트 대체)
+        filesService.deleteFileByPostKey(postKey);
+
+        if (uploadImages != null && !uploadImages.isEmpty()) {
+            for (MultipartFile file : uploadImages) {
+                if (!file.isEmpty()) {
+                    try {
+                        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+                        String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
+                        File folder = new File(uploadFolder);
+                        if (!folder.exists()) {
+                            folder.mkdirs();
+                        }
+
+                        String uuid = UUID.randomUUID().toString();
+                        String fileName = uuid + "_" + file.getOriginalFilename();
+                        file.transferTo(new File(folder, fileName));
+                        String filePath = "/upload/" + today + "/" + fileName;
+
+                        FileVO fileVO = FileVO.builder()
+                                .fileName(fileName)
+                                .filePath(filePath)
+                                .fileUuid(uuid)
+                                .userKey(userInfo.getUserKey())
+                                .postKey(postKey)
+                                .build();
+                        //file update하는 sql로 수정해야함.
+                        filesMapper.insertFile(fileVO);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         return "redirect:/community/postDetail?postKey=" + postKey;
     }
 

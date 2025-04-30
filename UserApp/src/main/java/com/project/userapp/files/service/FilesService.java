@@ -8,4 +8,5 @@ import java.io.IOException;
 
 public interface FilesService {
     void uploadProfileImageToS3(UserVO userVO, MultipartFile profile) throws IOException;
+    void deleteFileByPostKey(Integer postKey);
 }

@@ -85,6 +85,12 @@
         ORDER BY file_regdate ASC
     </select>
 
+    <delete id="deleteFileByPostKey" parameterType="int">
+        DELETE
+        FROM FILES
+        WHERE POST_KEY = #{postKey}
+    </delete>
+
 
 
 </mapper>
