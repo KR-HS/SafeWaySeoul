@@ -1,5 +1,8 @@
 package com.project.userapp.children.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.project.userapp.children.mapper.ChildrenMapper;
 import com.project.userapp.command.*;
 import com.project.userapp.files.mapper.FilesMapper;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,8 +36,17 @@ public class ChildrenServiceImpl implements ChildrenService{
     private KinderMatchMapper kinderMatchMapper;
 
 
+    @Autowired
+    private AmazonS3 amazonS3;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
+
     @Value("${com.project.userapp.upload.path}")
     private String uploadPath;
+
+    @Autowired
+    private FilesMapper filesMapper;
 
     // 폴더생성함수
     private String makeFolder(){
@@ -53,23 +66,47 @@ public class ChildrenServiceImpl implements ChildrenService{
         // 자녀 프로필사진 등록
         if (!file.isEmpty()) {
             try {
-                String originName = file.getOriginalFilename();
-                String filename = originName.substring(originName.lastIndexOf("/") + 1);
+                // [수정1] 오늘 날짜 폴더명 생성
+                String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-                UUID uuid = UUID.randomUUID();
-                String filepath = makeFolder();
-                String path = uploadPath + "/" + filepath + "/" + uuid + "_" + filename;
+                // [수정2] 저장 파일명 만들기
+                String fileName = file.getOriginalFilename();
+                String uuid = UUID.randomUUID().toString();
+                String saveName = uuid + "_" + fileName;
 
-                File saveFile = new File(path);
-                file.transferTo(saveFile);
+                // [수정3] S3 파일 경로 (날짜 폴더 안에 저장)
+                String s3FilePath = today + "/" + saveName;
 
-                fileMapper.registFile(FileVO.builder()
-                        .fileUuid(uuid.toString())
-                        .filePath(filepath)
-                        .fileName(filename)
+                // [수정4] S3로 파일 업로드
+                try (InputStream inputStream = file.getInputStream()) {
+                    ObjectMetadata metadata = new ObjectMetadata();
+                    metadata.setContentLength(file.getSize());
+
+                    amazonS3.putObject(
+                            new PutObjectRequest(bucketName, s3FilePath, inputStream, metadata)
+//                            .withCannedAcl(CannedAccessControlList.PublicRead)  // ← 퍼블릭 읽기 권한 추가
+                    );
+                    System.out.println("✅ S3 업로드 성공: " + s3FilePath);
+                } catch (Exception e) {
+                    System.err.println("❌ S3 업로드 실패: " + e.getMessage());
+                    e.printStackTrace();
+                    throw e; // 여기서 끊기면 DB insert도 안 됨
+                }
+
+                // [수정5] DB에 저장할 파일 경로 (웹 경로)
+                String fileUrl = "https://s3." + amazonS3.getRegionName() + ".amazonaws.com/" + bucketName + "/" + s3FilePath;
+
+                // DB에 파일 경로 저장
+                FileVO fileVO = FileVO.builder()
+                        .fileName(fileName)
+                        .filePath(fileUrl)
+                        .fileUuid(uuid)
                         .childKey(vo.getChildKey())
-                        .userKey(vo.getParentKey())  // 유저키도 추가
-                        .build());
+                        .build();
+
+                System.out.println("********"+fileVO.toString());
+
+                filesMapper.registFile(fileVO);  // DB insert
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -168,8 +205,7 @@ public class ChildrenServiceImpl implements ChildrenService{
         for (ChildrenVO vo : list) {
             FileVO fileVO = fileMapper.selectProfileByChild(vo.getChildKey());
             if (fileVO != null) {
-                String imageUrl = "/upload/" + fileVO.getFilePath() + "/" + fileVO.getFileUuid() + "_" + fileVO.getFileName();
-                vo.setProfileImageUrl(imageUrl);
+                vo.setProfileImageUrl(fileVO.getFilePath());
             }
         }
         System.out.println("********"+ list.toString());
@@ -182,8 +218,7 @@ public class ChildrenServiceImpl implements ChildrenService{
         ChildrenVO vo = childrenMapper.getChildDetail(childKey);
         FileVO fileVO = fileMapper.selectProfileByChild(childKey);
         if (fileVO != null) {
-            String imageUrl = "/upload/" + fileVO.getFilePath() + "/" + fileVO.getFileUuid() + "_" + fileVO.getFileName();
-            vo.setProfileImageUrl(imageUrl);
+            vo.setProfileImageUrl(fileVO.getFilePath());
         }
         return vo;
     }
@@ -195,23 +230,51 @@ public class ChildrenServiceImpl implements ChildrenService{
 
         if (!file.isEmpty()) {
             try {
-                String originName = file.getOriginalFilename();
-                String filename = originName.substring(originName.lastIndexOf("/") + 1);
+                // [수정1] 오늘 날짜 폴더명 생성
+                String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-                UUID uuid = UUID.randomUUID();
-                String filepath = makeFolder();
-                String path = uploadPath + "/" + filepath + "/" + uuid + "_" + filename;
+                // [수정2] 저장 파일명 만들기
+                String fileName = file.getOriginalFilename();
+                String uuid = UUID.randomUUID().toString();
+                String saveName = uuid + "_" + fileName;
 
-                File saveFile = new File(path);
-                file.transferTo(saveFile);
+                // [수정3] S3 파일 경로 (날짜 폴더 안에 저장)
+                String s3FilePath = today + "/" + saveName;
 
-                fileMapper.registFile(FileVO.builder()
-                        .fileUuid(uuid.toString())
-                        .filePath(filepath)
-                        .fileName(filename)
+                // [수정4] S3로 파일 업로드
+                try (InputStream inputStream = file.getInputStream()) {
+                    ObjectMetadata metadata = new ObjectMetadata();
+                    metadata.setContentLength(file.getSize());
+
+                    amazonS3.putObject(
+                            new PutObjectRequest(bucketName, s3FilePath, inputStream, metadata)
+//                            .withCannedAcl(CannedAccessControlList.PublicRead)  // ← 퍼블릭 읽기 권한 추가
+                    );
+                    System.out.println("✅ S3 업로드 성공: " + s3FilePath);
+                } catch (Exception e) {
+                    System.err.println("❌ S3 업로드 실패: " + e.getMessage());
+                    e.printStackTrace();
+                    throw e; // 여기서 끊기면 DB insert도 안 됨
+                }
+
+                // [수정5] DB에 저장할 파일 경로 (웹 경로)
+                String fileUrl = "https://s3." + amazonS3.getRegionName() + ".amazonaws.com/" + bucketName + "/" + s3FilePath;
+
+                // DB에 파일 경로 저장
+                FileVO fileVO = FileVO.builder()
+                        .fileName(fileName)
+                        .filePath(fileUrl)
+                        .fileUuid(uuid)
                         .childKey(vo.getChildKey())
-                        .userKey(vo.getParentKey())
-                        .build());
+                        .build();
+
+                System.out.println("********"+fileVO.toString());
+
+                if(filesMapper.isExistFile(fileVO)<1){
+                    filesMapper.registFile(fileVO);  // DB insert
+                    return 0;
+                }
+                filesMapper.updateFile(fileVO);
 
             } catch (Exception e) {
                 e.printStackTrace();

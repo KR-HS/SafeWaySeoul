@@ -20,13 +20,22 @@
         )
     </insert>
 
-    <update id="updateFileByUser" parameterType="FileVO">
+    <update id="updateFile" parameterType="FileVO">
         update files
         set file_name = #{fileName},
             file_path=#{filePath},
             file_uuid=#{fileUuid},
             file_regdate=NOW()
-        where user_key=#{userKey}
+        where 1 = 1
+            <if test="userKey != '' and userKey != null">
+                and user_key = #{userKey}
+            </if>
+            <if test="kinderKey != '' and kinderKey != null">
+                and kinder_key = #{kinderKey}
+            </if>
+            <if test="childKey != '' and childKey != null">
+                and child_key = #{childKey}
+            </if>
     </update>
 
     <!--업로드된 파일 불러오는 기능-->
@@ -50,9 +59,18 @@
             LIMIT 1
     </select>
 
-    <select id="isExistFileByUserKey" resultType="int">
+    <select id="isExistFile" resultType="int" parameterType="FileVO">
         SELECT COUNT(*) FROM FILES
-        WHERE user_key = #{userKey}
+        WHERE 1=1
+        <if test="userKey != '' and userKey != null">
+          and user_key = #{userKey}
+        </if>
+        <if test="kinderKey != '' and kinderKey != null">
+          and kinder_key = #{kinderKey}
+        </if>
+        <if test="childKey != '' and childKey != null">
+            and child_key = #{childKey}
+        </if>
     </select>
 
 </mapper>
