@@ -31,7 +31,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public int write(PostVO vo) {
         return communityMapper.write(vo);
-    }
+    } //글쓰기
   
     @Override
     public void writeComment(CommentVO commentVO) {
@@ -48,4 +48,16 @@ public class CommunityServiceImpl implements CommunityService {
     public Integer getCommentCountByPostKey(int postKey) {
         return communityMapper.getCommentCountByPostKey(postKey);
     }
+
+    @Override //글 수정
+    public int update(int postKey, String postTitle, String postContent) {
+        return communityMapper.update(postKey, postTitle, postContent);
+    }
+
+    @Override //글 삭제
+    public int postDelete(int postKey) {
+        return communityMapper.postDelete(postKey);
+    }
+
+
 }

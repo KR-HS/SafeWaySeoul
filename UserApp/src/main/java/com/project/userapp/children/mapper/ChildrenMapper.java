@@ -2,6 +2,7 @@ package com.project.userapp.children.mapper;
 
 import com.project.userapp.command.ChildrenVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +14,5 @@ public interface ChildrenMapper {
     List<ChildrenVO> myChildren(Integer parentKey);
     ChildrenVO getChildDetail(Integer childKey);
     int updateChild(ChildrenVO vo);
-
-
 
 }
