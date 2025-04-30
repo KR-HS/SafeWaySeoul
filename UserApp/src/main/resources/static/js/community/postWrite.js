@@ -64,41 +64,85 @@ $(document).ready(function() {
     $(".write-finish-btn").on("click", function (e) {
         e.preventDefault(); // 기본 form 제출 막기
 
-        const title = $("input[name='postTitle']").val().trim();
-        const content = $("textarea[name='postContent']").val().trim();
+        let action = $('form[name="writePage"]').attr('action');
 
-        if (title === "") {
-            alert("제목을 입력해 주세요");
-            return false;
-        } else if (content === "") {
-            alert("내용을 입력해 주세요");
-            return false;
+        if(action === "postWrite"){
+            const title = $("input[name='postTitle']").val().trim();
+            const content = $("textarea[name='postContent']").val().trim();
+
+            if (title === "") {
+                alert("제목을 입력해 주세요");
+                return false;
+            } else if (content === "") {
+                alert("내용을 입력해 주세요");
+                return false;
+            }
+
+            const formData = new FormData();
+            formData.append("postTitle", title);
+            formData.append("postContent", content);
+
+            selectedFiles.forEach((file, index) => {
+                formData.append("uploadImages", file); // 서버에서 uploadImages[] 로 받을 수 있음
+            });
+
+            // 실제 서버로 전송
+            $.ajax({
+                url: "/community/postWrite",  // 실제 매핑된 서버 URL
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("게시글이 성공적으로 등록되었습니다.");
+                    location.href = "/community/postList"; // 성공 후 목록으로 이동
+                },
+                error: function (xhr, status, error) {
+                    console.error("게시글 등록 실패:", error);
+                    alert("게시글 등록 중 오류가 발생했습니다.");
+                }
+            });
+        } else {
+            const title = $("input[name='postTitle']").val().trim();
+            const content = $("textarea[name='postContent']").val().trim();
+            const postKey = $("input[name='postKey']").val();
+
+            if (title === "") {
+                alert("제목을 입력해 주세요");
+                return false;
+            } else if (content === "") {
+                alert("내용을 입력해 주세요");
+                return false;
+            }
+
+            const formData = new FormData();
+            formData.append("postTitle", title);
+            formData.append("postContent", content);
+            formData.append("postKey", postKey);
+
+            selectedFiles.forEach((file, index) => {
+                formData.append("uploadImages", file); // 서버에서 uploadImages[] 로 받을 수 있음
+            });
+
+            // 실제 서버로 전송
+            $.ajax({
+                url: "/community/postUpdate",  // 실제 매핑된 서버 URL
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("게시글이 성공적으로 수정되었습니다.");
+                    location.href = "/community/postDetail?postKey="+postKey; // 성공 후 목록으로 이동
+                },
+                error: function (xhr, status, error) {
+                    console.error("게시글 수정 실패:", error);
+                    alert("게시글 수정 중 오류가 발생했습니다.");
+                }
+            });
         }
 
-        const formData = new FormData();
-        formData.append("postTitle", title);
-        formData.append("postContent", content);
 
-        selectedFiles.forEach((file, index) => {
-            formData.append("uploadImages", file); // 서버에서 uploadImages[] 로 받을 수 있음
-        });
-
-        // 실제 서버로 전송
-        $.ajax({
-            url: "/community/postWrite",  // 실제 매핑된 서버 URL
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                alert("게시글이 성공적으로 등록되었습니다.");
-                location.href = "/community/postList"; // 성공 후 목록으로 이동
-            },
-            error: function (xhr, status, error) {
-                console.error("게시글 등록 실패:", error);
-                alert("게시글 등록 중 오류가 발생했습니다.");
-            }
-        });
     });
 
 

@@ -24,4 +24,6 @@ public interface FilesMapper {
 
     List<FileVO> getFilesByPostKey(Integer postKey);
 
+    void deleteFileByPostKey(Integer postKey);
+
 }

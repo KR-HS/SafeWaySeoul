@@ -37,7 +37,7 @@
 
                 <div class="post-menu" th:if="${userKey == post.userKey}">⋮</div>
                 <div class="post-menuList">
-                    <a th:href="@{postUpdate(postKey=${post.postKey})}" class="reBtn">수정</a>
+                    <a th:href="@{postUpdatePage(postKey=${post.postKey})}" class="reBtn">수정</a>
                     <a th:href="@{postDelete(postKey=${post.postKey})}" type="button" class="delBtn">삭제</a>
                     <button type="button" class="closeBtn">닫기</button>
                 </div>

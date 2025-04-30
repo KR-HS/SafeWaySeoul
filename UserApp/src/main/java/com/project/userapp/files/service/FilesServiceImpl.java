@@ -87,4 +87,9 @@ public class FilesServiceImpl implements FilesService {
         filesMapper.updateFile(fileVO);
 
     }
+
+    @Override
+    public void deleteFileByPostKey(Integer postKey) {
+        filesMapper.deleteFileByPostKey(postKey);
+    }
 }
