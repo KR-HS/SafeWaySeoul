@@ -16,7 +16,7 @@
         FROM record rc
                  LEFT JOIN recordmatch rm ON rc.record_key = rm.record_key
         WHERE rc.record_key = #{recordKey}
-          AND drop_state = 'N'
+          AND (drop_state = '하차' OR drop_state = 'N')
     </select>
 
     <update id="updateDriveStateFinish" parameterType="Integer">

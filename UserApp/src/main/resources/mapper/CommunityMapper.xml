@@ -80,7 +80,10 @@
         WHERE p.POST_KEY = #{postKey}
     </select>
 
-    <insert id="write" parameterType="PostVO">
+    <insert id="write" parameterType="PostVO"
+                        useGeneratedKeys="true"
+                        keyProperty="postKey"
+                        keyColumn="post_key">
         INSERT INTO POST(post_title, post_content, user_key)
         VALUES(#{postTitle},#{postContent},#{userKey})
     </insert>
