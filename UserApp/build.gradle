@@ -55,6 +55,8 @@ dependencies {
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	// 유치원 api
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	// AWS S3 의존성 추가
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.664'
 }
 
 // 4. Disable test execution during build

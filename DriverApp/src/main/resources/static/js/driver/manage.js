@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 
     var urlParams = new URLSearchParams(window.location.search);
-    recordKey = urlParams.get('recordKey');
+    recordKey = parseInt(urlParams.get('recordKey'));
 
     // 지도 초기화 - document.ready 바로 아래에 위치시킴
     var mapContainer = document.getElementById('map');
@@ -206,23 +206,65 @@ $(document).ready(function(){
         //     });
         // });
 
-
-        // 실시간 좌표 보내기 종료 함수
-        function stopDriving() {
-            console.log("stopDriving함수호출됨");
-            fetch("/driver/location/stop", {
-                method: "POST"
-            }).then(() => {
-                alert("운행 종료됨");
-                if (intervalId !== null) {
-                    clearInterval(intervalId); // 인터벌 중단
-                    intervalId = null;
-                }
-            });
-        }
-
-
     });
+
+    // 실시간 websocket 좌표 넘겨주는 함수
+    function startDriving(key) {
+        recordKey = key;
+
+
+        fetch(`/driver/location/start?recordKey=${recordKey}`, {
+            method: "POST"
+        }).then(() => {
+            alert("운행 시작됨");
+
+            // 2.5초마다 위치 전송
+            intervalId = setInterval(() => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+
+                        fetch("/driver/location/send", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                recordKey: recordKey,
+                                latitude: latitude.toString(),
+                                longitude: longitude.toString()
+                            })
+                        })
+                            .then()
+                            .catch(function(err){
+                                alert(err);
+                            });
+
+
+                    });
+                }
+            }, 2500); // 2.5초마다 실행
+        })
+            .catch(function(e){
+                alert("오류"+e)
+            });
+    }
+
+    // 실시간 좌표 보내기 종료 함수
+    function stopDriving() {
+        console.log("stopDriving함수호출됨");
+        fetch("/driver/location/stop", {
+            method: "POST"
+        }).then(() => {
+            alert("운행 종료됨");
+            if (intervalId !== null) {
+                clearInterval(intervalId); // 인터벌 중단
+                intervalId = null;
+            }
+        });
+    }
 
     // 운행 종료 버튼 이벤트 핸들러 추가
     $(".finishDrive").on("click", function(){
@@ -231,6 +273,9 @@ $(document).ready(function(){
             window.location.href = "/finishDrive?recordKey=" + recordKey;
         }
     });
+    (function () {
+        startDriving(recordKey);
+    })();
 });
 
 

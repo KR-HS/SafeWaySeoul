@@ -95,13 +95,20 @@ h3 {
     white-space: normal;
 }
 
-
-.childList-section > .childList > .childInfo-wrap > .commuteType.rideOn{
+.childList-section > .childList > .childInfo-wrap > .commuteType{
+    font-weight:600;
+    margin-top:auto;
+    padding-top: 10px;
+}
+.childList-section > .childList > .childInfo-wrap > .commuteType .rideOn{
     color:blue;
 }
 
-.childList-section > .childList > .childInfo-wrap > .commuteType.rideOff{
+.childList-section > .childList > .childInfo-wrap > .commuteType .rideOff{
     color:black;
+}
+.childList-section > .childList > .childInfo-wrap > .commuteType .rideComp{
+    color:#777;
 }
 
 .childList-section > .childList >.childInfo-wrap.addChild> .applyComment{

@@ -22,6 +22,6 @@ public interface LocationMapper {
     List<LocationVO> selectByRecordKey(@Param("recordKey") int recordKey);
 
     //한아이의 배차의 상태 조회하기
-    ChildrenVO recordStateFromChild(int childKey);
+    ChildrenVO recordStateFromChild(@Param("childKey") int childKey,@Param("recordKey") int recordKey);
 
 }
