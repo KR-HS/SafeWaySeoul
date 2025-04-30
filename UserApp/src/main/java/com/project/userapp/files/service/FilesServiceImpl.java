@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -77,10 +79,12 @@ public class FilesServiceImpl implements FilesService {
 
         System.out.println("********" + fileVO.toString());
 
-        if (filesMapper.isExistFileByUserKey(userVO.getUserKey()) > 0) {
-            filesMapper.updateFileByUser(fileVO);
+
+        if(filesMapper.isExistFile(fileVO)<1){
+            filesMapper.registFile(fileVO);  // DB insert
             return;
         }
-        filesMapper.registFile(fileVO);
+        filesMapper.updateFile(fileVO);
+
     }
 }
