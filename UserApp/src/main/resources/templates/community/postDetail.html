@@ -35,7 +35,7 @@
                     <div class="post-time" th:text="${post.getElapsedTime()}"></div>
                 </div>
 
-                <div class="post-menu">⋮</div>
+                <div class="post-menu" th:if="${userKey == post.userKey}">⋮</div>
                 <div class="post-menuList">
                     <a th:href="@{postUpdate(postKey=${post.postKey})}" class="reBtn">수정</a>
                     <a th:href="@{postDelete(postKey=${post.postKey})}" type="button" class="delBtn">삭제</a>

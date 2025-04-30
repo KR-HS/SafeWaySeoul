@@ -67,11 +67,16 @@ public class CommunityController {
 
     @GetMapping("/postDetail")
     public String postDetail(Model model,
-                             @RequestParam("postKey") Integer postId) {
+                             @RequestParam("postKey") Integer postId,
+                             HttpSession session) {
         PostVO vo = communityService.getPostById(postId);
         vo.setCountComment(communityService.getCommentCountByPostKey(vo.getPostKey()));
         List<CommentVO> commentList = communityService.getAllComment(postId);
 
+        UserVO userVO = (UserVO) session.getAttribute("userInfo");
+        int userKey = userVO.getUserKey();
+
+        model.addAttribute("userKey", userKey);
         model.addAttribute("post", vo);
         model.addAttribute("comment", commentList);
 
