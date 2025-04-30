@@ -50,4 +50,38 @@ $(document).ready(function() {
             });
         }
     });
+
+    // 수정,삭제
+    $('.post-menu').on('click', function(e) {
+        e.stopPropagation();
+        $('.post-menuList').fadeIn(400); //.fadeIn(400) > 0.4초동안 부드럽게 나타남
+    });
+
+    //바깥 클릭 시 닫기
+    $(document).on('click', function(e) {
+        if ($('.post-menuList').is(':visible')) {
+            // 드로어와 ⋮ 버튼이 아닌 영역 클릭 시 닫기
+            if (!$(e.target).closest('.post-menuList, .post-menu').length) {
+                $('.post-menuList').slideUp(400); //.slideUp(200) > 부드럽게 내려감
+            }
+        }
+    });
+
+    // 닫기 버튼 클릭 시 닫기
+    $('.closeBtn').on('click', function() {
+        $('.post-menuList').slideUp(400); //.slideUp(200) > 부드럽게 내려감
+    });
+
+    // 수정/삭제 버튼
+    $('.reBtn').on('click', function() {
+
+        $('.post-menuList').slideUp(400);
+    });
+    $('.delBtn').on('click', function() {
+        if(confirm("정말 삭제하시겠습니까?")) {
+            $('.post-menuList').slideUp(400);
+        }
+    });
+
+
 });

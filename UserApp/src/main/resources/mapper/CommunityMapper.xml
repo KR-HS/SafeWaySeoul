@@ -96,5 +96,17 @@
         from comment
         where POST_KEY = #{postKey}
     </select>
-      
+
+    <!--글 수정-->
+    <update id="update" parameterType="map">
+        UPDATE POST
+        SET post_title = #{postTitle},
+            post_content = #{postContent}
+        WHERE post_key = #{postKey}
+    </update>
+
+    <delete id="postDelete" parameterType="int">
+        DELETE FROM POST
+        WHERE post_key = #{postKey}
+    </delete>
 </mapper>

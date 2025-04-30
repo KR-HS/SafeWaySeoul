@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -59,6 +60,7 @@ public class CommunityController {
         return "community/postDetail";
     }
 
+    //글쓰기
     @GetMapping("/postWrite")
     public String postWrite() {return "community/postWrite";}
 
@@ -89,5 +91,26 @@ public class CommunityController {
 
     }
 
+    //글 수정
+    @GetMapping("/postUpdate")
+    public String postUpdate(@ModelAttribute("postKey") int postKey) {return "community/postWrite";}
+
+    @PostMapping("/postUpdate")
+    public String postUpdate(@RequestParam("postKey") int postKey,
+                             @RequestParam("postTitle") String postTitle,
+                             @RequestParam("postContent") String postContent) {
+
+        communityService.update(postKey, postTitle, postContent);
+      return "redirect:/community/postDetail?postKey=" + postKey;
+    }
+
+    //글삭제
+    @GetMapping("/postDelete")
+    public String postDelete(@RequestParam("postKey") int postKey, RedirectAttributes ra) {
+
+        communityService.postDelete(postKey);
+        ra.addFlashAttribute("msg", "삭제되었습니다.");
+        return "redirect:/community/postList";
+    }
 }
 
