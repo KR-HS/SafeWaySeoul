@@ -8,6 +8,7 @@ import com.project.userapp.community.service.CommunityService;
 import com.project.userapp.files.mapper.FilesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,6 +79,8 @@ public class CommunityController {
         List<CommentVO> commentList = communityService.getAllComment(postId);
         List<FileVO> fileList = filesMapper.getFilesByPostKey(postId);
 
+        System.out.println("fileList:"+fileList);
+
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
         int userKey = userVO.getUserKey();
 
@@ -95,6 +98,7 @@ public class CommunityController {
     }
 
     @PostMapping("/postWrite")
+    @Transactional
     public String postWrite(@RequestParam("postTitle") String postTitle,
                             @RequestParam("postContent") String postContent,
                             @RequestParam(value = "uploadImages", required = false) List<MultipartFile> uploadImages,
@@ -108,6 +112,8 @@ public class CommunityController {
         postVO.setUserKey(userInfo.getUserKey());
 
         int result = communityService.write(postVO);
+        System.out.println("result:"+result);
+        System.out.println("[DEBUG] 생성된 postKey: " + postVO.getPostKey()); // 로그 추가
 
         if (uploadImages != null && !uploadImages.isEmpty()) {
             for (MultipartFile file : uploadImages) {
