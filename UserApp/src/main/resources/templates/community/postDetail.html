@@ -61,10 +61,7 @@
 
             <!-- (아래 댓글/댓글 입력은 그대로 유지) -->
 
-        </div>
-
-
-        <div class="comments-section">
+            <div class="comments-section">
 
                 <div class="comment-card" th:each="commentList : ${comment}">
                     <div class="comment-header">
@@ -81,9 +78,10 @@
 
             </div>
 
-
-
         </div>
+
+
+
         <div class="comment-input-area"
              th:data-post-key="${post.postKey}"
              th:data-post-user-key="${post.userKey}"
