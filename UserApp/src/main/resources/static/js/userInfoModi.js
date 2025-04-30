@@ -32,21 +32,36 @@ $(document).ready(function () {
         }).open({ autoClose: true });
     });
 
-    // 수정 폼 제출
+    // 회원 정보 수정 Ajax 전송
     $(".userInfoModiForm").on("submit", function (e) {
-        e.preventDefault();
+        e.preventDefault(); // 기본 submit 중단
 
         const pw = $(".pass").val();
         const pwCheck = $(".pass-check").val();
 
         if (pw !== pwCheck) {
             alert("비밀번호가 일치하지 않습니다.");
-            return; // 폼 제출 막기
+            return;
         }
 
-        // 일치하는 경우
-        this.submit();
+        // FormData 객체 생성
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: "/user/update-ajax",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                $("#modi-success-modal").show(); // 성공 시 모달 표시
+            },
+            error: function () {
+                alert("정보 수정 중 오류가 발생했습니다.");
+            }
+        });
     });
+
 
     // 프로필 미리보기 기능
     $("#profileUploadInput").on("change", function () {
@@ -104,15 +119,25 @@ $(document).ready(function () {
                 url: "/user/delete", // 이 경로는 컨트롤러에서 구현해야 함
                 type: "POST",
                 success: function () {
-                    alert("회원 탈퇴가 완료되었습니다.");
-                    // 세션/쿠키 제거 후 로그인 페이지로 이동
-                    window.location.href = "/user/login";
-                },
+                    $("#withdraw-success-modal").show();
+                }
+                ,
                 error: function () {
                     alert("회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.");
                 }
             });
         }
+    });
+
+    // 수정 성공 모달 확인 버튼
+    $("#modi-success-confirm-btn").on("click", function () {
+        $("#modi-success-modal").hide();
+    });
+
+// 탈퇴 성공 모달 확인 버튼
+    $("#withdraw-success-confirm-btn").on("click", function () {
+        $("#withdraw-success-modal").hide();
+        window.location.href = "/"; // 탈퇴 후 홈 이동
     });
 
 

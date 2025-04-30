@@ -74,5 +74,39 @@
     </section>
 </th:block>
 
+<!-- 회원 정보 수정 성공 알림 모달 -->
+<div id="modi-success-modal" class="modal" style="display: none;">
+    <div class="modal-content small">
+        <p class="modal-message">정상적으로 수정 되었습니다.</p>
+        <div class="modal-buttons">
+            <button id="modi-success-confirm-btn" class="confirm-btn">확인</button>
+        </div>
+    </div>
+</div>
+
+<!-- 회원 탈퇴 성공 알림 모달 -->
+<div id="withdraw-success-modal" class="modal" style="display: none;">
+    <div class="modal-content small">
+        <p class="modal-message">정상적으로 탈퇴 되었습니다.</p>
+        <div class="modal-buttons">
+            <button id="withdraw-success-confirm-btn" class="confirm-btn">확인</button>
+        </div>
+    </div>
+</div>
+
+<!-- Flash Attribute 처리용 JS -->
+<script th:inline="javascript">
+    const modiSuccess = /*[[${modiSuccess}]]*/ false;
+    if (modiSuccess) {
+        document.getElementById("modi-success-modal").style.display = "block";
+    }
+
+    const withdrawSuccess = /*[[${withdrawSuccess}]]*/ false;
+    if (withdrawSuccess) {
+        document.getElementById("withdraw-success-modal").style.display = "block";
+    }
+</script>
+
+
 </body>
 </html>

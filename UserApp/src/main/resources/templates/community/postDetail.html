@@ -22,7 +22,8 @@
 <body>
 
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-    <section class="app-content">
+    <section class="app-content" style="height: calc(100vh - 170px);">
+
         <div class="post-detail-page">
 
             <div class="post-title" th:text="${post.postTitle}">다들 아이 픽업 어떻게 하시나요?</div>
@@ -31,15 +32,25 @@
                 <img th:src="${post.profileImageUrl != null} ? ${post.profileImageUrl} : '/img/parents.png'" alt="프로필" class="profile-img">
                 <div class="user-info">
                     <div class="user-name" th:text="${post.userName}"></div>
+                    <div class="post-time" th:text="${post.getElapsedTime()}"></div>
                 </div>
-                <div class="post-time" th:text="${post.getElapsedTime()}"></div>
-                <div class="post-menu">⋮</div>
+
+                <div class="post-menu" th:if="${userKey == post.userKey}">⋮</div>
+                <div class="post-menuList">
+                    <a th:href="@{postUpdate(postKey=${post.postKey})}" class="reBtn">수정</a>
+                    <a th:href="@{postDelete(postKey=${post.postKey})}" type="button" class="delBtn">삭제</a>
+                    <button type="button" class="closeBtn">닫기</button>
+                </div>
             </div>
 
+            <!-- 글 본문 -->
+            <div class="post-content" th:text="${post.postContent}"></div>
 
-
-            <div class="post-content" th:text="${post.postContent}">
-
+            <!--  업로드된 이미지 썸네일 리스트 -->
+            <div class="post-image-list">
+                <th:block th:each="file : ${fileList}">
+                    <img th:src="@{${file.filePath}}" alt="업로드 이미지" class="post-thumbnail">
+                </th:block>
             </div>
 
             <div class="post-footer">
@@ -47,6 +58,8 @@
                     <span>💬</span><span th:text="${post.countComment}"></span>
                 </div>
             </div>
+
+            <!-- (아래 댓글/댓글 입력은 그대로 유지) -->
 
             <div class="comments-section">
 
@@ -65,9 +78,10 @@
 
             </div>
 
-
-
         </div>
+
+
+
         <div class="comment-input-area"
              th:data-post-key="${post.postKey}"
              th:data-post-user-key="${post.userKey}"

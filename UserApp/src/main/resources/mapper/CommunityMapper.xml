@@ -28,10 +28,7 @@
         ) f ON f.user_key = u.user_key
         WHERE P.POST_TITLE LIKE #{searchStr}
         ORDER BY p.POST_KEY DESC
-
-
     </select>
-
 
     <select id="getMyPostList" resultType="PostVO">
         SELECT
@@ -55,7 +52,7 @@
             WHERE rn = 1
         ) f ON f.user_key = u.user_key
         WHERE P.POST_TITLE LIKE #{searchStr}
-        AND P.USER_KEY = #{userKey}
+          AND P.USER_KEY = #{userKey}
         ORDER BY p.POST_KEY DESC
     </select>
 
@@ -83,17 +80,14 @@
         WHERE p.POST_KEY = #{postKey}
     </select>
 
-
-
     <insert id="write" parameterType="PostVO">
         INSERT INTO POST(post_title, post_content, user_key)
         VALUES(#{postTitle},#{postContent},#{userKey})
     </insert>
 
     <insert id="writeComment" parameterType="CommentVO">
-        insert into
-        `comment`(COMMENT_CONTENT, POST_KEY, USER_KEY)
-        values (#{commentContent}, #{postKey}, #{userKey})
+        INSERT INTO comment(COMMENT_CONTENT, POST_KEY, USER_KEY)
+        VALUES (#{commentContent}, #{postKey}, #{userKey})
     </insert>
 
     <select id="getAllComment" resultType="CommentVO">
@@ -114,14 +108,24 @@
             WHERE rn = 1
         ) f ON f.user_key = u.user_key
         WHERE POST_KEY = #{postKey}
-
     </select>
-
 
     <select id="getCommentCountByPostKey" resultType="Integer">
-        select count(*)
-        from comment
-        where POST_KEY = #{postKey}
+        SELECT COUNT(*)
+        FROM comment
+        WHERE POST_KEY = #{postKey}
     </select>
-      
+
+    <update id="update" parameterType="map">
+        UPDATE POST
+        SET post_title = #{postTitle},
+            post_content = #{postContent}
+        WHERE post_key = #{postKey}
+    </update>
+
+    <delete id="postDelete" parameterType="int">
+        DELETE FROM POST
+        WHERE post_key = #{postKey}
+    </delete>
+
 </mapper>
