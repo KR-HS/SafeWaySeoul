@@ -24,10 +24,16 @@ public class CommunityServiceImpl implements CommunityService {
     public PostVO getPostById(int postKey) { return communityMapper.getPostById(postKey);}
 
     @Override
-    public int write(PostVO vo) {
-        return communityMapper.write(vo);
+    public int write(PostVO postVO) {
+        int result = communityMapper.insertPost(postVO);
+        if (result == 1) {
+            Integer postKey = communityMapper.getLastPostKey(postVO.getUserKey());
+            postVO.setPostKey(postKey);
+        }
+        return result;
     }
-  
+
+
     @Override
     public void writeComment(CommentVO commentVO) {
         communityMapper.writeComment(commentVO);

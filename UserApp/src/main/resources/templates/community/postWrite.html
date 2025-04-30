@@ -23,19 +23,26 @@
                 <textarea class="write-content" name="postContent" placeholder="내용" required></textarea>
             </div>
 
-            <!--이미지영역-->
-            <div class="write-footer">
-                <div class="photo-upload">
-                    <img src="/img/camera.png" alt="사진" class="camera-icon" />
-                    <span class="photo-count">0/5</span>
-                </div>
+            <!-- 이미지 업로드 영역 -->
+            <div class="upload-section">
+                <p class="childPhoto">게시물 사진 등록하기</p>
+                <p class="childPhotoDetail">(최대 5장까지 등록 가능합니다.)</p>
+                <label class="photo-upload" for="file-upload">
+                    <span>+</span>
+                </label>
+                <input type="file" id="file-upload" name="uploadImages" accept="image/*" multiple hidden>
             </div>
+
+            <!-- 이미지 썸네일 미리보기 영역 -->
+            <div class="thumbnail-preview"></div>
+
+
 
         </form>
 
     </section>
 </th:block>
 
-
+<script src="/js/community/postWrite.js"></script>
 </body>
 </html>

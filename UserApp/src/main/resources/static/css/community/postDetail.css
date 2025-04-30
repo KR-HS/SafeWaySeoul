@@ -141,3 +141,17 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+.post-image-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.post-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}

@@ -58,7 +58,7 @@
 
 
 
-    <insert id="write" parameterType="PostVO">
+    <insert id="insertPost" parameterType="PostVO">
         INSERT INTO POST(post_title, post_content, user_key)
         VALUES(#{postTitle},#{postContent},#{userKey})
     </insert>
@@ -96,5 +96,11 @@
         from comment
         where POST_KEY = #{postKey}
     </select>
-      
+
+    <select id="getLastPostKey" resultType="Integer">
+        SELECT MAX(post_key)
+        FROM post
+        WHERE user_key = #{userKey}
+    </select>
+
 </mapper>

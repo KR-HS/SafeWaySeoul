@@ -7,11 +7,18 @@
 
  import java.sql.Timestamp;
 
+ import javax.persistence.Entity;
+ import javax.persistence.Id;
+ import javax.persistence.Table;
+
+ @Entity
+ @Table(name = "files")
  @Data
  @AllArgsConstructor
  @NoArgsConstructor
  @Builder
 public class FileVO {
+     @Id
      private Integer fileKey;
      private String fileName;
      private String filePath;
@@ -20,4 +27,6 @@ public class FileVO {
      private Integer childKey;
      private Integer kinderKey;
      private Integer userKey;
+
+     private Integer postKey;
 }

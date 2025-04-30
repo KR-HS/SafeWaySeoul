@@ -36,10 +36,14 @@
                 <div class="post-menu">⋮</div>
             </div>
 
+            <!-- 글 본문 -->
+            <div class="post-content" th:text="${post.postContent}"></div>
 
-
-            <div class="post-content" th:text="${post.postContent}">
-
+            <!--  업로드된 이미지 썸네일 리스트 -->
+            <div class="post-image-list">
+                <th:block th:each="file : ${fileList}">
+                    <img th:src="@{${file.filePath}}" alt="업로드 이미지" class="post-thumbnail">
+                </th:block>
             </div>
 
             <div class="post-footer">
@@ -48,7 +52,12 @@
                 </div>
             </div>
 
-            <div class="comments-section">
+            <!-- (아래 댓글/댓글 입력은 그대로 유지) -->
+
+        </div>
+
+
+        <div class="comments-section">
 
                 <div class="comment-card" th:each="commentList : ${comment}">
                     <div class="comment-header">

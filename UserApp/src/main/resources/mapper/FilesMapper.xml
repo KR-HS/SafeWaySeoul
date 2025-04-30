@@ -55,4 +55,18 @@
         WHERE user_key = #{userKey}
     </select>
 
+    <insert id="insertFile" parameterType="com.project.userapp.command.FileVO">
+        INSERT INTO files (file_name, file_path, file_uuid, user_key, post_key)
+        VALUES (#{fileName}, #{filePath}, #{fileUuid}, #{userKey}, #{postKey})
+    </insert>
+
+    <select id="getFilesByPostKey" resultType="FileVO">
+        SELECT *
+        FROM files
+        WHERE post_key = #{postKey}
+        ORDER BY file_regdate ASC
+    </select>
+
+
+
 </mapper>

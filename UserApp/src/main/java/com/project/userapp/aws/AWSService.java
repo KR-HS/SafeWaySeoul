@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 
-@Service
+//@Service
 public class AWSService {
 
     private final AmazonS3 amazonS3;

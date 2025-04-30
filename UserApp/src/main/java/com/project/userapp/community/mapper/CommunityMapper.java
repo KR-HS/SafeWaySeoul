@@ -10,11 +10,13 @@ import java.util.List;
 @Mapper
 public interface CommunityMapper {
 
+    int insertPost(PostVO postVO);
     List<PostVO> getPostList(String searchStr);
     PostVO getPostById(int postKey);
-    int write(PostVO vo);
     void writeComment(CommentVO commentVO);
     List<CommentVO> getAllComment(int postKey);
     Integer getCommentCountByPostKey(int postKey);
+    Integer getLastPostKey(Integer userKey);
 
 }
+
