@@ -1,4 +1,4 @@
-package com.project.userapp;
+package com.project.userapp.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;

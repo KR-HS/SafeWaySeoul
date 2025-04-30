@@ -57,6 +57,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	// AWS S3 의존성 추가
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.664'
+
+	// env파일 사용
+	implementation 'io.github.cdimascio:dotenv-java:2.2.4'
+
 }
 
 // 4. Disable test execution during build
