@@ -1,21 +1,24 @@
 package com.project.userapp.controller;
 
 import com.project.userapp.command.CommentVO;
+import com.project.userapp.command.FileVO;
 import com.project.userapp.command.PostVO;
 import com.project.userapp.command.UserVO;
 import com.project.userapp.community.service.CommunityService;
+import com.project.userapp.files.mapper.FilesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/community")
@@ -24,21 +27,23 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private FilesMapper filesMapper;
+
     @GetMapping("/postList")
     public String postList(Model model,
                            HttpSession session,
-                           @RequestParam(required = false)String search) {
+                           @RequestParam(value = "search", required = false) String search) {
         String searchStr = "%%";
-        if(search != null) {
+        if (search != null) {
             searchStr = "%" + search + "%";
         }
         List<PostVO> postList = communityService.getPostList(searchStr);
-        System.out.println(searchStr);
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
+
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
-        System.out.println(userVO);
         model.addAttribute("userKey", userVO.getUserKey());
         model.addAttribute("postList", postList);
 
@@ -47,14 +52,13 @@ public class CommunityController {
 
     @GetMapping("/myPostList")
     public String myPostList(Model model,
-                             @RequestParam(required = false)String search,
-                             @RequestParam("userKey")Integer userKey) {
+                             @RequestParam(required = false) String search,
+                             @RequestParam("userKey") Integer userKey) {
         String searchStr = "%%";
-        if(search != null) {
+        if (search != null) {
             searchStr = "%" + search + "%";
         }
         List<PostVO> postList = communityService.getMyPostList(userKey, searchStr);
-        System.out.println(searchStr);
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
@@ -72,6 +76,7 @@ public class CommunityController {
         PostVO vo = communityService.getPostById(postId);
         vo.setCountComment(communityService.getCommentCountByPostKey(vo.getPostKey()));
         List<CommentVO> commentList = communityService.getAllComment(postId);
+        List<FileVO> fileList = filesMapper.getFilesByPostKey(postId);
 
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
         int userKey = userVO.getUserKey();
@@ -79,24 +84,62 @@ public class CommunityController {
         model.addAttribute("userKey", userKey);
         model.addAttribute("post", vo);
         model.addAttribute("comment", commentList);
+        model.addAttribute("fileList", fileList);
 
         return "community/postDetail";
     }
 
-    //글쓰기
     @GetMapping("/postWrite")
-    public String postWrite() {return "community/postWrite";}
+    public String postWrite() {
+        return "community/postWrite";
+    }
 
     @PostMapping("/postWrite")
-    public String postWrite(PostVO vo, HttpSession session) {
+    public String postWrite(@RequestParam("postTitle") String postTitle,
+                            @RequestParam("postContent") String postContent,
+                            @RequestParam(value = "uploadImages", required = false) List<MultipartFile> uploadImages,
+                            HttpSession session) {
 
         UserVO userInfo = (UserVO) session.getAttribute("userInfo");
-        //userVO 안에 있는 userKey를 postVO에 저장해야함
-        int userKey = userInfo.getUserKey();
-        vo.setUserKey(userKey);
 
-        int result = communityService.write(vo);
+        PostVO postVO = new PostVO();
+        postVO.setPostTitle(postTitle);
+        postVO.setPostContent(postContent);
+        postVO.setUserKey(userInfo.getUserKey());
 
+        int result = communityService.write(postVO);
+
+        if (uploadImages != null && !uploadImages.isEmpty()) {
+            for (MultipartFile file : uploadImages) {
+                if (!file.isEmpty()) {
+                    try {
+                        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+                        String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
+                        File folder = new File(uploadFolder);
+                        if (!folder.exists()) {
+                            folder.mkdirs();
+                        }
+
+                        String uuid = UUID.randomUUID().toString();
+                        String fileName = uuid + "_" + file.getOriginalFilename();
+                        file.transferTo(new File(folder, fileName));
+                        String filePath = "/upload/" + today + "/" + fileName;
+
+                        FileVO fileVO = FileVO.builder()
+                                .fileName(fileName)
+                                .filePath(filePath)
+                                .fileUuid(uuid)
+                                .userKey(userInfo.getUserKey())
+                                .postKey(postVO.getPostKey())
+                                .build();
+
+                        filesMapper.insertFile(fileVO);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
 
         return "redirect:/community/postList";
     }
@@ -109,28 +152,24 @@ public class CommunityController {
         commentVO.setUserKey(userVO.getUserKey());
 
         communityService.writeComment(commentVO);
-
-        return "redirect:community/postDetail?postKey=" + commentVO.getPostKey();
-
+        return "redirect:/community/postDetail?postKey=" + commentVO.getPostKey();
     }
 
-    //글 수정
     @GetMapping("/postUpdate")
-    public String postUpdate(@ModelAttribute("postKey") int postKey) {return "community/postWrite";}
+    public String postUpdate(@ModelAttribute("postKey") int postKey) {
+        return "community/postWrite";
+    }
 
     @PostMapping("/postUpdate")
     public String postUpdate(@RequestParam("postKey") int postKey,
                              @RequestParam("postTitle") String postTitle,
                              @RequestParam("postContent") String postContent) {
-
         communityService.update(postKey, postTitle, postContent);
-      return "redirect:/community/postDetail?postKey=" + postKey;
+        return "redirect:/community/postDetail?postKey=" + postKey;
     }
 
-    //글삭제
     @GetMapping("/postDelete")
     public String postDelete(@RequestParam("postKey") int postKey, RedirectAttributes ra) {
-
         communityService.postDelete(postKey);
         ra.addFlashAttribute("msg", "삭제되었습니다.");
         return "redirect:/community/postList";

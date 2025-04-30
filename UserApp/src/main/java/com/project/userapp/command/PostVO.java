@@ -10,12 +10,19 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "post")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class PostVO {
 
+    @Id
     private Integer postKey;
     private String postTitle;
     private String postContent;

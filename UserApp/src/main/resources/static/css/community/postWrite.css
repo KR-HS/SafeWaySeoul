@@ -78,18 +78,107 @@ body {
     border-top: 1px solid #eee;
 }
 
+/* 업로드 영역 */
+
+.upload-section {
+    width: 98%;
+    max-width: 400px;
+    margin: 16px auto;
+    text-align: center;
+}
+
+.childPhoto {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #666;
+}
+
+.childPhotoDetail {
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+/* 파일 업로드 버튼 */
+
 .photo-upload {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.3s ease;
 }
 
-.camera-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 6px;
+.photo-upload span {
+    text-shadow: 0 0 4px rgba(0,0,0,0.3);
+    font-size: 32px;
+    color: #999;
 }
 
-.photo-count {
-    font-size: 14px;
-    color: #888;
+/* 파일 input 숨김 */
+#file-upload {
+    display: none;
+}
+
+/* 파일 input 클릭용 라벨 */
+.camera-label {
+    cursor: pointer;
+}
+
+/* 썸네일 미리보기 */
+.thumbnail-preview {
+    width: 98%;
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 12px auto 0 auto;
+    justify-content: center;
+}
+
+
+.thumbnail-preview img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 4px;
+}
+
+.thumbnail-item {
+    position: relative;
+    margin: 4px;
+}
+
+.thumbnail-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
 }

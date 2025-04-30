@@ -311,5 +311,38 @@ public class LoginController {
         return "redirect:/child";
     }
 
+    @PostMapping("/update-ajax")
+    @ResponseBody
+    public String updateUserAjax(UserVO vo,
+                                 @RequestParam(value = "profile", required = false) MultipartFile profile,
+                                 HttpSession session) {
+        UserVO sessionUser = (UserVO) session.getAttribute("userInfo");
+
+        // 비밀번호를 변경하지 않은 경우 기존 값 유지
+        if (vo.getUserPw() == null || vo.getUserPw().isEmpty()) {
+            vo.setUserPw(sessionUser.getUserPw());
+        }
+
+        vo.setUserKey(sessionUser.getUserKey());
+
+        // 1. 사용자 정보 업데이트
+        userService.updateUser(vo);
+
+        // 2. S3에 프로필 이미지 업로드 (선택적)
+        if (profile != null && !profile.isEmpty()) {
+            try {
+                fileService.uploadProfileImageToS3(vo, profile);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "error";
+            }
+        }
+
+        // 3. 세션 갱신
+        session.setAttribute("userInfo", userService.findInfo(vo));
+
+        return "success";
+    }
+
 
 }
