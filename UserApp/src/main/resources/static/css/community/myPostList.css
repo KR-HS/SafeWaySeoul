@@ -1,0 +1,120 @@
+
+
+.community-page {
+    /*padding: 16px;*/
+}
+
+.search-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.search-bar .icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+.search-bar .search {
+    display: none;
+    width: 100%;
+    padding: 0 3%;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 13px;
+    background-color: white;
+}
+
+h2 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.post-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+    padding: 16px;
+    margin-bottom: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.kindergarten-name {
+    font-size: 12px;
+    color: #888;
+}
+
+.post-time {
+    font-size: 11px;
+    color: #bbb;
+}
+
+.post-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.post-body {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2줄 말줄임 */
+    -webkit-box-orient: vertical;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #777;
+}
+
+.post-stats span {
+    margin-right: 12px;
+}
+.post-write{
+    font-weight: bold;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 80px;
+    border-radius: 17px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background-color: #ffe066;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    z-index: 100;
+}
+

@@ -11,6 +11,11 @@ $(document).ready(function() {
         window.location.href="/community/postDetail?postKey=" + postKey;
     });
 
+    $(".my-page").on("click", function() {
+        var userKey = $(this).data("user-key");
+        window.location.href="/community/myPostList?userKey=" + userKey;
+    })
+
     let searchClicked = false;
 
    $(".search-icon").on("click", function () {
