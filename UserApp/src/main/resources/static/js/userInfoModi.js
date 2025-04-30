@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     // 회원 정보 수정 Ajax 전송
     $(".userInfoModiForm").on("submit", function (e) {
-        e.preventDefault(); // 기본 submit 중단
+        e.preventDefault();
 
         const pw = $(".pass").val();
         const pwCheck = $(".pass-check").val();
@@ -44,7 +44,6 @@ $(document).ready(function () {
             return;
         }
 
-        // FormData 객체 생성
         const formData = new FormData(this);
 
         $.ajax({
@@ -54,7 +53,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function () {
-                $("#modi-success-modal").show(); // 성공 시 모달 표시
+                $("#modi-success-modal").show();
             },
             error: function () {
                 alert("정보 수정 중 오류가 발생했습니다.");
@@ -62,8 +61,7 @@ $(document).ready(function () {
         });
     });
 
-
-    // 프로필 미리보기 기능
+    // 프로필 미리보기
     $("#profileUploadInput").on("change", function () {
         const file = this.files[0];
         if (file) {
@@ -75,20 +73,16 @@ $(document).ready(function () {
         }
     });
 
-    $('.changePw').on('change', function() {
-        if ($(this).is(':checked')) {
-            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).prop('disabled',false);
-            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).css('backgroundColor','#fff');
+    // 비밀번호 변경 체크박스 제어
+    $('.changePw').on('change', function () {
+        const enabled = $(this).is(':checked');
+        const pwField = $(document.modiForm.userPw);
+        const pwCheckField = $(document.modiForm.userPwCheck);
 
-            $(document.modiForm.userPw).prop('placeholder','비밀번호를 입력해주세요');
-            $(document.modiForm.userPwCheck).prop('placeholder','비밀번호를 한 번 더 입력해주세요');
-        } else {
-            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).prop('disabled',true);
-            $(document.modiForm.userPw).add(document.modiForm.userPwCheck).css('backgroundColor','#eee');
-
-            $(document.modiForm.userPw).prop('placeholder','');
-            $(document.modiForm.userPwCheck).prop('placeholder','');
-        }
+        pwField.add(pwCheckField).prop('disabled', !enabled)
+            .css('backgroundColor', enabled ? '#fff' : '#eee')
+            .prop('placeholder', enabled ? '비밀번호를 입력해주세요' : '');
+        pwCheckField.prop('placeholder', enabled ? '비밀번호를 한 번 더 입력해주세요' : '');
     });
 
     // 비밀번호 확인 메시지
@@ -107,41 +101,44 @@ $(document).ready(function () {
         }
     });
 
-    // 프로필 이미지 클릭 시 파일 선택창 열기
+    // 프로필 이미지 클릭 시 파일 업로드
     $(".profile-image-wrapper").on("click", function () {
         $("#profileUploadInput").click();
     });
 
-    // 회원 탈퇴 버튼 클릭 이벤트
+    // 🔄 탈퇴 버튼 → 커스텀 확인 모달 표시
     $(".withdraw-btn").on("click", function () {
-        if (confirm("정말로 회원 탈퇴하시겠습니까? 탈퇴 시 모든 정보가 삭제됩니다.")) {
-            $.ajax({
-                url: "/user/delete", // 이 경로는 컨트롤러에서 구현해야 함
-                type: "POST",
-                success: function () {
-                    $("#withdraw-success-modal").show();
-                }
-                ,
-                error: function () {
-                    alert("회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.");
-                }
-            });
-        }
+        $("#withdraw-confirm-modal").show();
     });
 
-    // 수정 성공 모달 확인 버튼
+    // 🔁 확인 클릭 시 Ajax 탈퇴
+    $("#withdraw-confirm-yes").on("click", function () {
+        $("#withdraw-confirm-modal").hide();
+        $.ajax({
+            url: "/user/delete",
+            type: "POST",
+            success: function () {
+                $("#withdraw-success-modal").show();
+            },
+            error: function () {
+                alert("회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        });
+    });
+
+    // ❌ 취소 클릭 시 모달 닫기
+    $("#withdraw-confirm-cancel").on("click", function () {
+        $("#withdraw-confirm-modal").hide();
+    });
+
+    // 수정 성공 모달 확인 클릭 시 닫기
     $("#modi-success-confirm-btn").on("click", function () {
         $("#modi-success-modal").hide();
     });
 
-// 탈퇴 성공 모달 확인 버튼
+    // 탈퇴 성공 후 로그인 페이지로 이동
     $("#withdraw-success-confirm-btn").on("click", function () {
         $("#withdraw-success-modal").hide();
-        window.location.href = "/"; // 탈퇴 후 홈 이동
+        window.location.href = "/user/login";
     });
-
-
-
-
-
 });
