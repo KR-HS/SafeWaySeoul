@@ -51,7 +51,7 @@ public class FilesServiceImpl implements FilesService {
 
             amazonS3.putObject(
                     new PutObjectRequest(bucketName, s3FilePath, inputStream, metadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead)  // ← 퍼블릭 읽기 권한 추가
+//                            .withCannedAcl(CannedAccessControlList.PublicRead)  // ← 퍼블릭 읽기 권한 추가
             );
             System.out.println("✅ S3 업로드 성공: " + s3FilePath);
         } catch (Exception e) {
