@@ -45,9 +45,59 @@
     margin-right: 10px;
 }
 
+/*수정 삭제*/
+
 .post-menu {
     font-size: 20px;
     cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%);}
+    to { transform: translateY(0);}
+}
+
+.post-menu {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.post-menuList {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
+    z-index: 1000;
+    padding: 24px 0 16px 0;
+    text-align: center;
+    animation: slideUp 0.2s;
+}
+
+.reBtn, .delBtn, .closeBtn {
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+    padding: 12px 0;
+    font-size: 1.1em;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.reBtn:hover, .delBtn:hover {
+    background: #e0e0e0;
+}
+
+.closeBtn {
+    background: #fff;
+    color: #888;
+    border: 1px solid #eee;
 }
 
 .post-content {

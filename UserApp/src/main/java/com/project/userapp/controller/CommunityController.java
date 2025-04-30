@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -38,13 +39,11 @@ public class CommunityController {
             searchStr = "%" + search + "%";
         }
         List<PostVO> postList = communityService.getPostList(searchStr);
-        System.out.println(searchStr);
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
 
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
-        System.out.println(userVO);
         model.addAttribute("userKey", userVO.getUserKey());
         model.addAttribute("postList", postList);
 
@@ -53,14 +52,13 @@ public class CommunityController {
 
     @GetMapping("/myPostList")
     public String myPostList(Model model,
-                             @RequestParam(required = false)String search,
-                             @RequestParam("userKey")Integer userKey) {
+                             @RequestParam(required = false) String search,
+                             @RequestParam("userKey") Integer userKey) {
         String searchStr = "%%";
-        if(search != null) {
+        if (search != null) {
             searchStr = "%" + search + "%";
         }
         List<PostVO> postList = communityService.getMyPostList(userKey, searchStr);
-        System.out.println(searchStr);
         for (PostVO post : postList) {
             post.setCountComment(communityService.getCommentCountByPostKey(post.getPostKey()));
         }
@@ -77,12 +75,11 @@ public class CommunityController {
         PostVO vo = communityService.getPostById(postId);
         vo.setCountComment(communityService.getCommentCountByPostKey(vo.getPostKey()));
         List<CommentVO> commentList = communityService.getAllComment(postId);
-
-        List<FileVO> fileList = filesMapper.getFilesByPostKey(postId); // ★ 추가: 파일 리스트 조회
+        List<FileVO> fileList = filesMapper.getFilesByPostKey(postId);
 
         model.addAttribute("post", vo);
         model.addAttribute("comment", commentList);
-        model.addAttribute("fileList", fileList); // ★ 추가: 파일 리스트 전달
+        model.addAttribute("fileList", fileList);
 
         return "community/postDetail";
     }
@@ -111,7 +108,6 @@ public class CommunityController {
             for (MultipartFile file : uploadImages) {
                 if (!file.isEmpty()) {
                     try {
-                        // 날짜별 폴더 생성
                         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
                         String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
                         File folder = new File(uploadFolder);
@@ -119,27 +115,20 @@ public class CommunityController {
                             folder.mkdirs();
                         }
 
-                        // 파일 이름: UUID + 원본 파일명
                         String uuid = UUID.randomUUID().toString();
                         String fileName = uuid + "_" + file.getOriginalFilename();
-
-                        // 파일 저장
                         file.transferTo(new File(folder, fileName));
-
-                        // 파일 경로
                         String filePath = "/upload/" + today + "/" + fileName;
 
-                        // 파일 VO 생성 및 DB 저장
                         FileVO fileVO = FileVO.builder()
                                 .fileName(fileName)
                                 .filePath(filePath)
-                                .fileUuid(uuid) // ★ 반드시 UUID 저장
+                                .fileUuid(uuid)
                                 .userKey(userInfo.getUserKey())
                                 .postKey(postVO.getPostKey())
                                 .build();
 
                         filesMapper.insertFile(fileVO);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -154,13 +143,31 @@ public class CommunityController {
     @ResponseBody
     public String commentWrite(HttpSession session,
                                @RequestBody CommentVO commentVO) {
-
         UserVO userVO = (UserVO) session.getAttribute("userInfo");
         commentVO.setUserKey(userVO.getUserKey());
 
         communityService.writeComment(commentVO);
-
         return "redirect:/community/postDetail?postKey=" + commentVO.getPostKey();
     }
 
+    @GetMapping("/postUpdate")
+    public String postUpdate(@ModelAttribute("postKey") int postKey) {
+        return "community/postWrite";
+    }
+
+    @PostMapping("/postUpdate")
+    public String postUpdate(@RequestParam("postKey") int postKey,
+                             @RequestParam("postTitle") String postTitle,
+                             @RequestParam("postContent") String postContent) {
+        communityService.update(postKey, postTitle, postContent);
+        return "redirect:/community/postDetail?postKey=" + postKey;
+    }
+
+    @GetMapping("/postDelete")
+    public String postDelete(@RequestParam("postKey") int postKey, RedirectAttributes ra) {
+        communityService.postDelete(postKey);
+        ra.addFlashAttribute("msg", "삭제되었습니다.");
+        return "redirect:/community/postList";
+    }
 }
+

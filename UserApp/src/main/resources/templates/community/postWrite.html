@@ -3,9 +3,7 @@
 <head>
     <th:block th:replace="/include/headerBaseLayout"/>
     <title>글쓰기</title>
-
     <link rel="stylesheet" href="/css/community/postWrite.css">
-
 </head>
 <body>
 
@@ -13,13 +11,13 @@
 
     <section class="app-content">
 
-        <form class="writePage" name="writePage" method="post" action="postWrite">
+        <form class="writePage" name="writePage" method="post" th:action="${postKey == null ? 'postWrite' : 'postUpdate' }">
+            <input type="hidden" name="postKey" th:value="${postKey}">
 
             <div class="write-card">
                 <button type="submit" class="write-finish-btn">완료</button>
-
                 <input type="text" class="write-title" name="postTitle" placeholder="제목" maxlength="50" required />
-                     <hr class="write-divider" />
+                <hr class="write-divider" />
                 <textarea class="write-content" name="postContent" placeholder="내용" required></textarea>
             </div>
 
@@ -35,14 +33,12 @@
 
             <!-- 이미지 썸네일 미리보기 영역 -->
             <div class="thumbnail-preview"></div>
-
-
-
         </form>
 
     </section>
 </th:block>
 
 <script src="/js/community/postWrite.js"></script>
+
 </body>
 </html>

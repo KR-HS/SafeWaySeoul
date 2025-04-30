@@ -22,7 +22,8 @@
 <body>
 
 <th:block th:replace="~{/include/baseLayout :: setContent(~{ :: .app-content})}">
-    <section class="app-content">
+    <section class="app-content" style="height: calc(100vh - 170px);">
+
         <div class="post-detail-page">
 
             <div class="post-title" th:text="${post.postTitle}">다들 아이 픽업 어떻게 하시나요?</div>
@@ -31,9 +32,15 @@
                 <img th:src="${post.profileImageUrl != null} ? ${post.profileImageUrl} : '/img/parents.png'" alt="프로필" class="profile-img">
                 <div class="user-info">
                     <div class="user-name" th:text="${post.userName}"></div>
+                    <div class="post-time" th:text="${post.getElapsedTime()}"></div>
                 </div>
-                <div class="post-time" th:text="${post.getElapsedTime()}"></div>
+
                 <div class="post-menu">⋮</div>
+                <div class="post-menuList">
+                    <a th:href="@{postUpdate(postKey=${post.postKey})}" class="reBtn">수정</a>
+                    <a th:href="@{postDelete(postKey=${post.postKey})}" type="button" class="delBtn">삭제</a>
+                    <button type="button" class="closeBtn">닫기</button>
+                </div>
             </div>
 
             <!-- 글 본문 -->
