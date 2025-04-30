@@ -7,6 +7,7 @@ import com.project.userapp.command.UserVO;
 import com.project.userapp.community.service.CommunityService;
 import com.project.userapp.files.mapper.FilesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -93,7 +94,8 @@ public class CommunityController {
     }
 
     @GetMapping("/postWrite")
-    public String postWrite() {
+    public String postWrite(Model model) {
+        model.addAttribute("PostVO", new PostVO());
         return "community/postWrite";
     }
 
@@ -112,8 +114,6 @@ public class CommunityController {
         postVO.setUserKey(userInfo.getUserKey());
 
         int result = communityService.write(postVO);
-        System.out.println("result:"+result);
-        System.out.println("[DEBUG] 생성된 postKey: " + postVO.getPostKey()); // 로그 추가
 
         if (uploadImages != null && !uploadImages.isEmpty()) {
             for (MultipartFile file : uploadImages) {
@@ -162,7 +162,15 @@ public class CommunityController {
     }
 
     @GetMapping("/postUpdate")
-    public String postUpdate(@ModelAttribute("postKey") int postKey) {
+    public String postUpdate(@ModelAttribute("postKey") int postId, Model model) {
+
+
+        PostVO PostVO = communityService.getPostById(postId);
+        List<CommentVO> commentList = communityService.getAllComment(postId);
+
+        model.addAttribute("PostVO", PostVO);
+        model.addAttribute("commentList", commentList);
+
         return "community/postWrite";
     }
 

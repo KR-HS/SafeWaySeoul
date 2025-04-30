@@ -16,9 +16,9 @@
 
             <div class="write-card">
                 <button type="submit" class="write-finish-btn">완료</button>
-                <input type="text" class="write-title" name="postTitle" placeholder="제목" maxlength="50" required />
+                <input type="text" class="write-title" name="postTitle" placeholder="제목" maxlength="50" required th:value="${PostVO.postTitle} ?: ''" />
                 <hr class="write-divider" />
-                <textarea class="write-content" name="postContent" placeholder="내용" required></textarea>
+                <textarea class="write-content" name="postContent" placeholder="내용" required th:text="${PostVO.postContent} ?:''"></textarea>
             </div>
 
             <!-- 이미지 업로드 영역 -->
