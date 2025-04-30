@@ -12,6 +12,7 @@ public interface CommunityMapper {
 
     int insertPost(PostVO postVO);
     List<PostVO> getPostList(String searchStr);
+    List<PostVO> getMyPostList(Integer userKey, String searchStr);
     PostVO getPostById(int postKey);
     void writeComment(CommentVO commentVO);
     List<CommentVO> getAllComment(int postKey);
