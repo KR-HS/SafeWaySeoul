@@ -5,6 +5,22 @@ $(document).ready(function() {
     const thumbnailPreview = $(".thumbnail-preview");
     const photoCount = $(".photo-count");
     let selectedFiles = []; // 메모리상 파일 관리
+    let existingImagePaths = []; //기존 이미지 path 관리
+
+    if($("input[name='postKey']").val() != null) {
+       //existingImagePaths 배열에 db에 존재하는 path를 통해서 저장된 폴더에서 이미지 가져와서 저장하기.
+        const rawValue = $("input[name='filePathList']").val();
+
+        try {
+            existingImagePaths = JSON.parse(rawValue); // 문자열 → 배열
+        } catch (e) {
+            console.error("JSON 파싱 오류:", e);
+            existingImagePaths = [];
+        }
+
+        console.log(existingImagePaths);
+        updatePreview();
+    }
 
     // 완료 버튼 클릭 시 제목/내용 유효성 검사
     $(".write-finish-btn").on("click", function () {
@@ -23,13 +39,23 @@ $(document).ready(function() {
     // 썸네일 미리보기 업데이트 함수
     function updatePreview() {
         thumbnailPreview.empty();
+        existingImagePaths.forEach((path, index) => {
+            const item = $(`
+            <div class="thumbnail-item">
+                <img src="${path}" alt="기존 이미지" />
+                <button type="button" class="remove-btn existing" data-index="${index}">x</button>
+            </div>
+        `);
+            thumbnailPreview.append(item);
+        });
+
         selectedFiles.forEach((file, index) => {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const thumbnailItem = $(`
                     <div class="thumbnail-item">
                         <img src="${e.target.result}" alt="썸네일 이미지" />
-                        <button type="button" class="remove-btn" data-index="${index}">x</button>
+                        <button type="button" class="remove-btn new" data-index="${index}">x</button>
                     </div>
                 `);
                 thumbnailPreview.append(thumbnailItem);
@@ -54,7 +80,14 @@ $(document).ready(function() {
         updatePreview();
     });
 
-    // 삭제 버튼 클릭 시
+    // 기존 이미지 삭제
+    thumbnailPreview.on("click", ".remove-btn.existing", function() {
+        const index = $(this).data("index");
+        existingImagePaths.splice(index, 1);
+        updatePreview();
+    });
+
+    // 새 이미지 삭제
     thumbnailPreview.on("click", ".remove-btn", function() {
         const index = $(this).data("index");
         selectedFiles.splice(index, 1); // 해당 인덱스 파일 삭제
@@ -85,6 +118,7 @@ $(document).ready(function() {
             selectedFiles.forEach((file, index) => {
                 formData.append("uploadImages", file); // 서버에서 uploadImages[] 로 받을 수 있음
             });
+
 
             // 실제 서버로 전송
             $.ajax({
@@ -122,6 +156,10 @@ $(document).ready(function() {
 
             selectedFiles.forEach((file, index) => {
                 formData.append("uploadImages", file); // 서버에서 uploadImages[] 로 받을 수 있음
+            });
+
+            existingImagePaths.forEach((existFile) => {
+                formData.append("uploadExistImages", existFile);
             });
 
             // 실제 서버로 전송
