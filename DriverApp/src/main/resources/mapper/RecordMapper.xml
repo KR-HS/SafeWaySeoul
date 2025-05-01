@@ -20,7 +20,7 @@
     </select>
 
     <update id="updateDriveStateFinish" parameterType="Integer">
-        update record set record_state ="E" where record_key = #{recordKey} ;
+        update record set record_state ="E", record_end_time=NOW() where record_key = #{recordKey} ;
     </update>
 
     <update id="updateDriveStateStart" parameterType="Integer">

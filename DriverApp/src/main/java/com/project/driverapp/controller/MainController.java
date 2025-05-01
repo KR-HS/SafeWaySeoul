@@ -112,6 +112,10 @@ public class MainController {
             model.addAttribute("startAddress", startAddress);
             model.addAttribute("waypoints", waypoints);
             model.addAttribute("endAddress", endAddress);
+
+            System.out.println("startAddress"+startAddress);
+            System.out.println("waypointAddresses: " + waypointAddresses);
+            System.out.println("endAddress"+endAddress);
         }
 
         return "driver/manage";
