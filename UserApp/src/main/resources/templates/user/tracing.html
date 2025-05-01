@@ -71,7 +71,8 @@
                          th:classappend="${driveInfoFromChild.recordState} == 'E' ? ' home-animate' : ''">
                         <img src="/img/home.png" alt="집이미지">
                     </div>
-                    <p>도착</p>
+                    <p th:if="${driveInfoFromChild.recordEndTime != null}"
+                       th:text="'도착: ' + ${#dates.format(driveInfoFromChild.recordEndTime, 'HH:mm')}"></p>
                 </div>
             </div>
         </div>

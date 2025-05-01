@@ -32,6 +32,7 @@ public class ChildrenVO {
      private String driveInfoName;
      private String recordState;
      private Timestamp recordStartTime;
+     private Timestamp recordEndTime;
 
      private String kmPickup;
 
