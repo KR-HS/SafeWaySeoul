@@ -65,17 +65,17 @@ $(function () {
     }
 
     // 취소 버튼 또는 바깥 클릭 시 모달창 닫기 + 리다이렉트 처리
-    $('#cancel-delete-btn, #delete-confirm-modal').on('click', function (e) {
-        if (e.target.id === 'cancel-delete-btn' || e.target.id === 'delete-confirm-modal') {
-            const isSuccess = $('.modal-message').text().includes('정상적으로 처리되었습니다');
-            $('#delete-confirm-modal').fadeOut();
-            resetDeleteModal();
-
-            if (isSuccess) {
-                window.location.href = '/child'; // 리다이렉트
-            }
-        }
-    });
+    // $('#cancel-delete-btn, #delete-confirm-modal').on('click', function (e) {
+    //     if (e.target.id === 'cancel-delete-btn' || e.target.id === 'delete-confirm-modal') {
+    //         const isSuccess = $('.modal-message').text().includes('정상적으로 처리되었습니다');
+    //         $('#delete-confirm-modal').fadeOut();
+    //         resetDeleteModal();
+    //
+    //         if (isSuccess) {
+    //             window.location.href = '/child'; // 리다이렉트
+    //         }
+    //     }
+    // });
 
     // 등록 성공 시 모달 표시
     if ($("body").data("reg-success") === true) {

@@ -125,37 +125,38 @@ public class CommunityController {
 
         int result = communityService.write(postVO);
 
-        if (uploadImages != null && !uploadImages.isEmpty()) {
-            for (MultipartFile file : uploadImages) {
-                if (!file.isEmpty()) {
-                    try {
-                        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-                        String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
-                        File folder = new File(uploadFolder);
-                        if (!folder.exists()) {
-                            folder.mkdirs();
-                        }
-
-                        String uuid = UUID.randomUUID().toString();
-                        String fileName = uuid + "_" + file.getOriginalFilename();
-                        file.transferTo(new File(folder, fileName));
-                        String filePath = "/upload/" + today + "/" + fileName;
-
-                        FileVO fileVO = FileVO.builder()
-                                .fileName(fileName)
-                                .filePath(filePath)
-                                .fileUuid(uuid)
-                                .userKey(userInfo.getUserKey())
-                                .postKey(postVO.getPostKey())
-                                .build();
-
-                        filesMapper.insertFile(fileVO);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
+//        if (uploadImages != null && !uploadImages.isEmpty()) {
+//            for (MultipartFile file : uploadImages) {
+//                if (!file.isEmpty()) {
+//                    try {
+//                        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+//                        String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
+//                        File folder = new File(uploadFolder);
+//                        if (!folder.exists()) {
+//                            folder.mkdirs();
+//                        }
+//
+//                        String uuid = UUID.randomUUID().toString();
+//                        String fileName = uuid + "_" + file.getOriginalFilename();
+//                        file.transferTo(new File(folder, fileName));
+//                        String filePath = "/upload/" + today + "/" + fileName;
+//
+//                        FileVO fileVO = FileVO.builder()
+//                                .fileName(fileName)
+//                                .filePath(filePath)
+//                                .fileUuid(uuid)
+//                                .userKey(userInfo.getUserKey())
+//                                .postKey(postVO.getPostKey())
+//                                .build();
+//
+//                        filesMapper.insertFile(fileVO);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+        filesService.uploadContentImageToS3(postVO.getPostKey(),uploadImages);
 
         return "redirect:/community/postList";
     }

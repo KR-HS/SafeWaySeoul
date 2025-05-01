@@ -54,11 +54,13 @@ $(document).ready(function () {
             contentType: false,
             success: function () {
                 $("#modi-success-modal").show();
+                window.location.href="/child"
             },
             error: function () {
                 alert("정보 수정 중 오류가 발생했습니다.");
             }
         });
+
     });
 
     // 프로필 미리보기
