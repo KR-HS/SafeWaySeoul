@@ -13,6 +13,7 @@
 
         <form class="writePage" name="writePage" method="post" th:action="${postKey == null ? 'postWrite' : 'postUpdate' }">
             <input type="hidden" name="postKey" th:value="${postKey}">
+            <input type="hidden" name="filePathList" th:value="${filePathList}">
 
             <div class="write-card">
                 <button type="submit" class="write-finish-btn">완료</button>

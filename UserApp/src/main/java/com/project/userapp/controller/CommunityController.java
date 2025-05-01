@@ -1,5 +1,7 @@
 package com.project.userapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.userapp.command.CommentVO;
 import com.project.userapp.command.FileVO;
 import com.project.userapp.command.PostVO;
@@ -18,8 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -172,9 +177,25 @@ public class CommunityController {
 
         PostVO PostVO = communityService.getPostById(postId);
         List<CommentVO> commentList = communityService.getAllComment(postId);
+        List<FileVO> fileList = filesMapper.getFilesByPostKey(postId);
+        List<String> filePathList = new ArrayList<>();
+
+        for(FileVO fileVO : fileList) {
+            filePathList.add(fileVO.getFilePath());
+        }
+
+        String jsonFilePathList = "[]"; // 기본값 설정
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            jsonFilePathList = objectMapper.writeValueAsString(filePathList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace(); // 또는 로깅 처리
+        }
+
 
         model.addAttribute("PostVO", PostVO);
         model.addAttribute("commentList", commentList);
+        model.addAttribute("filePathList", jsonFilePathList);
         return "community/postWrite";
     }
 
@@ -183,6 +204,7 @@ public class CommunityController {
                              @RequestParam("postTitle") String postTitle,
                              @RequestParam("postContent") String postContent,
                              @RequestParam(value = "uploadImages", required = false) List<MultipartFile> uploadImages,
+                             @RequestParam(value = "uploadExistImages", required = false) List<String> uploadExistImages,
                              HttpSession session) {
         communityService.update(postKey, postTitle, postContent);
 
@@ -190,6 +212,42 @@ public class CommunityController {
 
         //postKey 기준으로 이미지 파일 삭제(업데이트 하기 위해서, 삭제 후 등록으로 업데이트 대체)
         filesService.deleteFileByPostKey(postKey);
+
+        if (uploadExistImages != null && !uploadExistImages.isEmpty()) {
+            for (String existFilePath : uploadExistImages) {
+                if (!existFilePath.isEmpty()) {
+                    try {
+                        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+                        String uploadFolder = "C:/Users/user/Desktop/upload/" + today;
+                        File folder = new File(uploadFolder);
+                        if (!folder.exists()) {
+                            folder.mkdirs();
+                        }
+                        existFilePath = "C:/Users/user/Desktop" + existFilePath;
+
+                        File file = new File(existFilePath);
+
+                        String uuid = UUID.randomUUID().toString();
+                        String fileName = uuid + "_" + file.getName();
+                        File destinationFile = new File(folder, fileName);
+                        Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        String filePath = "/upload/" + today + "/" + fileName;
+
+                        FileVO fileVO = FileVO.builder()
+                                .fileName(fileName)
+                                .filePath(filePath)
+                                .fileUuid(uuid)
+                                .userKey(userInfo.getUserKey())
+                                .postKey(postKey)
+                                .build();
+                        //file update하는 sql로 수정해야함.
+                        filesMapper.insertFile(fileVO);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
 
         if (uploadImages != null && !uploadImages.isEmpty()) {
             for (MultipartFile file : uploadImages) {
@@ -222,6 +280,7 @@ public class CommunityController {
                 }
             }
         }
+
         return "redirect:/community/postDetail?postKey=" + postKey;
     }
 
